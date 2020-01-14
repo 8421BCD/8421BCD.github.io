@@ -577,6 +577,7 @@ blockquote:before {
   opacity: 0;
 }
 .post-copyright {
+  display: none;
   margin: 2em 0 0;
   padding: 0.5em 1em;
   border-left: 3px solid #ff1700;
