@@ -2670,7 +2670,7 @@ blockquote:before {
 .hljs-strong {
   font-weight: bold;
 }
-.header {
+.blog-header {
         width: 960px;
         margin: 0 auto;
       }
@@ -2679,13 +2679,6 @@ blockquote:before {
         width: 960px;
         margin: 0 auto;
       }
-    .pisces .blog-header, .gemini .blog-header {
-          right: 0;
-        }
-        .pisces .section-layout-wrapper, .gemini .section-layout-wrapper {
-          flex-direction: row-reverse;
-        }.pisces .sidebar, .gemini .sidebar {
-          right: 0;
-        }body {
+    body {
       background-color: #ffffff
     }
