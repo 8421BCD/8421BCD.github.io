@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>关于 | Wannafly</title>
+<title>FATE HDU - 2159 （背包问题） | Wannafly</title>
 <link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1579000282140">
 <link rel="stylesheet" href="https://8421BCD.github.io//styles/main.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -17,8 +17,8 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
     onload="renderMathInElement(document.body);"></script>
-    <meta name="description" content="关于" />
-    <meta name="keywords" content="" />
+    <meta name="description" content="FATE HDU - 2159 （背包问题）" />
+    <meta name="keywords" content="动态规划" />
   </head>
   <body>
     <div class="head-top-line"></div>
@@ -193,10 +193,7 @@
     <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#%E5%85%B3%E4%BA%8E%E6%9C%AC%E7%AB%99">🏠 关于本站</a></li>
-<li><a href="#%E5%8D%9A%E4%B8%BB%E6%98%AF%E8%B0%81">👨‍💻 博主是谁</a></li>
-<li><a href="#%E5%85%B4%E8%B6%A3%E7%88%B1%E5%A5%BD">⛹ 兴趣爱好</a></li>
-<li><a href="#%E8%81%94%E7%B3%BB%E6%88%91%E5%91%80">📬 联系我呀</a></li>
+<li><a href="#fate-hdu-2159-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98">FATE HDU - 2159 （背包问题）</a></li>
 </ul>
 </li>
 </ul>
@@ -449,37 +446,78 @@ window.addEventListener('load', function() {
               <div class="article-box">
     <header class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://8421BCD.github.io/post/about">
-      关于
+    <a class="post-title-link" href="https://8421BCD.github.io/post/fate-hdu-2159">
+      FATE HDU - 2159 （背包问题）
     </a>
   </h1>
   <div class="post-meta">
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span>发布于</span>
-      <span>2019-01-25</span>
+      <span>2020-01-14</span>
     </span>
+    
+      <span class="meta-item">
+        <span class="post-meta-divider pc-show">|</span>
+        <i class="fa fa-folder-o"></i>
+        <span class="pc-show">分类于</span>
+        
+          
+            <a href="https://8421BCD.github.io/tag/zkdtF3HzJ">
+              <span>动态规划</span>
+            </a>
+          
+        
+      </span>
+      <span class="post-meta-divider">|</span>
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>1分钟</span>
+      <span>2分钟</span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>31<span class="pc-show">字数</span></span>
+      <span>320<span class="pc-show">字数</span></span>
     </span>
   </div>
 </header>
 </div>
               <div class="post-body next-md-body" id="post_body">
-                <blockquote>
-<p>欢迎来到我的小站呀，很高兴遇见你！🤝</p>
-</blockquote>
-<h2 id="关于本站">🏠 关于本站</h2>
-<h2 id="博主是谁">👨‍💻 博主是谁</h2>
-<h2 id="兴趣爱好">⛹ 兴趣爱好</h2>
-<h2 id="联系我呀">📬 联系我呀</h2>
+                <h2 id="fate-hdu-2159-背包问题">FATE HDU - 2159 （背包问题）</h2>
+<p><strong>题意：</strong><br>
+有n种物品，每种物品有一个价值和一个体积，你有一个背包，且装入物品的数量不能超过m，问：怎样装物品才能使得总价值超过v，而且背包剩余容量尽可能大。输出最大剩余容量p。<br>
+<strong>分析：</strong><br>
+二维费用完全背包问题。难点在于如何求p。既要总价值超过v，又要剩余容量尽可能小。因为在dp的过程中求的是最大价值，因此背包总价值一定是以最快的速度增加的。所以我们只需要在dp的过程中对总价值超过v的体积求min即可。<br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+const int maxn = 110;
+int n, m, k, s;
+int dp[maxn][maxn];
+int c[maxn], v[maxn];
+
+int main()
+{
+	while (cin &gt;&gt; n &gt;&gt; m &gt;&gt; k &gt;&gt; s)
+	{
+		memset(dp, 0, sizeof(dp));
+		for (int i = 1; i &lt;= k; i++)
+			cin &gt;&gt; v[i] &gt;&gt; c[i];
+		int minv = 1e9;
+		for (int i = 1; i &lt;= k; i++)
+			for (int j = c[i]; j &lt;= m; j++)
+				for (int k = 1; k &lt;= s; k++)
+				{
+					dp[j][k] = max(dp[j][k], dp[j - c[i]][k - 1] + v[i]);
+					if(dp[j][k] &gt;= n)
+						minv = min(minv, j);
+				}
+		if (minv == 1e9) cout &lt;&lt; -1 &lt;&lt; endl;
+		else cout &lt;&lt; m - minv &lt;&lt; endl;
+	}
+}
+</code></pre>
 
               </div>
               <div class="post-footer">
@@ -490,7 +528,7 @@ window.addEventListener('load', function() {
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://8421BCD.github.io/post/about" title="关于">关于</a>
+      <a href="https://8421BCD.github.io/post/fate-hdu-2159" title="FATE HDU - 2159 （背包问题）">FATE HDU - 2159 （背包问题）</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -499,12 +537,18 @@ window.addEventListener('load', function() {
   </ul>
   <div class="tags">
     
+      <a href="https://8421BCD.github.io/tag/zkdtF3HzJ"># 动态规划</a>
+    
   </div>
   <div class="nav">
     <div class="nav-prev">
       
     </div>
     <div class="nav-next">
+      
+        <a class="nav-pc-next" href="https://8421BCD.github.io/post/hello-world">Hello world!</a>
+        <a class="nav-mobile-next" href="https://8421BCD.github.io/post/hello-world">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
       
     </div>
   </div>

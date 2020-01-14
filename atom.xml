@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-01-14T09:55:30.416Z</updated>
+    <updated>2020-01-14T11:12:21.621Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -10,6 +10,48 @@
     <logo>https://8421BCD.github.io/images/avatar.png</logo>
     <icon>https://8421BCD.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
+    <entry>
+        <title type="html"><![CDATA[FATE HDU - 2159 （背包问题）]]></title>
+        <id>https://8421BCD.github.io/post/fate-hdu-2159</id>
+        <link href="https://8421BCD.github.io/post/fate-hdu-2159">
+        </link>
+        <updated>2020-01-14T09:48:38.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="fate-hdu-2159-背包问题">FATE HDU - 2159 （背包问题）</h2>
+<p><strong>题意：</strong><br>
+有n种物品，每种物品有一个价值和一个体积，你有一个背包，且装入物品的数量不能超过m，问：怎样装物品才能使得总价值超过v，而且背包剩余容量尽可能大。输出最大剩余容量p。<br>
+<strong>分析：</strong><br>
+二维费用完全背包问题。难点在于如何求p。既要总价值超过v，又要剩余容量尽可能小。因为在dp的过程中求的是最大价值，因此背包总价值一定是以最快的速度增加的。所以我们只需要在dp的过程中对总价值超过v的体积求min即可。<br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+const int maxn = 110;
+int n, m, k, s;
+int dp[maxn][maxn];
+int c[maxn], v[maxn];
+
+int main()
+{
+	while (cin &gt;&gt; n &gt;&gt; m &gt;&gt; k &gt;&gt; s)
+	{
+		memset(dp, 0, sizeof(dp));
+		for (int i = 1; i &lt;= k; i++)
+			cin &gt;&gt; v[i] &gt;&gt; c[i];
+		int minv = 1e9;
+		for (int i = 1; i &lt;= k; i++)
+			for (int j = c[i]; j &lt;= m; j++)
+				for (int k = 1; k &lt;= s; k++)
+				{
+					dp[j][k] = max(dp[j][k], dp[j - c[i]][k - 1] + v[i]);
+					if(dp[j][k] &gt;= n)
+						minv = min(minv, j);
+				}
+		if (minv == 1e9) cout &lt;&lt; -1 &lt;&lt; endl;
+		else cout &lt;&lt; m - minv &lt;&lt; endl;
+	}
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Hello world!]]></title>
         <id>https://8421BCD.github.io/post/hello-world</id>
