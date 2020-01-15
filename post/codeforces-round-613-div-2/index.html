@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>FATE HDU - 2159 （背包问题） | Wannafly</title>
+<title>Codeforces Round #613 (Div. 2) | Wannafly</title>
 <link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1579063306829">
 <link rel="stylesheet" href="https://8421BCD.github.io//styles/main.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -17,8 +17,8 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
     onload="renderMathInElement(document.body);"></script>
-    <meta name="description" content="FATE HDU - 2159 （背包问题）" />
-    <meta name="keywords" content="动态规划" />
+    <meta name="description" content="Codeforces Round #613 (Div. 2)" />
+    <meta name="keywords" content="" />
   </head>
   <body>
     <div class="head-top-line"></div>
@@ -193,7 +193,15 @@
     <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#fate-hdu-2159-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98">FATE HDU - 2159 （背包问题）</a></li>
+<li>
+<ul>
+<li><a href="#a-mezo-playing-zoma">A. Mezo Playing Zoma</a></li>
+<li><a href="#b-just-eat-it">B. Just Eat It!</a></li>
+</ul>
+</li>
+<li><a href="#c-fadi-and-lcm">C. Fadi and LCM</a></li>
+<li><a href="#d-dr-evil-underscores">D. Dr. Evil Underscores</a></li>
+<li><a href="#e-delete-a-segment">E. Delete a Segment</a></li>
 </ul>
 </li>
 </ul>
@@ -446,78 +454,146 @@ window.addEventListener('load', function() {
               <div class="article-box">
     <header class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://8421BCD.github.io/post/fate-hdu-2159">
-      FATE HDU - 2159 （背包问题）
+    <a class="post-title-link" href="https://8421BCD.github.io/post/codeforces-round-613-div-2">
+      Codeforces Round #613 (Div. 2)
     </a>
   </h1>
   <div class="post-meta">
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span>发布于</span>
-      <span>2020-01-14</span>
+      <span>2020-01-15</span>
     </span>
-    
-      <span class="meta-item">
-        <span class="post-meta-divider pc-show">|</span>
-        <i class="fa fa-folder-o"></i>
-        <span class="pc-show">分类于</span>
-        
-          
-            <a href="https://8421BCD.github.io/tag/zkdtF3HzJ">
-              <span>动态规划</span>
-            </a>
-          
-        
-      </span>
-      <span class="post-meta-divider">|</span>
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>2分钟</span>
+      <span>4分钟</span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>320<span class="pc-show">字数</span></span>
+      <span>583<span class="pc-show">字数</span></span>
     </span>
   </div>
 </header>
 </div>
               <div class="post-body next-md-body" id="post_body">
-                <h2 id="fate-hdu-2159-背包问题">FATE HDU - 2159 （背包问题）</h2>
-<p><strong>题意：</strong><br>
-有n种物品，每种物品有一个价值和一个体积，你有一个背包，且装入物品的数量不能超过m，问：怎样装物品才能使得总价值超过v，而且背包剩余容量尽可能大。输出最大剩余容量p。<br>
-<strong>分析：</strong><br>
-二维费用完全背包问题。难点在于如何求p。既要总价值超过v，又要剩余容量尽可能小。因为在dp的过程中求的是最大价值，因此背包总价值一定是以最快的速度增加的。所以我们只需要在dp的过程中对总价值超过v的体积求min即可。<br>
+                <h3 id="a-mezo-playing-zoma">A. Mezo Playing Zoma</h3>
+<p><strong>分析</strong>：<br>
+水题，直接输出长度+1<br>
+<strong>代码</strong>：</p>
+<pre><code class="language-python">n = int(input())
+s = input()
+print(n + 1)
+</code></pre>
+<h3 id="b-just-eat-it">B. Just Eat It!</h3>
+<p><strong>分析</strong>：<br>
+一开始当成求max sum做了，看了题解知道不用这么麻烦。假设有一段区间的值大于整个区间的和，那么其某一边的和一定是负的。直接从两边扫，求和判断是否为负数即可。<br>
 <strong>代码：</strong></p>
 <pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
 using namespace std;
-const int maxn = 110;
-int n, m, k, s;
-int dp[maxn][maxn];
-int c[maxn], v[maxn];
-
-int main()
+typedef long long ll;
+ 
+vector&lt;int&gt; v;
+ 
+bool solve()
 {
-	while (cin &gt;&gt; n &gt;&gt; m &gt;&gt; k &gt;&gt; s)
+	int n; cin &gt;&gt; n;
+	v.resize(n);
+	for (auto&amp; i : v) cin &gt;&gt; i;
+	ll sum = 0;
+	for (int i = 0; i &lt; n; i++)
 	{
-		memset(dp, 0, sizeof(dp));
-		for (int i = 1; i &lt;= k; i++)
-			cin &gt;&gt; v[i] &gt;&gt; c[i];
-		int minv = 1e9;
-		for (int i = 1; i &lt;= k; i++)
-			for (int j = c[i]; j &lt;= m; j++)
-				for (int k = 1; k &lt;= s; k++)
-				{
-					dp[j][k] = max(dp[j][k], dp[j - c[i]][k - 1] + v[i]);
-					if(dp[j][k] &gt;= n)
-						minv = min(minv, j);
-				}
-		if (minv == 1e9) cout &lt;&lt; -1 &lt;&lt; endl;
-		else cout &lt;&lt; m - minv &lt;&lt; endl;
+		sum += v[i];
+		if (sum &lt;= 0)return false;
+	}
+	sum = 0;
+	for (int i = n - 1; i &gt;= 0; i--)
+	{
+		sum += v[i];
+		if (sum &lt;= 0)
+			return false;
 	}
 }
+int main()
+{
+	int t; cin &gt;&gt; t;
+	while (t--)
+		cout &lt;&lt; (solve() ? &quot;YES&quot; : &quot;NO&quot;) &lt;&lt; endl;
+}
 </code></pre>
+<h2 id="c-fadi-and-lcm">C. Fadi and LCM</h2>
+<p><strong>题意：</strong><br>
+给你一个x，x = lcm(a, b), 要求max(a, b)尽可能小。输出a， b。<br>
+<strong>分析：</strong><br>
+首先a, b互质。因为如果a, b有公共因子，那么a和b较大的那个完全可以去掉这个因子，max(a, b)可变小。其次，枚举a只需要1-&gt;sqrt(x);<br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+typedef long long ll;
+ 
+ll gcd(ll a, ll b)
+{
+	return !b ? a : gcd(b, a % b);
+}
+ 
+ll lcm(ll a, ll b)
+{
+	return a / gcd(a, b) * b;
+}
+ 
+int main()
+{
+	ll x; cin &gt;&gt; x;
+	ll a;
+	for (ll i = 1; i &lt;= sqrt(x); i++)
+		if (x % i == 0 &amp;&amp; gcd(i, x / i) == 1)
+			a = i;
+	cout &lt;&lt; a &lt;&lt; &quot; &quot; &lt;&lt; x / a &lt;&lt; endl;
+}
+</code></pre>
+<h2 id="d-dr-evil-underscores">D. Dr. Evil Underscores</h2>
+<p><strong>分析：</strong><br>
+本题需要用到递归。我们现根据首位，将其分为两堆。<br>
+<img src="https://img-blog.csdnimg.cn/20200115123552986.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzk4NzgxMA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"><br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+ 
+vector&lt;int&gt; vec;
+ 
+int solve(vector&lt;int&gt;&amp; a, int bit)
+{
+	if (bit == 0) return 0;
+	vector&lt;int&gt; l, r;
+	for (auto&amp; it : a)
+		if ((it &gt;&gt; (bit - 1)) &amp; 1) l.push_back(it);
+		else r.push_back(it);
+	if (l.size() == 0)
+		return solve(r, bit - 1);
+	if (r.size() == 0)
+		return solve(l, bit - 1);
+	return min(solve(l, bit - 1), solve(r, bit - 1)) + (1 &lt;&lt; (bit - 1));
+ 
+}
+ 
+int main()
+{
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+ 
+	int n; cin &gt;&gt; n;
+	vec.resize(n);
+	for (auto&amp; it : vec) cin &gt;&gt; it;
+	cout &lt;&lt; solve(vec, 30) &lt;&lt; endl;
+}
+</code></pre>
+<h2 id="e-delete-a-segment">E. Delete a Segment</h2>
+<p><strong>题意:</strong><br>
+给你n个线段（可能有交集），删掉哪一根，显现出的线段数最多是多少。<br>
+<strong>分析:</strong><br>
+偏思维，借用别人博客了https://www.cnblogs.com/AaronChang/p/12192295.html</p>
 
               </div>
               <div class="post-footer">
@@ -528,7 +604,7 @@ int main()
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://8421BCD.github.io/post/fate-hdu-2159" title="FATE HDU - 2159 （背包问题）">FATE HDU - 2159 （背包问题）</a>
+      <a href="https://8421BCD.github.io/post/codeforces-round-613-div-2" title="Codeforces Round #613 (Div. 2)">Codeforces Round #613 (Div. 2)</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -537,21 +613,15 @@ int main()
   </ul>
   <div class="tags">
     
-      <a href="https://8421BCD.github.io/tag/zkdtF3HzJ"># 动态规划</a>
-    
   </div>
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" href="https://8421BCD.github.io/post/max-sum-hdu-1003">Max Sum HDU - 1003 </a class="nav-pc-next">
-        <a class="nav-mobile-prev" href="https://8421BCD.github.io/post/max-sum-hdu-1003">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" href="https://8421BCD.github.io/post/hello-world">Hello world!</a>
-        <a class="nav-mobile-next" href="https://8421BCD.github.io/post/hello-world">下一篇</a>
+        <a class="nav-pc-next" href="https://8421BCD.github.io/post/max-sum-hdu-1003">Max Sum HDU - 1003 </a>
+        <a class="nav-mobile-next" href="https://8421BCD.github.io/post/max-sum-hdu-1003">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
