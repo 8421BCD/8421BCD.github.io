@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-01-17T05:24:16.763Z</updated>
+    <updated>2020-01-17T05:29:37.071Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -75,6 +75,7 @@ int main()
 	cout &lt;&lt; a + 1 &lt;&lt; &quot; &quot; &lt;&lt; b + 1 &lt;&lt; endl;
 }
 </code></pre>
+<h2 id="e-messenger-simulator">E. Messenger Simulator</h2>
 <p><strong>题意:</strong><br>
 一开始有一个初始顺序的排列[1,n]，一共有m次操作，每次将数ai从序列中取出，放到最开头的位置生成一个新的排列。<br>
 求问在所有过程中每一个数最小的下标位置和最大的下标位置。<br>
