@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-01-15T04:41:51.437Z</updated>
+    <updated>2020-01-17T05:24:16.763Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -10,6 +10,160 @@
     <logo>https://8421BCD.github.io/images/avatar.png</logo>
     <icon>https://8421BCD.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
+    <entry>
+        <title type="html"><![CDATA[Educational Codeforces Round 80]]></title>
+        <id>https://8421BCD.github.io/post/educational-codeforces-round-80</id>
+        <link href="https://8421BCD.github.io/post/educational-codeforces-round-80">
+        </link>
+        <updated>2020-01-16T03:54:48.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="d-minimax-problem">D. Minimax Problem</h2>
+<p><strong>题意：</strong><br>
+给你n个长度为m的数组，每两个数组通过同列取max可得一个新的数组v，找出两个数组使得v的最小值尽可能大。<br>
+<strong>分析:</strong><br>
+两两枚举数组肯定超时，考虑用二分的思想。二分最小值的最大值val。然后通过val将数组二进制化，&gt;=val的位置设为1，否则为0.这样一来，n个数组便化成了若干个二进制数（&lt;=(1 &lt;&lt; m) - 1）,从0到((1 &lt;&lt; m) - 1)两两枚举a, b， 如果a | b == （1 &lt;&lt; m） - 1，那么就说明真实的最大值一定不小于val，之后继续二分即可。<br>
+注意二分的条件判断是l &lt;= r， 而且l，r一定会变化，不会产生死循环。<br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+const int maxn = 3e5 + 10;
+int v[maxn][10];
+int a, b;
+int n, m;
+
+bool judge(int val)
+{
+	map&lt;int, int&gt; ma;
+	for (int i = 0; i &lt; n; i++)
+	{
+		int res = 0;
+		for (int j = 0; j &lt; m; j++)
+			if (v[i][j] &gt;= val)
+				res ^= (1 &lt;&lt; j);
+		ma[res] = i;
+	}
+	if (ma.count((1 &lt;&lt; m) - 1))
+	{
+		a = b = ma[(1 &lt;&lt; m) - 1];
+		return true;
+	}
+	for (int i = 0; i &lt; (1 &lt;&lt; m); i++)
+		for (int j = i; j &lt; (1 &lt;&lt; m); j++)
+			if (ma.count(i) &amp;&amp; ma.count(j) &amp;&amp; (i | j) == (1 &lt;&lt; m) - 1)
+			{
+				a = ma[i], b = ma[j];
+				return true;
+			}
+	return false;
+
+}
+
+int main()
+{
+	cin &gt;&gt; n &gt;&gt; m;
+	for (int i = 0; i &lt; n; i++)
+		for (int j = 0; j &lt; m; j++)
+			scanf(&quot;%d&quot;, &amp;v[i][j]);
+	int l = 1, r = 1e9;
+	while (l &lt;= r)
+	{
+		int mid = (l + r) &gt;&gt; 1;
+		if (judge(mid))
+			l = mid + 1;
+		else r = mid - 1;
+	}
+	cout &lt;&lt; a + 1 &lt;&lt; &quot; &quot; &lt;&lt; b + 1 &lt;&lt; endl;
+}
+</code></pre>
+<p><strong>题意:</strong><br>
+一开始有一个初始顺序的排列[1,n]，一共有m次操作，每次将数ai从序列中取出，放到最开头的位置生成一个新的排列。<br>
+求问在所有过程中每一个数最小的下标位置和最大的下标位置。<br>
+<strong>分析：</strong><br>
+http://blog.leanote.com/post/icontofig/b546d6e423ff<br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+const int maxn = 3e5 + 10;
+int v[maxn];
+ll tree1[maxn];
+ll tree2[maxn];
+ll front[maxn], rear[maxn];
+int lastpos[maxn];
+int n, m;
+
+ll lowbit(int x)
+{
+	return x &amp; (-x);
+}
+
+void add1(int pos, int val)
+{
+	for (int i = pos; i &lt;= n; i += lowbit(i))
+		tree1[i] += val;
+}
+
+ll sum1(int pos)
+{
+	ll sum = 0;
+	for (int i = pos; i &gt;= 1; i -= lowbit(i))
+		sum += tree1[i];
+	return sum;
+}
+
+void add2(int pos, int val)
+{
+	for (int i = pos; i &lt;= m; i += lowbit(i))
+		tree2[i] += val;
+}
+
+ll sum2(int pos)
+{
+	ll sum = 0;
+	for (int i = pos; i &gt;= 1; i -= lowbit(i))
+		sum += tree2[i];
+	return sum;
+}
+
+
+int main()
+{
+	cin &gt;&gt; n &gt;&gt; m;
+	for (int i = 1; i &lt;= n; i++)
+		front[i] = rear[i] = i;
+	for (int i = 1; i &lt;= m; i++)
+		scanf(&quot;%d&quot;, v + i), front[v[i]] = 1;
+	for (int i = 1; i &lt;= m; i++)
+	{
+		int now = v[i];
+		if (!lastpos[now])
+		{
+			add1(now, 1);
+			add2(i, 1);
+			lastpos[now] = i;
+			rear[now] += sum1(n) - sum1(now);
+		}
+		else
+		{
+			add2(lastpos[now], -1);
+			add2(i, 1);
+			rear[now] = max(rear[now], sum2(i - 1) - sum2(lastpos[now]) + 1);
+			lastpos[now] = i;
+		}
+	}
+	//cout &lt;&lt; rear[1] &lt;&lt; endl;
+	for(int i = 1; i &lt;= n; i++)
+		if (!lastpos[i])
+			rear[i] += sum1(n) - sum1(i);
+		else
+			rear[i] = max(rear[i], sum2(m) - sum2(lastpos[i]) + 1);
+	
+	for (int i = 1; i &lt;= n; i++)
+		printf(&quot;%lld %lld\n&quot;, front[i], rear[i]);
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Codeforces Round #613 (Div. 2)]]></title>
         <id>https://8421BCD.github.io/post/codeforces-round-613-div-2</id>

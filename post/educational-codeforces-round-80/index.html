@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Hello world! | Wannafly</title>
+<title>Educational Codeforces Round 80 | Wannafly</title>
 <link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1579238653412">
 <link rel="stylesheet" href="https://8421BCD.github.io//styles/main.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -17,7 +17,7 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
     onload="renderMathInElement(document.body);"></script>
-    <meta name="description" content="Hello world!" />
+    <meta name="description" content="Educational Codeforces Round 80" />
     <meta name="keywords" content="" />
   </head>
   <body>
@@ -122,10 +122,18 @@
 <div class="sidebar">
     <div class="sidebar-box right-motion" id="sidebar">
       
+        <div class="post-list-sidebar">
+          <div class="sidebar-title">
+            <span id="tocSideBar" class="sidebar-title-item sidebar-title-active">文章目录</span>
+            <span id="metaSideBar" class="sidebar-title-item">站点概览</span>
+          </div>
+        </div>
+      
       
       <div class="sidebar-body pisces" id="sidebar_body">
         
-          <div class="sidebar-wrapper">
+          <div class="post-side-meta" id="post_side_meta">
+            <div class="sidebar-wrapper">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="https://8421BCD.github.io//images/avatar.png"/>
     <p class="site-author-name">Wannafly</p>
@@ -178,6 +186,181 @@
   
 
 </div>
+          </div>
+          <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
+            <div class="toc-box right-motion">
+  <div class="toc-wrapper auto-number auto" id="toc_wrapper">
+    <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#d-minimax-problem">D. Minimax Problem</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+</div>
+
+<script>
+
+let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1; 
+let active = 'active-show', activeClass = 'active-current';
+let tocWrapper = document.querySelector('#toc_wrapper');
+let tocContent = tocWrapper.children[0];
+let autoNumber = tocWrapper&&tocWrapper.classList.contains('auto-number');
+
+function addTocNumber(elem, deep) {
+  if (!elem) {
+    return;
+  }
+  let prop = elem.__proto__;
+
+  if (prop === HTMLUListElement.prototype) {
+    for (let i = 0; i < elem.children.length; i++) {
+      addTocNumber(elem.children[i], deep + (i + 1) + '.');
+    }
+  } else if (prop === HTMLLIElement.prototype) {
+    // 保存li元素
+    lList.push(elem);
+    for (let i = 0; i < elem.children.length; i++) {
+      let cur = elem.children[i];
+      if (cur.__proto__ === HTMLAnchorElement.prototype) {
+        if (autoNumber) {
+          cur.text =  deep + ' ' + cur.text;
+        }
+      } else if (cur.__proto__ === HTMLUListElement.prototype) {
+        addTocNumber(cur, deep);
+      }
+    }
+  }
+}
+
+
+document.addEventListener('scroll', function(e) {
+  if (lList.length <= 0) {
+    return;
+  }
+  let scrollTop = document.body.scrollTop;
+  let dir;
+
+  if (lastTop - scrollTop > 0) {
+    dir = 'up';
+  } else {
+    dir = 'down';
+  }
+
+  lastTop = scrollTop;
+  if (scrollTop <= 0) {
+    if (lastIndex >= 0 && lastIndex < hList.length) {
+      lList[lastIndex].classList.remove(activeClass);
+    }
+    return;
+  }
+
+  let current = 0, hasFind = false;
+  for (let i = 0; i < hList.length; i++) {
+    if (hList[i].offsetTop > scrollTop) {
+      current = i;
+      hasFind = true;
+      break;
+    }
+  }
+  if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
+    current = hList.length - 1;
+  } else {
+    current--;
+  }
+  if (dir === 'down') {
+    if (current > lastIndex) {
+      addActiveClass(current);
+      removeActiveClass(lastIndex) 
+      lastIndex = current;
+      removeParentActiveClass();
+      lList[current] && addActiveLiElemment(lList[current].parentElement,tocContent);
+    }
+  } else {
+    if (current < lastIndex) {
+      addActiveClass(current);
+      removeActiveClass(lastIndex);
+      lastIndex = current;
+      removeParentActiveClass();
+      lList[current] && addActiveLiElemment(lList[current].parentElement,tocContent);
+    }
+  }
+});
+
+function removeParentActiveClass() {
+  let parents = tocContent.querySelectorAll('.'+active)
+  parents.forEach(function(elem) {
+    elem.classList.remove(active);
+  });
+}
+
+function addActiveClass(index) {
+  if (index >= 0 && index < hList.length) {
+    lList[index].classList.add(activeClass);
+  }
+}
+
+function removeActiveClass(index) {
+  if (index >= 0 && index < hList.length) {
+    lList[index].classList.remove(activeClass);
+  }
+}
+
+function addActiveLiElemment(elem, parent) {
+  if (!elem || elem === parent) {
+    return;
+  } else {
+    if (elem.__proto__ === HTMLLIElement.prototype) {
+      elem.classList.add(active);
+    }
+    addActiveLiElemment(elem.parentElement, parent);
+  }
+}
+
+function showToc() {
+  if (tocWrapper) {
+    postBody = document.querySelector('#post_body');
+    for (let i = 0; i < postBody.children.length; i++) {
+      if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+        hList.push(postBody.children[i]);
+      }
+    }
+    if (tocWrapper.classList.contains('compress')) {
+        tocContent.classList.add('closed');
+    } else if (tocWrapper.classList.contains('no_compress')){
+      tocContent.classList.add('expanded');
+    } else {
+      if (hList.length > 10) {
+        active = 'active-hidden'
+        tocContent.classList.add('closed');
+      } else {
+        tocContent.classList.add('expanded');
+      }
+    }
+  }
+}
+addTocNumber(tocContent, '');
+
+window.addEventListener('load', function() {
+  showToc();
+  document.querySelector('#sidebar').style='display: block;';
+  tocWrapper.classList.add('toc-active');
+  setTimeout(function() {
+    if ("createEvent" in document) {
+      let evt = document.createEvent("HTMLEvents");
+      evt.initEvent("scroll", false, true);
+      document.dispatchEvent(evt);
+    }
+    else {
+      document.fireEvent("scroll");
+    }
+  }, 500)
+})
+
+</script>
+          </div>
         
       </div>
     </div>
@@ -263,31 +446,176 @@
               <div class="article-box">
     <header class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://8421BCD.github.io/post/hello-world">
-      Hello world!
+    <a class="post-title-link" href="https://8421BCD.github.io/post/educational-codeforces-round-80">
+      Educational Codeforces Round 80
     </a>
   </h1>
   <div class="post-meta">
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span>发布于</span>
-      <span>2020-01-12</span>
+      <span>2020-01-16</span>
     </span>
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>1分钟</span>
+      <span>5分钟</span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>3<span class="pc-show">字数</span></span>
+      <span>787<span class="pc-show">字数</span></span>
     </span>
   </div>
 </header>
 </div>
               <div class="post-body next-md-body" id="post_body">
-                <p>My first essay!!</p>
+                <h2 id="d-minimax-problem">D. Minimax Problem</h2>
+<p><strong>题意：</strong><br>
+给你n个长度为m的数组，每两个数组通过同列取max可得一个新的数组v，找出两个数组使得v的最小值尽可能大。<br>
+<strong>分析:</strong><br>
+两两枚举数组肯定超时，考虑用二分的思想。二分最小值的最大值val。然后通过val将数组二进制化，&gt;=val的位置设为1，否则为0.这样一来，n个数组便化成了若干个二进制数（&lt;=(1 &lt;&lt; m) - 1）,从0到((1 &lt;&lt; m) - 1)两两枚举a, b， 如果a | b == （1 &lt;&lt; m） - 1，那么就说明真实的最大值一定不小于val，之后继续二分即可。<br>
+注意二分的条件判断是l &lt;= r， 而且l，r一定会变化，不会产生死循环。<br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+const int maxn = 3e5 + 10;
+int v[maxn][10];
+int a, b;
+int n, m;
+
+bool judge(int val)
+{
+	map&lt;int, int&gt; ma;
+	for (int i = 0; i &lt; n; i++)
+	{
+		int res = 0;
+		for (int j = 0; j &lt; m; j++)
+			if (v[i][j] &gt;= val)
+				res ^= (1 &lt;&lt; j);
+		ma[res] = i;
+	}
+	if (ma.count((1 &lt;&lt; m) - 1))
+	{
+		a = b = ma[(1 &lt;&lt; m) - 1];
+		return true;
+	}
+	for (int i = 0; i &lt; (1 &lt;&lt; m); i++)
+		for (int j = i; j &lt; (1 &lt;&lt; m); j++)
+			if (ma.count(i) &amp;&amp; ma.count(j) &amp;&amp; (i | j) == (1 &lt;&lt; m) - 1)
+			{
+				a = ma[i], b = ma[j];
+				return true;
+			}
+	return false;
+
+}
+
+int main()
+{
+	cin &gt;&gt; n &gt;&gt; m;
+	for (int i = 0; i &lt; n; i++)
+		for (int j = 0; j &lt; m; j++)
+			scanf(&quot;%d&quot;, &amp;v[i][j]);
+	int l = 1, r = 1e9;
+	while (l &lt;= r)
+	{
+		int mid = (l + r) &gt;&gt; 1;
+		if (judge(mid))
+			l = mid + 1;
+		else r = mid - 1;
+	}
+	cout &lt;&lt; a + 1 &lt;&lt; &quot; &quot; &lt;&lt; b + 1 &lt;&lt; endl;
+}
+</code></pre>
+<p><strong>题意:</strong><br>
+一开始有一个初始顺序的排列[1,n]，一共有m次操作，每次将数ai从序列中取出，放到最开头的位置生成一个新的排列。<br>
+求问在所有过程中每一个数最小的下标位置和最大的下标位置。<br>
+<strong>分析：</strong><br>
+http://blog.leanote.com/post/icontofig/b546d6e423ff<br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+const int maxn = 3e5 + 10;
+int v[maxn];
+ll tree1[maxn];
+ll tree2[maxn];
+ll front[maxn], rear[maxn];
+int lastpos[maxn];
+int n, m;
+
+ll lowbit(int x)
+{
+	return x &amp; (-x);
+}
+
+void add1(int pos, int val)
+{
+	for (int i = pos; i &lt;= n; i += lowbit(i))
+		tree1[i] += val;
+}
+
+ll sum1(int pos)
+{
+	ll sum = 0;
+	for (int i = pos; i &gt;= 1; i -= lowbit(i))
+		sum += tree1[i];
+	return sum;
+}
+
+void add2(int pos, int val)
+{
+	for (int i = pos; i &lt;= m; i += lowbit(i))
+		tree2[i] += val;
+}
+
+ll sum2(int pos)
+{
+	ll sum = 0;
+	for (int i = pos; i &gt;= 1; i -= lowbit(i))
+		sum += tree2[i];
+	return sum;
+}
+
+
+int main()
+{
+	cin &gt;&gt; n &gt;&gt; m;
+	for (int i = 1; i &lt;= n; i++)
+		front[i] = rear[i] = i;
+	for (int i = 1; i &lt;= m; i++)
+		scanf(&quot;%d&quot;, v + i), front[v[i]] = 1;
+	for (int i = 1; i &lt;= m; i++)
+	{
+		int now = v[i];
+		if (!lastpos[now])
+		{
+			add1(now, 1);
+			add2(i, 1);
+			lastpos[now] = i;
+			rear[now] += sum1(n) - sum1(now);
+		}
+		else
+		{
+			add2(lastpos[now], -1);
+			add2(i, 1);
+			rear[now] = max(rear[now], sum2(i - 1) - sum2(lastpos[now]) + 1);
+			lastpos[now] = i;
+		}
+	}
+	//cout &lt;&lt; rear[1] &lt;&lt; endl;
+	for(int i = 1; i &lt;= n; i++)
+		if (!lastpos[i])
+			rear[i] += sum1(n) - sum1(i);
+		else
+			rear[i] = max(rear[i], sum2(m) - sum2(lastpos[i]) + 1);
+	
+	for (int i = 1; i &lt;= n; i++)
+		printf(&quot;%lld %lld\n&quot;, front[i], rear[i]);
+}
+</code></pre>
 
               </div>
               <div class="post-footer">
@@ -298,7 +626,7 @@
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://8421BCD.github.io/post/hello-world" title="Hello world!">Hello world!</a>
+      <a href="https://8421BCD.github.io/post/educational-codeforces-round-80" title="Educational Codeforces Round 80">Educational Codeforces Round 80</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -311,15 +639,11 @@
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" href="https://8421BCD.github.io/post/fate-hdu-2159">FATE HDU - 2159 （背包问题）</a class="nav-pc-next">
-        <a class="nav-mobile-prev" href="https://8421BCD.github.io/post/fate-hdu-2159">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" href="https://8421BCD.github.io/post/hello-gridea">Hello Gridea</a>
-        <a class="nav-mobile-next" href="https://8421BCD.github.io/post/hello-gridea">下一篇</a>
+        <a class="nav-pc-next" href="https://8421BCD.github.io/post/codeforces-round-613-div-2">Codeforces Round #613 (Div. 2)</a>
+        <a class="nav-mobile-next" href="https://8421BCD.github.io/post/codeforces-round-613-div-2">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
