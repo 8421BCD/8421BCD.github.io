@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-01-27T07:55:37.615Z</updated>
+    <updated>2020-01-27T13:29:46.095Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -10,6 +10,66 @@
     <logo>https://8421BCD.github.io/images/avatar.png</logo>
     <icon>https://8421BCD.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
+    <entry>
+        <title type="html"><![CDATA[Mondriaan's Dream（状压dp）]]></title>
+        <id>https://8421BCD.github.io/post/mondriaans-dreamzhuang-ya-dp</id>
+        <link href="https://8421BCD.github.io/post/mondriaans-dreamzhuang-ya-dp">
+        </link>
+        <updated>2020-01-27T13:23:16.000Z</updated>
+        <summary type="html"><![CDATA[<p>解决问题的关键是简化问题，利用推出的条件进行分析往往比基于原题笼统的分析更加通畅。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>解决问题的关键是简化问题，利用推出的条件进行分析往往比基于原题笼统的分析更加通畅。</p>
+<!--more-->
+<h2 id="分析">分析:</h2>
+<p><strong>横的用11表示，竖的用法01表示。<br>
+合法的状态应该是相邻两行的或是全1，与的话不存在连续的1的个数是奇数的。可以确定的是第0行和第n行一定都是1</strong><br>
+<strong>初始化的时候认为第0行全是1，也即dp[0][(1 &lt;&lt; m)  - 1] = 1</strong><br>
+**</p>
+<h2 id="代码">代码:</h2>
+<p>**</p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+long long dp[12][2050];
+
+bool check(long long x)
+{
+	long long cnt = 0;
+	while(x)
+	{
+		if(x &amp; 1) cnt++;
+		else
+		{
+			if(cnt &amp; 1) return false;
+			cnt = 0;
+		}
+		x &gt;&gt;= 1;
+	}
+	if(cnt &amp; 1) return false;
+	return true;
+}
+
+
+signed main()
+{
+	long long n, m;
+	while(cin &gt;&gt; n &gt;&gt; m &amp;&amp; n &amp;&amp; m)
+	{
+		memset(dp, 0, sizeof(dp));
+		dp[0][(1 &lt;&lt; m) - 1] = 1;
+		for(long long i = 0; i &lt; n; i++)
+			for(long long j = 0; j &lt; (1 &lt;&lt; m); j++)
+				if(dp[i][j] &gt; 0)
+				{
+					for(long long k = 0; k &lt; (1 &lt;&lt; m); k++)
+						if((j | k) == (1 &lt;&lt; m) - 1 &amp;&amp; check(j &amp; k))
+							dp[i + 1][k] += dp[i][j];
+				}
+		cout &lt;&lt; dp[n][(1 &lt;&lt; m) - 1] &lt;&lt; endl;
+	}
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Covering HDU - 6185 （暴搜系数+矩阵快速幂）]]></title>
         <id>https://8421BCD.github.io/post/covering-hdu-6185-bao-sou-xi-shu-ju-zhen-kuai-su-mi</id>
