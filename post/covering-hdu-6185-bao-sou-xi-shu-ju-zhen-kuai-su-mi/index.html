@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Codeforces Round #613 (Div. 2) | Wannafly</title>
+<title>Covering HDU - 6185 （暴搜系数+矩阵快速幂） | Wannafly</title>
 <link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1580111732597">
 <link rel="stylesheet" href="https://8421BCD.github.io//styles/main.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -17,7 +17,7 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
     onload="renderMathInElement(document.body);"></script>
-    <meta name="description" content="Codeforces Round #613 (Div. 2)" />
+    <meta name="description" content="Covering HDU - 6185 （暴搜系数+矩阵快速幂）" />
     <meta name="keywords" content="" />
   </head>
   <body>
@@ -193,15 +193,9 @@
     <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li>
-<ul>
-<li><a href="#a-mezo-playing-zoma">A. Mezo Playing Zoma</a></li>
-<li><a href="#b-just-eat-it">B. Just Eat It!</a></li>
-</ul>
-</li>
-<li><a href="#c-fadi-and-lcm">C. Fadi and LCM</a></li>
-<li><a href="#d-dr-evil-underscores">D. Dr. Evil Underscores</a></li>
-<li><a href="#e-delete-a-segment">E. Delete a Segment</a></li>
+<li><a href="#%E9%A2%98%E6%84%8F">题意：</a></li>
+<li><a href="#%E5%88%86%E6%9E%90">分析：</a></li>
+<li><a href="#%E4%BB%A3%E7%A0%81">代码：</a></li>
 </ul>
 </li>
 </ul>
@@ -454,147 +448,124 @@ window.addEventListener('load', function() {
               <div class="article-box">
     <header class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://8421BCD.github.io/post/codeforces-round-613-div-2">
-      Codeforces Round #613 (Div. 2)
+    <a class="post-title-link" href="https://8421BCD.github.io/post/covering-hdu-6185-bao-sou-xi-shu-ju-zhen-kuai-su-mi">
+      Covering HDU - 6185 （暴搜系数+矩阵快速幂）
     </a>
   </h1>
   <div class="post-meta">
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span>发布于</span>
-      <span>2020-01-15</span>
+      <span>2020-01-27</span>
     </span>
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>4分钟</span>
+      <span>3分钟</span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>583<span class="pc-show">字数</span></span>
+      <span>468<span class="pc-show">字数</span></span>
     </span>
   </div>
 </header>
 </div>
               <div class="post-body next-md-body" id="post_body">
-                <h3 id="a-mezo-playing-zoma">A. Mezo Playing Zoma</h3>
-<p><strong>分析</strong>：<br>
-水题，直接输出长度+1<br>
-<strong>代码</strong>：</p>
-<pre><code class="language-python">n = int(input())
-s = input()
-print(n + 1)
+                <p>先通过打表将前几项的结果得到，然后暴力搜索快速幂的系数，进行快速幂。（n是1e18，一开始竟然还在手推dp公式= =）</p>
+<!-- more -->
+<h2 id="题意">题意：</h2>
+<p><strong>给你一个4 * n的地板，用1*2的砖头填，问填发数。</strong></p>
+<h2 id="分析">分析：</h2>
+<p><strong>快速幂模板题</strong></p>
+<h2 id="代码">代码：</h2>
+<p><strong>爆搜系数代码</strong></p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+typedef long long ll;
+int v[8] = { 1, 5, 11, 36, 95, 281, 781, 2245 };
+
+bool check(int x, int a, int b, int c, int d)
+{
+    return v[x] * a + v[x + 1] * b + v[x + 2] * c + v[x + 3] * d == v[x + 4];
+}
+
+int main()
+{
+    for (int a = -10; a &lt;= 10; a++)
+        for (int b = -10; b &lt;= 10; b++)
+            for (int c = -10; c &lt;= 10; c++)
+                for (int d = -10; d &lt;= 10; d++)
+                {
+                    bool flag = true;
+                    for (int t = 0; t &lt;= 3; t++) if (!check(t, a, b, c, d)) flag = false;
+                    if (flag) cout &lt;&lt; a &lt;&lt; &quot; &quot; &lt;&lt; b &lt;&lt; &quot; &quot; &lt;&lt; c &lt;&lt; &quot; &quot; &lt;&lt; d &lt;&lt; endl;
+                }
+    return 0;
+}
+
 </code></pre>
-<h3 id="b-just-eat-it">B. Just Eat It!</h3>
-<p><strong>分析</strong>：<br>
-一开始当成求max sum做了，看了题解知道不用这么麻烦。假设有一段区间的值大于整个区间的和，那么其某一边的和一定是负的。直接从两边扫，求和判断是否为负数即可。<br>
-<strong>代码：</strong></p>
+<p><strong>题解代码：</strong></p>
 <pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
 using namespace std;
 typedef long long ll;
- 
-vector&lt;int&gt; v;
- 
-bool solve()
+const ll mod = 1e9 + 7;
+struct matrix
 {
-	int n; cin &gt;&gt; n;
-	v.resize(n);
-	for (auto&amp; i : v) cin &gt;&gt; i;
-	ll sum = 0;
-	for (int i = 0; i &lt; n; i++)
+	ll v[4][4];
+	void init()
 	{
-		sum += v[i];
-		if (sum &lt;= 0)return false;
+		memset(v, 0, sizeof(v));
+		for(int i = 0; i &lt; 4; i++)
+			v[i][i] = 1;
 	}
-	sum = 0;
-	for (int i = n - 1; i &gt;= 0; i--)
+};
+matrix operator *(const matrix&amp; a, const matrix&amp; b)
+{
+	matrix res; memset(res.v, 0, sizeof(res.v));
+	for(int i = 0; i &lt; 4; i++)
+		for(int j = 0; j &lt; 4; j++)
+			for(int k = 0; k &lt; 4; k++)
+				res.v[i][j] = (res.v[i][j] + a.v[i][k] * b.v[k][j] + mod) % mod;
+	return res;
+}
+
+matrix quick_pow(matrix a, ll n)
+{
+	matrix res; res.init();
+	while(n)
 	{
-		sum += v[i];
-		if (sum &lt;= 0)
-			return false;
+		if(n &amp; 1) res = res * a;
+		a = a * a;
+		n &gt;&gt;= 1;
+	}
+	return res;
+}
+ll v[] = {0, 1, 5, 11, 36};
+
+int main()
+{
+	ll n;
+	matrix a; 
+	memset(a.v, 0, sizeof(a.v));
+	a.v[0][0] = 1, a.v[0][1] = 5, a.v[0][2] = 1, a.v[0][3] = -1;
+	a.v[1][0] = a.v[2][1] = a.v[3][2] = 1;
+	while(cin &gt;&gt; n)
+	{
+		if(n &lt;= 4)
+		{
+			cout &lt;&lt; v[n] &lt;&lt; endl;
+			continue;
+		}
+		matrix res = quick_pow(a, n - 4);
+		ll sum = 0;
+		for(int i = 0; i &lt; 4; i++)
+			sum = (sum + res.v[0][i] * v[4 - i] + mod) % mod;
+		cout &lt;&lt; sum &lt;&lt; endl;
 	}
 }
-int main()
-{
-	int t; cin &gt;&gt; t;
-	while (t--)
-		cout &lt;&lt; (solve() ? &quot;YES&quot; : &quot;NO&quot;) &lt;&lt; endl;
-}
 </code></pre>
-<h2 id="c-fadi-and-lcm">C. Fadi and LCM</h2>
-<p><strong>题意：</strong><br>
-给你一个x，x = lcm(a, b), 要求max(a, b)尽可能小。输出a， b。<br>
-<strong>分析：</strong><br>
-首先a, b互质。因为如果a, b有公共因子，那么a和b较大的那个完全可以去掉这个因子，max(a, b)可变小。其次，枚举a只需要1-&gt;sqrt(x);<br>
-<strong>代码：</strong></p>
-<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
-#include &lt;algorithm&gt;
-using namespace std;
-typedef long long ll;
- 
-ll gcd(ll a, ll b)
-{
-	return !b ? a : gcd(b, a % b);
-}
- 
-ll lcm(ll a, ll b)
-{
-	return a / gcd(a, b) * b;
-}
- 
-int main()
-{
-	ll x; cin &gt;&gt; x;
-	ll a;
-	for (ll i = 1; i &lt;= sqrt(x); i++)
-		if (x % i == 0 &amp;&amp; gcd(i, x / i) == 1)
-			a = i;
-	cout &lt;&lt; a &lt;&lt; &quot; &quot; &lt;&lt; x / a &lt;&lt; endl;
-}
-</code></pre>
-<h2 id="d-dr-evil-underscores">D. Dr. Evil Underscores</h2>
-<p><strong>分析：</strong><br>
-本题需要用到递归。我们现根据首位，将其分为两堆。<br>
-<img src="https://img-blog.csdnimg.cn/20200115123552986.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzk4NzgxMA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"><br>
-<strong>代码：</strong></p>
-<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
-using namespace std;
- 
-vector&lt;int&gt; vec;
- 
-int solve(vector&lt;int&gt;&amp; a, int bit)
-{
-	if (bit == 0) return 0;
-	vector&lt;int&gt; l, r;
-	for (auto&amp; it : a)
-		if ((it &gt;&gt; (bit - 1)) &amp; 1) l.push_back(it);
-		else r.push_back(it);
-	if (l.size() == 0)
-		return solve(r, bit - 1);
-	if (r.size() == 0)
-		return solve(l, bit - 1);
-	return min(solve(l, bit - 1), solve(r, bit - 1)) + (1 &lt;&lt; (bit - 1));
- 
-}
- 
-int main()
-{
-	ios_base::sync_with_stdio(0);
-	cin.tie(0);
- 
-	int n; cin &gt;&gt; n;
-	vec.resize(n);
-	for (auto&amp; it : vec) cin &gt;&gt; it;
-	cout &lt;&lt; solve(vec, 30) &lt;&lt; endl;
-}
-</code></pre>
-<h2 id="e-delete-a-segment">E. Delete a Segment</h2>
-<p><strong>题意:</strong><br>
-给你n个线段（可能有交集），删掉哪一根，显现出的线段数最多是多少。<br>
-<strong>分析:</strong><br>
-偏思维，借用别人博客了https://www.cnblogs.com/AaronChang/p/12192295.html</p>
- <!-- more -->
 
               </div>
               <div class="post-footer">
@@ -605,7 +576,7 @@ int main()
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://8421BCD.github.io/post/codeforces-round-613-div-2" title="Codeforces Round #613 (Div. 2)">Codeforces Round #613 (Div. 2)</a>
+      <a href="https://8421BCD.github.io/post/covering-hdu-6185-bao-sou-xi-shu-ju-zhen-kuai-su-mi" title="Covering HDU - 6185 （暴搜系数+矩阵快速幂）">Covering HDU - 6185 （暴搜系数+矩阵快速幂）</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -618,15 +589,11 @@ int main()
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" href="https://8421BCD.github.io/post/educational-codeforces-round-80">Educational Codeforces Round 80</a class="nav-pc-next">
-        <a class="nav-mobile-prev" href="https://8421BCD.github.io/post/educational-codeforces-round-80">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" href="https://8421BCD.github.io/post/max-sum-hdu-1003">Max Sum HDU - 1003 </a>
-        <a class="nav-mobile-next" href="https://8421BCD.github.io/post/max-sum-hdu-1003">下一篇</a>
+        <a class="nav-pc-next" href="https://8421BCD.github.io/post/vscode-an-zhuang-pei-zhi-jiao-cheng">VScode安装配置教程</a>
+        <a class="nav-mobile-next" href="https://8421BCD.github.io/post/vscode-an-zhuang-pei-zhi-jiao-cheng">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
