@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-01-27T14:52:39.864Z</updated>
+    <updated>2020-01-30T16:10:58.322Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -10,6 +10,85 @@
     <logo>https://8421BCD.github.io/images/avatar.png</logo>
     <icon>https://8421BCD.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
+    <entry>
+        <title type="html"><![CDATA[爬取百度百科]]></title>
+        <id>https://8421BCD.github.io/post/pa-qu-bai-du-bai-ke</id>
+        <link href="https://8421BCD.github.io/post/pa-qu-bai-du-bai-ke">
+        </link>
+        <updated>2020-01-30T16:05:35.000Z</updated>
+        <summary type="html"><![CDATA[<p>深度跳转网页，有时候会报错，不知道为什么</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>深度跳转网页，有时候会报错，不知道为什么</p>
+<!--more-->
+<ul>
+<li><strong>导入需要的包</strong></li>
+</ul>
+<pre><code class="language-python">from bs4 import BeautifulSoup
+from urllib.request import urlopen
+import re
+import random
+</code></pre>
+<ul>
+<li><strong>导入网址</strong></li>
+</ul>
+<pre><code class="language-python">base_url = &quot;https://baike.baidu.com&quot;
+his = [&quot;/item/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/5162711&quot;]
+</code></pre>
+<ul>
+<li><strong>lxml解析，find选择匹配结果</strong></li>
+</ul>
+<pre><code class="language-python">url = base_url + his[-1]
+html = urlopen(url).read().decode('utf-8')
+soup = BeautifulSoup(html, features = &quot;lxml&quot;)
+print(soup.find('a').get_text(), &quot;url:&quot;, his[-1])
+
+</code></pre>
+<ul>
+<li><strong>正则表达式匹配筛选内容</strong></li>
+</ul>
+<pre><code class="language-python">sub_urls = soup.find_all(&quot;a&quot;, {&quot;target&quot;: &quot;_blank&quot;, &quot;href&quot;: re.compile(&quot;/item/(%.{2})+$&quot;)})
+if len(sub_urls) != 0:
+    his.append(random.sample(sub_urls, 1)[0]['href'])
+else:
+    his.pop()
+print(his)
+</code></pre>
+<ul>
+<li><strong>dfs跳转网页</strong></li>
+</ul>
+<pre><code class="language-python">base_url = &quot;https://baike.baidu.com&quot;
+his = [&quot;/item/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/5162711&quot;]
+
+for i in range(20):
+    url = base_url + his[-1]
+    html = urlopen(url).read().decode('utf-8')
+    soup = BeautifulSoup(html, features='lxml')
+    print('第', i, '次访问', soup.find('h1').get_text(), 'url:', his[-1])
+
+    sub_urls = soup.find_all(&quot;a&quot;, {&quot;target&quot;: &quot;_blank&quot;, &quot;href&quot;: re.compile(&quot;/item/(%.{2})+$&quot;)})
+    if len(sub_urls) != 0:
+        his.append(random.sample(sub_urls, 1)[0]['href'])#[0]表示样本列表中要抽取元素的下标
+    else:
+        his.pop()
+
+</code></pre>
+<ul>
+<li><strong>爬取结果</strong></li>
+</ul>
+<pre><code class="language-python">0 网络爬虫 url: /item/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/5162711
+1 用户标识 url: /item/%E7%94%A8%E6%88%B7%E6%A0%87%E8%AF%86
+2 义项 url: /item/%E4%B9%89%E9%A1%B9
+3 小提琴协奏曲 url: /item/%E5%B0%8F%E6%8F%90%E7%90%B4%E5%8D%8F%E5%A5%8F%E6%9B%B2
+4 彼得·伊里奇·柴可夫斯基 url: /item/%E6%9F%B4%E7%A7%91%E5%A4%AB%E6%96%AF%E5%9F%BA
+5 作曲家 url: /item/%E4%BD%9C%E6%9B%B2%E5%AE%B6
+6 义项 url: /item/%E4%B9%89%E9%A1%B9
+7 李健 url: /item/%E6%9D%8E%E5%81%A5
+8 三月的一整月 url: /item/%E4%B8%89%E6%9C%88%E7%9A%84%E4%B8%80%E6%95%B4%E6%9C%88
+9 快乐阳光 url: /item/%E5%BF%AB%E4%B9%90%E9%98%B3%E5%85%89
+
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Mondriaan's Dream（状压dp）]]></title>
         <id>https://8421BCD.github.io/post/mondriaans-dreamzhuang-ya-dp</id>
