@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-02-03T09:57:56.135Z</updated>
+    <updated>2020-02-03T10:15:07.219Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -10,6 +10,22 @@
     <logo>https://8421BCD.github.io/images/avatar.png</logo>
     <icon>https://8421BCD.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
+    <entry>
+        <title type="html"><![CDATA[ACM题目题解写作模板]]></title>
+        <id>https://8421BCD.github.io/post/acm-ti-mu-ti-jie-xie-zuo-mo-ban</id>
+        <link href="https://8421BCD.github.io/post/acm-ti-mu-ti-jie-xie-zuo-mo-ban">
+        </link>
+        <updated>2020-02-03T10:02:00.000Z</updated>
+        <content type="html"><![CDATA[<hr>
+<h2 id="xxx-题解">xxx 题解</h2>
+<hr>
+<p><strong>题意：</strong></p>
+<p><strong>分析：</strong></p>
+<p><strong>代码：</strong></p>
+<pre><code class="language-cpp">
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Codeforces Round #616 (Div. 2) 题解]]></title>
         <id>https://8421BCD.github.io/post/codeforces-round-616-div-2-ti-jie</id>
@@ -923,55 +939,6 @@ int main()
 <strong>分析:</strong><br>
 偏思维，借用别人博客了https://www.cnblogs.com/AaronChang/p/12192295.html</p>
  <!-- more -->
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Max Sum HDU - 1003 ]]></title>
-        <id>https://8421BCD.github.io/post/max-sum-hdu-1003</id>
-        <link href="https://8421BCD.github.io/post/max-sum-hdu-1003">
-        </link>
-        <updated>2020-01-14T12:12:42.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="max-sum">MAX SUM</h2>
-<!-- 求最大连续区间和，通过dp[i]记录以i结尾的最大连续区间和 -->
-<p><strong>分析：</strong><br>
-pos[记录]最大片段的左边界<br>
-<img src="https://img-blog.csdnimg.cn/20200114200946114.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzk4NzgxMA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"><br>
-<strong>代码：</strong></p>
-<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-const int maxn = 1e5 + 10;
-int a[maxn];
-int dp[maxn];
-int pos[maxn];
-
-int main()
-{
-	int t; cin &gt;&gt; t;
-	int cases = 0;
-	for (int j = 1; j &lt;= t; j++)
-	{
-		int n; cin &gt;&gt; n;
-		for (int i = 1; i &lt;= n; i++)
-			cin &gt;&gt; a[i];
-		dp[1] = a[1], pos[1] = 1;
-		int l, r, maxx = dp[1];
-		l = r = 1;
-		for (int i = 2; i &lt;= n; i++)
-		{
-			if (dp[i - 1] &lt; 0)
-				dp[i] = a[i], pos[i] = i;
-			else
-				dp[i] = dp[i - 1] + a[i], pos[i] = pos[i - 1];
-			if (dp[i] &gt; maxx)
-				maxx = dp[i], l = pos[i], r = i;
-		}
-		printf(&quot;Case %d:\n&quot;, ++cases);
-		printf(&quot;%d %d %d\n&quot;, maxx, l, r);
-		if (j &lt; t)
-			cout &lt;&lt; endl;
-	}
-}
-</code></pre>
 ]]></content>
     </entry>
 </feed>
