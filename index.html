@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1580729355671">
+<link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1580729495820">
 <link rel="stylesheet" href="https://8421BCD.github.io//styles/main.css">
 
 
@@ -28,7 +28,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://8421BCD.github.io/">
-        <img src="https://8421BCD.github.io//images/avatar.png?v=1580729355671" class="site-logo">
+        <img src="https://8421BCD.github.io//images/avatar.png?v=1580729495820" class="site-logo">
         <h1 class="site-title">Wannafly</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -243,123 +243,7 @@
                   2020-01-15
                 </div>
                 <div class="post-abstract">
-                  <h3 id="a-mezo-playing-zoma">A. Mezo Playing Zoma</h3>
-<p><strong>分析</strong>：<br>
-水题，直接输出长度+1<br>
-<strong>代码</strong>：</p>
-<pre><code class="language-python">n = int(input())
-s = input()
-print(n + 1)
-</code></pre>
-<h3 id="b-just-eat-it">B. Just Eat It!</h3>
-<p><strong>分析</strong>：<br>
-一开始当成求max sum做了，看了题解知道不用这么麻烦。假设有一段区间的值大于整个区间的和，那么其某一边的和一定是负的。直接从两边扫，求和判断是否为负数即可。<br>
-<strong>代码：</strong></p>
-<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-typedef long long ll;
- 
-vector&lt;int&gt; v;
- 
-bool solve()
-{
-	int n; cin &gt;&gt; n;
-	v.resize(n);
-	for (auto&amp; i : v) cin &gt;&gt; i;
-	ll sum = 0;
-	for (int i = 0; i &lt; n; i++)
-	{
-		sum += v[i];
-		if (sum &lt;= 0)return false;
-	}
-	sum = 0;
-	for (int i = n - 1; i &gt;= 0; i--)
-	{
-		sum += v[i];
-		if (sum &lt;= 0)
-			return false;
-	}
-}
-int main()
-{
-	int t; cin &gt;&gt; t;
-	while (t--)
-		cout &lt;&lt; (solve() ? &quot;YES&quot; : &quot;NO&quot;) &lt;&lt; endl;
-}
-</code></pre>
-<h2 id="c-fadi-and-lcm">C. Fadi and LCM</h2>
-<p><strong>题意：</strong><br>
-给你一个x，x = lcm(a, b), 要求max(a, b)尽可能小。输出a， b。<br>
-<strong>分析：</strong><br>
-首先a, b互质。因为如果a, b有公共因子，那么a和b较大的那个完全可以去掉这个因子，max(a, b)可变小。其次，枚举a只需要1-&gt;sqrt(x);<br>
-<strong>代码：</strong></p>
-<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
-#include &lt;algorithm&gt;
-using namespace std;
-typedef long long ll;
- 
-ll gcd(ll a, ll b)
-{
-	return !b ? a : gcd(b, a % b);
-}
- 
-ll lcm(ll a, ll b)
-{
-	return a / gcd(a, b) * b;
-}
- 
-int main()
-{
-	ll x; cin &gt;&gt; x;
-	ll a;
-	for (ll i = 1; i &lt;= sqrt(x); i++)
-		if (x % i == 0 &amp;&amp; gcd(i, x / i) == 1)
-			a = i;
-	cout &lt;&lt; a &lt;&lt; &quot; &quot; &lt;&lt; x / a &lt;&lt; endl;
-}
-</code></pre>
-<h2 id="d-dr-evil-underscores">D. Dr. Evil Underscores</h2>
-<p><strong>分析：</strong><br>
-本题需要用到递归。我们现根据首位，将其分为两堆。<br>
-<img src="https://img-blog.csdnimg.cn/20200115123552986.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzk4NzgxMA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"><br>
-<strong>代码：</strong></p>
-<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
-using namespace std;
- 
-vector&lt;int&gt; vec;
- 
-int solve(vector&lt;int&gt;&amp; a, int bit)
-{
-	if (bit == 0) return 0;
-	vector&lt;int&gt; l, r;
-	for (auto&amp; it : a)
-		if ((it &gt;&gt; (bit - 1)) &amp; 1) l.push_back(it);
-		else r.push_back(it);
-	if (l.size() == 0)
-		return solve(r, bit - 1);
-	if (r.size() == 0)
-		return solve(l, bit - 1);
-	return min(solve(l, bit - 1), solve(r, bit - 1)) + (1 &lt;&lt; (bit - 1));
- 
-}
- 
-int main()
-{
-	ios_base::sync_with_stdio(0);
-	cin.tie(0);
- 
-	int n; cin &gt;&gt; n;
-	vec.resize(n);
-	for (auto&amp; it : vec) cin &gt;&gt; it;
-	cout &lt;&lt; solve(vec, 30) &lt;&lt; endl;
-}
-</code></pre>
-<h2 id="e-delete-a-segment">E. Delete a Segment</h2>
-<p><strong>题意:</strong><br>
-给你n个线段（可能有交集），删掉哪一根，显现出的线段数最多是多少。<br>
-<strong>分析:</strong><br>
-偏思维，借用别人博客了https://www.cnblogs.com/AaronChang/p/12192295.html</p>
-
+                  
                 </div>
               </div>
               
