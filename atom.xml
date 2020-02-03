@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-02-03T10:30:41.123Z</updated>
+    <updated>2020-02-03T11:28:23.410Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -16,9 +16,7 @@
         <link href="https://8421BCD.github.io/post/acm-ti-mu-ti-jie-xie-zuo-mo-ban">
         </link>
         <updated>2020-02-03T10:02:00.000Z</updated>
-        <content type="html"><![CDATA[<hr>
-<h2 id="xxx-题解">xxx 题解</h2>
-<hr>
+        <content type="html"><![CDATA[<!--more-->
 <p><strong>题意：</strong></p>
 <p><strong>分析：</strong></p>
 <p><strong>代码：</strong></p>
@@ -197,34 +195,32 @@ int main()
         <link href="https://8421BCD.github.io/post/cf-ti-jie-xie-zuo-mo-ban">
         </link>
         <updated>2020-02-03T09:34:30.000Z</updated>
-        <content type="html"><![CDATA[<hr>
-<h2 id="codeforces-round-616-div-2-题解">Codeforces Round #616 (Div. 2) 题解</h2>
-<hr>
-<p>**A. **</p>
+        <content type="html"><![CDATA[<!--more-->
+<p><strong>A.</strong></p>
 <p><strong>题意：</strong></p>
 <p><strong>分析：</strong></p>
 <p><strong>代码：</strong></p>
 <pre><code class="language-cpp">
 </code></pre>
-<p>**B. **</p>
+<p><strong>B.</strong></p>
 <p><strong>题意：</strong></p>
 <p><strong>分析：</strong></p>
 <p><strong>代码：</strong></p>
 <pre><code class="language-cpp">
 </code></pre>
-<p>**C. **</p>
+<p><strong>C.</strong></p>
 <p><strong>题意：</strong></p>
 <p><strong>分析：</strong></p>
 <p><strong>代码：</strong></p>
 <pre><code class="language-cpp">
 </code></pre>
-<p>**D. **</p>
+<p><strong>D.</strong></p>
 <p><strong>题意：</strong></p>
 <p><strong>分析：</strong></p>
 <p><strong>代码：</strong></p>
 <pre><code class="language-cpp">
 </code></pre>
-<p>**E. **</p>
+<p><strong>E.</strong></p>
 <p><strong>题意：</strong></p>
 <p><strong>分析：</strong></p>
 <p><strong>代码：</strong></p>
