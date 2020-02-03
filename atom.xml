@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://8421BCD.github.io/</id>
+    <id>http://localhost:4000</id>
     <title>Wannafly</title>
-    <updated>2020-02-03T15:23:04.229Z</updated>
+    <updated>2020-02-03T15:25:30.399Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://8421BCD.github.io/"/>
-    <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
+    <link rel="alternate" href="http://localhost:4000"/>
+    <link rel="self" href="http://localhost:4000/atom.xml"/>
     <subtitle>小小的天，有大大的梦想</subtitle>
-    <logo>https://8421BCD.github.io/images/avatar.png</logo>
-    <icon>https://8421BCD.github.io/favicon.ico</icon>
+    <logo>http://localhost:4000/images/avatar.png</logo>
+    <icon>http://localhost:4000/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
     <entry>
         <title type="html"><![CDATA[ACM题目题解写作模板]]></title>
-        <id>https://8421BCD.github.io/post/acm-ti-mu-ti-jie-xie-zuo-mo-ban</id>
-        <link href="https://8421BCD.github.io/post/acm-ti-mu-ti-jie-xie-zuo-mo-ban">
+        <id>http://localhost:4000/post/acm-ti-mu-ti-jie-xie-zuo-mo-ban</id>
+        <link href="http://localhost:4000/post/acm-ti-mu-ti-jie-xie-zuo-mo-ban">
         </link>
         <updated>2020-02-03T10:02:00.000Z</updated>
         <content type="html"><![CDATA[<!--more-->
@@ -26,8 +26,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[Codeforces Round #616 (Div. 2) 题解]]></title>
-        <id>https://8421BCD.github.io/post/codeforces-round-616-div-2-ti-jie</id>
-        <link href="https://8421BCD.github.io/post/codeforces-round-616-div-2-ti-jie">
+        <id>http://localhost:4000/post/codeforces-round-616-div-2-ti-jie</id>
+        <link href="http://localhost:4000/post/codeforces-round-616-div-2-ti-jie">
         </link>
         <updated>2020-02-03T09:46:05.000Z</updated>
         <content type="html"><![CDATA[<hr>
@@ -191,8 +191,8 @@ int main()
     </entry>
     <entry>
         <title type="html"><![CDATA[CF题解写作模板]]></title>
-        <id>https://8421BCD.github.io/post/cf-ti-jie-xie-zuo-mo-ban</id>
-        <link href="https://8421BCD.github.io/post/cf-ti-jie-xie-zuo-mo-ban">
+        <id>http://localhost:4000/post/cf-ti-jie-xie-zuo-mo-ban</id>
+        <link href="http://localhost:4000/post/cf-ti-jie-xie-zuo-mo-ban">
         </link>
         <updated>2020-02-03T09:34:30.000Z</updated>
         <content type="html"><![CDATA[<!--more-->
@@ -230,15 +230,15 @@ int main()
     </entry>
     <entry>
         <title type="html"><![CDATA[不要62 hdu2089（数位dp + 记忆化搜索）]]></title>
-        <id>https://8421BCD.github.io/post/bu-yao-62-hdu2089shu-wei-dp-ji-yi-hua-sou-suo</id>
-        <link href="https://8421BCD.github.io/post/bu-yao-62-hdu2089shu-wei-dp-ji-yi-hua-sou-suo">
+        <id>http://localhost:4000/post/bu-yao-62-hdu2089shu-wei-dp-ji-yi-hua-sou-suo</id>
+        <link href="http://localhost:4000/post/bu-yao-62-hdu2089shu-wei-dp-ji-yi-hua-sou-suo">
         </link>
         <updated>2020-02-02T03:07:50.000Z</updated>
         <summary type="html"><![CDATA[<p>数位dp热身题</p>
 ]]></summary>
         <content type="html"><![CDATA[<p>数位dp热身题</p>
 <!--more-->
-<figure data-type="image" tabindex="1"><img src="https://8421BCD.github.io//post-images/1580612924699.jpg" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="http://localhost:4000/post-images/1580612924699.jpg" alt="" loading="lazy"></figure>
 <h3 id="题目"><strong>题目</strong>:</h3>
 <p>求n-m中不含4和“62”的数的个数</p>
 <h3 id="分析"><strong>分析</strong>:</h3>
@@ -289,15 +289,15 @@ int main()
     </entry>
     <entry>
         <title type="html"><![CDATA[爬取百度百科]]></title>
-        <id>https://8421BCD.github.io/post/pa-qu-bai-du-bai-ke</id>
-        <link href="https://8421BCD.github.io/post/pa-qu-bai-du-bai-ke">
+        <id>http://localhost:4000/post/pa-qu-bai-du-bai-ke</id>
+        <link href="http://localhost:4000/post/pa-qu-bai-du-bai-ke">
         </link>
         <updated>2020-01-30T16:05:35.000Z</updated>
         <summary type="html"><![CDATA[<p>深度跳转网页，有时候会报错，不知道为什么</p>
 ]]></summary>
         <content type="html"><![CDATA[<p>深度跳转网页，有时候会报错，不知道为什么</p>
 <!--more-->
-<figure data-type="image" tabindex="1"><img src="https://8421BCD.github.io//post-images/1580430245069.jpg" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="http://localhost:4000/post-images/1580430245069.jpg" alt="" loading="lazy"></figure>
 <ul>
 <li><strong>导入需要的包</strong></li>
 </ul>
@@ -369,8 +369,8 @@ for i in range(20):
     </entry>
     <entry>
         <title type="html"><![CDATA[Mondriaan's Dream（状压dp）]]></title>
-        <id>https://8421BCD.github.io/post/mondriaans-dreamzhuang-ya-dp</id>
-        <link href="https://8421BCD.github.io/post/mondriaans-dreamzhuang-ya-dp">
+        <id>http://localhost:4000/post/mondriaans-dreamzhuang-ya-dp</id>
+        <link href="http://localhost:4000/post/mondriaans-dreamzhuang-ya-dp">
         </link>
         <updated>2020-01-27T13:23:16.000Z</updated>
         <summary type="html"><![CDATA[<p>解决问题的关键是简化问题，利用推出的条件进行分析往往比基于原题笼统的分析更加通畅。</p>
@@ -429,8 +429,8 @@ signed main()
     </entry>
     <entry>
         <title type="html"><![CDATA[Covering HDU - 6185 （暴搜系数+矩阵快速幂）]]></title>
-        <id>https://8421BCD.github.io/post/covering-hdu-6185-bao-sou-xi-shu-ju-zhen-kuai-su-mi</id>
-        <link href="https://8421BCD.github.io/post/covering-hdu-6185-bao-sou-xi-shu-ju-zhen-kuai-su-mi">
+        <id>http://localhost:4000/post/covering-hdu-6185-bao-sou-xi-shu-ju-zhen-kuai-su-mi</id>
+        <link href="http://localhost:4000/post/covering-hdu-6185-bao-sou-xi-shu-ju-zhen-kuai-su-mi">
         </link>
         <updated>2020-01-27T07:47:25.000Z</updated>
         <summary type="html"><![CDATA[<p>先通过打表将前几项的结果得到，然后暴力搜索快速幂的系数，进行快速幂。（n是1e18，一开始竟然还在手推dp公式= =）</p>
@@ -533,8 +533,8 @@ int main()
     </entry>
     <entry>
         <title type="html"><![CDATA[VScode安装配置教程]]></title>
-        <id>https://8421BCD.github.io/post/vscode-an-zhuang-pei-zhi-jiao-cheng</id>
-        <link href="https://8421BCD.github.io/post/vscode-an-zhuang-pei-zhi-jiao-cheng">
+        <id>http://localhost:4000/post/vscode-an-zhuang-pei-zhi-jiao-cheng</id>
+        <link href="http://localhost:4000/post/vscode-an-zhuang-pei-zhi-jiao-cheng">
         </link>
         <updated>2020-01-26T11:55:07.000Z</updated>
         <content type="html"><![CDATA[<p>https://www.cnblogs.com/baihualiaoluan/p/10661669.html</p>
@@ -542,8 +542,8 @@ int main()
     </entry>
     <entry>
         <title type="html"><![CDATA[Educational Codeforces Round 80]]></title>
-        <id>https://8421BCD.github.io/post/educational-codeforces-round-80</id>
-        <link href="https://8421BCD.github.io/post/educational-codeforces-round-80">
+        <id>http://localhost:4000/post/educational-codeforces-round-80</id>
+        <link href="http://localhost:4000/post/educational-codeforces-round-80">
         </link>
         <updated>2020-01-16T03:54:48.000Z</updated>
         <content type="html"><![CDATA[<h2 id="d-minimax-problem">D. Minimax Problem</h2>
@@ -697,8 +697,8 @@ int main()
     </entry>
     <entry>
         <title type="html"><![CDATA[Codeforces Round #613 (Div. 2)]]></title>
-        <id>https://8421BCD.github.io/post/codeforces-round-613-div-2</id>
-        <link href="https://8421BCD.github.io/post/codeforces-round-613-div-2">
+        <id>http://localhost:4000/post/codeforces-round-613-div-2</id>
+        <link href="http://localhost:4000/post/codeforces-round-613-div-2">
         </link>
         <updated>2020-01-15T04:06:01.000Z</updated>
         <content type="html"><![CDATA[<h3 id="a-mezo-playing-zoma">A. Mezo Playing Zoma</h3>
