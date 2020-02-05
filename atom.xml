@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-02-05T13:18:20.579Z</updated>
+    <updated>2020-02-05T15:42:39.134Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -10,6 +10,32 @@
     <logo>https://8421BCD.github.io/images/avatar.png</logo>
     <icon>https://8421BCD.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
+    <entry>
+        <title type="html"><![CDATA[下载文件 | 爬虫入门 （待更。。。）]]></title>
+        <id>https://8421BCD.github.io/post/xia-zai-wen-jian-or-pa-chong-ru-men-dai-geng</id>
+        <link href="https://8421BCD.github.io/post/xia-zai-wen-jian-or-pa-chong-ru-men-dai-geng">
+        </link>
+        <updated>2020-02-05T15:25:22.000Z</updated>
+        <content type="html"><![CDATA[<ul>
+<li><strong>使用 urlretrieve</strong></li>
+</ul>
+<pre><code class="language-python">from urllib.request import urlretrieve
+IMAGE_URL = &quot;https://morvanzhou.github.io/static/img/description/learning_step_flowchart.png&quot;
+FILE_URL = &quot;./img/image1.png&quot;
+urlretrieve(IMAGE_URL, FILE_URL)
+</code></pre>
+<ul>
+<li><strong>使用 request</strong><br>
+如果要下载的是大文件, 比如视频等. requests 能下一点, 保存一点, 而不是要全部下载完才能保存去另外的地方. 这就是一个 chunk 一个 chunk 的下载. 使用 r.iter_content(chunk_size) 来控制每个 chunk 的大小, 然后在文件中写入这个 chunk 大小的数据.</li>
+</ul>
+<pre><code class="language-python">r = requests.get(IMAGE_URL, stream=True)    # stream loading
+
+with open('./img/image3.png', 'wb') as f:#with open也是打开文件的一种方法，wh是用二进制打开；with open省去了文件的关闭操作，更加方便
+    for chunk in r.iter_content(chunk_size=32):
+        f.write(chunk)
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[代码保佑图]]></title>
         <id>https://8421BCD.github.io/post/dai-ma-bao-you-tu</id>
@@ -806,110 +832,6 @@ signed main()
 							dp[i + 1][k] += dp[i][j];
 				}
 		cout &lt;&lt; dp[n][(1 &lt;&lt; m) - 1] &lt;&lt; endl;
-	}
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Covering HDU - 6185 （暴搜系数+矩阵快速幂）]]></title>
-        <id>https://8421BCD.github.io/post/covering-hdu-6185-bao-sou-xi-shu-ju-zhen-kuai-su-mi</id>
-        <link href="https://8421BCD.github.io/post/covering-hdu-6185-bao-sou-xi-shu-ju-zhen-kuai-su-mi">
-        </link>
-        <updated>2020-01-27T07:47:25.000Z</updated>
-        <summary type="html"><![CDATA[<p>先通过打表将前几项的结果得到，然后暴力搜索快速幂的系数，进行快速幂。（n是1e18，一开始竟然还在手推dp公式= =）</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>先通过打表将前几项的结果得到，然后暴力搜索快速幂的系数，进行快速幂。（n是1e18，一开始竟然还在手推dp公式= =）</p>
-<!-- more -->
-<h2 id="题意">题意：</h2>
-<p><strong>给你一个4 * n的地板，用1*2的砖头填，问填发数。</strong></p>
-<h2 id="分析">分析：</h2>
-<p><strong>快速幂模板题</strong></p>
-<h2 id="代码">代码：</h2>
-<p><strong>爆搜系数代码</strong></p>
-<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-
-typedef long long ll;
-int v[8] = { 1, 5, 11, 36, 95, 281, 781, 2245 };
-
-bool check(int x, int a, int b, int c, int d)
-{
-    return v[x] * a + v[x + 1] * b + v[x + 2] * c + v[x + 3] * d == v[x + 4];
-}
-
-int main()
-{
-    for (int a = -10; a &lt;= 10; a++)
-        for (int b = -10; b &lt;= 10; b++)
-            for (int c = -10; c &lt;= 10; c++)
-                for (int d = -10; d &lt;= 10; d++)
-                {
-                    bool flag = true;
-                    for (int t = 0; t &lt;= 3; t++) if (!check(t, a, b, c, d)) flag = false;
-                    if (flag) cout &lt;&lt; a &lt;&lt; &quot; &quot; &lt;&lt; b &lt;&lt; &quot; &quot; &lt;&lt; c &lt;&lt; &quot; &quot; &lt;&lt; d &lt;&lt; endl;
-                }
-    return 0;
-}
-
-</code></pre>
-<p><strong>题解代码：</strong></p>
-<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-typedef long long ll;
-const ll mod = 1e9 + 7;
-struct matrix
-{
-	ll v[4][4];
-	void init()
-	{
-		memset(v, 0, sizeof(v));
-		for(int i = 0; i &lt; 4; i++)
-			v[i][i] = 1;
-	}
-};
-matrix operator *(const matrix&amp; a, const matrix&amp; b)
-{
-	matrix res; memset(res.v, 0, sizeof(res.v));
-	for(int i = 0; i &lt; 4; i++)
-		for(int j = 0; j &lt; 4; j++)
-			for(int k = 0; k &lt; 4; k++)
-				res.v[i][j] = (res.v[i][j] + a.v[i][k] * b.v[k][j] + mod) % mod;
-	return res;
-}
-
-matrix quick_pow(matrix a, ll n)
-{
-	matrix res; res.init();
-	while(n)
-	{
-		if(n &amp; 1) res = res * a;
-		a = a * a;
-		n &gt;&gt;= 1;
-	}
-	return res;
-}
-ll v[] = {0, 1, 5, 11, 36};
-
-int main()
-{
-	ll n;
-	matrix a; 
-	memset(a.v, 0, sizeof(a.v));
-	a.v[0][0] = 1, a.v[0][1] = 5, a.v[0][2] = 1, a.v[0][3] = -1;
-	a.v[1][0] = a.v[2][1] = a.v[3][2] = 1;
-	while(cin &gt;&gt; n)
-	{
-		if(n &lt;= 4)
-		{
-			cout &lt;&lt; v[n] &lt;&lt; endl;
-			continue;
-		}
-		matrix res = quick_pow(a, n - 4);
-		ll sum = 0;
-		for(int i = 0; i &lt; 4; i++)
-			sum = (sum + res.v[0][i] * v[4 - i] + mod) % mod;
-		cout &lt;&lt; sum &lt;&lt; endl;
 	}
 }
 </code></pre>

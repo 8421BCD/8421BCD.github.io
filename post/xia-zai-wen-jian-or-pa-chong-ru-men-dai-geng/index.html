@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>Gridea | Wannafly</title>
+<title>下载文件 | 爬虫入门 （待更。。。） | Wannafly</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -12,13 +12,24 @@
 <link rel="stylesheet" href="https://8421BCD.github.io//styles/main.css">
 
 
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
 
 <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 
 
-    <meta name="description" content="小小的天，有大大的梦想">
+    <meta name="description" content="
+使用 urlretrieve
+
+from urllib.request import urlretrieve
+IMAGE_URL = &quot;https://morvanzhou.github.io/static/img/descri..." />
+    <meta name="keywords" content="" />
   </head>
   <body>
     <div id="app" class="main">
@@ -92,30 +103,52 @@
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
-          <h2 class="current-tag">标签: Gridea</h2>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://8421BCD.github.io/post/hello-gridea">
-                  <h2 class="post-title">Hello Gridea</h2>
+          <div class="post-detail">
+            <h2 class="post-title">下载文件 | 爬虫入门 （待更。。。）</h2>
+            <div class="post-date">2020-02-05</div>
+            
+            <div class="post-content" v-pre>
+              <ul>
+<li><strong>使用 urlretrieve</strong></li>
+</ul>
+<pre><code class="language-python">from urllib.request import urlretrieve
+IMAGE_URL = &quot;https://morvanzhou.github.io/static/img/description/learning_step_flowchart.png&quot;
+FILE_URL = &quot;./img/image1.png&quot;
+urlretrieve(IMAGE_URL, FILE_URL)
+</code></pre>
+<ul>
+<li><strong>使用 request</strong><br>
+如果要下载的是大文件, 比如视频等. requests 能下一点, 保存一点, 而不是要全部下载完才能保存去另外的地方. 这就是一个 chunk 一个 chunk 的下载. 使用 r.iter_content(chunk_size) 来控制每个 chunk 的大小, 然后在文件中写入这个 chunk 大小的数据.</li>
+</ul>
+<pre><code class="language-python">r = requests.get(IMAGE_URL, stream=True)    # stream loading
+
+with open('./img/image3.png', 'wb') as f:#with open也是打开文件的一种方法，wh是用二进制打开；with open省去了文件的关闭操作，更加方便
+    for chunk in r.iter_content(chunk_size=32):
+        f.write(chunk)
+</code></pre>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://8421BCD.github.io/post/dai-ma-bao-you-tu">
+                  <h3 class="post-title">
+                    代码保佑图
+                  </h3>
                 </a>
-                <div class="post-date">
-                  2018-12-12
-                </div>
-                <div class="post-abstract">
-                  <p>👏  欢迎______________________-使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-
-                </div>
               </div>
-              
-            </article>
-          
+            
 
-          <div class="pagination-container">
-  
-  
-</div>
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
 
         </div>
       </div>
@@ -141,6 +174,29 @@ var app = new Vue({
     hljs.initHighlightingOnLoad()
   </script>
 
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: '',
+        owner: '',
+        admin: [''],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
 
 
 
