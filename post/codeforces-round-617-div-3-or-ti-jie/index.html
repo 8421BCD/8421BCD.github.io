@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Codeforces Round #617 (Div. 3) | 题解 | Wannafly</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1580894000267">
+<link rel="stylesheet" href="https://8421BCD.github.io//styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="水题尝试用python写，有时候舍得多用几分钟寻求简易方法实现更重要
+
+A.Array with Odd Sum
+题意：
+你可以更换两个数，要求和是奇数
+分析：
+代码：
+cpp版
+#include &lt;bits/stdc++.h&gt;..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://8421BCD.github.io/">
+        <img src="https://8421BCD.github.io//images/avatar.png?v=1580894000267" class="site-logo">
+        <h1 class="site-title">Wannafly</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/8421BCD" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      小小的天，有大大的梦想
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://8421BCD.github.io//atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Codeforces Round #617 (Div. 3) | 题解</h2>
+            <div class="post-date">2020-02-05</div>
+            
+            <div class="post-content" v-pre>
+              <p>水题尝试用python写，有时候舍得多用几分钟寻求简易方法实现更重要</p>
+<!--more-->
+<p><strong>A.Array with Odd Sum</strong></p>
+<p><strong>题意：</strong><br>
+你可以更换两个数，要求和是奇数<br>
+<strong>分析：</strong></p>
+<p><strong>代码：</strong></p>
+<p>cpp版</p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+ 
+int main()
+{
+    int t;cin &gt;&gt; t;
+    while(t--)
+    {
+        int n; cin &gt;&gt; n;
+        int flag1 = 0, flag2 = 0;// 1 odd 2 even
+        ll sum = 0;
+        while(n--)
+        {
+            int x; cin &gt;&gt; x;
+            if(x &amp; 1) flag1 = 1;
+            else flag2 = 1;
+            sum += x;
+        }
+        if(flag2 &amp;&amp; !flag1) cout &lt;&lt; &quot;NO&quot; &lt;&lt; endl;
+        else if(flag1 &amp;&amp; !flag2)
+        {
+            if(sum &amp; 1) cout &lt;&lt; &quot;YES&quot; &lt;&lt; endl;
+            else cout &lt;&lt; &quot;NO&quot; &lt;&lt; endl;
+        }
+        else cout &lt;&lt; &quot;YES&quot; &lt;&lt; endl;
+    }
+}
+</code></pre>
+<p>Python版</p>
+<pre><code class="language-python">for _ in range(int(input())):
+    n = int(input())
+    l = list(map(int, input().split()))
+    odd = False
+    even = False
+ 
+    for i in l:
+        if i &amp; 1:
+            odd = True
+        else:
+            even = True
+    if odd and even or sum(l) % 2 == 1:
+        print(&quot;YES&quot;)
+    else:
+        print(&quot;NO&quot;)
+</code></pre>
+<p><strong>B.Food Buying</strong></p>
+<p><strong>题意：</strong><br>
+你有一些钱，花费10元就可以返还一元，且一元也可以用掉，问你花最多多少钱<br>
+<strong>分析：</strong><br>
+以10元为单位支出，每次支出损失9元。当剩余不足10元时停止，支出剩余钱数。<br>
+<strong>代码：</strong></p>
+<p>cpp版本</p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+ 
+ll cal(ll n)
+{
+	ll res = 0;
+	while (n &gt;= 10)
+	{
+		string tmp = to_string(n);
+		int len = tmp.length();
+		res += (tmp[0] - '0') * pow(10, len - 1);
+		n = n - (tmp[0] - '0') * pow(10, len - 1) + (tmp[0] - '0') * pow(10, len - 1) / 10;//太繁琐
+	}
+	res += n;
+	return res;
+}
+ 
+int main()
+{
+	int t; cin &gt;&gt; t;
+	while (t--)
+	{
+		ll n;
+		cin &gt;&gt; n;
+		cout &lt;&lt; cal(n) &lt;&lt; endl; 
+	}
+}
+</code></pre>
+<pre><code class="language-python">for _ in range(int(input())):
+    n = int(input())
+    ans = 0
+    if n % 9 == 0:
+        ans += 10 * (n // 9 - 1) + 9
+    else:
+        ans += 10 * (n // 9) + n % 9
+    print(ans)
+</code></pre>
+<p>精简性一目了然</p>
+<p><strong>C.Yet Another Walking Robot</strong></p>
+<p><strong>题意：</strong><br>
+略<br>
+<strong>分析：</strong><br>
+一开始想如何找到最小的区间使得区间的位移和为0，一直在一维上想。后来被指点之后发现可以存储每次移动的二维坐标。每次走一步判断一下是否之前走到过即可。<br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+const int maxn = 2e5 + 10;
+char s[maxn];
+ 
+int main()
+{
+    int t; cin &gt;&gt; t;
+    while(t--)
+    {
+        int n; cin &gt;&gt; n;
+        map&lt;pair&lt;int, int&gt;, int&gt; vis;
+        cin &gt;&gt; (s + 1);
+        int x = 0, y = 0;
+        vis[make_pair(0, 0)] = 0;
+        int resl = -1, resr = -1;
+        for(int i = 1; s[i]; i++)
+        {
+            if(s[i] == 'R') x++;
+            if(s[i] == 'L') x--;
+            if(s[i] == 'U') y++;
+            if(s[i] == 'D') y--;
+            if(vis.count(make_pair(x, y)))
+            {
+                if(resl == -1) 
+                    resl = vis[make_pair(x, y)], resr = i;
+                else if(i - vis[make_pair(x, y)] &lt; resr - resl)
+                    resl = vis[make_pair(x, y)], resr = i;
+            }
+            vis[make_pair(x, y)] = i;
+        }
+        if(resl == -1) cout &lt;&lt; -1 &lt;&lt; endl;
+        else cout &lt;&lt; resl + 1 &lt;&lt; &quot; &quot; &lt;&lt; resr &lt;&lt; endl;
+    }
+}
+</code></pre>
+<p><strong>D.Fight with Monsters</strong></p>
+<p><strong>题意：</strong><br>
+略<br>
+<strong>分析：</strong><br>
+贪心即可<br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+vector&lt;ll&gt; v;
+ 
+int main()
+{
+    ll n, a, b, k;
+    ll res = 0;
+    cin &gt;&gt; n &gt;&gt; a &gt;&gt; b &gt;&gt; k;
+    ll sum = (a + b);
+    for(int i = 1; i &lt;= n; i++)
+    {
+        ll ph;
+        scanf(&quot;%lld&quot;, &amp;ph);
+        if(ph % sum == 0) ph = sum;
+        else ph %= sum;
+        if(ph &gt; a) v.push_back(ph);
+        else res++;
+    }
+    sort(v.begin(), v.end());
+    for(int i = 0; i &lt; v.size(); i++)
+    {
+        v[i] -= a;
+        ll cnt = v[i] % a == 0 ? v[i] / a : v[i] / a + 1;
+        if(k &gt;= cnt) res++, k -= cnt;
+        else break;
+    }
+    cout &lt;&lt; res &lt;&lt; endl;
+    
+}
+</code></pre>
+<p><strong>E2.String Coloring (hard version) | 字符串dp题</strong></p>
+<p><strong>题意：</strong><br>
+给定一段长度为n的字符串s<br>
+你需要给每个字符进行涂色，然后相邻的不同色的字符可以进行交换<br>
+需要保证涂色后能通过相邻交换把这个字符串按照字典序排序（a~z）<br>
+你可以使用无限种颜色，但是要保证用到的颜色种类最少<br>
+从1开始对颜色进行编号，先输出最少使用的颜色种类，再给出涂色方案<br>
+<strong>分析：</strong><br>
+可以引入一个 dp[]数组，开26个空间代表26种字母<br>
+这个数组 dp[i] 的值代表 第 i 个字母在前面涂的颜色最大编号是多少，0表示没出现过<br>
+遍历这个字符串，再从当前字母后一个位置开始往后再遍历这个数组，即找比当前字母要大的所有字母中编号最大的那个字母的编号<br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+const int maxn = 2e5 + 10;
+int n;
+char s[maxn];
+int dp[maxn][27];
+int col[maxn];
+
+int main()
+{
+    int n; cin &gt;&gt; n;
+    int res = 1;
+    cin &gt;&gt; (s + 1);
+    memset(dp, -1, sizeof(dp));
+    dp[1][s[1] - 'a' + 1] = 1;
+    col[1] = 1;
+    for(int i = 2; i &lt;= n; i++)
+    {
+        memcpy(dp[i], dp[i - 1], sizeof(dp[i]));
+        int maxcolor = -1;
+        for(int j = s[i] - 'a' + 2; j &lt;= 26; j++)
+            maxcolor = max(maxcolor, dp[i - 1][j]);
+        if(maxcolor == -1) col[i] = 1;
+        else col[i] = maxcolor + 1;
+        dp[i][s[i] - 'a' + 1] = max(dp[i][s[i] - 'a' + 1], col[i]);
+        res = max(res, col[i]);
+    }
+    cout &lt;&lt; res &lt;&lt; endl;
+    for(int i = 1; i &lt;= n; i++)
+        printf(&quot;%d%c&quot;, col[i], i == n ? '\n' : ' ');
+}
+</code></pre>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://8421BCD.github.io/post/er-fen-sou-suo-fu-he-tiao-jian-de-zui-da-zui-xiao-zhi">
+                  <h3 class="post-title">
+                    二分搜索符合条件的最大最小值
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: '',
+        owner: '',
+        admin: [''],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>
