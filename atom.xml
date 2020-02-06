@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-02-06T05:54:40.021Z</updated>
+    <updated>2020-02-06T11:57:01.758Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -10,6 +10,69 @@
     <logo>https://8421BCD.github.io/images/avatar.png</logo>
     <icon>https://8421BCD.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
+    <entry>
+        <title type="html"><![CDATA[【POJ-1703】Find them, Catch them | 并查集]]></title>
+        <id>https://8421BCD.github.io/post/poj-1703-find-them-catch-them-or-bing-cha-ji</id>
+        <link href="https://8421BCD.github.io/post/poj-1703-find-them-catch-them-or-bing-cha-ji">
+        </link>
+        <updated>2020-02-06T11:52:39.000Z</updated>
+        <summary type="html"><![CDATA[<p>并查集中的巧妙合并</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>并查集中的巧妙合并</p>
+<!--more-->
+<p><strong>题意：</strong><br>
+一个城市有两个集团，D [a] [b]表示a,b不在一个集团，A [a] [b]表示查询a,b在不在一个集团，根据已知做出三种回答。<br>
+<strong>分析：</strong><br>
+由于仅有两个帮派，所以可以这样想:每个节点i再衍生出一个新的节点i + n， 当a，b属于不同帮派的时候，可以将a和b + n合并到一个帮派， b和a + n合并到一个帮派，实属巧妙。<br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+const int maxn = 1e5 + 10;
+int fa[maxn &lt;&lt; 1];
+
+int n, m;
+
+int find(int x)
+{
+    return fa[x] = x == fa[x] ? x : find(fa[x]);
+}
+void init()
+{
+    for(int i = 1; i &lt;= n &lt;&lt; 1; i++)
+        fa[i] = i;
+}
+
+int main()
+{
+
+    int t; cin &gt;&gt; t;
+    while(t--)
+    {
+        cin &gt;&gt; n &gt;&gt; m;
+        init();
+        while(m--)
+        {
+            char ope[2];
+            int a, b;
+            scanf(&quot;%s%d%d&quot;, ope, &amp;a, &amp;b);
+            if(ope[0] == 'A')
+            {
+                if(find(a) == find(b)) cout &lt;&lt; &quot;In the same gang.&quot; &lt;&lt; endl;
+                else if(find(a) == find(b + n)) cout &lt;&lt; &quot;In different gangs.&quot; &lt;&lt; endl;
+                else cout &lt;&lt; &quot;Not sure yet.&quot; &lt;&lt; endl;
+            }
+            else
+            {
+                fa[find(a)] = find(b + n);;
+                fa[find(b)] = find(a + n);
+            }
+        }
+    }
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[下载文件 | 爬虫入门 （待更。。。）]]></title>
         <id>https://8421BCD.github.io/post/xia-zai-wen-jian-or-pa-chong-ru-men-dai-geng</id>
@@ -774,66 +837,6 @@ for i in range(20):
 8 三月的一整月 url: /item/%E4%B8%89%E6%9C%88%E7%9A%84%E4%B8%80%E6%95%B4%E6%9C%88
 9 快乐阳光 url: /item/%E5%BF%AB%E4%B9%90%E9%98%B3%E5%85%89
 
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Mondriaan's Dream（状压dp）]]></title>
-        <id>https://8421BCD.github.io/post/mondriaans-dreamzhuang-ya-dp</id>
-        <link href="https://8421BCD.github.io/post/mondriaans-dreamzhuang-ya-dp">
-        </link>
-        <updated>2020-01-27T13:23:16.000Z</updated>
-        <summary type="html"><![CDATA[<p>解决问题的关键是简化问题，利用推出的条件进行分析往往比基于原题笼统的分析更加通畅。</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>解决问题的关键是简化问题，利用推出的条件进行分析往往比基于原题笼统的分析更加通畅。</p>
-<!--more-->
-<h2 id="分析">分析:</h2>
-<p><strong>横的用11表示，竖的用法01表示。<br>
-合法的状态应该是相邻两行的或是全1，与的话不存在连续的1的个数是奇数的。可以确定的是第0行和第n行一定都是1</strong><br>
-<strong>初始化的时候认为第0行全是1，也即dp[0][(1 &lt;&lt; m)  - 1] = 1</strong><br>
-**</p>
-<h2 id="代码">代码:</h2>
-<p>**</p>
-<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-long long dp[12][2050];
-
-bool check(long long x)
-{
-	long long cnt = 0;
-	while(x)
-	{
-		if(x &amp; 1) cnt++;
-		else
-		{
-			if(cnt &amp; 1) return false;
-			cnt = 0;
-		}
-		x &gt;&gt;= 1;
-	}
-	if(cnt &amp; 1) return false;
-	return true;
-}
-
-
-signed main()
-{
-	long long n, m;
-	while(cin &gt;&gt; n &gt;&gt; m &amp;&amp; n &amp;&amp; m)
-	{
-		memset(dp, 0, sizeof(dp));
-		dp[0][(1 &lt;&lt; m) - 1] = 1;
-		for(long long i = 0; i &lt; n; i++)
-			for(long long j = 0; j &lt; (1 &lt;&lt; m); j++)
-				if(dp[i][j] &gt; 0)
-				{
-					for(long long k = 0; k &lt; (1 &lt;&lt; m); k++)
-						if((j | k) == (1 &lt;&lt; m) - 1 &amp;&amp; check(j &amp; k))
-							dp[i + 1][k] += dp[i][j];
-				}
-		cout &lt;&lt; dp[n][(1 &lt;&lt; m) - 1] &lt;&lt; endl;
-	}
-}
 </code></pre>
 ]]></content>
     </entry>
