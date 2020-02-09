@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>VScode安装配置教程 | Wannafly</title>
+<title>P3806 【模板】点分治1 | 点分治模板题 | Wannafly</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -24,9 +24,17 @@
 
 
 
-    <meta name="description" content="https://www.cnblogs.com/baihualiaoluan/p/10661669.html
-" />
-    <meta name="keywords" content="软件安装教程" />
+    <meta name="description" content="点分治模板题
+
+题意：
+给定一棵有 nn 个点的树。询问树上距离为 kk 的点对是否存在。
+分析：
+点分治模板
+代码：
+//copy AgOH's code
+#include &lt;bits/stdc++.h&gt;
+using name..." />
+    <meta name="keywords" content="" />
   </head>
   <body>
     <div id="app" class="main">
@@ -101,28 +109,144 @@
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">VScode安装配置教程</h2>
-            <div class="post-date">2020-01-26</div>
+            <h2 class="post-title">P3806 【模板】点分治1 | 点分治模板题</h2>
+            <div class="post-date">2020-02-09</div>
             
             <div class="post-content" v-pre>
-              <p>https://www.cnblogs.com/baihualiaoluan/p/10661669.html</p>
+              <p>点分治模板题</p>
+<!--more-->
+<p><strong>题意：</strong><br>
+给定一棵有 nn 个点的树。询问树上距离为 kk 的点对是否存在。<br>
+<strong>分析：</strong><br>
+点分治模板<br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">//copy AgOH's code
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+const int maxn = 1e5 + 10;
+const int maxnum = 1e8 + 10;
+struct edge
+{
+    int ep, v, nex;
+    edge(int a = 0, int b = 0, int c = 0) : ep(a), v(b), nex(c){}
+}e[maxn &lt;&lt; 1];
+int head[maxn], tot;
+int n, m;
+
+void init() {memset(head, -1, sizeof(head)); tot = 0;}
+void addedge(int sp, int ep, int v)
+{
+    e[tot] = edge(ep, v, head[sp]);
+    head[sp] = tot++;
+    e[tot] = edge(sp, v, head[ep]);
+    head[ep] = tot++;
+}
+
+int maxp[maxn], siz[maxn], vis[maxn], treesiz, root;
+int dis[maxn], judge[maxnum], tmp[maxn], tmpnum;
+int q[maxn], ok[maxn];
+
+void getroot(int now, int f)
+{
+    siz[now] = 1, maxp[now] = 0;
+    for(int i = head[now]; ~i; i = e[i].nex)
+    {
+        int ep = e[i].ep;
+        if(ep == f || vis[ep]) continue;
+        getroot(ep, now);
+        siz[now] += siz[ep];
+        maxp[now] = max(maxp[now], siz[ep]);
+    }
+    maxp[now] = max(maxp[now], treesiz - siz[now]);
+    if(maxp[now] &lt; maxp[root]) root = now;
+}
+
+void getdis(int now, int f)
+{
+    tmp[tmpnum++] = dis[now];
+    for(int i = head[now]; ~i; i = e[i].nex)
+    {
+        int ep = e[i].ep, v = e[i].v;
+        if(vis[ep] || ep == f) continue;
+        dis[ep] = dis[now] + v;
+        getdis(ep, now);
+    }
+}
+
+void solve(int now)
+{
+    queue&lt;int&gt; que;
+    for(int i = head[now]; ~i; i = e[i].nex)
+    {
+        int ep = e[i].ep, v = e[i].v;
+        if(vis[ep]) continue;
+        tmpnum = 0;
+        dis[ep] = v;
+        getdis(ep, now);
+        for(int j = 0; j &lt; tmpnum; j++)
+            for(int k = 0; k &lt; m; k++)
+                if(q[k] &gt;= tmp[j])
+                    ok[k] |= judge[q[k] - tmp[j]];
+        for(int j = 0; j &lt; tmpnum; j++)
+        {
+            que.push(tmp[j]);
+            judge[tmp[j]] = true;
+        }
+    }
+    while(!que.empty())
+    {
+        judge[que.front()] = false;
+        que.pop();
+    }
+}
+
+void divide(int now)
+{
+    vis[now] = judge[0] = true;
+    solve(now);
+    for(int i = head[now]; ~i; i = e[i].nex)
+    {
+        int ep = e[i].ep;
+        if(vis[ep]) continue;
+        maxp[root = 0] = treesiz = siz[ep];
+        getroot(ep, -1);
+        getroot(root, -1);
+        divide(root);
+    }
+}
+
+int main()
+{
+    cin &gt;&gt; n &gt;&gt; m;
+    init();
+    for(int i = 1; i &lt; n; i++)
+    {
+        int x, y, v;
+        scanf(&quot;%d%d%d&quot;, &amp;x, &amp;y, &amp;v);
+        addedge(x, y, v);
+    }
+    for(int i = 0; i &lt; m; i++)
+        scanf(&quot;%d&quot;, q + i);
+    maxp[root = 0] = treesiz = n;
+    getroot(1, -1);
+    getroot(root, -1);
+    divide(root);
+    for(int i = 0; i &lt; m; i++)
+    {
+        if(ok[i]) puts(&quot;AYE&quot;);
+        else puts(&quot;NAY&quot;);
+    }
+}
+</code></pre>
 
             </div>
-            
-              <div class="tag-container">
-                
-                  <a href="https://8421BCD.github.io/tag/fu2QS9-a6" class="tag">
-                    软件安装教程
-                  </a>
-                
-              </div>
             
             
               <div class="next-post">
                 <div class="next">下一篇</div>
-                <a href="https://8421BCD.github.io/post/educational-codeforces-round-80">
+                <a href="https://8421BCD.github.io/post/wang-luo-liu-suan-fa-mo-ban">
                   <h3 class="post-title">
-                    Educational Codeforces Round 80
+                    网络流算法模板
                   </h3>
                 </a>
               </div>

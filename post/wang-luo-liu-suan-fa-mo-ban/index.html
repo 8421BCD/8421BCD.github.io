@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>网络流算法模板 | Wannafly</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1581248287937">
+<link rel="stylesheet" href="https://8421BCD.github.io//styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="
+EK
+
+//EK算法
+#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+#include &lt;algorithm&gt;
+#include &lt;queue&gt;
+using na..." />
+    <meta name="keywords" content="网络流" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://8421BCD.github.io/">
+        <img src="https://8421BCD.github.io//images/avatar.png?v=1581248287937" class="site-logo">
+        <h1 class="site-title">Wannafly</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/8421BCD" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      小小的天，有大大的梦想
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://8421BCD.github.io//atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">网络流算法模板</h2>
+            <div class="post-date">2020-02-07</div>
+            
+            <div class="post-content" v-pre>
+              <ul>
+<li><strong>EK</strong></li>
+</ul>
+<pre><code class="language-cpp">//EK算法
+#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+#include &lt;algorithm&gt;
+#include &lt;queue&gt;
+using namespace std;
+
+const int N = 210,INF = (int)1e9;
+int n,m,tot;
+int head[N],pre[N],res[N];
+queue&lt;int &gt; que;
+struct node{
+    int to,w,nxt;
+}e[N &lt;&lt; 1];
+
+inline void init(){
+    while(!que.empty()) que.pop();
+    for(int i = 1; i &lt;= n; ++i) res[i] = 0;
+}
+
+inline void add(int u,int v,int w){
+    e[tot].to = v; e[tot].w = w; e[tot].nxt = head[u]; head[u] = tot++;
+}
+
+bool bfs(int s,int t){
+    init();
+    pre[s] = -1;
+    res[s] = INF;
+    que.push(s);
+    int now,to;
+    while(!que.empty()){
+        now = que.front(); que.pop();
+        for(int o = head[now]; ~o; o = e[o].nxt){
+            to = e[o].to;
+            if(!res[to] &amp;&amp; e[o].w){
+                pre[to] = o;
+                res[to] = min(e[o].w, res[now]);
+                if(to == t) return true;
+                que.push(to);
+            }
+        }
+    }
+    return false;
+}
+
+int EK(int s,int t){
+    int ans = 0;
+    while(bfs(s,t)){
+        for(int o = pre[t]; ~o; o = pre[e[o^1].to]){
+            e[o].w -= res[t];
+            e[o^1].w += res[t];
+        }
+        ans += res[t];
+    }
+    return ans;
+}
+
+int main(){
+
+    int u,v,w;
+    while(~scanf(&quot;%d%d&quot;,&amp;m,&amp;n)){
+        for(int i = 1; i &lt;= n; ++i) head[i] = -1; tot = 0;
+        for(int i = 1; i &lt;= m; ++i){
+            scanf(&quot;%d%d%d&quot;,&amp;u,&amp;v,&amp;w);
+            add(u,v,w); add(v,u,0);
+        }
+        printf(&quot;%d\n&quot;,EK(1,n));
+    }
+
+    return 0;
+}
+</code></pre>
+<ul>
+<li><strong>dinic</strong></li>
+</ul>
+<pre><code class="language-cpp">//Dinic算法
+#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+#include &lt;algorithm&gt;
+#include &lt;queue&gt;
+using namespace std;
+
+const int N = 10010,M = 100010,inf = (int)1e9;
+int n,m,s,t,tot;
+int head[N],lev[N];
+queue&lt;int &gt; que;
+struct node{
+    int to,w,nxt;
+}e[M&lt;&lt;1];
+
+inline void add(int u,int v,int w){
+    e[tot].to = v; e[tot].w = w; e[tot].nxt = head[u]; head[u] = tot++;
+}
+
+inline void init(){
+    while(!que.empty()) que.pop();
+    for(int i = 1; i &lt;= n; ++i) lev[i] = 0;
+}
+
+bool bfs(int s,int t){
+    lev[s] = 1;
+    que.push(s);
+    int now,to;
+    while(!que.empty()){
+        now = que.front(); que.pop();
+        if(now == t) return true;
+        for(int o = head[now]; ~o; o = e[o].nxt){
+            to = e[o].to;
+            if(!lev[to] &amp;&amp; e[o].w){
+                lev[to] = lev[now] + 1;
+                que.push(to);
+            }
+        }
+    }
+    return false;
+}
+
+int dfs(int now,int flow,int t){
+    if(now == t) return flow;
+    int to,sum = 0,tmp;
+    for(int o = head[now]; ~o; o = e[o].nxt){
+        to = e[o].to;
+        if(e[o].w &amp;&amp; lev[now] == lev[to] - 1){
+            tmp = dfs(to,min(flow - sum, e[o].w),t);
+            e[o].w -= tmp; e[o^1].w += tmp;
+            if((sum += tmp) == flow) return sum;
+        }
+    }
+    return sum;
+}
+
+int main(){
+
+    int u,v,w;
+    scanf(&quot;%d%d%d%d&quot;,&amp;n,&amp;m,&amp;s,&amp;t);
+    for(int i = 1; i &lt;= n; ++i) head[i] = -1;
+    for(int i = 1; i &lt;= m; ++i){
+        scanf(&quot;%d%d%d&quot;,&amp;u,&amp;v,&amp;w);
+        add(u,v,w); add(v,u,0);
+    }
+    int ans = 0;
+    while(bfs(s,t)){
+        ans += dfs(s,inf,t);
+        init();
+    }
+    printf(&quot;%d\n&quot;,ans);
+
+    return 0;
+}
+</code></pre>
+<ul>
+<li><strong>最小费用最大流</strong></li>
+</ul>
+<pre><code class="language-cpp">//最小费用最大流
+#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+#include &lt;algorithm&gt;
+#include &lt;queue&gt;
+using namespace std;
+
+const int N = (int)5e3+100,M = (int)5e4+100,INF = (int)1e9;
+int n,m,s,t,tot;
+int head[N],pre[N],dis[N],vis[N];
+queue&lt;int &gt; que;
+struct node{
+    int to,nxt,cap,cost,flow;
+}e[M &lt;&lt; 1];
+
+inline void add(int u,int v,int cap,int cost,int flow){
+    e[tot].to = v;
+    e[tot].cap = cap;
+    e[tot].cost = cost;
+    e[tot].flow = flow;
+    e[tot].nxt = head[u];
+    head[u] = tot++;
+}
+
+inline void init(){
+    for(int i = 1; i &lt;= n; ++i){
+        vis[i] = false;
+        dis[i] = INF;
+        pre[i] = -1;
+    }
+    while(!que.empty()) que.pop();
+}
+
+bool spfa(int s,int){
+    init();
+    vis[s] = true; dis[s] = 0; que.push(s);
+    int now,to;
+    while(!que.empty()){
+        now = que.front(); que.pop();
+        vis[now] = false;
+        for(int o = head[now]; ~o; o = e[o].nxt){
+            to = e[o].to;
+            if(e[o].cap &gt; e[o].flow &amp;&amp; dis[to] &gt; dis[now] + e[o].cost){
+                dis[to] = dis[now] + e[o].cost;
+                pre[to] = o;
+                if(!vis[to]){
+                    vis[to] = true; que.push(to);
+                }
+            }
+        }
+    }
+    if(pre[t] == -1) return false;
+    else return true;
+}
+
+int mcmf(int s,int t,int&amp; min_cost){
+
+    int max_flow = 0,_min = INF;
+    while(spfa(s,t)){
+        _min = INF;
+        for(int o = pre[t]; ~o; o = pre[e[o^1].to]){
+            _min = min(_min,e[o].cap - e[o].flow);
+        }
+        for(int o = pre[t]; ~o; o = pre[e[o^1].to]){
+            e[o].flow += _min;
+            e[o^1].flow -= _min;
+        }
+        min_cost += dis[t]*_min;
+        max_flow += _min;
+    }
+    return max_flow;
+}
+
+int main(){
+
+    int u,v,cap,cost,min_cost = 0;
+    scanf(&quot;%d%d%d%d&quot;,&amp;n,&amp;m,&amp;s,&amp;t);
+    for(int i = 1; i &lt;= n; ++i) head[i] = -1; tot = 0;
+    for(int i = 1; i &lt;= m; ++i){
+        scanf(&quot;%d%d%d%d&quot;,&amp;u,&amp;v,&amp;cap,&amp;cost);
+        add(u,v,cap,cost,0);
+        add(v,u,0,-cost,0);
+    }
+    cout &lt;&lt; mcmf(s,t,min_cost) &lt;&lt; &quot; &quot; &lt;&lt; min_cost &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://8421BCD.github.io/tag/gQuqOeuTa" class="tag">
+                    网络流
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://8421BCD.github.io/post/poj-1703-find-them-catch-them-or-bing-cha-ji">
+                  <h3 class="post-title">
+                    【POJ-1703】Find them, Catch them | 并查集
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: '',
+        owner: '',
+        admin: [''],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>

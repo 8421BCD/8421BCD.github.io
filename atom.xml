@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-02-06T12:06:07.582Z</updated>
+    <updated>2020-02-09T11:38:12.225Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -10,6 +10,393 @@
     <logo>https://8421BCD.github.io/images/avatar.png</logo>
     <icon>https://8421BCD.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
+    <entry>
+        <title type="html"><![CDATA[P3806 【模板】点分治1 | 点分治模板题]]></title>
+        <id>https://8421BCD.github.io/post/p3806-mo-ban-dian-fen-zhi-1-or-dian-fen-zhi-mo-ban-ti</id>
+        <link href="https://8421BCD.github.io/post/p3806-mo-ban-dian-fen-zhi-1-or-dian-fen-zhi-mo-ban-ti">
+        </link>
+        <updated>2020-02-09T11:35:11.000Z</updated>
+        <summary type="html"><![CDATA[<p>点分治模板题</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>点分治模板题</p>
+<!--more-->
+<p><strong>题意：</strong><br>
+给定一棵有 nn 个点的树。询问树上距离为 kk 的点对是否存在。<br>
+<strong>分析：</strong><br>
+点分治模板<br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">//copy AgOH's code
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+const int maxn = 1e5 + 10;
+const int maxnum = 1e8 + 10;
+struct edge
+{
+    int ep, v, nex;
+    edge(int a = 0, int b = 0, int c = 0) : ep(a), v(b), nex(c){}
+}e[maxn &lt;&lt; 1];
+int head[maxn], tot;
+int n, m;
+
+void init() {memset(head, -1, sizeof(head)); tot = 0;}
+void addedge(int sp, int ep, int v)
+{
+    e[tot] = edge(ep, v, head[sp]);
+    head[sp] = tot++;
+    e[tot] = edge(sp, v, head[ep]);
+    head[ep] = tot++;
+}
+
+int maxp[maxn], siz[maxn], vis[maxn], treesiz, root;
+int dis[maxn], judge[maxnum], tmp[maxn], tmpnum;
+int q[maxn], ok[maxn];
+
+void getroot(int now, int f)
+{
+    siz[now] = 1, maxp[now] = 0;
+    for(int i = head[now]; ~i; i = e[i].nex)
+    {
+        int ep = e[i].ep;
+        if(ep == f || vis[ep]) continue;
+        getroot(ep, now);
+        siz[now] += siz[ep];
+        maxp[now] = max(maxp[now], siz[ep]);
+    }
+    maxp[now] = max(maxp[now], treesiz - siz[now]);
+    if(maxp[now] &lt; maxp[root]) root = now;
+}
+
+void getdis(int now, int f)
+{
+    tmp[tmpnum++] = dis[now];
+    for(int i = head[now]; ~i; i = e[i].nex)
+    {
+        int ep = e[i].ep, v = e[i].v;
+        if(vis[ep] || ep == f) continue;
+        dis[ep] = dis[now] + v;
+        getdis(ep, now);
+    }
+}
+
+void solve(int now)
+{
+    queue&lt;int&gt; que;
+    for(int i = head[now]; ~i; i = e[i].nex)
+    {
+        int ep = e[i].ep, v = e[i].v;
+        if(vis[ep]) continue;
+        tmpnum = 0;
+        dis[ep] = v;
+        getdis(ep, now);
+        for(int j = 0; j &lt; tmpnum; j++)
+            for(int k = 0; k &lt; m; k++)
+                if(q[k] &gt;= tmp[j])
+                    ok[k] |= judge[q[k] - tmp[j]];
+        for(int j = 0; j &lt; tmpnum; j++)
+        {
+            que.push(tmp[j]);
+            judge[tmp[j]] = true;
+        }
+    }
+    while(!que.empty())
+    {
+        judge[que.front()] = false;
+        que.pop();
+    }
+}
+
+void divide(int now)
+{
+    vis[now] = judge[0] = true;
+    solve(now);
+    for(int i = head[now]; ~i; i = e[i].nex)
+    {
+        int ep = e[i].ep;
+        if(vis[ep]) continue;
+        maxp[root = 0] = treesiz = siz[ep];
+        getroot(ep, -1);
+        getroot(root, -1);
+        divide(root);
+    }
+}
+
+int main()
+{
+    cin &gt;&gt; n &gt;&gt; m;
+    init();
+    for(int i = 1; i &lt; n; i++)
+    {
+        int x, y, v;
+        scanf(&quot;%d%d%d&quot;, &amp;x, &amp;y, &amp;v);
+        addedge(x, y, v);
+    }
+    for(int i = 0; i &lt; m; i++)
+        scanf(&quot;%d&quot;, q + i);
+    maxp[root = 0] = treesiz = n;
+    getroot(1, -1);
+    getroot(root, -1);
+    divide(root);
+    for(int i = 0; i &lt; m; i++)
+    {
+        if(ok[i]) puts(&quot;AYE&quot;);
+        else puts(&quot;NAY&quot;);
+    }
+}
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[网络流算法模板]]></title>
+        <id>https://8421BCD.github.io/post/wang-luo-liu-suan-fa-mo-ban</id>
+        <link href="https://8421BCD.github.io/post/wang-luo-liu-suan-fa-mo-ban">
+        </link>
+        <updated>2020-02-07T09:14:29.000Z</updated>
+        <content type="html"><![CDATA[<ul>
+<li><strong>EK</strong></li>
+</ul>
+<pre><code class="language-cpp">//EK算法
+#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+#include &lt;algorithm&gt;
+#include &lt;queue&gt;
+using namespace std;
+
+const int N = 210,INF = (int)1e9;
+int n,m,tot;
+int head[N],pre[N],res[N];
+queue&lt;int &gt; que;
+struct node{
+    int to,w,nxt;
+}e[N &lt;&lt; 1];
+
+inline void init(){
+    while(!que.empty()) que.pop();
+    for(int i = 1; i &lt;= n; ++i) res[i] = 0;
+}
+
+inline void add(int u,int v,int w){
+    e[tot].to = v; e[tot].w = w; e[tot].nxt = head[u]; head[u] = tot++;
+}
+
+bool bfs(int s,int t){
+    init();
+    pre[s] = -1;
+    res[s] = INF;
+    que.push(s);
+    int now,to;
+    while(!que.empty()){
+        now = que.front(); que.pop();
+        for(int o = head[now]; ~o; o = e[o].nxt){
+            to = e[o].to;
+            if(!res[to] &amp;&amp; e[o].w){
+                pre[to] = o;
+                res[to] = min(e[o].w, res[now]);
+                if(to == t) return true;
+                que.push(to);
+            }
+        }
+    }
+    return false;
+}
+
+int EK(int s,int t){
+    int ans = 0;
+    while(bfs(s,t)){
+        for(int o = pre[t]; ~o; o = pre[e[o^1].to]){
+            e[o].w -= res[t];
+            e[o^1].w += res[t];
+        }
+        ans += res[t];
+    }
+    return ans;
+}
+
+int main(){
+
+    int u,v,w;
+    while(~scanf(&quot;%d%d&quot;,&amp;m,&amp;n)){
+        for(int i = 1; i &lt;= n; ++i) head[i] = -1; tot = 0;
+        for(int i = 1; i &lt;= m; ++i){
+            scanf(&quot;%d%d%d&quot;,&amp;u,&amp;v,&amp;w);
+            add(u,v,w); add(v,u,0);
+        }
+        printf(&quot;%d\n&quot;,EK(1,n));
+    }
+
+    return 0;
+}
+</code></pre>
+<ul>
+<li><strong>dinic</strong></li>
+</ul>
+<pre><code class="language-cpp">//Dinic算法
+#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+#include &lt;algorithm&gt;
+#include &lt;queue&gt;
+using namespace std;
+
+const int N = 10010,M = 100010,inf = (int)1e9;
+int n,m,s,t,tot;
+int head[N],lev[N];
+queue&lt;int &gt; que;
+struct node{
+    int to,w,nxt;
+}e[M&lt;&lt;1];
+
+inline void add(int u,int v,int w){
+    e[tot].to = v; e[tot].w = w; e[tot].nxt = head[u]; head[u] = tot++;
+}
+
+inline void init(){
+    while(!que.empty()) que.pop();
+    for(int i = 1; i &lt;= n; ++i) lev[i] = 0;
+}
+
+bool bfs(int s,int t){
+    lev[s] = 1;
+    que.push(s);
+    int now,to;
+    while(!que.empty()){
+        now = que.front(); que.pop();
+        if(now == t) return true;
+        for(int o = head[now]; ~o; o = e[o].nxt){
+            to = e[o].to;
+            if(!lev[to] &amp;&amp; e[o].w){
+                lev[to] = lev[now] + 1;
+                que.push(to);
+            }
+        }
+    }
+    return false;
+}
+
+int dfs(int now,int flow,int t){
+    if(now == t) return flow;
+    int to,sum = 0,tmp;
+    for(int o = head[now]; ~o; o = e[o].nxt){
+        to = e[o].to;
+        if(e[o].w &amp;&amp; lev[now] == lev[to] - 1){
+            tmp = dfs(to,min(flow - sum, e[o].w),t);
+            e[o].w -= tmp; e[o^1].w += tmp;
+            if((sum += tmp) == flow) return sum;
+        }
+    }
+    return sum;
+}
+
+int main(){
+
+    int u,v,w;
+    scanf(&quot;%d%d%d%d&quot;,&amp;n,&amp;m,&amp;s,&amp;t);
+    for(int i = 1; i &lt;= n; ++i) head[i] = -1;
+    for(int i = 1; i &lt;= m; ++i){
+        scanf(&quot;%d%d%d&quot;,&amp;u,&amp;v,&amp;w);
+        add(u,v,w); add(v,u,0);
+    }
+    int ans = 0;
+    while(bfs(s,t)){
+        ans += dfs(s,inf,t);
+        init();
+    }
+    printf(&quot;%d\n&quot;,ans);
+
+    return 0;
+}
+</code></pre>
+<ul>
+<li><strong>最小费用最大流</strong></li>
+</ul>
+<pre><code class="language-cpp">//最小费用最大流
+#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+#include &lt;algorithm&gt;
+#include &lt;queue&gt;
+using namespace std;
+
+const int N = (int)5e3+100,M = (int)5e4+100,INF = (int)1e9;
+int n,m,s,t,tot;
+int head[N],pre[N],dis[N],vis[N];
+queue&lt;int &gt; que;
+struct node{
+    int to,nxt,cap,cost,flow;
+}e[M &lt;&lt; 1];
+
+inline void add(int u,int v,int cap,int cost,int flow){
+    e[tot].to = v;
+    e[tot].cap = cap;
+    e[tot].cost = cost;
+    e[tot].flow = flow;
+    e[tot].nxt = head[u];
+    head[u] = tot++;
+}
+
+inline void init(){
+    for(int i = 1; i &lt;= n; ++i){
+        vis[i] = false;
+        dis[i] = INF;
+        pre[i] = -1;
+    }
+    while(!que.empty()) que.pop();
+}
+
+bool spfa(int s,int){
+    init();
+    vis[s] = true; dis[s] = 0; que.push(s);
+    int now,to;
+    while(!que.empty()){
+        now = que.front(); que.pop();
+        vis[now] = false;
+        for(int o = head[now]; ~o; o = e[o].nxt){
+            to = e[o].to;
+            if(e[o].cap &gt; e[o].flow &amp;&amp; dis[to] &gt; dis[now] + e[o].cost){
+                dis[to] = dis[now] + e[o].cost;
+                pre[to] = o;
+                if(!vis[to]){
+                    vis[to] = true; que.push(to);
+                }
+            }
+        }
+    }
+    if(pre[t] == -1) return false;
+    else return true;
+}
+
+int mcmf(int s,int t,int&amp; min_cost){
+
+    int max_flow = 0,_min = INF;
+    while(spfa(s,t)){
+        _min = INF;
+        for(int o = pre[t]; ~o; o = pre[e[o^1].to]){
+            _min = min(_min,e[o].cap - e[o].flow);
+        }
+        for(int o = pre[t]; ~o; o = pre[e[o^1].to]){
+            e[o].flow += _min;
+            e[o^1].flow -= _min;
+        }
+        min_cost += dis[t]*_min;
+        max_flow += _min;
+    }
+    return max_flow;
+}
+
+int main(){
+
+    int u,v,cap,cost,min_cost = 0;
+    scanf(&quot;%d%d%d%d&quot;,&amp;n,&amp;m,&amp;s,&amp;t);
+    for(int i = 1; i &lt;= n; ++i) head[i] = -1; tot = 0;
+    for(int i = 1; i &lt;= m; ++i){
+        scanf(&quot;%d%d%d%d&quot;,&amp;u,&amp;v,&amp;cap,&amp;cost);
+        add(u,v,cap,cost,0);
+        add(v,u,0,-cost,0);
+    }
+    cout &lt;&lt; mcmf(s,t,min_cost) &lt;&lt; &quot; &quot; &lt;&lt; min_cost &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[【POJ-1703】Find them, Catch them | 并查集]]></title>
         <id>https://8421BCD.github.io/post/poj-1703-find-them-catch-them-or-bing-cha-ji</id>
@@ -96,6 +483,32 @@ urlretrieve(IMAGE_URL, FILE_URL)
 with open('./img/image3.png', 'wb') as f:#with open也是打开文件的一种方法，wh是用二进制打开；with open省去了文件的关闭操作，更加方便
     for chunk in r.iter_content(chunk_size=32):
         f.write(chunk)
+</code></pre>
+<ul>
+<li><strong>小练习：下载美图</strong><br>
+<img src="https://8421BCD.github.io//post-images/1581004884058.png" alt="" loading="lazy"><br>
+<strong>规律</strong>：图片链接都存在于 img_list 的这种 <ul> 的<img>中。<br>
+<strong>做法</strong>：先找带有 img_list 的这种 <ul>, 然后在 <ul> 里面找 <img>.</li>
+</ul>
+<pre><code class="language-python">from bs4 import BeautifulSoup
+import requests
+URL = &quot;http://www.nationalgeographic.com.cn/animals/&quot;
+html = requests.get(URL).text
+soup = BeautifulSoup(html, 'lxml')
+img_ul = soup.find_all('ul', {&quot;class&quot;: &quot;img_list&quot;})
+for ul in img_ul:
+    print(ul)
+    print(&quot;------------------------&quot;)
+for ul in img_ul:
+    imgs = ul.find_all('img')
+    for img in imgs:
+        url = img['src']
+        r = requests.get(url, stream = True)
+        image_name = url.split('/')[-1]
+        with open('./img/%s' % image_name, 'wb') as f:
+            for chunk in r.iter_content(chunk_size=128):
+                f.write(chunk)
+        print(&quot;saved %s&quot; % image_name)
 </code></pre>
 ]]></content>
     </entry>
@@ -698,145 +1111,6 @@ int main()
 <p><strong>分析：</strong></p>
 <p><strong>代码：</strong></p>
 <pre><code class="language-cpp">
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[不要62 hdu2089（数位dp + 记忆化搜索）]]></title>
-        <id>https://8421BCD.github.io/post/bu-yao-62-hdu2089shu-wei-dp-ji-yi-hua-sou-suo</id>
-        <link href="https://8421BCD.github.io/post/bu-yao-62-hdu2089shu-wei-dp-ji-yi-hua-sou-suo">
-        </link>
-        <updated>2020-02-02T03:07:50.000Z</updated>
-        <summary type="html"><![CDATA[<p>数位dp热身题</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>数位dp热身题</p>
-<!--more-->
-<figure data-type="image" tabindex="1"><img src="https://8421BCD.github.io//post-images/1580612924699.jpg" alt="" loading="lazy"></figure>
-<h3 id="题目"><strong>题目</strong>:</h3>
-<p>求n-m中不含4和“62”的数的个数</p>
-<h3 id="分析"><strong>分析</strong>:</h3>
-<p>dp[i][j]  表示在第i位不是极限位，且前一位是6（j  = 1）， 或不是6（j = 0）的时候的要求数的个数。</p>
-<h3 id="代码"><strong>代码</strong>：</h3>
-<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-int digit[20];
-int dp[20][2];
-
-int dfs(int pos, int limit, int lastdigit)
-{
-	if(pos == -1) return 1;
-	if(!limit &amp;&amp; dp[pos][lastdigit == 6])
-		return dp[pos][lastdigit == 6];
-	int res = 0;
-	int top = limit ? digit[pos] : 9;
-	for(int i = 0; i &lt;= top; i++)
-	{
-		if(i == 4 || (i == 2 &amp;&amp; lastdigit == 6)) continue;
-		res += dfs(pos - 1, limit &amp;&amp; i == top, i);
-	}
-	if(!limit) dp[pos][lastdigit == 6] = res;
-	return res;	
-}
-
-int solve(int n)
-{
-	int pos = 0;
-	while(n)
-	{
-		digit[pos++] = n % 10;
-		n /= 10;
-	}
-	return dfs(pos - 1, 1, 0);
-}
-
-int main()
-{
-	int n, m;
-	while(cin &gt;&gt; n &gt;&gt; m &amp;&amp; (n || m))
-	{
-		cout &lt;&lt; solve(m) - solve(n - 1) &lt;&lt; endl;
-	}
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[爬取百度百科]]></title>
-        <id>https://8421BCD.github.io/post/pa-qu-bai-du-bai-ke</id>
-        <link href="https://8421BCD.github.io/post/pa-qu-bai-du-bai-ke">
-        </link>
-        <updated>2020-01-30T16:05:35.000Z</updated>
-        <summary type="html"><![CDATA[<p>深度跳转网页，有时候会报错，不知道为什么</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>深度跳转网页，有时候会报错，不知道为什么</p>
-<!--more-->
-<figure data-type="image" tabindex="1"><img src="https://8421BCD.github.io//post-images/1580430245069.jpg" alt="" loading="lazy"></figure>
-<ul>
-<li><strong>导入需要的包</strong></li>
-</ul>
-<pre><code class="language-python">from bs4 import BeautifulSoup
-from urllib.request import urlopen
-import re
-import random
-</code></pre>
-<ul>
-<li><strong>导入网址</strong></li>
-</ul>
-<pre><code class="language-python">base_url = &quot;https://baike.baidu.com&quot;
-his = [&quot;/item/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/5162711&quot;]
-</code></pre>
-<ul>
-<li><strong>lxml解析，find选择匹配结果</strong></li>
-</ul>
-<pre><code class="language-python">url = base_url + his[-1]
-html = urlopen(url).read().decode('utf-8')
-soup = BeautifulSoup(html, features = &quot;lxml&quot;)
-print(soup.find('a').get_text(), &quot;url:&quot;, his[-1])
-
-</code></pre>
-<ul>
-<li><strong>正则表达式匹配筛选内容</strong></li>
-</ul>
-<pre><code class="language-python">sub_urls = soup.find_all(&quot;a&quot;, {&quot;target&quot;: &quot;_blank&quot;, &quot;href&quot;: re.compile(&quot;/item/(%.{2})+$&quot;)})
-if len(sub_urls) != 0:
-    his.append(random.sample(sub_urls, 1)[0]['href'])
-else:
-    his.pop()
-print(his)
-</code></pre>
-<ul>
-<li><strong>dfs跳转网页</strong></li>
-</ul>
-<pre><code class="language-python">base_url = &quot;https://baike.baidu.com&quot;
-his = [&quot;/item/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/5162711&quot;]
-
-for i in range(20):
-    url = base_url + his[-1]
-    html = urlopen(url).read().decode('utf-8')
-    soup = BeautifulSoup(html, features='lxml')
-    print('第', i, '次访问', soup.find('h1').get_text(), 'url:', his[-1])
-
-    sub_urls = soup.find_all(&quot;a&quot;, {&quot;target&quot;: &quot;_blank&quot;, &quot;href&quot;: re.compile(&quot;/item/(%.{2})+$&quot;)})
-    if len(sub_urls) != 0:
-        his.append(random.sample(sub_urls, 1)[0]['href'])#[0]表示样本列表中要抽取元素的下标
-    else:
-        his.pop()
-
-</code></pre>
-<ul>
-<li><strong>爬取结果</strong></li>
-</ul>
-<pre><code class="language-python">0 网络爬虫 url: /item/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/5162711
-1 用户标识 url: /item/%E7%94%A8%E6%88%B7%E6%A0%87%E8%AF%86
-2 义项 url: /item/%E4%B9%89%E9%A1%B9
-3 小提琴协奏曲 url: /item/%E5%B0%8F%E6%8F%90%E7%90%B4%E5%8D%8F%E5%A5%8F%E6%9B%B2
-4 彼得·伊里奇·柴可夫斯基 url: /item/%E6%9F%B4%E7%A7%91%E5%A4%AB%E6%96%AF%E5%9F%BA
-5 作曲家 url: /item/%E4%BD%9C%E6%9B%B2%E5%AE%B6
-6 义项 url: /item/%E4%B9%89%E9%A1%B9
-7 李健 url: /item/%E6%9D%8E%E5%81%A5
-8 三月的一整月 url: /item/%E4%B8%89%E6%9C%88%E7%9A%84%E4%B8%80%E6%95%B4%E6%9C%88
-9 快乐阳光 url: /item/%E5%BF%AB%E4%B9%90%E9%98%B3%E5%85%89
-
 </code></pre>
 ]]></content>
     </entry>
