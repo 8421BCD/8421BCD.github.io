@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-02-09T11:38:12.225Z</updated>
+    <updated>2020-02-11T04:17:23.932Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -10,6 +10,154 @@
     <logo>https://8421BCD.github.io/images/avatar.png</logo>
     <icon>https://8421BCD.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
+    <entry>
+        <title type="html"><![CDATA[subline text3 配置c++万能头文件和C11标准]]></title>
+        <id>https://8421BCD.github.io/post/subline-text3-pei-zhi-cwan-neng-tou-wen-jian-he-c11-biao-zhun</id>
+        <link href="https://8421BCD.github.io/post/subline-text3-pei-zhi-cwan-neng-tou-wen-jian-he-c11-biao-zhun">
+        </link>
+        <updated>2020-02-11T04:12:02.000Z</updated>
+        <content type="html"><![CDATA[<p>-** C++.sublime-build文件**</p>
+<pre><code class="language-json">{
+	&quot;path&quot;: &quot;C:/Program Files (x86)/TDM-GCC-64/TDM-GCC-64/bin&quot;,
+	&quot;shell_cmd&quot;: &quot;g++ \&quot;${file}\&quot; -o \&quot;${file_path}/${file_base_name}\&quot;&quot;,
+	&quot;file_regex&quot;: &quot;^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$&quot;,
+	&quot;working_dir&quot;: &quot;${file_path}&quot;,
+	&quot;selector&quot;: &quot;source.c, source.c++&quot;,
+
+	&quot;variants&quot;:
+	[
+		{
+			&quot;name&quot;: &quot;Run&quot;,
+			&quot;shell_cmd&quot;: &quot;g++ -std=c++11 \&quot;${file}\&quot; -o \&quot;${file_path}/${file_base_name}\&quot; &amp;&amp; \&quot;${file_path}/${file_base_name}\&quot; &lt; input.txt &gt; output.txt&quot;
+		}
+	]
+}
+</code></pre>
+<ul>
+<li><strong>添加万能头文件</strong></li>
+<li>path：C:\Program Files (x86)\TDM-GCC-64\TDM-GCC-64\include<br>
+在include的下面创建一个bits文件，在文件夹下面粘贴stdc++.h文件</li>
+</ul>
+<pre><code class="language-cpp">// C++ includes used for precompiling -*- C++ -*-
+ 
+// Copyright (C) 2003-2014 Free Software Foundation, Inc.
+//
+// This file is part of the GNU ISO C++ Library.  This library is free
+// software; you can redistribute it and/or modify it under the
+// terms of the GNU General Public License as published by the
+// Free Software Foundation; either version 3, or (at your option)
+// any later version.
+ 
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+ 
+// Under Section 7 of GPL version 3, you are granted additional
+// permissions described in the GCC Runtime Library Exception, version
+// 3.1, as published by the Free Software Foundation.
+ 
+// You should have received a copy of the GNU General Public License and
+// a copy of the GCC Runtime Library Exception along with this program;
+// see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
+// &lt;http://www.gnu.org/licenses/&gt;.
+ 
+/** @file stdc++.h
+ *  This is an implementation file for a precompiled header.
+ */
+ 
+// 17.4.1.2 Headers
+ 
+// C
+#ifndef _GLIBCXX_NO_ASSERT
+#include &lt;cassert&gt;
+#endif
+#include &lt;cctype&gt;
+#include &lt;cerrno&gt;
+#include &lt;cfloat&gt;
+#include &lt;ciso646&gt;
+#include &lt;climits&gt;
+#include &lt;clocale&gt;
+#include &lt;cmath&gt;
+#include &lt;csetjmp&gt;
+#include &lt;csignal&gt;
+#include &lt;cstdarg&gt;
+#include &lt;cstddef&gt;
+#include &lt;cstdio&gt;
+#include &lt;cstdlib&gt;
+#include &lt;cstring&gt;
+#include &lt;ctime&gt;
+ 
+#if __cplusplus &gt;= 201103L
+#include &lt;ccomplex&gt;
+#include &lt;cfenv&gt;
+#include &lt;cinttypes&gt;
+#include &lt;cstdbool&gt;
+#include &lt;cstdint&gt;
+#include &lt;ctgmath&gt;
+#include &lt;cwchar&gt;
+#include &lt;cwctype&gt;
+#endif
+ 
+// C++
+#include &lt;algorithm&gt;
+#include &lt;bitset&gt;
+#include &lt;complex&gt;
+#include &lt;deque&gt;
+#include &lt;exception&gt;
+#include &lt;fstream&gt;
+#include &lt;functional&gt;
+#include &lt;iomanip&gt;
+#include &lt;ios&gt;
+#include &lt;iosfwd&gt;
+#include &lt;iostream&gt;
+#include &lt;istream&gt;
+#include &lt;iterator&gt;
+#include &lt;limits&gt;
+#include &lt;list&gt;
+#include &lt;locale&gt;
+#include &lt;map&gt;
+#include &lt;memory&gt;
+#include &lt;new&gt;
+#include &lt;numeric&gt;
+#include &lt;ostream&gt;
+#include &lt;queue&gt;
+#include &lt;set&gt;
+#include &lt;sstream&gt;
+#include &lt;stack&gt;
+#include &lt;stdexcept&gt;
+#include &lt;streambuf&gt;
+#include &lt;string&gt;
+#include &lt;typeinfo&gt;
+#include &lt;utility&gt;
+#include &lt;valarray&gt;
+#include &lt;vector&gt;
+ 
+#if __cplusplus &gt;= 201103L
+#include &lt;array&gt;
+#include &lt;atomic&gt;
+#include &lt;chrono&gt;
+#include &lt;condition_variable&gt;
+#include &lt;forward_list&gt;
+#include &lt;future&gt;
+#include &lt;initializer_list&gt;
+#include &lt;mutex&gt;
+#include &lt;random&gt;
+#include &lt;ratio&gt;
+#include &lt;regex&gt;
+#include &lt;scoped_allocator&gt;
+#include &lt;system_error&gt;
+#include &lt;thread&gt;
+#include &lt;tuple&gt;
+#include &lt;typeindex&gt;
+#include &lt;type_traits&gt;
+#include &lt;unordered_map&gt;
+#include &lt;unordered_set&gt;
+#endif
+
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[P3806 【模板】点分治1 | 点分治模板题]]></title>
         <id>https://8421BCD.github.io/post/p3806-mo-ban-dian-fen-zhi-1-or-dian-fen-zhi-mo-ban-ti</id>
@@ -1072,45 +1220,6 @@ int main()
 		}
 	}
 }
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[CF题解写作模板]]></title>
-        <id>https://8421BCD.github.io/post/cf-ti-jie-xie-zuo-mo-ban</id>
-        <link href="https://8421BCD.github.io/post/cf-ti-jie-xie-zuo-mo-ban">
-        </link>
-        <updated>2020-02-03T09:34:30.000Z</updated>
-        <content type="html"><![CDATA[<!--more-->
-<p><strong>A.</strong></p>
-<p><strong>题意：</strong></p>
-<p><strong>分析：</strong></p>
-<p><strong>代码：</strong></p>
-<pre><code class="language-cpp">
-</code></pre>
-<p><strong>B.</strong></p>
-<p><strong>题意：</strong></p>
-<p><strong>分析：</strong></p>
-<p><strong>代码：</strong></p>
-<pre><code class="language-cpp">
-</code></pre>
-<p><strong>C.</strong></p>
-<p><strong>题意：</strong></p>
-<p><strong>分析：</strong></p>
-<p><strong>代码：</strong></p>
-<pre><code class="language-cpp">
-</code></pre>
-<p><strong>D.</strong></p>
-<p><strong>题意：</strong></p>
-<p><strong>分析：</strong></p>
-<p><strong>代码：</strong></p>
-<pre><code class="language-cpp">
-</code></pre>
-<p><strong>E.</strong></p>
-<p><strong>题意：</strong></p>
-<p><strong>分析：</strong></p>
-<p><strong>代码：</strong></p>
-<pre><code class="language-cpp">
 </code></pre>
 ]]></content>
     </entry>
