@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>写作模板 | Wannafly</title>
+<title>Rng HDU - 6574 | 概率 + 快速幂求逆元 | Wannafly</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -12,13 +12,23 @@
 <link rel="stylesheet" href="https://8421BCD.github.io//styles/main.css">
 
 
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
 
 <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 
 
-    <meta name="description" content="小小的天，有大大的梦想">
+    <meta name="description" content="挺简单一个概率题，想了好久推不出公式，太菜了，发自内心的。
+
+题意：
+给你一个[1, n]的区间， 让你在这个区间内再选两个区间（区间长度可以为零），区间端点必须为整数，问两个区间相交的概率。输出分子 * （分母mod 1e9 + 7的逆元..." />
+    <meta name="keywords" content="" />
   </head>
   <body>
     <div id="app" class="main">
@@ -92,43 +102,68 @@
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
-          <h2 class="current-tag">标签: 写作模板</h2>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://8421BCD.github.io/post/acm-ti-mu-ti-jie-xie-zuo-mo-ban">
-                  <h2 class="post-title">ACM题目题解写作模板</h2>
-                </a>
-                <div class="post-date">
-                  2020-02-03
-                </div>
-                <div class="post-abstract">
-                  
-                </div>
-              </div>
-              
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://8421BCD.github.io/post/cf-ti-jie-xie-zuo-mo-ban">
-                  <h2 class="post-title">CF题解写作模板</h2>
-                </a>
-                <div class="post-date">
-                  2020-02-03
-                </div>
-                <div class="post-abstract">
-                  
-                </div>
-              </div>
-              
-            </article>
-          
+          <div class="post-detail">
+            <h2 class="post-title">Rng HDU - 6574 | 概率 + 快速幂求逆元</h2>
+            <div class="post-date">2020-02-13</div>
+            
+            <div class="post-content" v-pre>
+              <p>挺简单一个概率题，想了好久推不出公式，太菜了，发自内心的。</p>
+<!--more-->
+<p><strong>题意：</strong><br>
+给你一个[1, n]的区间， 让你在这个区间内再选两个区间（区间长度可以为零），区间端点必须为整数，问两个区间相交的概率。输出分子 * （分母mod 1e9 + 7的逆元）；<br>
+<strong>分析：</strong><br>
+先求不相交的概率：决定不相交的条件是右区间的左边点 &gt; 左区间的右端点。枚举左区间的右端点即可。<br>
+另熟悉快速幂求逆元模板<br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+ll mod = 1e9 + 7;
+ll n;
 
-          <div class="pagination-container">
-  
-  
-</div>
+ll qpow(ll a, ll n)
+{
+	ll res = 1;
+	while(n)
+	{
+		if(n &amp; 1) res = res * a % mod;
+		n &gt;&gt;= 1;
+		a = a * a % mod;
+	}
+	return res;
+}
+
+int main()
+{
+	while(cin &gt;&gt; n)
+	{
+		cout &lt;&lt; (n + 1) * qpow(2 * n, mod - 2) % mod &lt;&lt; endl;
+	}	
+}
+</code></pre>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://8421BCD.github.io/post/b-happy-king-hdu-5314-or-dian-fen-zhi-rong-chi-yuan-li">
+                  <h3 class="post-title">
+                    B - Happy King HDU - 5314 | 点分治 + 容斥原理
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
 
         </div>
       </div>
@@ -154,6 +189,29 @@ var app = new Vue({
     hljs.initHighlightingOnLoad()
   </script>
 
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: '',
+        owner: '',
+        admin: [''],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
 
 
 

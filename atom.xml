@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-02-12T04:47:27.134Z</updated>
+    <updated>2020-02-13T11:43:49.464Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -10,6 +10,50 @@
     <logo>https://8421BCD.github.io/images/avatar.png</logo>
     <icon>https://8421BCD.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
+    <entry>
+        <title type="html"><![CDATA[Rng HDU - 6574 | 概率 + 快速幂求逆元]]></title>
+        <id>https://8421BCD.github.io/post/rng-hdu-6574-or-gai-lu-kuai-su-mi-qiu-ni-yuan</id>
+        <link href="https://8421BCD.github.io/post/rng-hdu-6574-or-gai-lu-kuai-su-mi-qiu-ni-yuan">
+        </link>
+        <updated>2020-02-13T11:36:18.000Z</updated>
+        <summary type="html"><![CDATA[<p>挺简单一个概率题，想了好久推不出公式，太菜了，发自内心的。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>挺简单一个概率题，想了好久推不出公式，太菜了，发自内心的。</p>
+<!--more-->
+<p><strong>题意：</strong><br>
+给你一个[1, n]的区间， 让你在这个区间内再选两个区间（区间长度可以为零），区间端点必须为整数，问两个区间相交的概率。输出分子 * （分母mod 1e9 + 7的逆元）；<br>
+<strong>分析：</strong><br>
+先求不相交的概率：决定不相交的条件是右区间的左边点 &gt; 左区间的右端点。枚举左区间的右端点即可。<br>
+另熟悉快速幂求逆元模板<br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+ll mod = 1e9 + 7;
+ll n;
+
+ll qpow(ll a, ll n)
+{
+	ll res = 1;
+	while(n)
+	{
+		if(n &amp; 1) res = res * a % mod;
+		n &gt;&gt;= 1;
+		a = a * a % mod;
+	}
+	return res;
+}
+
+int main()
+{
+	while(cin &gt;&gt; n)
+	{
+		cout &lt;&lt; (n + 1) * qpow(2 * n, mod - 2) % mod &lt;&lt; endl;
+	}	
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[B - Happy King HDU - 5314 | 点分治 + 容斥原理]]></title>
         <id>https://8421BCD.github.io/post/b-happy-king-hdu-5314-or-dian-fen-zhi-rong-chi-yuan-li</id>
@@ -1186,20 +1230,6 @@ int main()
 	}
 }
 
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[ACM题目题解写作模板]]></title>
-        <id>https://8421BCD.github.io/post/acm-ti-mu-ti-jie-xie-zuo-mo-ban</id>
-        <link href="https://8421BCD.github.io/post/acm-ti-mu-ti-jie-xie-zuo-mo-ban">
-        </link>
-        <updated>2020-02-03T10:02:00.000Z</updated>
-        <content type="html"><![CDATA[<!--more-->
-<p><strong>题意：</strong></p>
-<p><strong>分析：</strong></p>
-<p><strong>代码：</strong></p>
-<pre><code class="language-cpp">
 </code></pre>
 ]]></content>
     </entry>
