@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>VScode安装配置教程 | Wannafly</title>
+<title>K-th Number POJ - 2104 | 主席树模板 | Wannafly</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -24,9 +24,18 @@
 
 
 
-    <meta name="description" content="https://www.cnblogs.com/baihualiaoluan/p/10661669.html
-" />
-    <meta name="keywords" content="软件安装教程" />
+    <meta name="description" content="模板题
+
+题意：
+求区间第k小数
+分析：
+模板题
+代码：
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+typedef long long..." />
+    <meta name="keywords" content="" />
   </head>
   <body>
     <div id="app" class="main">
@@ -101,28 +110,106 @@
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">VScode安装配置教程</h2>
-            <div class="post-date">2020-01-26</div>
+            <h2 class="post-title">K-th Number POJ - 2104 | 主席树模板</h2>
+            <div class="post-date">2020-02-14</div>
             
             <div class="post-content" v-pre>
-              <p>https://www.cnblogs.com/baihualiaoluan/p/10661669.html</p>
+              <p>模板题</p>
+<!--more-->
+<p><strong>题意：</strong><br>
+求区间第k小数<br>
+<strong>分析：</strong><br>
+模板题<br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+typedef long long ll;
+#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
+#define mem(a, b) memset(a, b, sizeof(a))
+#define debug(a) cout &lt;&lt; &quot;debug :&quot; &lt;&lt; a &lt;&lt; endl
+#define fi first
+#define se second
+const int maxn = 1e5 + 10;
+const int inf = 0x3f3f3f3f;
+struct node
+{
+    int l, r, sum;
+    node(int a = 0, int b = 0, int c = 0) : l(a), r(b), sum(c){}
+}t[maxn &lt;&lt; 5];
+
+int root[maxn], tot;
+int n, m;
+int a[maxn], b[maxn], len;
+
+int build(int l, int r)
+{
+    int now = tot++;
+    t[now].sum = 0;
+    if(l == r) return now;
+    int mid = l + r &gt;&gt; 1;
+    t[now].l = build(l, mid);
+    t[now].r = build(mid + 1, r);
+    return now;
+}
+
+int update(int pre, int l, int r, int v)
+{
+    int now = tot++;
+    t[now] = t[pre], t[now].sum++;
+    if(l == r) return now;
+    int mid = l + r &gt;&gt; 1;
+    if(v &lt;= mid) t[now].l = update(t[pre].l, l, mid, v);
+    else t[now].r = update(t[pre].r, mid + 1, r, v);
+    return now;
+}
+
+int query(int pre, int now, int l, int r, int k)
+{
+    if(l == r) return l;
+    int dif = t[t[now].l].sum - t[t[pre].l].sum;
+    int mid = l + r &gt;&gt; 1;
+    if(dif &gt;= k) return query(t[pre].l, t[now].l, l, mid, k);
+    else return query(t[pre].r, t[now].r, mid + 1, r, k - dif);
+}
+
+int getid(int x) { return lower_bound(b + 1, b + 1 + len, x) - b; }
+
+void init() { tot = 0; }
+
+int main()
+{
+    close();
+    while(cin &gt;&gt; n &gt;&gt; m)
+    {
+        init();
+        for(int i = 1; i &lt;= n; i++)
+            scanf(&quot;%d&quot;, a + i), b[i] = a[i];
+        sort(b + 1, b + 1 + n);
+        len = unique(b + 1, b + 1 + n) - b - 1;
+        root[0] = build(1, len);
+        for(int i = 1; i &lt;= n; i++)
+            root[i] = update(root[i - 1], 1, len, getid(a[i]));
+        while(m--)
+        {
+            int l, r, k;
+            scanf(&quot;%d%d%d&quot;, &amp;l, &amp;r, &amp;k);
+            int id = query(root[l - 1], root[r], 1, len, k);
+            cout &lt;&lt; b[id] &lt;&lt; endl;
+        }  
+    }
+}
+
+</code></pre>
 
             </div>
-            
-              <div class="tag-container">
-                
-                  <a href="https://8421BCD.github.io/tag/fu2QS9-a6" class="tag">
-                    软件安装教程
-                  </a>
-                
-              </div>
             
             
               <div class="next-post">
                 <div class="next">下一篇</div>
-                <a href="https://8421BCD.github.io/post/educational-codeforces-round-80">
+                <a href="https://8421BCD.github.io/post/cotree-hdu-6567-or-shu-de-chong-xin">
                   <h3 class="post-title">
-                    Educational Codeforces Round 80
+                    Cotree HDU - 6567 | 树的重心
                   </h3>
                 </a>
               </div>
