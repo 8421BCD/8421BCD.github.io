@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>FATE HDU - 2159 （背包问题） | Wannafly</title>
+<title>Cotree HDU - 6567 | 树的重心 | Wannafly</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -24,12 +24,12 @@
 
 
 
-    <meta name="description" content="FATE HDU - 2159 （背包问题）
+    <meta name="description" content="
 题意：
-有n种物品，每种物品有一个价值和一个体积，你有一个背包，且装入物品的数量不能超过m，问：怎样装物品才能使得总价值超过v，而且背包剩余容量尽可能大。输出最大剩余容量p。
+给定一个具有 n 个结点、 n−2 条边的图，保证其连通分量为 2 。现在请你添加一条边，使图连通，求连通图上任意两个结点的距离之和的最小值。
 分析：
-二维费用完..." />
-    <meta name="keywords" content="动态规划" />
+容易得出连接两个树的重心可以使得任意两点间的距离和最小。所以先求出两个树的重心..." />
+    <meta name="keywords" content="树的重心" />
   </head>
   <body>
     <div id="app" class="main">
@@ -104,42 +104,99 @@
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">FATE HDU - 2159 （背包问题）</h2>
-            <div class="post-date">2020-01-14</div>
+            <h2 class="post-title">Cotree HDU - 6567 | 树的重心</h2>
+            <div class="post-date">2020-02-14</div>
             
             <div class="post-content" v-pre>
-              <h2 id="fate-hdu-2159-背包问题">FATE HDU - 2159 （背包问题）</h2>
+              <!--more-->
 <p><strong>题意：</strong><br>
-有n种物品，每种物品有一个价值和一个体积，你有一个背包，且装入物品的数量不能超过m，问：怎样装物品才能使得总价值超过v，而且背包剩余容量尽可能大。输出最大剩余容量p。<br>
-<strong>分析：</strong><br>
-二维费用完全背包问题。难点在于如何求p。既要总价值超过v，又要剩余容量尽可能小。因为在dp的过程中求的是最大价值，因此背包总价值一定是以最快的速度增加的。所以我们只需要在dp的过程中对总价值超过v的体积求min即可。<br>
+给定一个具有 n 个结点、 n−2 条边的图，保证其连通分量为 2 。现在请你添加一条边，使图连通，求连通图上任意两个结点的距离之和的最小值。</p>
+<p><strong>分析：</strong><br>
+容易得出连接两个树的重心可以使得任意两点间的距离和最小。所以先求出两个树的重心，然后合并。然后再求一遍重心，目的是为了得到siz[]。然后考虑每个边的贡献：边两端点数的乘积（通过siz[]计算）<br>
 <strong>代码：</strong></p>
 <pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
 using namespace std;
-const int maxn = 110;
-int n, m, k, s;
-int dp[maxn][maxn];
-int c[maxn], v[maxn];
+typedef long long ll;
+#define mem(a, b) memset(a, b, sizeof(a))
+#define debug(a) cout &lt;&lt; &quot;debug: &quot; &lt;&lt; a &lt;&lt; endl;
+#define fi first
+#define se second
+const int maxn = 1e6;
+const int inf = 0x3f3f3f3f;
+struct edge
+{
+    int ep, v, nex;
+    edge(int a = 0, int b = 0, int c = 0) : ep(a), v(b), nex(c){}
+}e[maxn];
+int head[maxn], tot;
+int n;
+
+void addedge(int sp, int ep, int v = 1)
+{
+    e[tot] = edge(ep, v, head[sp]);
+    head[sp] = tot++;
+    e[tot] = edge(sp, v, head[ep]);
+    head[ep] = tot++;
+}
+
+ll root, siz[maxn], maxp[maxn];
+int vis[maxn];
+ll all;
+
+void dfs(int now, int f)//找连通分支
+{
+    all++;
+    vis[now] = 1;
+    for(int i = head[now]; ~i; i = e[i].nex)
+    {
+        int ep = e[i].ep;
+        if(ep == f) continue;
+        dfs(ep, now);
+    }
+}
+
+void getroot(int now, int f)
+{
+    siz[now] = 1, maxp[now] = 0;
+    for(int i = head[now]; ~i; i = e[i].nex)
+    {
+        int ep = e[i].ep;
+        if(ep == f) continue;
+        getroot(ep, now);
+        siz[now] += siz[ep];
+        maxp[now] = max(maxp[now], siz[ep]);
+    }
+    maxp[now] = max(maxp[now], all - siz[now]);
+    if(maxp[now] &lt; maxp[root]) root = now;
+}
+
+void init()
+{
+    mem(head, -1); tot = 0; mem(vis, 0);
+}
 
 int main()
 {
-	while (cin &gt;&gt; n &gt;&gt; m &gt;&gt; k &gt;&gt; s)
-	{
-		memset(dp, 0, sizeof(dp));
-		for (int i = 1; i &lt;= k; i++)
-			cin &gt;&gt; v[i] &gt;&gt; c[i];
-		int minv = 1e9;
-		for (int i = 1; i &lt;= k; i++)
-			for (int j = c[i]; j &lt;= m; j++)
-				for (int k = 1; k &lt;= s; k++)
-				{
-					dp[j][k] = max(dp[j][k], dp[j - c[i]][k - 1] + v[i]);
-					if(dp[j][k] &gt;= n)
-						minv = min(minv, j);
-				}
-		if (minv == 1e9) cout &lt;&lt; -1 &lt;&lt; endl;
-		else cout &lt;&lt; m - minv &lt;&lt; endl;
-	}
+    cin &gt;&gt; n;
+    init();
+    for(int i = 1; i &lt;= n - 2; i++)
+    {
+        int x, y;
+        cin &gt;&gt; x &gt;&gt; y;
+        addedge(x, y);
+    }
+    int r1, r2;
+    dfs(1, -1);
+    maxp[root = 0] = all, getroot(1, -1), r1 = root;//找到第一个连通分支
+    for(int i = 1; i &lt;= n; i++) if(!vis[i]) {r2 = i; break;}
+    maxp[root = 0] = (all = n - all), getroot(r2, -1), r2 = root;//找到第二个连通分支
+
+    addedge(r1, r2);//连通
+    maxp[root = 0] = all = n, getroot(r1, -1);//再调用一次求根，主要目的是求出siz
+    ll res = 0;
+    for(int i = 1; i &lt;= n; i++)
+        res += siz[i] * (n - siz[i]);//各条边的贡献加和
+    cout &lt;&lt; res &lt;&lt; endl;
 }
 </code></pre>
 
@@ -147,8 +204,8 @@ int main()
             
               <div class="tag-container">
                 
-                  <a href="https://8421BCD.github.io/tag/zkdtF3HzJ" class="tag">
-                    动态规划
+                  <a href="https://8421BCD.github.io/tag/qTS46iu0X" class="tag">
+                    树的重心
                   </a>
                 
               </div>
@@ -156,9 +213,9 @@ int main()
             
               <div class="next-post">
                 <div class="next">下一篇</div>
-                <a href="https://8421BCD.github.io/post/hello-world">
+                <a href="https://8421BCD.github.io/post/rng-hdu-6574-or-gai-lu-kuai-su-mi-qiu-ni-yuan">
                   <h3 class="post-title">
-                    Hello world!
+                    Rng HDU - 6574 | 概率 + 快速幂求逆元
                   </h3>
                 </a>
               </div>
