@@ -126,8 +126,15 @@ body {
   width: 100%;
   overflow-x: hidden;
 }
+.site-meta {
+  opacity: 0.85;
+}
+.sidebar {
+  opacity: 0.85;
+}
 sub,
 sup {
+  opacity: 0.85;
   font-size: 75%;
   line-height: 0;
   position: relative;
@@ -2024,7 +2031,7 @@ blockquote:before {
 .pisces .sidebar {
   box-shadow: none;
   width: 240px;
-  opacity: 0;
+  opacity: 0.85;
   transition: opacity 0.2s linear;
 }
 .pisces .sidebar-wrapper,
@@ -2450,13 +2457,16 @@ blockquote:before {
   }
   .header {
     width: auto !important;
+    opacity: 0;
   }
   .blog-header {
     position: relative !important;
     width: auto !important;
+    background: transparent;
   }
   .sidebar {
     display: none !important;
+    opacity: 0;
   }
   .section {
     width: auto;
@@ -2513,6 +2523,7 @@ blockquote:before {
   }
   .pisces .blog-header,
   .gemini .blog-header {
+    opacity: 0.85;
     overflow: hidden;
   }
   .section-layout-wrapper {
