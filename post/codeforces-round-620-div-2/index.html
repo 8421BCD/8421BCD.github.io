@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Max Sum HDU - 1003  | Wannafly</title>
+<title>Codeforces Round #620 (Div. 2)  | Wannafly</title>
 <link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1581849984051">
 <link rel="stylesheet" href="https://8421BCD.github.io//styles/main.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -17,8 +17,8 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
     onload="renderMathInElement(document.body);"></script>
-    <meta name="description" content="Max Sum HDU - 1003 " />
-    <meta name="keywords" content="动态规划" />
+    <meta name="description" content="Codeforces Round #620 (Div. 2) " />
+    <meta name="keywords" content="" />
   </head>
   <body>
     <div class="head-top-line"></div>
@@ -122,18 +122,10 @@
 <div class="sidebar">
     <div class="sidebar-box right-motion" id="sidebar">
       
-        <div class="post-list-sidebar">
-          <div class="sidebar-title">
-            <span id="tocSideBar" class="sidebar-title-item sidebar-title-active">文章目录</span>
-            <span id="metaSideBar" class="sidebar-title-item">站点概览</span>
-          </div>
-        </div>
-      
       
       <div class="sidebar-body pisces" id="sidebar_body">
         
-          <div class="post-side-meta" id="post_side_meta">
-            <div class="sidebar-wrapper">
+          <div class="sidebar-wrapper">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="https://8421BCD.github.io//images/avatar.png"/>
     <p class="site-author-name">Wannafly</p>
@@ -186,181 +178,6 @@
   
 
 </div>
-          </div>
-          <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
-            <div class="toc-box right-motion">
-  <div class="toc-wrapper auto-number auto" id="toc_wrapper">
-    <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#max-sum">MAX SUM</a></li>
-</ul>
-</li>
-</ul>
-
-  </div>
-</div>
-
-<script>
-
-let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1; 
-let active = 'active-show', activeClass = 'active-current';
-let tocWrapper = document.querySelector('#toc_wrapper');
-let tocContent = tocWrapper.children[0];
-let autoNumber = tocWrapper&&tocWrapper.classList.contains('auto-number');
-
-function addTocNumber(elem, deep) {
-  if (!elem) {
-    return;
-  }
-  let prop = elem.__proto__;
-
-  if (prop === HTMLUListElement.prototype) {
-    for (let i = 0; i < elem.children.length; i++) {
-      addTocNumber(elem.children[i], deep + (i + 1) + '.');
-    }
-  } else if (prop === HTMLLIElement.prototype) {
-    // 保存li元素
-    lList.push(elem);
-    for (let i = 0; i < elem.children.length; i++) {
-      let cur = elem.children[i];
-      if (cur.__proto__ === HTMLAnchorElement.prototype) {
-        if (autoNumber) {
-          cur.text =  deep + ' ' + cur.text;
-        }
-      } else if (cur.__proto__ === HTMLUListElement.prototype) {
-        addTocNumber(cur, deep);
-      }
-    }
-  }
-}
-
-
-document.addEventListener('scroll', function(e) {
-  if (lList.length <= 0) {
-    return;
-  }
-  let scrollTop = document.body.scrollTop;
-  let dir;
-
-  if (lastTop - scrollTop > 0) {
-    dir = 'up';
-  } else {
-    dir = 'down';
-  }
-
-  lastTop = scrollTop;
-  if (scrollTop <= 0) {
-    if (lastIndex >= 0 && lastIndex < hList.length) {
-      lList[lastIndex].classList.remove(activeClass);
-    }
-    return;
-  }
-
-  let current = 0, hasFind = false;
-  for (let i = 0; i < hList.length; i++) {
-    if (hList[i].offsetTop > scrollTop) {
-      current = i;
-      hasFind = true;
-      break;
-    }
-  }
-  if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
-    current = hList.length - 1;
-  } else {
-    current--;
-  }
-  if (dir === 'down') {
-    if (current > lastIndex) {
-      addActiveClass(current);
-      removeActiveClass(lastIndex) 
-      lastIndex = current;
-      removeParentActiveClass();
-      lList[current] && addActiveLiElemment(lList[current].parentElement,tocContent);
-    }
-  } else {
-    if (current < lastIndex) {
-      addActiveClass(current);
-      removeActiveClass(lastIndex);
-      lastIndex = current;
-      removeParentActiveClass();
-      lList[current] && addActiveLiElemment(lList[current].parentElement,tocContent);
-    }
-  }
-});
-
-function removeParentActiveClass() {
-  let parents = tocContent.querySelectorAll('.'+active)
-  parents.forEach(function(elem) {
-    elem.classList.remove(active);
-  });
-}
-
-function addActiveClass(index) {
-  if (index >= 0 && index < hList.length) {
-    lList[index].classList.add(activeClass);
-  }
-}
-
-function removeActiveClass(index) {
-  if (index >= 0 && index < hList.length) {
-    lList[index].classList.remove(activeClass);
-  }
-}
-
-function addActiveLiElemment(elem, parent) {
-  if (!elem || elem === parent) {
-    return;
-  } else {
-    if (elem.__proto__ === HTMLLIElement.prototype) {
-      elem.classList.add(active);
-    }
-    addActiveLiElemment(elem.parentElement, parent);
-  }
-}
-
-function showToc() {
-  if (tocWrapper) {
-    postBody = document.querySelector('#post_body');
-    for (let i = 0; i < postBody.children.length; i++) {
-      if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
-        hList.push(postBody.children[i]);
-      }
-    }
-    if (tocWrapper.classList.contains('compress')) {
-        tocContent.classList.add('closed');
-    } else if (tocWrapper.classList.contains('no_compress')){
-      tocContent.classList.add('expanded');
-    } else {
-      if (hList.length > 10) {
-        active = 'active-hidden'
-        tocContent.classList.add('closed');
-      } else {
-        tocContent.classList.add('expanded');
-      }
-    }
-  }
-}
-addTocNumber(tocContent, '');
-
-window.addEventListener('load', function() {
-  showToc();
-  document.querySelector('#sidebar').style='display: block;';
-  tocWrapper.classList.add('toc-active');
-  setTimeout(function() {
-    if ("createEvent" in document) {
-      let evt = document.createEvent("HTMLEvents");
-      evt.initEvent("scroll", false, true);
-      document.dispatchEvent(evt);
-    }
-    else {
-      document.fireEvent("scroll");
-    }
-  }, 500)
-})
-
-</script>
-          </div>
         
       </div>
     </div>
@@ -446,82 +263,175 @@ window.addEventListener('load', function() {
               <div class="article-box">
     <header class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://8421BCD.github.io/post/max-sum-hdu-1003">
-      Max Sum HDU - 1003 
+    <a class="post-title-link" href="https://8421BCD.github.io/post/codeforces-round-620-div-2">
+      Codeforces Round #620 (Div. 2) 
     </a>
   </h1>
   <div class="post-meta">
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span>发布于</span>
-      <span>2020-01-14</span>
+      <span>2020-02-16</span>
     </span>
-    
-      <span class="meta-item">
-        <span class="post-meta-divider pc-show">|</span>
-        <i class="fa fa-folder-o"></i>
-        <span class="pc-show">分类于</span>
-        
-          
-            <a href="https://8421BCD.github.io/tag/zkdtF3HzJ">
-              <span>动态规划</span>
-            </a>
-          
-        
-      </span>
-      <span class="post-meta-divider">|</span>
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>1分钟</span>
+      <span>5分钟</span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>166<span class="pc-show">字数</span></span>
+      <span>785<span class="pc-show">字数</span></span>
     </span>
   </div>
 </header>
 </div>
               <div class="post-body next-md-body" id="post_body">
-                <h2 id="max-sum">MAX SUM</h2>
-<!-- 求最大连续区间和，通过dp[i]记录以i结尾的最大连续区间和 -->
-<p><strong>分析：</strong><br>
-pos[记录]最大片段的左边界<br>
-<img src="https://img-blog.csdnimg.cn/20200114200946114.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzk4NzgxMA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"><br>
+                <!--more-->
+<p><strong>D.Shortest and Longest LIS</strong></p>
+<p><strong>题意：</strong><br>
+用1-n的数根据相邻项的大小关系构造两个序列，使得len(LIS)最小和最长<br>
+<strong>分析：</strong><br>
+最小：每一段上升序列递减(eg: 678 345...)<br>
+最大：因为LIS最大的时候，元素是由每个下降段的中一个元素构成的。所以只要使得所有下降序列呈上升趋势即可。(eg: 321 654)<br>
 <strong>代码：</strong></p>
 <pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
 using namespace std;
-const int maxn = 1e5 + 10;
-int a[maxn];
-int dp[maxn];
-int pos[maxn];
+ 
+const int MAX_N = 200000;
+int ans[MAX_N + 5];
+ 
+int main()
+{
+	int tc;
+	cin &gt;&gt; tc;
+	while (tc--)
+	{
+		int n, i, j;
+		string s;
+		cin &gt;&gt; n &gt;&gt; s;
+ 
+		int num = n, last = 0;
+		for (i = 0; i &lt; n; i++)
+		{
+			if (i == n - 1 || s[i] == '&gt;')
+			{
+				for (j = i; j &gt;= last; j--)
+					ans[j] = num--;
+				last = i + 1;
+			}
+		}
+		for (i = 0; i &lt; n; i++)
+			cout &lt;&lt; ans[i] &lt;&lt; (i == n - 1 ? '\n' : ' ');
+ 
+		num = 1, last = 0;
+		for (i = 0; i &lt; n; i++)
+		{
+			if (i == n - 1 || s[i] == '&lt;')
+			{
+				for (j = i; j &gt;= last; j--)
+					ans[j] = num++;
+				last = i + 1;
+			}
+		}
+		for (i = 0; i &lt; n; i++)
+			cout &lt;&lt; ans[i] &lt;&lt; (i == n - 1 ? '\n' : ' ');
+	}
+}
+</code></pre>
+<p><strong>E.1-Trees and Queries</strong></p>
+<p><strong>题意：</strong><br>
+给你一棵树，联通a, b 能不能使得x 到 y的距离为k<br>
+<strong>分析：</strong><br>
+a到b有三种方式：<br>
+1、a不经过添加边到b<br>
+2、a-&gt;x, x - &gt;y(添加边， 下同), y -&gt;b<br>
+3、a-&gt;y, y -&gt; x, x -&gt; b<br>
+合法的路径应该是 &lt;= k &amp;&amp; 跟k的奇偶性相同。<br>
+添加边要走的话走一次即可，因为走多次并不会影响最终距离的奇偶性。<br>
+最后检查三种方式的合法性，2和3的奇偶性其实是一样的，所以直接取min即可。<br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+//typedef __int128 lll;
+#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
+#define mem(a, b) memset(a, b, sizeof(a))
+#define debug(a, b) cout &lt;&lt; a &lt;&lt; b &lt;&lt; endl
+#define fi first
+#define se second
+const int maxn = 1e6;
+const int inf = 0x3f3f3f3f;
+struct edge
+{
+	int ep, nex;
+	edge(int a = 0, int b = 0) : ep(a), nex(b){}
+}e[maxn];
+int head[maxn], tot;
+int n;
+void addedge(int sp, int ep)
+{
+	e[tot] = edge(ep, head[sp]);
+	head[sp] = tot++;
+	e[tot] = edge(sp, head[ep]);
+	head[ep] = tot++;
+}
+void init()
+{
+	mem(head, -1), tot = 0;
+}
+
+int fa[maxn][20];
+int depth[maxn];
+void build(int now, int f, int dep)
+{
+	fa[now][0] = f, depth[now] = dep;
+	for(int i = 1; i &lt;= 19; i++)
+		fa[now][i] = fa[fa[now][i - 1]][i - 1];
+	for(int i = head[now]; ~i; i = e[i].nex)
+	{
+		int ep = e[i].ep;
+		if(ep == f) continue;
+		build(ep, now, dep + 1);
+	}
+}
+
+int len(int x, int y)
+{
+	if(depth[y] &lt; depth[x]) swap(x, y);
+	int dif = depth[y] - depth[x];
+	int dis = dif;
+	for(int i = 19; i &gt;= 0; i--)
+		if(dif &amp; (1 &lt;&lt; i))
+			y = fa[y][i];
+	if(x == y) return dis;
+	for(int i = 19; i &gt;= 0; i--)
+		if(fa[x][i] != fa[y][i])
+			x = fa[x][i], y = fa[y][i], dis += 2 * (1 &lt;&lt; i);
+	return dis + 2;	
+}
 
 int main()
 {
-	int t; cin &gt;&gt; t;
-	int cases = 0;
-	for (int j = 1; j &lt;= t; j++)
+	close();
+	cin &gt;&gt; n;
+	init();
+	for(int i = 1; i &lt;= n - 1; i++)
 	{
-		int n; cin &gt;&gt; n;
-		for (int i = 1; i &lt;= n; i++)
-			cin &gt;&gt; a[i];
-		dp[1] = a[1], pos[1] = 1;
-		int l, r, maxx = dp[1];
-		l = r = 1;
-		for (int i = 2; i &lt;= n; i++)
-		{
-			if (dp[i - 1] &lt; 0)
-				dp[i] = a[i], pos[i] = i;
-			else
-				dp[i] = dp[i - 1] + a[i], pos[i] = pos[i - 1];
-			if (dp[i] &gt; maxx)
-				maxx = dp[i], l = pos[i], r = i;
-		}
-		printf(&quot;Case %d:\n&quot;, ++cases);
-		printf(&quot;%d %d %d\n&quot;, maxx, l, r);
-		if (j &lt; t)
-			cout &lt;&lt; endl;
+		int x, y;
+		cin &gt;&gt; x &gt;&gt; y;
+		addedge(x, y);
+	}
+	int m; cin &gt;&gt; m;
+	build(1, -1, 1);
+	while(m--)
+	{
+		int x, y, a, b, k;
+		cin &gt;&gt; x &gt;&gt; y &gt;&gt; a &gt;&gt; b &gt;&gt; k;
+		int without = len(a, b);
+		int with = min(len(a, x) + len(y, b), len(a, y) + len(x, b)) + 1;
+		if(without % 2 == k % 2 &amp;&amp; without &lt;= k || with % 2 == k % 2 &amp;&amp; with &lt;= k) cout &lt;&lt; &quot;YES&quot; &lt;&lt; endl;
+		else cout &lt;&lt; &quot;NO&quot; &lt;&lt; endl;
 	}
 }
 </code></pre>
@@ -535,7 +445,7 @@ int main()
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://8421BCD.github.io/post/max-sum-hdu-1003" title="Max Sum HDU - 1003 ">Max Sum HDU - 1003 </a>
+      <a href="https://8421BCD.github.io/post/codeforces-round-620-div-2" title="Codeforces Round #620 (Div. 2) ">Codeforces Round #620 (Div. 2) </a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -544,21 +454,19 @@ int main()
   </ul>
   <div class="tags">
     
-      <a href="https://8421BCD.github.io/tag/zkdtF3HzJ"># 动态规划</a>
-    
   </div>
   <div class="nav">
     <div class="nav-prev">
       
         <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" href="https://8421BCD.github.io/post/codeforces-round-613-div-2">Codeforces Round #613 (Div. 2)</a class="nav-pc-next">
-        <a class="nav-mobile-prev" href="https://8421BCD.github.io/post/codeforces-round-613-div-2">上一篇</a>
+        <a class="nav-pc-next" href="https://8421BCD.github.io/post/codeforces-round-620-div-2-or-lis-lca">Codeforces Round #620 (Div. 2)  | LIS , LCA</a class="nav-pc-next">
+        <a class="nav-mobile-prev" href="https://8421BCD.github.io/post/codeforces-round-620-div-2-or-lis-lca">上一篇</a>
       
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" href="https://8421BCD.github.io/post/fate-hdu-2159">FATE HDU - 2159 （背包问题）</a>
-        <a class="nav-mobile-next" href="https://8421BCD.github.io/post/fate-hdu-2159">下一篇</a>
+        <a class="nav-pc-next" href="https://8421BCD.github.io/post/k-th-number-poj-2104-or-zhu-xi-shu-mo-ban">K-th Number POJ - 2104 | 主席树模板</a>
+        <a class="nav-mobile-next" href="https://8421BCD.github.io/post/k-th-number-poj-2104-or-zhu-xi-shu-mo-ban">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
