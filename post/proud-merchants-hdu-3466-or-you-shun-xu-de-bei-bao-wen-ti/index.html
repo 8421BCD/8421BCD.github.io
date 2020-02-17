@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-      <meta charset="UTF-8"/>
+    <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="小小的天，有大大的梦想">
 <meta name="theme-color" content="#000">
-<title>Wannafly</title>
+<title>Proud Merchants HDU - 3466 | 有顺序的背包问题 | Wannafly</title>
 <link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1581953410748">
 <link rel="stylesheet" href="https://8421BCD.github.io//styles/main.css">
 
@@ -25,6 +25,8 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
     onload="renderMathInElement(document.body);"></script>
 
+    <meta name="description" content="Proud Merchants HDU - 3466 | 有顺序的背包问题" />
+    <meta name="keywords" content="动态规划" />
   </head>
   <body>
     <div class="head-top-line"></div>
@@ -122,10 +124,16 @@
     </div>
     <div class="main-continer">
       
-      <div class="section-layout  pisces">
+      <div class="section-layout pisces ">
         <div class="section-layout-wrapper">
-          <div class="sidebar">
-    
+          
+
+<div class="sidebar">
+    <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
+      
+      <div class="sidebar-body pisces" id="sidebar_body">
+        
+          
 <div class="sidebar-wrapper box-shadow-wrapper bg-color">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="https://8421BCD.github.io//images/avatar.png"/>
@@ -167,157 +175,244 @@
 
 
 </div>
-</div>
-            <div class="section-box tag-line">
-              <div class="box-shadow-wrapper">
-                <div class="bg-color">
-                  <section class="section posts-expand">
-                    <div class="padding-wrapper">
-  <div class="tag-timeline-box">
-    <div class="tag-timeline-wrapper">
-      <div class="tag-timeline-title">
-        <h2>
-          点分治
-          <small>标签</small>
-        </h2>
+        
       </div>
-      
+    </div>
+</div>
+<script>
+  const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
+  const SIDEBAR_BODY_ACTIVE = 'sidebar-body-active';
+  const SLIDE_UP_IN = 'slide-up-in';
+
+  let sidebar = document.querySelector('#sidebar'),
+  tocSideBar = document.querySelector('#tocSideBar'),
+  metaSideBar = document.querySelector('#metaSideBar'),
+  postToc = document.querySelector('#post_toc'),
+  postSiteMeta = document.querySelector('#post_side_meta'),
+  sidebarTitle = document.querySelector('.sidebar-title'),
+  sidebarBody = document.querySelector('#sidebar_body');
+
+  tocSideBar && tocSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  metaSideBar && metaSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  function toggleSidebar(e) {
+    let currentTitle = document.querySelector("."+SIDEBAR_TITLE_ACTIVE);
+    if (currentTitle == e.srcElement) {
+      return ;
+    }
+    let current, showElement, hideElement;
+    if (e.srcElement == metaSideBar) {
+      showElement = postSiteMeta;
+      hideElement = postToc;
+    } else if (e.srcElement == tocSideBar){
+      showElement = postToc;
+      hideElement = postSiteMeta;
+    }
+    currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
+    e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
+
+    window.Velocity(hideElement, 'stop');
+    window.Velocity(hideElement, 'transition.slideUpOut', {
+      display: 'none',
+      duration: 200,
+      complete: function () {
+        window.Velocity(showElement, 'transition.slideDownIn', {
+          duration: 200
+        });
+      }
+    })
+    hideElement.classList.remove(SIDEBAR_BODY_ACTIVE);
+    showElement.classList.add(SIDEBAR_BODY_ACTIVE);
+  }
+
+  postToc.addEventListener('transitionend', function() {
+    this.classList.remove(SLIDE_UP_IN);
+  });
+
+
+  if (sidebarBody.classList.contains('pisces') || sidebarBody.classList.contains('gemini')) {
+    let hasFix = false;
+    let scrollEl = document.querySelector('.main-continer');
+    let limitTop = document.querySelector('#nav_ul').children.length * 42 + 162;
+    window.addEventListener('scroll', function(e) {
+    if (document.scrollingElement.scrollTop >= limitTop) {
+      if (!hasFix) {
+        sidebar.classList.add('sidebar-fixed');
+        hasFix = true;
+      }
+    } else {
+      if (hasFix) {
+        sidebar.classList.remove('sidebar-fixed');
+        hasFix = false;
+      }
+    }
+  });
+  }
+  
+</script>
+          <div class="section-box box-shadow-wrapper">
+            <div class="section bg-color post post-page">
+              <div class="article-box">
+    <header class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://8421BCD.github.io/post/proud-merchants-hdu-3466-or-you-shun-xu-de-bei-bao-wen-ti">
+      Proud Merchants HDU - 3466 | 有顺序的背包问题
+    </a>
+  </h1>
+  <div class="post-meta">
+    
+    <span class="meta-item pc-show">
+      <i class="fa fa-calendar-o"></i>
+      <span>发布于</span>
+      <span>2020-02-17</span>
+      <span class="post-meta-divider pc-show">|</span>
+    </span>
+    
+      <span class="meta-item">
+        <i class="fa fa-folder-o"></i>
+        <span class="pc-show">分类于</span>
         
           
-        
-      
-        
-          
-        
-      
-        
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-            <a href="https://8421BCD.github.io/post/b-happy-king-hdu-5314-or-dian-fen-zhi-rong-chi-yuan-li">
-              <div class="motion-warpper">
-                <div class="tag-post-node">
-                  <h1>
-                    02-12
-                    <small>B - Happy King HDU - 5314 | 点分治 + 容斥原理</small>
-                  </h1>
-                </div>  
-              </div>
+            <a href="https://8421BCD.github.io/tag/zkdtF3HzJ">
+              <span>动态规划</span>
             </a>
           
         
-      
+      </span>
+      <span class="post-meta-divider">|</span>
+    
+    <span class="meta-item">
+      <i class="fa fa-clock-o"></i>
+      <span>2分钟</span>
+    </span>
+    <span class="meta-item">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span>432<span class="pc-show">字数</span></span>
+    </span>
+  </div>
+</header>
+</div>
+              <div class="post-body next-md-body" id="post_body">
+                <p>好像是第一次接触有顺序的背包问题，之前做的背包都是乱序的，今天这两道题由于被其后效性左右，所以需要思考一下如何排序，这是关键。</p>
+<!--more-->
+<p><strong>题意：</strong><br>
+每个物品有自己的价格Pi但是只有当手里的钱大于等于Qi时才可以购买，问最后在给定的钱的数目下能够买到的最大价值是多少。<br>
+<strong>分析：</strong><br>
+对于相邻的两个物品，其购买顺序对于后面的物品没有影响，但是前一个物品可能会对后面的产生影响。<br>
+一个物品的价格差越大说明其对下一个越会产生影响（不知道这么理解对不对，dp的无后效性的证明对我而言一直都是个难题，不过从贪心的角度思考会更能说服我自己，不过贪心好像也很难证明。。。）<br>
+<img src="https://8421BCD.github.io//post-images/1581950767733.jpg" alt="" loading="lazy"><br>
+显然前者才是正确的<br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+//typedef __int128 lll;
+#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
+#define mem(a, b) memset(a, b, sizeof(a))
+#define debug(a) cout &lt;&lt; &quot;debug :&quot; &lt;&lt; a &lt;&lt; endl
+#define fi first
+#define se second
+const int maxn = 1e4;
+const int inf = 0x3f3f3f3f;
+struct node
+{
+    int p, q, v;
+    bool operator&lt; (const node&amp; b)const
+    {
+        return q - p &lt; b.q - b.p;
+    }
+}a[maxn];
+int dp[maxn];
+int n, m;
+
+void init()
+{
+    mem(dp, 0);
+}
+int main()
+{
+    while(cin &gt;&gt; n &gt;&gt; m)
+    {
+        init();
+        for(int i = 1; i &lt;= n; i++)
+            cin &gt;&gt; a[i].p &gt;&gt; a[i].q &gt;&gt; a[i].v;
+        sort(a + 1, a + 1 + n);
+        for(int i = 1; i &lt;= n; i++)
+            for(int j = m; j &gt;= a[i].q; j--)
+                dp[j] = max(dp[j], dp[j - a[i].p] + a[i].v);
+        cout &lt;&lt; dp[m] &lt;&lt; endl;
         
-          
-        
-      
-        
-          
-            <a href="https://8421BCD.github.io/post/p3806-mo-ban-dian-fen-zhi-1-or-dian-fen-zhi-mo-ban-ti">
-              <div class="motion-warpper">
-                <div class="tag-post-node">
-                  <h1>
-                    02-09
-                    <small>P3806 【模板】点分治1 | 点分治模板题</small>
-                  </h1>
-                </div>  
+    }
+}
+</code></pre>
+
               </div>
-            </a>
-          
-        
+              <div class="post-footer">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Wannafly
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://8421BCD.github.io/post/proud-merchants-hdu-3466-or-you-shun-xu-de-bei-bao-wen-ti" title="Proud Merchants HDU - 3466 | 有顺序的背包问题">Proud Merchants HDU - 3466 | 有顺序的背包问题</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，转载请注明出处！
+    </li>
+  </ul>
+  <div class="tags">
+    
+      <a href="https://8421BCD.github.io/tag/zkdtF3HzJ"># 动态规划</a>
+    
+  </div>
+  <div class="nav">
+    <div class="nav-prev">
       
-        
-          
-        
+        <i class="fa fa-chevron-left"></i>
+        <a class="nav-pc-next" title="Problem I. Spell Boost HDU - 6508 | 有顺序的背包dp" href="https://8421BCD.github.io/post/problem-i-spell-boost-hdu-6508-or-you-shun-xu-de-bei-bao-dp">Problem I. Spell Boost HDU - 6508 | 有顺序的背包dp</a class="nav-pc-next">
+        <a class="nav-mobile-prev" title="Problem I. Spell Boost HDU - 6508 | 有顺序的背包dp" href="https://8421BCD.github.io/post/problem-i-spell-boost-hdu-6508-or-you-shun-xu-de-bei-bao-dp">上一篇</a>
       
-        
-          
-        
+    </div>
+    <div class="nav-next">
       
-        
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-      
-        
-      
-        
-          
-        
+        <a class="nav-pc-next" title="Codeforces Round #620 (Div. 2)  | LIS , LCA" href="https://8421BCD.github.io/post/codeforces-round-620-div-2-or-lis-lca">Codeforces Round #620 (Div. 2)  | LIS , LCA</a>
+        <a class="nav-mobile-next" title="Codeforces Round #620 (Div. 2)  | LIS , LCA" href="https://8421BCD.github.io/post/codeforces-round-620-div-2-or-lis-lca">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
       
     </div>
   </div>
 </div>
-                  </section>
-                </div>
-              </div>
+              
+                
+                  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '',
+    clientSecret: '',
+    repo: '',
+    owner: '',
+    admin: [''],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+  gitalk.render('gitalk-container')
+</script>
+                
+                
+              
+            </div>
           </div>
         </div>
       </div>

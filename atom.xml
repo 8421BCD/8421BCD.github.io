@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-02-17T01:54:07.834Z</updated>
+    <updated>2020-02-17T15:30:22.713Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -10,6 +10,184 @@
     <logo>https://8421BCD.github.io/images/avatar.png</logo>
     <icon>https://8421BCD.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
+    <entry>
+        <title type="html"><![CDATA[Problem I. Spell Boost HDU - 6508 | 有顺序的背包dp]]></title>
+        <id>https://8421BCD.github.io/post/problem-i-spell-boost-hdu-6508-or-you-shun-xu-de-bei-bao-dp</id>
+        <link href="https://8421BCD.github.io/post/problem-i-spell-boost-hdu-6508-or-you-shun-xu-de-bei-bao-dp">
+        </link>
+        <updated>2020-02-17T14:48:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>又是烧脑的背包dp，永远也理解不了的背包dp，哎。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>又是烧脑的背包dp，永远也理解不了的背包dp，哎。</p>
+<!--more-->
+<p><strong>题意：</strong><br>
+给一些卡，分为四种卡。<br>
+1.白卡（没效果）<br>
+2.魔法，作用卡（会对作用卡的费用减少，也会被魔法卡作用）<br>
+3.作用卡（会被魔法卡作用使其费用减少）<br>
+4.魔法卡（会对作用卡的费用减少）<br>
+<strong>分析：</strong><br>
+https://www.cnblogs.com/SSummerZzz/p/11163795.html<br>
+先附上别人的题解，由于没有看懂，所以待补吧<br>
+<strong>代码：</strong><br>
+别人的代码</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+#define rep(i,j,k) for(int i = (j); i &lt;= (k); i++)
+#define per(i,j,k) for(int i = (j); i &gt;= (k); i--)
+
+const int N = 510;
+int dp[N][N];
+
+struct node{
+    int w, x;
+    int is_m, is_s;
+
+    bool friend operator &lt; (node a, node b){
+        if (a.is_m != b.is_m) return a.is_m &gt; b.is_m;//魔法卡先返回
+        else if (a.is_s != b.is_s) return a.is_s &lt; b.is_s;//作用卡越晚用越好
+
+        return a.w &lt; b.w;//先用费用小的，使其dp可以得到全部可能
+    }
+};
+
+node arr[N];
+
+void init(int x){
+//    rep(i, 0, x)rep(j, 0, x) dp[i][j] = 0;
+    memset(dp, 0, sizeof(dp));
+}
+
+int main(){
+
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+
+    int n, W;
+    while (cin &gt;&gt; n &gt;&gt; W){
+        int m_num = 0;
+        rep(i, 1, n){
+            cin &gt;&gt; arr[i].w &gt;&gt; arr[i].x &gt;&gt; arr[i].is_m &gt;&gt; arr[i].is_s;
+            if (arr[i].is_m) ++m_num;//统计魔法卡数量
+        }
+        init(n);
+        sort(arr + 1, arr + 1 + n);
+        bool is_s = false;//判断是不是作用卡
+        //从大到小遍历，可以不影响之前的状态
+        rep(i, 1, n){
+            if (arr[i].is_m){
+                per(k, i, 1){//魔法卡从多到少
+                    per(j, W, 0){//费用从多到少
+
+                        int tmp_w = 0;
+                        if (arr[i].is_s){//有被作用效果
+                            is_s = true;
+                            tmp_w = max(0, arr[i].w - (k - 1));//触发魔法卡效果
+                        }
+                        //对于k张魔法卡，之前只有k-1张魔法卡，假如一张魔法卡去更新dp,所以被作用时
+                        //应该是魔法卡数量-1的费用减少
+                        if (is_s &amp;&amp; tmp_w &lt;= j){//是作用卡，费用足够
+                            dp[j][k] = max(dp[j][k],dp[j - tmp_w][k - 1] + arr[i].x);
+                        }
+                        else if (!is_s &amp;&amp; arr[i].w &lt;= j){//不是作用卡，费用足够
+                            dp[j][k] = max(dp[j][k], dp[j - arr[i].w][k - 1] + arr[i].x);
+                        }
+                    }
+                }
+            }
+            else {
+                //进入该部分时，全部的魔法卡使用情况已经存入dp，之后的都不是魔法卡
+                per(k, m_num, 0){//m_num是魔法卡总数量，可能有不用魔法卡才能的到最大攻击的情况
+                    per(j, W, 0){     
+                        int tmp_w = 0;
+                        if (arr[i].is_s){
+                            is_s = true;
+                            tmp_w = max(0, arr[i].w - k);
+                        }
+                        //对于k张魔法卡，被作用卡卡费用减少k
+                        if (is_s &amp;&amp; tmp_w &lt;= j){
+                            dp[j][k] = max(dp[j][k], dp[j - tmp_w][k] + arr[i].x);
+                        }
+                        else if (!is_s &amp;&amp; arr[i].w &lt;= j){
+                            dp[j][k] = max(dp[j][k], dp[j - arr[i].w][k] + arr[i].x);
+                        }
+                    }
+                }
+            }
+            is_s = false;
+        }
+        int ans = 0;
+        rep(i, 0, m_num) ans = max(ans, dp[W][i]);//遍历费用是W的dp最大值，即为最大攻击力
+        cout &lt;&lt; ans &lt;&lt; endl;
+    }
+    return 0;
+}
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Proud Merchants HDU - 3466 | 有顺序的背包问题]]></title>
+        <id>https://8421BCD.github.io/post/proud-merchants-hdu-3466-or-you-shun-xu-de-bei-bao-wen-ti</id>
+        <link href="https://8421BCD.github.io/post/proud-merchants-hdu-3466-or-you-shun-xu-de-bei-bao-wen-ti">
+        </link>
+        <updated>2020-02-17T14:26:12.000Z</updated>
+        <summary type="html"><![CDATA[<p>好像是第一次接触有顺序的背包问题，之前做的背包都是乱序的，今天这两道题由于被其后效性左右，所以需要思考一下如何排序，这是关键。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>好像是第一次接触有顺序的背包问题，之前做的背包都是乱序的，今天这两道题由于被其后效性左右，所以需要思考一下如何排序，这是关键。</p>
+<!--more-->
+<p><strong>题意：</strong><br>
+每个物品有自己的价格Pi但是只有当手里的钱大于等于Qi时才可以购买，问最后在给定的钱的数目下能够买到的最大价值是多少。<br>
+<strong>分析：</strong><br>
+对于相邻的两个物品，其购买顺序对于后面的物品没有影响，但是前一个物品可能会对后面的产生影响。<br>
+一个物品的价格差越大说明其对下一个越会产生影响（不知道这么理解对不对，dp的无后效性的证明对我而言一直都是个难题，不过从贪心的角度思考会更能说服我自己，不过贪心好像也很难证明。。。）<br>
+<img src="https://8421BCD.github.io//post-images/1581950767733.jpg" alt="" loading="lazy"><br>
+显然前者才是正确的<br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+//typedef __int128 lll;
+#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
+#define mem(a, b) memset(a, b, sizeof(a))
+#define debug(a) cout &lt;&lt; &quot;debug :&quot; &lt;&lt; a &lt;&lt; endl
+#define fi first
+#define se second
+const int maxn = 1e4;
+const int inf = 0x3f3f3f3f;
+struct node
+{
+    int p, q, v;
+    bool operator&lt; (const node&amp; b)const
+    {
+        return q - p &lt; b.q - b.p;
+    }
+}a[maxn];
+int dp[maxn];
+int n, m;
+
+void init()
+{
+    mem(dp, 0);
+}
+int main()
+{
+    while(cin &gt;&gt; n &gt;&gt; m)
+    {
+        init();
+        for(int i = 1; i &lt;= n; i++)
+            cin &gt;&gt; a[i].p &gt;&gt; a[i].q &gt;&gt; a[i].v;
+        sort(a + 1, a + 1 + n);
+        for(int i = 1; i &lt;= n; i++)
+            for(int j = m; j &gt;= a[i].q; j--)
+                dp[j] = max(dp[j], dp[j - a[i].p] + a[i].v);
+        cout &lt;&lt; dp[m] &lt;&lt; endl;
+        
+    }
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Codeforces Round #620 (Div. 2)  | LIS , LCA]]></title>
         <id>https://8421BCD.github.io/post/codeforces-round-620-div-2-or-lis-lca</id>
@@ -986,321 +1164,6 @@ int main()
     {
         if(ok[i]) puts(&quot;AYE&quot;);
         else puts(&quot;NAY&quot;);
-    }
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[网络流算法模板]]></title>
-        <id>https://8421BCD.github.io/post/wang-luo-liu-suan-fa-mo-ban</id>
-        <link href="https://8421BCD.github.io/post/wang-luo-liu-suan-fa-mo-ban">
-        </link>
-        <updated>2020-02-07T09:14:29.000Z</updated>
-        <content type="html"><![CDATA[<ul>
-<li><strong>EK</strong></li>
-</ul>
-<pre><code class="language-cpp">//EK算法
-#include &lt;iostream&gt;
-#include &lt;cstdio&gt;
-#include &lt;algorithm&gt;
-#include &lt;queue&gt;
-using namespace std;
-
-const int N = 210,INF = (int)1e9;
-int n,m,tot;
-int head[N],pre[N],res[N];
-queue&lt;int &gt; que;
-struct node{
-    int to,w,nxt;
-}e[N &lt;&lt; 1];
-
-inline void init(){
-    while(!que.empty()) que.pop();
-    for(int i = 1; i &lt;= n; ++i) res[i] = 0;
-}
-
-inline void add(int u,int v,int w){
-    e[tot].to = v; e[tot].w = w; e[tot].nxt = head[u]; head[u] = tot++;
-}
-
-bool bfs(int s,int t){
-    init();
-    pre[s] = -1;
-    res[s] = INF;
-    que.push(s);
-    int now,to;
-    while(!que.empty()){
-        now = que.front(); que.pop();
-        for(int o = head[now]; ~o; o = e[o].nxt){
-            to = e[o].to;
-            if(!res[to] &amp;&amp; e[o].w){
-                pre[to] = o;
-                res[to] = min(e[o].w, res[now]);
-                if(to == t) return true;
-                que.push(to);
-            }
-        }
-    }
-    return false;
-}
-
-int EK(int s,int t){
-    int ans = 0;
-    while(bfs(s,t)){
-        for(int o = pre[t]; ~o; o = pre[e[o^1].to]){
-            e[o].w -= res[t];
-            e[o^1].w += res[t];
-        }
-        ans += res[t];
-    }
-    return ans;
-}
-
-int main(){
-
-    int u,v,w;
-    while(~scanf(&quot;%d%d&quot;,&amp;m,&amp;n)){
-        for(int i = 1; i &lt;= n; ++i) head[i] = -1; tot = 0;
-        for(int i = 1; i &lt;= m; ++i){
-            scanf(&quot;%d%d%d&quot;,&amp;u,&amp;v,&amp;w);
-            add(u,v,w); add(v,u,0);
-        }
-        printf(&quot;%d\n&quot;,EK(1,n));
-    }
-
-    return 0;
-}
-</code></pre>
-<ul>
-<li><strong>dinic</strong></li>
-</ul>
-<pre><code class="language-cpp">//Dinic算法
-#include &lt;iostream&gt;
-#include &lt;cstdio&gt;
-#include &lt;algorithm&gt;
-#include &lt;queue&gt;
-using namespace std;
-
-const int N = 10010,M = 100010,inf = (int)1e9;
-int n,m,s,t,tot;
-int head[N],lev[N];
-queue&lt;int &gt; que;
-struct node{
-    int to,w,nxt;
-}e[M&lt;&lt;1];
-
-inline void add(int u,int v,int w){
-    e[tot].to = v; e[tot].w = w; e[tot].nxt = head[u]; head[u] = tot++;
-}
-
-inline void init(){
-    while(!que.empty()) que.pop();
-    for(int i = 1; i &lt;= n; ++i) lev[i] = 0;
-}
-
-bool bfs(int s,int t){
-    lev[s] = 1;
-    que.push(s);
-    int now,to;
-    while(!que.empty()){
-        now = que.front(); que.pop();
-        if(now == t) return true;
-        for(int o = head[now]; ~o; o = e[o].nxt){
-            to = e[o].to;
-            if(!lev[to] &amp;&amp; e[o].w){
-                lev[to] = lev[now] + 1;
-                que.push(to);
-            }
-        }
-    }
-    return false;
-}
-
-int dfs(int now,int flow,int t){
-    if(now == t) return flow;
-    int to,sum = 0,tmp;
-    for(int o = head[now]; ~o; o = e[o].nxt){
-        to = e[o].to;
-        if(e[o].w &amp;&amp; lev[now] == lev[to] - 1){
-            tmp = dfs(to,min(flow - sum, e[o].w),t);
-            e[o].w -= tmp; e[o^1].w += tmp;
-            if((sum += tmp) == flow) return sum;
-        }
-    }
-    return sum;
-}
-
-int main(){
-
-    int u,v,w;
-    scanf(&quot;%d%d%d%d&quot;,&amp;n,&amp;m,&amp;s,&amp;t);
-    for(int i = 1; i &lt;= n; ++i) head[i] = -1;
-    for(int i = 1; i &lt;= m; ++i){
-        scanf(&quot;%d%d%d&quot;,&amp;u,&amp;v,&amp;w);
-        add(u,v,w); add(v,u,0);
-    }
-    int ans = 0;
-    while(bfs(s,t)){
-        ans += dfs(s,inf,t);
-        init();
-    }
-    printf(&quot;%d\n&quot;,ans);
-
-    return 0;
-}
-</code></pre>
-<ul>
-<li><strong>最小费用最大流</strong></li>
-</ul>
-<pre><code class="language-cpp">//最小费用最大流
-#include &lt;iostream&gt;
-#include &lt;cstdio&gt;
-#include &lt;algorithm&gt;
-#include &lt;queue&gt;
-using namespace std;
-
-const int N = (int)5e3+100,M = (int)5e4+100,INF = (int)1e9;
-int n,m,s,t,tot;
-int head[N],pre[N],dis[N],vis[N];
-queue&lt;int &gt; que;
-struct node{
-    int to,nxt,cap,cost,flow;
-}e[M &lt;&lt; 1];
-
-inline void add(int u,int v,int cap,int cost,int flow){
-    e[tot].to = v;
-    e[tot].cap = cap;
-    e[tot].cost = cost;
-    e[tot].flow = flow;
-    e[tot].nxt = head[u];
-    head[u] = tot++;
-}
-
-inline void init(){
-    for(int i = 1; i &lt;= n; ++i){
-        vis[i] = false;
-        dis[i] = INF;
-        pre[i] = -1;
-    }
-    while(!que.empty()) que.pop();
-}
-
-bool spfa(int s,int){
-    init();
-    vis[s] = true; dis[s] = 0; que.push(s);
-    int now,to;
-    while(!que.empty()){
-        now = que.front(); que.pop();
-        vis[now] = false;
-        for(int o = head[now]; ~o; o = e[o].nxt){
-            to = e[o].to;
-            if(e[o].cap &gt; e[o].flow &amp;&amp; dis[to] &gt; dis[now] + e[o].cost){
-                dis[to] = dis[now] + e[o].cost;
-                pre[to] = o;
-                if(!vis[to]){
-                    vis[to] = true; que.push(to);
-                }
-            }
-        }
-    }
-    if(pre[t] == -1) return false;
-    else return true;
-}
-
-int mcmf(int s,int t,int&amp; min_cost){
-
-    int max_flow = 0,_min = INF;
-    while(spfa(s,t)){
-        _min = INF;
-        for(int o = pre[t]; ~o; o = pre[e[o^1].to]){
-            _min = min(_min,e[o].cap - e[o].flow);
-        }
-        for(int o = pre[t]; ~o; o = pre[e[o^1].to]){
-            e[o].flow += _min;
-            e[o^1].flow -= _min;
-        }
-        min_cost += dis[t]*_min;
-        max_flow += _min;
-    }
-    return max_flow;
-}
-
-int main(){
-
-    int u,v,cap,cost,min_cost = 0;
-    scanf(&quot;%d%d%d%d&quot;,&amp;n,&amp;m,&amp;s,&amp;t);
-    for(int i = 1; i &lt;= n; ++i) head[i] = -1; tot = 0;
-    for(int i = 1; i &lt;= m; ++i){
-        scanf(&quot;%d%d%d%d&quot;,&amp;u,&amp;v,&amp;cap,&amp;cost);
-        add(u,v,cap,cost,0);
-        add(v,u,0,-cost,0);
-    }
-    cout &lt;&lt; mcmf(s,t,min_cost) &lt;&lt; &quot; &quot; &lt;&lt; min_cost &lt;&lt; endl;
-
-    return 0;
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[【POJ-1703】Find them, Catch them | 并查集]]></title>
-        <id>https://8421BCD.github.io/post/poj-1703-find-them-catch-them-or-bing-cha-ji</id>
-        <link href="https://8421BCD.github.io/post/poj-1703-find-them-catch-them-or-bing-cha-ji">
-        </link>
-        <updated>2020-02-06T11:52:39.000Z</updated>
-        <summary type="html"><![CDATA[<p>并查集中的巧妙合并</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>并查集中的巧妙合并</p>
-<!--more-->
-<p><strong>题意：</strong><br>
-一个城市有两个集团，D [a] [b]表示a,b不在一个集团，A [a] [b]表示查询a,b在不在一个集团，根据已知做出三种回答。<br>
-<strong>分析：</strong><br>
-由于仅有两个帮派，所以可以这样想:每个节点i再衍生出一个新的节点i + n， 当a，b属于不同帮派的时候，可以将a和b + n合并到一个帮派， b和a + n合并到一个帮派，实属巧妙。<br>
-<strong>代码：</strong></p>
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-const int maxn = 1e5 + 10;
-int fa[maxn &lt;&lt; 1];
-
-int n, m;
-
-int find(int x)
-{
-    return fa[x] = x == fa[x] ? x : find(fa[x]);
-}
-void init()
-{
-    for(int i = 1; i &lt;= n &lt;&lt; 1; i++)
-        fa[i] = i;
-}
-
-int main()
-{
-
-    int t; cin &gt;&gt; t;
-    while(t--)
-    {
-        cin &gt;&gt; n &gt;&gt; m;
-        init();
-        while(m--)
-        {
-            char ope[2];
-            int a, b;
-            scanf(&quot;%s%d%d&quot;, ope, &amp;a, &amp;b);
-            if(ope[0] == 'A')
-            {
-                if(find(a) == find(b)) cout &lt;&lt; &quot;In the same gang.&quot; &lt;&lt; endl;
-                else if(find(a) == find(b + n)) cout &lt;&lt; &quot;In different gangs.&quot; &lt;&lt; endl;
-                else cout &lt;&lt; &quot;Not sure yet.&quot; &lt;&lt; endl;
-            }
-            else
-            {
-                fa[find(a)] = find(b + n);;
-                fa[find(b)] = find(a + n);
-            }
-        }
     }
 }
 </code></pre>
