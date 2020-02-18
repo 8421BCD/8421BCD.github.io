@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-02-17T15:38:16.400Z</updated>
+    <updated>2020-02-18T08:44:29.894Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -10,6 +10,121 @@
     <logo>https://8421BCD.github.io/images/avatar.png</logo>
     <icon>https://8421BCD.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
+    <entry>
+        <title type="html"><![CDATA[加速爬虫: 多进程分布式 | 爬取莫烦python的网页]]></title>
+        <id>https://8421BCD.github.io/post/jia-su-pa-chong-duo-jin-cheng-fen-bu-shi-or-pa-qu-mo-fan-python-de-wang-ye</id>
+        <link href="https://8421BCD.github.io/post/jia-su-pa-chong-duo-jin-cheng-fen-bu-shi-or-pa-qu-mo-fan-python-de-wang-ye">
+        </link>
+        <updated>2020-02-18T08:41:28.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-python">import multiprocessing as mp
+import time
+from urllib.request import urlopen
+from urllib.parse import urljoin
+from bs4 import BeautifulSoup
+import re
+
+#base_url = &quot;http://127.0.0.1:4000/&quot;
+base_url = 'https://morvanzhou.github.io/'
+
+# DON'T OVER CRAWL THE WEBSITE OR YOU MAY NEVER VISIT AGAIN
+if base_url != &quot;http://127.0.0.1:4000/&quot;:
+    restricted_crawl = True
+else:
+    restricted_crawl = False
+
+def crawl(url):
+    response = urlopen(url)
+    time.sleep(0.1)             # slightly delay for downloading
+    return response.read().decode()
+def parse(html):
+    soup = BeautifulSoup(html, 'lxml')
+    urls = soup.find_all('a', {&quot;href&quot;: re.compile('^/.+?/$')})
+    title = soup.find('h1').get_text().strip()
+    page_urls = set([urljoin(base_url, url['href']) for url in urls])
+    url = soup.find('meta', {'property': &quot;og:url&quot;})['content']
+    return title, page_urls, url
+
+if __name__ == '__main__':
+    unseen = set([base_url, ])
+    seen = set()
+
+    pool = mp.Pool(4)
+    count, t1 = 1, time.time()
+    while len(unseen) != 0:  # still get some url to visit
+        if restricted_crawl and len(seen) &gt; 20:
+            break
+        print('\nDistributed Crawling...')
+        crawl_jobs = [pool.apply_async(crawl, [url]) for url in unseen]
+        htmls = [j.get() for j in crawl_jobs]  # request connection
+
+        print('\nDistributed Parsing...')
+        parse_jobs = [pool.apply_async(parse, [html]) for html in htmls]
+        results = [j.get() for j in parse_jobs]  # parse html
+
+        print('\nAnalysing...')
+        seen.update(unseen)  # seen the crawled
+        unseen.clear()  # nothing unseen
+
+        for title, page_urls, url in results:
+            print(count, title, url)
+            count += 1
+            unseen.update(page_urls - seen)  # get new url to crawl
+    print('Total time: %.1f s' % (time.time() - t1,))  # 16 s !!!
+
+#     C:\Users\11140\Anaconda3\python.exe D:/crawler/main.py
+
+# Distributed Crawling...
+
+# Distributed Parsing...
+
+# Analysing...
+# 1 教程 https://morvanzhou.github.io/
+
+# Distributed Crawling...
+
+# Distributed Parsing...
+
+# Analysing...
+# 2 高级爬虫: 高效无忧的 Scrapy 爬虫库 https://morvanzhou.github.io/tutorials/data-manipulation/scraping/5-02-scrapy/
+# 3 Numpy &amp; Pandas 教程系列 https://morvanzhou.github.io/tutorials/data-manipulation/np-pd/
+# 4 Git 版本管理 教程系列 https://morvanzhou.github.io/tutorials/others/git/
+# 5 计算机视觉 教程系列 https://morvanzhou.github.io/tutorials/machine-learning/computer-vision/
+# 6 multiprocessing 多进程教程系列 https://morvanzhou.github.io/tutorials/python-basic/multiprocessing/
+# 7 为了更优秀 https://morvanzhou.github.io/support/
+# 8 Why? https://morvanzhou.github.io/tutorials/data-manipulation/scraping/1-00-why/
+# 9 Theano 教程系列 https://morvanzhou.github.io/tutorials/machine-learning/theano/
+# 10 迁移学习 Transfer Learning https://morvanzhou.github.io/tutorials/machine-learning/tensorflow/5-16-transfer-learning/
+# 11 其他教学系列 https://morvanzhou.github.io/tutorials/others/
+# 12 进化算法 Evolutionary Strategies 教程系列 https://morvanzhou.github.io/tutorials/machine-learning/evolutionary-algorithm/
+# 13 基础教程系列 https://morvanzhou.github.io/tutorials/python-basic/basic/
+# 14 Keras 教程系列 https://morvanzhou.github.io/tutorials/machine-learning/keras/
+# 15 Python基础 教程系列 https://morvanzhou.github.io/tutorials/python-basic/
+# 16 Threading 多线程教程系列 https://morvanzhou.github.io/tutorials/python-basic/threading/
+# 17 高级爬虫: 让 Selenium 控制你的浏览器帮你爬 https://morvanzhou.github.io/tutorials/data-manipulation/scraping/5-01-selenium/
+# 18 Tensorflow 教程系列 https://morvanzhou.github.io/tutorials/machine-learning/tensorflow/
+# 19 网页爬虫教程系列 https://morvanzhou.github.io/tutorials/data-manipulation/scraping/
+# 20 迁移学习 Transfer Learning https://morvanzhou.github.io/tutorials/machine-learning/ML-intro/2-9-transfer-learning/
+# 21 有趣的机器学习系列 https://morvanzhou.github.io/tutorials/machine-learning/ML-intro/
+# 22 推荐学习顺序 https://morvanzhou.github.io/learning-steps/
+# 23 Pytorch 教程系列 https://morvanzhou.github.io/tutorials/machine-learning/torch/
+# 24 说吧~ https://morvanzhou.github.io/discuss/
+# 25 近期更新 https://morvanzhou.github.io/recent-posts/
+# 26 Tkinter GUI 教程系列 https://morvanzhou.github.io/tutorials/python-basic/tkinter/
+# 27 机器学习实践 https://morvanzhou.github.io/tutorials/machine-learning/ML-practice/
+# 28 数据处理教程系列 https://morvanzhou.github.io/tutorials/data-manipulation/
+# 29 Linux 简易教学 https://morvanzhou.github.io/tutorials/others/linux-basic/
+# 30 强化学习 Reinforcement Learning 教程系列 https://morvanzhou.github.io/tutorials/machine-learning/reinforcement-learning/
+# 31 Matplotlib 画图教程系列 https://morvanzhou.github.io/tutorials/data-manipulation/plt/
+# 32 关于莫烦 https://morvanzhou.github.io/about/
+# 33 Sklearn 通用机器学习 教程系列 https://morvanzhou.github.io/tutorials/machine-learning/sklearn/
+# 34 机器学习系列 https://morvanzhou.github.io/tutorials/machine-learning/
+# Total time: 100.6 s
+
+# Process finished with exit code 0
+
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Problem I. Spell Boost HDU - 6508 | 有顺序的背包dp]]></title>
         <id>https://8421BCD.github.io/post/problem-i-spell-boost-hdu-6508-or-you-shun-xu-de-bei-bao-dp</id>
@@ -1033,141 +1148,6 @@ int main()
 #include &lt;unordered_set&gt;
 #endif
 
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[P3806 【模板】点分治1 | 点分治模板题]]></title>
-        <id>https://8421BCD.github.io/post/p3806-mo-ban-dian-fen-zhi-1-or-dian-fen-zhi-mo-ban-ti</id>
-        <link href="https://8421BCD.github.io/post/p3806-mo-ban-dian-fen-zhi-1-or-dian-fen-zhi-mo-ban-ti">
-        </link>
-        <updated>2020-02-09T11:35:11.000Z</updated>
-        <summary type="html"><![CDATA[<p>点分治模板题</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>点分治模板题</p>
-<!--more-->
-<p><strong>题意：</strong><br>
-给定一棵有 n 个点的树。询问树上距离为 k 的点对是否存在。<br>
-<strong>分析：</strong><br>
-点分治模板<br>
-<strong>代码：</strong></p>
-<pre><code class="language-cpp">//copy AgOH's code
-#include &lt;bits/stdc++.h&gt;
-using namespace std;
-const int maxn = 1e5 + 10;
-const int maxnum = 1e8 + 10;
-struct edge
-{
-    int ep, v, nex;
-    edge(int a = 0, int b = 0, int c = 0) : ep(a), v(b), nex(c){}
-}e[maxn &lt;&lt; 1];
-int head[maxn], tot;
-int n, m;
-
-void init() {memset(head, -1, sizeof(head)); tot = 0;}
-void addedge(int sp, int ep, int v)
-{
-    e[tot] = edge(ep, v, head[sp]);
-    head[sp] = tot++;
-    e[tot] = edge(sp, v, head[ep]);
-    head[ep] = tot++;
-}
-
-int maxp[maxn], siz[maxn], vis[maxn], treesiz, root;
-int dis[maxn], judge[maxnum], tmp[maxn], tmpnum;
-int q[maxn], ok[maxn];
-
-void getroot(int now, int f)
-{
-    siz[now] = 1, maxp[now] = 0;
-    for(int i = head[now]; ~i; i = e[i].nex)
-    {
-        int ep = e[i].ep;
-        if(ep == f || vis[ep]) continue;
-        getroot(ep, now);
-        siz[now] += siz[ep];
-        maxp[now] = max(maxp[now], siz[ep]);
-    }
-    maxp[now] = max(maxp[now], treesiz - siz[now]);
-    if(maxp[now] &lt; maxp[root]) root = now;
-}
-
-void getdis(int now, int f)
-{
-    tmp[tmpnum++] = dis[now];
-    for(int i = head[now]; ~i; i = e[i].nex)
-    {
-        int ep = e[i].ep, v = e[i].v;
-        if(vis[ep] || ep == f) continue;
-        dis[ep] = dis[now] + v;
-        getdis(ep, now);
-    }
-}
-
-void solve(int now)
-{
-    queue&lt;int&gt; que;
-    for(int i = head[now]; ~i; i = e[i].nex)
-    {
-        int ep = e[i].ep, v = e[i].v;
-        if(vis[ep]) continue;
-        tmpnum = 0;
-        dis[ep] = v;
-        getdis(ep, now);
-        for(int j = 0; j &lt; tmpnum; j++)
-            for(int k = 0; k &lt; m; k++)
-                if(q[k] &gt;= tmp[j])
-                    ok[k] |= judge[q[k] - tmp[j]];
-        for(int j = 0; j &lt; tmpnum; j++)
-        {
-            que.push(tmp[j]);
-            judge[tmp[j]] = true;
-        }
-    }
-    while(!que.empty())
-    {
-        judge[que.front()] = false;
-        que.pop();
-    }
-}
-
-void divide(int now)
-{
-    vis[now] = judge[0] = true;
-    solve(now);
-    for(int i = head[now]; ~i; i = e[i].nex)
-    {
-        int ep = e[i].ep;
-        if(vis[ep]) continue;
-        maxp[root = 0] = treesiz = siz[ep];
-        getroot(ep, -1);
-        getroot(root, -1);
-        divide(root);
-    }
-}
-
-int main()
-{
-    cin &gt;&gt; n &gt;&gt; m;
-    init();
-    for(int i = 1; i &lt; n; i++)
-    {
-        int x, y, v;
-        scanf(&quot;%d%d%d&quot;, &amp;x, &amp;y, &amp;v);
-        addedge(x, y, v);
-    }
-    for(int i = 0; i &lt; m; i++)
-        scanf(&quot;%d&quot;, q + i);
-    maxp[root = 0] = treesiz = n;
-    getroot(1, -1);
-    getroot(root, -1);
-    divide(root);
-    for(int i = 0; i &lt; m; i++)
-    {
-        if(ok[i]) puts(&quot;AYE&quot;);
-        else puts(&quot;NAY&quot;);
-    }
-}
 </code></pre>
 ]]></content>
     </entry>
