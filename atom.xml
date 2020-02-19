@@ -1,19 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://8421BCD.github.io/</id>
+    <id>http://localhost:4000</id>
     <title>Wannafly</title>
-    <updated>2020-02-18T14:27:52.423Z</updated>
+    <updated>2020-02-19T16:25:42.233Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://8421BCD.github.io/"/>
-    <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
+    <link rel="alternate" href="http://localhost:4000"/>
+    <link rel="self" href="http://localhost:4000/atom.xml"/>
     <subtitle>小小的天，有大大的梦想</subtitle>
-    <logo>https://8421BCD.github.io/images/avatar.png</logo>
-    <icon>https://8421BCD.github.io/favicon.ico</icon>
+    <logo>http://localhost:4000/images/avatar.png</logo>
+    <icon>http://localhost:4000/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
     <entry>
+        <title type="html"><![CDATA[爬取“Python 100例”练习题以及代码 | 爬虫练习]]></title>
+        <id>http://localhost:4000/post/pa-qu-python-100-li-lian-xi-ti-yi-ji-dai-ma-or-pa-chong-lian-xi</id>
+        <link href="http://localhost:4000/post/pa-qu-python-100-li-lian-xi-ti-yi-ji-dai-ma-or-pa-chong-lian-xi">
+        </link>
+        <updated>2020-02-19T16:07:58.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-cpp">from bs4 import BeautifulSoup
+import requests
+from urllib.parse import urljoin
+url = 'http://www.runoob.com/python/python-100-examples.html'
+
+headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.79 Safari/537.36'}      #反爬机制，其实没用上。。。
+
+r = requests.get(url, headers = headers).content.decode('utf-8')
+soup = BeautifulSoup(r, 'lxml')
+
+re_a = soup.find(id = 'content').ul.find_all('a')
+
+list = []
+for i in re_a:
+	list.append(i['href'])  #收集100个url
+data = []
+for x in list:
+	dict = {}
+	test = requests.get('http://www.runoob.com' + x, headers = headers).content.decode('utf-8')
+	soup_test = BeautifulSoup(test, 'html.parser')
+	dict['title'] = soup_test.find(id = 'content').h1.text	#分析html结构
+	dict['problem'] = soup_test.find(id = 'content').find_all('p')[1].text
+	dict['analyse'] = soup_test.find(id = 'content').find_all('p')[2].text
+	try:
+		dict['code'] = soup_test.find(class_=&quot;hl-main&quot;).text
+	except Exception as e:
+		dict['code'] = soup_test.find('pre').text
+	with open('100-py.csv', 'a+', encoding = 'utf-8') as file:  #文件保存
+		file.write(dict['title'] + '\n')
+		file.write(dict['problem'] + '\n')
+		file.write(dict['analyse'] + '\n')
+		file.write(dict['code'] + '\n')
+		file.write('-' * 50 + '\n')
+		file.write('\n')
+	print(dict['title'])
+
+</code></pre>
+<ul>
+<li><strong>爬取结果</strong><br>
+<img src="file:https://cdn.jsdelivr.net/gh/8421BCD/CDN/img/123.png" alt="" loading="lazy"></li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[高效快速图床配置教程]]></title>
-        <id>https://8421BCD.github.io/post/gao-xiao-kuai-su-tu-chuang-pei-zhi-jiao-cheng</id>
-        <link href="https://8421BCD.github.io/post/gao-xiao-kuai-su-tu-chuang-pei-zhi-jiao-cheng">
+        <id>http://localhost:4000/post/gao-xiao-kuai-su-tu-chuang-pei-zhi-jiao-cheng</id>
+        <link href="http://localhost:4000/post/gao-xiao-kuai-su-tu-chuang-pei-zhi-jiao-cheng">
         </link>
         <updated>2020-02-18T13:51:40.000Z</updated>
         <content type="html"><![CDATA[<p>https://www.itrhx.com/2019/02/10/A18-free-cdn/<br>
@@ -22,8 +71,8 @@ itrhx.com/2019/08/01/A27-image-hosting/</p>
     </entry>
     <entry>
         <title type="html"><![CDATA[加速爬虫: 多进程分布式 | 爬取莫烦python的网页]]></title>
-        <id>https://8421BCD.github.io/post/jia-su-pa-chong-duo-jin-cheng-fen-bu-shi-or-pa-qu-mo-fan-python-de-wang-ye</id>
-        <link href="https://8421BCD.github.io/post/jia-su-pa-chong-duo-jin-cheng-fen-bu-shi-or-pa-qu-mo-fan-python-de-wang-ye">
+        <id>http://localhost:4000/post/jia-su-pa-chong-duo-jin-cheng-fen-bu-shi-or-pa-qu-mo-fan-python-de-wang-ye</id>
+        <link href="http://localhost:4000/post/jia-su-pa-chong-duo-jin-cheng-fen-bu-shi-or-pa-qu-mo-fan-python-de-wang-ye">
         </link>
         <updated>2020-02-18T08:41:28.000Z</updated>
         <content type="html"><![CDATA[<pre><code class="language-python">import multiprocessing as mp
@@ -137,8 +186,8 @@ if __name__ == '__main__':
     </entry>
     <entry>
         <title type="html"><![CDATA[Problem I. Spell Boost HDU - 6508 | 有顺序的背包dp]]></title>
-        <id>https://8421BCD.github.io/post/problem-i-spell-boost-hdu-6508-or-you-shun-xu-de-bei-bao-dp</id>
-        <link href="https://8421BCD.github.io/post/problem-i-spell-boost-hdu-6508-or-you-shun-xu-de-bei-bao-dp">
+        <id>http://localhost:4000/post/problem-i-spell-boost-hdu-6508-or-you-shun-xu-de-bei-bao-dp</id>
+        <link href="http://localhost:4000/post/problem-i-spell-boost-hdu-6508-or-you-shun-xu-de-bei-bao-dp">
         </link>
         <updated>2020-02-17T14:48:00.000Z</updated>
         <summary type="html"><![CDATA[<p>又是烧脑的背包dp，永远也理解不了的背包dp，哎。<br>
@@ -255,8 +304,8 @@ int main(){
     </entry>
     <entry>
         <title type="html"><![CDATA[Proud Merchants HDU - 3466 | 有顺序的背包问题]]></title>
-        <id>https://8421BCD.github.io/post/proud-merchants-hdu-3466-or-you-shun-xu-de-bei-bao-wen-ti</id>
-        <link href="https://8421BCD.github.io/post/proud-merchants-hdu-3466-or-you-shun-xu-de-bei-bao-wen-ti">
+        <id>http://localhost:4000/post/proud-merchants-hdu-3466-or-you-shun-xu-de-bei-bao-wen-ti</id>
+        <link href="http://localhost:4000/post/proud-merchants-hdu-3466-or-you-shun-xu-de-bei-bao-wen-ti">
         </link>
         <updated>2020-02-17T14:26:12.000Z</updated>
         <summary type="html"><![CDATA[<p>好像是第一次接触有顺序的背包问题，之前做的背包都是乱序的，今天这两道题由于被其后效性左右，所以需要思考一下如何排序，这是关键。</p>
@@ -268,7 +317,7 @@ int main(){
 <strong>分析：</strong><br>
 对于相邻的两个物品，其购买顺序对于后面的物品没有影响，但是前一个物品可能会对后面的产生影响。<br>
 一个物品的价格差越大说明其对下一个越会产生影响（不知道这么理解对不对，dp的无后效性的证明对我而言一直都是个难题，不过从贪心的角度思考会更能说服我自己，不过贪心好像也很难证明。。。）<br>
-<img src="https://8421BCD.github.io//post-images/1581950767733.jpg" alt="" loading="lazy"><br>
+<img src="http://localhost:4000/post-images/1581950767733.jpg" alt="" loading="lazy"><br>
 显然前者才是正确的<br>
 <strong>代码：</strong></p>
 <pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
@@ -317,8 +366,8 @@ int main()
     </entry>
     <entry>
         <title type="html"><![CDATA[Codeforces Round #620 (Div. 2)  | LIS , LCA]]></title>
-        <id>https://8421BCD.github.io/post/codeforces-round-620-div-2-or-lis-lca</id>
-        <link href="https://8421BCD.github.io/post/codeforces-round-620-div-2-or-lis-lca">
+        <id>http://localhost:4000/post/codeforces-round-620-div-2-or-lis-lca</id>
+        <link href="http://localhost:4000/post/codeforces-round-620-div-2-or-lis-lca">
         </link>
         <updated>2020-02-16T08:02:55.000Z</updated>
         <content type="html"><![CDATA[<!--more-->
@@ -474,8 +523,8 @@ int main()
     </entry>
     <entry>
         <title type="html"><![CDATA[Codeforces Round #620 (Div. 2) ]]></title>
-        <id>https://8421BCD.github.io/post/codeforces-round-620-div-2</id>
-        <link href="https://8421BCD.github.io/post/codeforces-round-620-div-2">
+        <id>http://localhost:4000/post/codeforces-round-620-div-2</id>
+        <link href="http://localhost:4000/post/codeforces-round-620-div-2">
         </link>
         <updated>2020-02-16T08:02:55.000Z</updated>
         <content type="html"><![CDATA[<!--more-->
@@ -630,8 +679,8 @@ int main()
     </entry>
     <entry>
         <title type="html"><![CDATA[K-th Number POJ - 2104 | 主席树模板]]></title>
-        <id>https://8421BCD.github.io/post/k-th-number-poj-2104-or-zhu-xi-shu-mo-ban</id>
-        <link href="https://8421BCD.github.io/post/k-th-number-poj-2104-or-zhu-xi-shu-mo-ban">
+        <id>http://localhost:4000/post/k-th-number-poj-2104-or-zhu-xi-shu-mo-ban</id>
+        <link href="http://localhost:4000/post/k-th-number-poj-2104-or-zhu-xi-shu-mo-ban">
         </link>
         <updated>2020-02-14T14:24:15.000Z</updated>
         <summary type="html"><![CDATA[<p>模板题</p>
@@ -727,8 +776,8 @@ int main()
     </entry>
     <entry>
         <title type="html"><![CDATA[Cotree HDU - 6567 | 树的重心]]></title>
-        <id>https://8421BCD.github.io/post/cotree-hdu-6567-or-shu-de-chong-xin</id>
-        <link href="https://8421BCD.github.io/post/cotree-hdu-6567-or-shu-de-chong-xin">
+        <id>http://localhost:4000/post/cotree-hdu-6567-or-shu-de-chong-xin</id>
+        <link href="http://localhost:4000/post/cotree-hdu-6567-or-shu-de-chong-xin">
         </link>
         <updated>2020-02-14T07:09:18.000Z</updated>
         <content type="html"><![CDATA[<!--more-->
@@ -826,8 +875,8 @@ int main()
     </entry>
     <entry>
         <title type="html"><![CDATA[Rng HDU - 6574 | 概率 + 快速幂求逆元]]></title>
-        <id>https://8421BCD.github.io/post/rng-hdu-6574-or-gai-lu-kuai-su-mi-qiu-ni-yuan</id>
-        <link href="https://8421BCD.github.io/post/rng-hdu-6574-or-gai-lu-kuai-su-mi-qiu-ni-yuan">
+        <id>http://localhost:4000/post/rng-hdu-6574-or-gai-lu-kuai-su-mi-qiu-ni-yuan</id>
+        <link href="http://localhost:4000/post/rng-hdu-6574-or-gai-lu-kuai-su-mi-qiu-ni-yuan">
         </link>
         <updated>2020-02-13T11:36:18.000Z</updated>
         <summary type="html"><![CDATA[<p>挺简单一个概率题，想了好久推不出公式，太菜了，发自内心的。</p>
@@ -865,151 +914,6 @@ int main()
 		cout &lt;&lt; (n + 1) * qpow(2 * n, mod - 2) % mod &lt;&lt; endl;
 	}	
 }
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[B - Happy King HDU - 5314 | 点分治 + 容斥原理]]></title>
-        <id>https://8421BCD.github.io/post/b-happy-king-hdu-5314-or-dian-fen-zhi-rong-chi-yuan-li</id>
-        <link href="https://8421BCD.github.io/post/b-happy-king-hdu-5314-or-dian-fen-zhi-rong-chi-yuan-li">
-        </link>
-        <updated>2020-02-12T03:04:19.000Z</updated>
-        <content type="html"><![CDATA[<!--more-->
-<p><strong>题意：</strong><br>
-给定N个点的树，点有权值,求多少个点对(u,v)满足u到v的路径上点权值最大值减最小值不大于给定的K</p>
-<p><strong>分析：</strong><br>
-1、分治的时候子树的size不准仍然可以求根（可以证明），或者用一个更准确的方法写</p>
-<pre><code class="language-cpp">    void divide(int now)
-    {
-        vis[now] = true;
-        res += cal(now, -1e9, 1e9);
-        for(int i = head[now]; ~i; i = e[i].nex)
-        {
-            int ep = e[i].ep;
-            if(vis[ep]) continue;
-            res -= cal(ep, v[now], v[now]);
-            maxp[root = 0] = sizz = siz[ep]; // 或者 = siz[ep] &gt; size[now] ? sizz - siz[now] : siz[ep]
-            getroot(ep, -1);
-            divide(root);
-        }
-    }
-</code></pre>
-<p>2、扣除两个点来自同一子树的情况，通过容斥原理，把子树再求一遍。<br>
-<strong>代码：</strong></p>
-<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-typedef long long ll;
-typedef pair&lt;int, int&gt; par;
-#define mp make_pair
-const int maxn = 2e5;
-const int inf = 0x3f3f3f3f;
-struct edge
-{
-    int ep, v, nex;
-    edge(int a = 0, int b = 0, int c = 0) : ep(a), v(b), nex(c){}
-}e[maxn &lt;&lt; 1];
-int head[maxn], tot;
-void addedge(int sp, int ep, int v = 1)
-{
-    e[tot] = edge(ep, v, head[sp]);
-    head[sp] = tot++;
-    e[tot] = edge(sp, v, head[ep]);
-    head[ep] = tot++;
-}
-
-int v[maxn], n, k;
-int siz[maxn], maxp[maxn], sizz, root;
-bool vis[maxn];
-par path[maxn];
-int cur;
-ll res;
-
-void init()
-{
-    memset(head, -1, sizeof(head)); tot = 0;
-    memset(vis, false, sizeof(vis)); res = 0;
-}
-
-void getroot(int now, int f)
-{
-    siz[now] = 1, maxp[now] = 0;
-    for(int i = head[now]; ~i; i = e[i].nex)
-    {
-        int ep = e[i].ep;
-        if(ep == f || vis[ep]) continue;
-        getroot(ep, now);
-        siz[now] += siz[ep];
-        maxp[now] = max(maxp[now], siz[ep]);
-    }
-    maxp[now] = max(maxp[now], sizz - siz[now]);
-    if(maxp[now] &lt; maxp[root]) root = now;
-}
-
-void dfs_maxmin(int now, int f, int maxx, int minn)
-{
-    maxx = max(maxx, v[now]), minn = min(minn, v[now]);
-    if(maxx - minn &lt;= k) path[cur++] = mp(minn, maxx);
-    for(int i = head[now]; ~i; i = e[i].nex)
-    {
-        int ep = e[i].ep;
-        if(ep == f || vis[ep]) continue;
-        dfs_maxmin(ep, now, maxx, minn);
-    }
-}
-
-ll cal(int now, int maxx, int minn)
-{
-    ll ans = 0;
-    cur = 0;
-    dfs_maxmin(now, -1, maxx, minn);
-    sort(path, path + cur);
-    for(int i = cur - 1; i &gt;= 0; i--)
-    {
-        int num = lower_bound(path, path + i, mp(path[i].second - k, 0)) - path;
-        ans += i - num;
-    }
-    return ans;
-}
-
-void divide(int now)
-{
-    vis[now] = true;
-    res += cal(now, -1e9, 1e9);
-    for(int i = head[now]; ~i; i = e[i].nex)
-    {
-        int ep = e[i].ep;
-        if(vis[ep]) continue;
-        res -= cal(ep, v[now], v[now]);
-		maxp[root = 0] = sizz = siz[ep];
-		getroot(ep, -1);
-        divide(root);
-    }
-}
-
-int main()
-{
-	ios::sync_with_stdio(0);
-	cin.tie(0); cout.tie(0);
-    int t; cin &gt;&gt; t;
-    while(t--)
-    {
-        init();
-        cin &gt;&gt; n &gt;&gt; k;
-        for(int i = 1; i &lt;= n; i++)
-            cin &gt;&gt; v[i];
-        for(int i = 1; i &lt; n; i++)
-        {
-            int sp, ep;
-            cin &gt;&gt; sp &gt;&gt; ep;
-            addedge(sp, ep);
-        }
-		maxp[root = 0] = sizz = n;
-		getroot(1, -1);
-        divide(root);
-        cout &lt;&lt; res * 2 &lt;&lt; endl;
-    }
-}
-
 </code></pre>
 ]]></content>
     </entry>
