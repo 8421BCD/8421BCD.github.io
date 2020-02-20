@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-02-20T00:58:16.451Z</updated>
+    <updated>2020-02-20T01:01:51.366Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -54,11 +54,10 @@ for x in list:
 		file.write('-' * 50 + '\n')
 		file.write('\n')
 	print(dict['title'])
-
 </code></pre>
 <ul>
 <li><strong>爬取结果</strong><br>
-<img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L2doLzg0MjFCQ0QvQ0ROL2ltZy8xMjMucG5n?x-oss-process=image/format,png" alt="爬取的100道题" loading="lazy"></li>
+<img src="https://cdn.jsdelivr.net/gh/8421BCD/CDN/img/123123.png" alt="avatar" loading="lazy"></li>
 </ul>
 ]]></content>
     </entry>
