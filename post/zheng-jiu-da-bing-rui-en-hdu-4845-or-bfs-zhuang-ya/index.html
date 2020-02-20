@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-      <meta charset="UTF-8"/>
+    <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="小小的天，有大大的梦想">
 <meta name="theme-color" content="#000">
-<title>Wannafly</title>
+<title>拯救大兵瑞恩 HDU - 4845 | bfs + 状压 | Wannafly</title>
 <link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1582208763312">
 <link rel="stylesheet" href="https://8421BCD.github.io//styles/main.css">
 
@@ -25,6 +25,8 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
     onload="renderMathInElement(document.body);"></script>
 
+    <meta name="description" content="拯救大兵瑞恩 HDU - 4845 | bfs + 状压" />
+    <meta name="keywords" content="" />
   </head>
   <body>
     <div class="head-top-line"></div>
@@ -122,10 +124,16 @@
     </div>
     <div class="main-continer">
       
-      <div class="section-layout  pisces">
+      <div class="section-layout pisces ">
         <div class="section-layout-wrapper">
-          <div class="sidebar">
-    
+          
+
+<div class="sidebar">
+    <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
+      
+      <div class="sidebar-body pisces" id="sidebar_body">
+        
+          
 <div class="sidebar-wrapper box-shadow-wrapper bg-color">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="https://8421BCD.github.io//images/avatar.png"/>
@@ -167,156 +175,261 @@
 
 
 </div>
-</div>
-            <div class="section-box tag-line">
-              <div class="box-shadow-wrapper">
-                <div class="bg-color">
-                  <section class="section posts-expand">
-                    <div class="padding-wrapper">
-  <div class="tag-timeline-box">
-    <div class="tag-timeline-wrapper">
-      <div class="tag-timeline-title">
-        <h2>
-          网络流
-          <small>标签</small>
-        </h2>
+        
       </div>
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-            <a href="https://8421BCD.github.io/post/wang-luo-liu-suan-fa-mo-ban">
-              <div class="motion-warpper">
-                <div class="tag-post-node">
-                  <h1>
-                    02-07
-                    <small>网络流算法模板</small>
-                  </h1>
-                </div>  
+    </div>
+</div>
+<script>
+  const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
+  const SIDEBAR_BODY_ACTIVE = 'sidebar-body-active';
+  const SLIDE_UP_IN = 'slide-up-in';
+
+  let sidebar = document.querySelector('#sidebar'),
+  tocSideBar = document.querySelector('#tocSideBar'),
+  metaSideBar = document.querySelector('#metaSideBar'),
+  postToc = document.querySelector('#post_toc'),
+  postSiteMeta = document.querySelector('#post_side_meta'),
+  sidebarTitle = document.querySelector('.sidebar-title'),
+  sidebarBody = document.querySelector('#sidebar_body');
+
+  tocSideBar && tocSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  metaSideBar && metaSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  function toggleSidebar(e) {
+    let currentTitle = document.querySelector("."+SIDEBAR_TITLE_ACTIVE);
+    if (currentTitle == e.srcElement) {
+      return ;
+    }
+    let current, showElement, hideElement;
+    if (e.srcElement == metaSideBar) {
+      showElement = postSiteMeta;
+      hideElement = postToc;
+    } else if (e.srcElement == tocSideBar){
+      showElement = postToc;
+      hideElement = postSiteMeta;
+    }
+    currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
+    e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
+
+    window.Velocity(hideElement, 'stop');
+    window.Velocity(hideElement, 'transition.slideUpOut', {
+      display: 'none',
+      duration: 200,
+      complete: function () {
+        window.Velocity(showElement, 'transition.slideDownIn', {
+          duration: 200
+        });
+      }
+    })
+    hideElement.classList.remove(SIDEBAR_BODY_ACTIVE);
+    showElement.classList.add(SIDEBAR_BODY_ACTIVE);
+  }
+
+  postToc.addEventListener('transitionend', function() {
+    this.classList.remove(SLIDE_UP_IN);
+  });
+
+
+  if (sidebarBody.classList.contains('pisces') || sidebarBody.classList.contains('gemini')) {
+    let hasFix = false;
+    let scrollEl = document.querySelector('.main-continer');
+    let limitTop = document.querySelector('#nav_ul').children.length * 42 + 162;
+    window.addEventListener('scroll', function(e) {
+    if (document.scrollingElement.scrollTop >= limitTop) {
+      if (!hasFix) {
+        sidebar.classList.add('sidebar-fixed');
+        hasFix = true;
+      }
+    } else {
+      if (hasFix) {
+        sidebar.classList.remove('sidebar-fixed');
+        hasFix = false;
+      }
+    }
+  });
+  }
+  
+</script>
+          <div class="section-box box-shadow-wrapper">
+            <div class="section bg-color post post-page">
+              <div class="article-box">
+    <header class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://8421BCD.github.io/post/zheng-jiu-da-bing-rui-en-hdu-4845-or-bfs-zhuang-ya">
+      拯救大兵瑞恩 HDU - 4845 | bfs + 状压
+    </a>
+  </h1>
+  <div class="post-meta">
+    
+    <span class="meta-item pc-show">
+      <i class="fa fa-calendar-o"></i>
+      <span>发布于</span>
+      <span>2020-02-20</span>
+      <span class="post-meta-divider pc-show">|</span>
+    </span>
+    
+    <span class="meta-item">
+      <i class="fa fa-clock-o"></i>
+      <span>4分钟</span>
+    </span>
+    <span class="meta-item">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span>856<span class="pc-show">字数</span></span>
+    </span>
+  </div>
+</header>
+</div>
+              <div class="post-body next-md-body" id="post_body">
+                <!--more-->
+<p><strong>题意：</strong><br>
+1944年，特种兵麦克接到国防部的命令，要求立即赶赴太平洋上的一个孤岛，营救被敌军俘虏的大兵瑞恩。瑞恩被关押在一个迷宫里，迷宫地形复杂，但是幸好麦克得到了迷宫的地形图。<br>
+迷宫的外形是一个长方形，其在南北方向被划分为N行，在东西方向被划分为M列，于是整个迷宫被划分为N*M个单元。我们用一个有序数对（单元的行号，单元的列号）来表示单元位置。南北或东西方向相邻的两个单元之间可以互通，或者存在一扇锁着的门，又或者存在一堵不可逾越的墙。迷宫中有一些单元存放着钥匙，并且所有的门被分为P类，打开同一类的门的钥匙相同，打开不同类的门的钥匙不同。<br>
+　　　大兵瑞恩被关押在迷宫的东南角，即（N,M）单元里，并已经昏迷。迷宫只有一个入口，在西北角，也就是说，麦克可以直接进入(1,1)单元。另外，麦克从一个单元移动到另一个相邻单元的时间为1，拿取所在单元的钥匙的时间以及用钥匙开门的时间忽略不计。<br>
+　　　你的任务是帮助麦克以最快的方式抵达瑞恩所在单元，营救大兵瑞恩。<br>
+<strong>分析：</strong><br>
+这个状压体现在key上  我i们用把key状压一下  就能记录到一个点时 已经拥有的key的种类<br>
+ban[x1][y1][x2][y1]记录两个点之间的状态 是门 还是墙 还是啥都没有<br>
+inc[x][y]记录这个点所存储的钥匙  （可能不止一个 所以要用二进制）<br>
+vis[x][y][key]  标记当前点 在拥有的钥匙种类为key时是否走过<br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+//typedef __int128 lll;
+#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
+#define mem(a, b) memset(a, b, sizeof(a))
+#define debug(a) cout &lt;&lt; &quot;debug :&quot; &lt;&lt; a &lt;&lt; endl
+#define fi first
+#define se second
+const int maxn = 1e6;
+const int inf = 0x3f3f3f3f;
+struct node
+{
+    int x, y, key, step;
+    node(int a = 0, int b = 0, int c = 0, int d = 0) : x(a), y(b), key(c), step(d){}
+};
+int vis[20][20][10000], wall[20][20][20][20];
+int key[20][20];
+int n, m, p;
+int dir[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+void init()
+{
+    mem(wall, -1), mem(vis, 0), mem(key, 0);
+}
+
+int bfs()
+{
+    queue&lt;node&gt; q;
+    q.push(node(1, 1, key[1][1], 0));
+    vis[1][1][key[1][1]] = 1;
+    while(!q.empty())
+    {
+        node now = q.front(); q.pop();
+        if(now.x == n &amp;&amp; now.y == m) return now.step;
+        for(int i = 0; i &lt; 4; i++)
+        {
+            int x = now.x + dir[i][0], y = now.y + dir[i][1];
+            if(x &lt; 1 || x &gt; n || y &lt; 1 || y &gt; m || !wall[now.x][now.y][x][y]) continue;
+            if(wall[now.x][now.y][x][y] == -1 || (now.key &amp; (1 &lt;&lt; (wall[now.x][now.y][x][y] - 1))))
+            {
+                int nexkey = now.key | key[x][y];
+                if(vis[x][y][nexkey]) continue;
+                vis[x][y][nexkey] = 1;
+                node nex = node(x, y, nexkey, now.step + 1);
+                q.push(nex);
+            }
+
+        }
+    }
+    return -1;
+}
+
+int main()
+{
+    while(cin &gt;&gt; n &gt;&gt; m &gt;&gt; p)
+    {
+        int k;cin &gt;&gt; k;
+        init();
+        while(k--)
+        {
+            int x1, y1, x2, y2, wal;
+            cin &gt;&gt; x1 &gt;&gt; y1 &gt;&gt; x2 &gt;&gt; y2 &gt;&gt; wal;
+            wall[x1][y1][x2][y2] = wall[x2][y2][x1][y1] = wal;
+        }
+        cin &gt;&gt; k;
+        while(k--)
+        {
+            int x, y, ke;
+            cin &gt;&gt; x &gt;&gt; y &gt;&gt; ke;
+            key[x][y] |= (1 &lt;&lt; (ke - 1));
+        }
+        cout &lt;&lt; bfs() &lt;&lt; endl;
+    }
+    
+}
+</code></pre>
+
               </div>
-            </a>
-          
-        
+              <div class="post-footer">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Wannafly
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://8421BCD.github.io/post/zheng-jiu-da-bing-rui-en-hdu-4845-or-bfs-zhuang-ya" title="拯救大兵瑞恩 HDU - 4845 | bfs + 状压">拯救大兵瑞恩 HDU - 4845 | bfs + 状压</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，转载请注明出处！
+    </li>
+  </ul>
+  <div class="tags">
+    
+  </div>
+  <div class="nav">
+    <div class="nav-prev">
       
-        
-          
-        
+    </div>
+    <div class="nav-next">
       
-        
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-      
-        
-      
-        
-          
-        
+        <a class="nav-pc-next" title="爬取“Python 100例”练习题以及代码 | 爬虫练习" href="https://8421BCD.github.io/post/pa-qu-python-100-li-lian-xi-ti-yi-ji-dai-ma-or-pa-chong-lian-xi">爬取“Python 100例”练习题以及代码 | 爬虫练习</a>
+        <a class="nav-mobile-next" title="爬取“Python 100例”练习题以及代码 | 爬虫练习" href="https://8421BCD.github.io/post/pa-qu-python-100-li-lian-xi-ti-yi-ji-dai-ma-or-pa-chong-lian-xi">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
       
     </div>
   </div>
 </div>
-                  </section>
-                </div>
-              </div>
+              
+                
+                  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '',
+    clientSecret: '',
+    repo: '',
+    owner: '',
+    admin: [''],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+  gitalk.render('gitalk-container')
+</script>
+                
+                
+              
+            </div>
           </div>
         </div>
       </div>

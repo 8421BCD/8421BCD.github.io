@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-02-20T01:01:51.366Z</updated>
+    <updated>2020-02-20T14:26:11.123Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -10,6 +10,102 @@
     <logo>https://8421BCD.github.io/images/avatar.png</logo>
     <icon>https://8421BCD.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
+    <entry>
+        <title type="html"><![CDATA[拯救大兵瑞恩 HDU - 4845 | bfs + 状压]]></title>
+        <id>https://8421BCD.github.io/post/zheng-jiu-da-bing-rui-en-hdu-4845-or-bfs-zhuang-ya</id>
+        <link href="https://8421BCD.github.io/post/zheng-jiu-da-bing-rui-en-hdu-4845-or-bfs-zhuang-ya">
+        </link>
+        <updated>2020-02-20T14:23:44.000Z</updated>
+        <content type="html"><![CDATA[<!--more-->
+<p><strong>题意：</strong><br>
+1944年，特种兵麦克接到国防部的命令，要求立即赶赴太平洋上的一个孤岛，营救被敌军俘虏的大兵瑞恩。瑞恩被关押在一个迷宫里，迷宫地形复杂，但是幸好麦克得到了迷宫的地形图。<br>
+迷宫的外形是一个长方形，其在南北方向被划分为N行，在东西方向被划分为M列，于是整个迷宫被划分为N*M个单元。我们用一个有序数对（单元的行号，单元的列号）来表示单元位置。南北或东西方向相邻的两个单元之间可以互通，或者存在一扇锁着的门，又或者存在一堵不可逾越的墙。迷宫中有一些单元存放着钥匙，并且所有的门被分为P类，打开同一类的门的钥匙相同，打开不同类的门的钥匙不同。<br>
+　　　大兵瑞恩被关押在迷宫的东南角，即（N,M）单元里，并已经昏迷。迷宫只有一个入口，在西北角，也就是说，麦克可以直接进入(1,1)单元。另外，麦克从一个单元移动到另一个相邻单元的时间为1，拿取所在单元的钥匙的时间以及用钥匙开门的时间忽略不计。<br>
+　　　你的任务是帮助麦克以最快的方式抵达瑞恩所在单元，营救大兵瑞恩。<br>
+<strong>分析：</strong><br>
+这个状压体现在key上  我i们用把key状压一下  就能记录到一个点时 已经拥有的key的种类<br>
+ban[x1][y1][x2][y1]记录两个点之间的状态 是门 还是墙 还是啥都没有<br>
+inc[x][y]记录这个点所存储的钥匙  （可能不止一个 所以要用二进制）<br>
+vis[x][y][key]  标记当前点 在拥有的钥匙种类为key时是否走过<br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+//typedef __int128 lll;
+#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
+#define mem(a, b) memset(a, b, sizeof(a))
+#define debug(a) cout &lt;&lt; &quot;debug :&quot; &lt;&lt; a &lt;&lt; endl
+#define fi first
+#define se second
+const int maxn = 1e6;
+const int inf = 0x3f3f3f3f;
+struct node
+{
+    int x, y, key, step;
+    node(int a = 0, int b = 0, int c = 0, int d = 0) : x(a), y(b), key(c), step(d){}
+};
+int vis[20][20][10000], wall[20][20][20][20];
+int key[20][20];
+int n, m, p;
+int dir[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+void init()
+{
+    mem(wall, -1), mem(vis, 0), mem(key, 0);
+}
+
+int bfs()
+{
+    queue&lt;node&gt; q;
+    q.push(node(1, 1, key[1][1], 0));
+    vis[1][1][key[1][1]] = 1;
+    while(!q.empty())
+    {
+        node now = q.front(); q.pop();
+        if(now.x == n &amp;&amp; now.y == m) return now.step;
+        for(int i = 0; i &lt; 4; i++)
+        {
+            int x = now.x + dir[i][0], y = now.y + dir[i][1];
+            if(x &lt; 1 || x &gt; n || y &lt; 1 || y &gt; m || !wall[now.x][now.y][x][y]) continue;
+            if(wall[now.x][now.y][x][y] == -1 || (now.key &amp; (1 &lt;&lt; (wall[now.x][now.y][x][y] - 1))))
+            {
+                int nexkey = now.key | key[x][y];
+                if(vis[x][y][nexkey]) continue;
+                vis[x][y][nexkey] = 1;
+                node nex = node(x, y, nexkey, now.step + 1);
+                q.push(nex);
+            }
+
+        }
+    }
+    return -1;
+}
+
+int main()
+{
+    while(cin &gt;&gt; n &gt;&gt; m &gt;&gt; p)
+    {
+        int k;cin &gt;&gt; k;
+        init();
+        while(k--)
+        {
+            int x1, y1, x2, y2, wal;
+            cin &gt;&gt; x1 &gt;&gt; y1 &gt;&gt; x2 &gt;&gt; y2 &gt;&gt; wal;
+            wall[x1][y1][x2][y2] = wall[x2][y2][x1][y1] = wal;
+        }
+        cin &gt;&gt; k;
+        while(k--)
+        {
+            int x, y, ke;
+            cin &gt;&gt; x &gt;&gt; y &gt;&gt; ke;
+            key[x][y] |= (1 &lt;&lt; (ke - 1));
+        }
+        cout &lt;&lt; bfs() &lt;&lt; endl;
+    }
+    
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[爬取“Python 100例”练习题以及代码 | 爬虫练习]]></title>
         <id>https://8421BCD.github.io/post/pa-qu-python-100-li-lian-xi-ti-yi-ji-dai-ma-or-pa-chong-lian-xi</id>
@@ -871,50 +967,6 @@ int main()
     for(int i = 1; i &lt;= n; i++)
         res += siz[i] * (n - siz[i]);//各条边的贡献加和
     cout &lt;&lt; res &lt;&lt; endl;
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Rng HDU - 6574 | 概率 + 快速幂求逆元]]></title>
-        <id>https://8421BCD.github.io/post/rng-hdu-6574-or-gai-lu-kuai-su-mi-qiu-ni-yuan</id>
-        <link href="https://8421BCD.github.io/post/rng-hdu-6574-or-gai-lu-kuai-su-mi-qiu-ni-yuan">
-        </link>
-        <updated>2020-02-13T11:36:18.000Z</updated>
-        <summary type="html"><![CDATA[<p>挺简单一个概率题，想了好久推不出公式，太菜了，发自内心的。</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>挺简单一个概率题，想了好久推不出公式，太菜了，发自内心的。</p>
-<!--more-->
-<p><strong>题意：</strong><br>
-给你一个[1, n]的区间， 让你在这个区间内再选两个区间（区间长度可以为零），区间端点必须为整数，问两个区间相交的概率。输出分子 * （分母mod 1e9 + 7的逆元）；<br>
-<strong>分析：</strong><br>
-先求不相交的概率：决定不相交的条件是右区间的左边点 &gt; 左区间的右端点。枚举左区间的右端点即可。<br>
-另熟悉快速幂求逆元模板<br>
-<strong>代码：</strong></p>
-<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-typedef long long ll;
-ll mod = 1e9 + 7;
-ll n;
-
-ll qpow(ll a, ll n)
-{
-	ll res = 1;
-	while(n)
-	{
-		if(n &amp; 1) res = res * a % mod;
-		n &gt;&gt;= 1;
-		a = a * a % mod;
-	}
-	return res;
-}
-
-int main()
-{
-	while(cin &gt;&gt; n)
-	{
-		cout &lt;&lt; (n + 1) * qpow(2 * n, mod - 2) % mod &lt;&lt; endl;
-	}	
 }
 </code></pre>
 ]]></content>
