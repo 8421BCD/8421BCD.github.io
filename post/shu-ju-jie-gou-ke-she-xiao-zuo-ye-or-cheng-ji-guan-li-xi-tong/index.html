@@ -6,7 +6,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="小小的天，有大大的梦想">
 <meta name="theme-color" content="#000">
-<title>Codeforces Round #616 (Div. 2) 题解 | Wannafly</title>
+<title>数据结构课设小作业 | 成绩管理系统 | Wannafly</title>
 <link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1582443870154">
 <link rel="stylesheet" href="https://8421BCD.github.io//styles/main.css">
 
@@ -25,8 +25,8 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
     onload="renderMathInElement(document.body);"></script>
 
-    <meta name="description" content="Codeforces Round #616 (Div. 2) 题解" />
-    <meta name="keywords" content="CodeForces" />
+    <meta name="description" content="数据结构课设小作业 | 成绩管理系统" />
+    <meta name="keywords" content="" />
   </head>
   <body>
     <div class="head-top-line"></div>
@@ -131,17 +131,9 @@
 <div class="sidebar">
     <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
       
-        <div class="post-list-sidebar">
-          <div class="sidebar-title">
-            <span id="tocSideBar" class="sidebar-title-item sidebar-title-active">文章目录</span>
-            <span id="metaSideBar" class="sidebar-title-item">站点概览</span>
-          </div>
-        </div>
-      
       <div class="sidebar-body pisces" id="sidebar_body">
         
-          <div class="post-side-meta" id="post_side_meta">
-            
+          
 <div class="sidebar-wrapper box-shadow-wrapper bg-color">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="https://8421BCD.github.io//images/avatar.png"/>
@@ -183,181 +175,6 @@
 
 
 </div>
-          </div>
-          <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
-            <div class="toc-box right-motion">
-  <div class="toc-wrapper auto-number auto" id="toc_wrapper">
-    <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#codeforces-round-616-div-2-%E9%A2%98%E8%A7%A3">Codeforces Round #616 (Div. 2) 题解</a></li>
-</ul>
-</li>
-</ul>
-
-  </div>
-</div>
-
-<script>
-
-let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1; 
-let active = 'active-show', activeClass = 'active-current';
-let tocWrapper = document.querySelector('#toc_wrapper');
-let tocContent = tocWrapper.children[0];
-let autoNumber = tocWrapper&&tocWrapper.classList.contains('auto-number');
-
-function addTocNumber(elem, deep) {
-  if (!elem) {
-    return;
-  }
-  let prop = elem.__proto__;
-
-  if (prop === HTMLUListElement.prototype) {
-    for (let i = 0; i < elem.children.length; i++) {
-      addTocNumber(elem.children[i], deep + (i + 1) + '.');
-    }
-  } else if (prop === HTMLLIElement.prototype) {
-    // 保存li元素
-    lList.push(elem);
-    for (let i = 0; i < elem.children.length; i++) {
-      let cur = elem.children[i];
-      if (cur.__proto__ === HTMLAnchorElement.prototype) {
-        if (autoNumber) {
-          cur.text =  deep + ' ' + cur.text;
-        }
-      } else if (cur.__proto__ === HTMLUListElement.prototype) {
-        addTocNumber(cur, deep);
-      }
-    }
-  }
-}
-
-
-document.addEventListener('scroll', function(e) {
-  if (lList.length <= 0) {
-    return;
-  }
-  let scrollTop = document.scrollingElement.scrollTop;
-  let dir;
-
-  if (lastTop - scrollTop > 0) {
-    dir = 'up';
-  } else {
-    dir = 'down';
-  }
-
-  lastTop = scrollTop;
-  if (scrollTop <= 0) {
-    if (lastIndex >= 0 && lastIndex < hList.length) {
-      lList[lastIndex].classList.remove(activeClass);
-    }
-    return;
-  }
-
-  let current = 0, hasFind = false;
-  for (let i = 0; i < hList.length; i++) {
-    if (hList[i].offsetTop > scrollTop) {
-      current = i;
-      hasFind = true;
-      break;
-    }
-  }
-  if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
-    current = hList.length - 1;
-  } else {
-    current--;
-  }
-  if (dir === 'down') {
-    if (current > lastIndex) {
-      addActiveClass(current);
-      removeActiveClass(lastIndex) 
-      lastIndex = current;
-      removeParentActiveClass();
-      lList[current] && addActiveLiElemment(lList[current].parentElement,tocContent);
-    }
-  } else {
-    if (current < lastIndex) {
-      addActiveClass(current);
-      removeActiveClass(lastIndex);
-      lastIndex = current;
-      removeParentActiveClass();
-      lList[current] && addActiveLiElemment(lList[current].parentElement,tocContent);
-    }
-  }
-});
-
-function removeParentActiveClass() {
-  let parents = tocContent.querySelectorAll('.'+active)
-  parents.forEach(function(elem) {
-    elem.classList.remove(active);
-  });
-}
-
-function addActiveClass(index) {
-  if (index >= 0 && index < hList.length) {
-    lList[index].classList.add(activeClass);
-  }
-}
-
-function removeActiveClass(index) {
-  if (index >= 0 && index < hList.length) {
-    lList[index].classList.remove(activeClass);
-  }
-}
-
-function addActiveLiElemment(elem, parent) {
-  if (!elem || elem === parent) {
-    return;
-  } else {
-    if (elem.__proto__ === HTMLLIElement.prototype) {
-      elem.classList.add(active);
-    }
-    addActiveLiElemment(elem.parentElement, parent);
-  }
-}
-
-function showToc() {
-  if (tocWrapper) {
-    postBody = document.querySelector('#post_body');
-    for (let i = 0; i < postBody.children.length; i++) {
-      if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
-        hList.push(postBody.children[i]);
-      }
-    }
-    if (tocWrapper.classList.contains('compress')) {
-        tocContent.classList.add('closed');
-    } else if (tocWrapper.classList.contains('no_compress')){
-      tocContent.classList.add('expanded');
-    } else {
-      if (hList.length > 10) {
-        active = 'active-hidden'
-        tocContent.classList.add('closed');
-      } else {
-        tocContent.classList.add('expanded');
-      }
-    }
-  }
-}
-addTocNumber(tocContent, '');
-
-window.addEventListener('load', function() {
-  showToc();
-  document.querySelector('#sidebar').style='display: block;';
-  tocWrapper.classList.add('toc-active');
-  setTimeout(function() {
-    if ("createEvent" in document) {
-      let evt = document.createEvent("HTMLEvents");
-      evt.initEvent("scroll", false, true);
-      document.dispatchEvent(evt);
-    }
-    else {
-      document.fireEvent("scroll");
-    }
-  }, 500)
-})
-
-</script>
-          </div>
         
       </div>
     </div>
@@ -443,8 +260,8 @@ window.addEventListener('load', function() {
               <div class="article-box">
     <header class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://8421BCD.github.io/post/codeforces-round-616-div-2-ti-jie">
-      Codeforces Round #616 (Div. 2) 题解
+    <a class="post-title-link" href="https://8421BCD.github.io/post/shu-ju-jie-gou-ke-she-xiao-zuo-ye-or-cheng-ji-guan-li-xi-tong">
+      数据结构课设小作业 | 成绩管理系统
     </a>
   </h1>
   <div class="post-meta">
@@ -452,191 +269,279 @@ window.addEventListener('load', function() {
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span>发布于</span>
-      <span>2020-02-03</span>
+      <span>2020-02-23</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
-      <span class="meta-item">
-        <i class="fa fa-folder-o"></i>
-        <span class="pc-show">分类于</span>
-        
-          
-            <a href="https://8421BCD.github.io/tag/QcqmodxwM">
-              <span>CodeForces</span>
-            </a>
-          
-        
-      </span>
-      <span class="post-meta-divider">|</span>
-    
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>8分钟</span>
+      <span>9分钟</span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>1608<span class="pc-show">字数</span></span>
+      <span>1436<span class="pc-show">字数</span></span>
     </span>
   </div>
 </header>
 </div>
               <div class="post-body next-md-body" id="post_body">
-                <hr>
-<h2 id="codeforces-round-616-div-2-题解">Codeforces Round #616 (Div. 2) 题解</h2>
-<hr>
-<p>**A. **</p>
-<p><strong>题意：</strong><br>
-定义一个数所有位置的和为偶数它本身不为偶数的数为ebne,现在给你一个数字字符串，你可以删除任意位置上的数字使其变为ebne输出任意改变后的结果，如果不能则输出-1<br>
-<strong>分析：</strong><br>
-如果奇数的个数&gt;=2，则输出前两个奇数<br>
-<strong>代码：</strong></p>
-<pre><code class="language-cpp">#include&lt;iostream&gt;
-#include&lt;algorithm&gt;
-#include&lt;string&gt;
- using namespace std;
- int main()
- {
-     int t,n;
-     scanf(&quot;%d&quot;,&amp;t);
-     while(t--){
-         string a,b;
-         cin&gt;&gt;n&gt;&gt;a;
-         for(int i=0;i&lt;n;i++){
-             if((a[i]-'0')%2)
-                 b+=a[i];
-         }
-        if(b.length()&lt;2)    cout&lt;&lt;&quot;-1&quot;&lt;&lt;endl;
-        else    cout&lt;&lt;b.substr(0,2)&lt;&lt;endl;
-     }
-    return 0;
-  }
-</code></pre>
-<p>**B. **</p>
-<p><strong>题意：</strong><br>
-给你一个数组，你可以对任意位置上的元素进行任意次的减1操作(不能使元素小于0)，使得该数组变成一个先严格递增再严格递减的数组(也可以只升不降，只降不升)<br>
-<strong>分析：</strong><br>
-从左右两边构造上升序列，a1 = an = 0， 公差为1。如果两个序列有交集，则合法。<br>
-<strong>代码：</strong></p>
-<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+                <pre><code class="language-cpp">#include &lt;cstring&gt;
+#include &lt;string&gt;
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;cstdlib&gt;
 using namespace std;
-
-int main()
+#define LIST_INIT_SIZE 1000
+#define LISTINCREMENT 100
+struct student
 {
-    ios::sync_with_stdio(false); cin.tie(0);
-
-    int nbTests; cin &gt;&gt; nbTests;
-    while (nbTests--) {
-	    int nbElem; cin &gt;&gt; nbElem;
-	    vector&lt;int&gt; tab(nbElem);
-
-	    for (int i = 0; i &lt; nbElem; ++i)
-		    cin &gt;&gt; tab[i];
-
-	    int prefixEnd = -1, suffixEnd = nbElem;
-
-	    for (int i = 0; i &lt; nbElem; ++i) {
-		    if (tab[i] &lt; i) break;
-		    prefixEnd = i;
-	    }
-	    for (int i = nbElem-1; i &gt;= 0; --i) {
-		    if (tab[i] &lt; (nbElem-1)-i) break;
-		    suffixEnd = i;
-	    }
-
-	    if (suffixEnd &lt;= prefixEnd) // Non-empty intersection
-		    cout &lt;&lt; &quot;Yes\n&quot;;
-	    else
-		    cout &lt;&lt; &quot;No\n&quot;;
-    }
-}
-</code></pre>
-<p>**C. **</p>
-<p><strong>题意：</strong><br>
-n个元素，n个人轮流取数，可以取数组头或尾元素，你在第m轮取，并且你可以控制k个人取什么元素，问你能取得最大元素是多少(前面的人不一定都取最大的)<br>
-<strong>分析：</strong><br>
-k一定是用于在自己前面的人的身上，至于用于前面哪些人身上其实无关紧要。影响最终结果的是数列左右两边数的取走数量。对于左边：从0-k枚举听从命令的人，对于每次枚举，再枚举剩余的不听命令的人，对于内层枚举取最坏情况，对于外层枚举，取最好情况。<br>
-<strong>代码：</strong></p>
-<pre><code class="language-cpp">#include&lt;iostream&gt;
-#include&lt;algorithm&gt;
-#define inf 0x3f3f3f3f
- using namespace std;
- const int maxn=3510;
- int a[maxn],t,n,m,k;
- int main()
- {
-     scanf(&quot;%d&quot;,&amp;t);
-     while(t--){
-         scanf(&quot;%d%d%d&quot;,&amp;n,&amp;m,&amp;k);
-         for(int i=0;i&lt;n;i++)    scanf(&quot;%d&quot;,&amp;a[i]);
-         k=min(m-1,k);
-         int ans=-inf;
-         for(int i=0;i&lt;=k;i++){
-             int x=inf;
-             for(int j=0;j&lt;m-k;j++)    x=min(x,max(a[i+j],a[n+i+j-m]));
-            ans=max(ans,x);
-         }
-        cout&lt;&lt;ans&lt;&lt;endl;    
-     }
-    return 0;
- }
-</code></pre>
-<p>**D. **</p>
-<p><strong>题意：</strong><br>
-若两个字符串中每个字符的个数都是一样的，则称他们互为anagrams。现在定义两个字符串s,t是reducible anagram的，必须满足下面的条件：<br>
-将s、t两个字符串分别拆成k(k&gt;=2)个连续子串<br>
-s1,s2⋯sk 按顺序排列构成s<br>
-t1,t2⋯tk 按顺序排列构成t<br>
-∀i∈[1,k],都有si是ti的anagrams<br>
-现在给了一个字符串，每次询问它的一个字串是否存在一个irreducible anagram（请注意这些概念必须是以s是t的anagrams前提下进行的）<br>
-<strong>分析：</strong><br>
-对于每个询问的字符串s，是否存在一个字符串t，使得t是s的irreducible anagram.分析题目条件可以将问题转换为：在t和s的任意等长前缀中，它们的字符集的个数必须是不同的（也就是确保它们不是anagrams)<br>
-我们声明满足下面条件的字符串存在irreducible anagram<br>
-1、长度等于1<br>
-2、首字符和尾字符不同<br>
-3、字符串包含至少三种不同的字符<br>
-求证这些条件后，利用前缀和的技巧可以很容易的解决本题。下面试证一下：</p>
-<p>长度等于1，那么就无法找到一个 k(k&gt;=2) ，所以它的irreducible anagram就是它本身<br>
-s[1]≠s[n] 即首字符和尾字符不同，我们可以尽量靠前的将所有同s[n]一样的字符写在前面。然后剩下的字符随便放置即可。可以想到对于任意的k∈[1,n−1],都满足s[1..k]与t[1..k]的字符集不同。<br>
-字符串包含至少三种不同的字符，并且s[1]=s[n]。可以找到一个最大的j满足s[j]≠s[n]。可以把所以同s[j]一样的字符放到最前面，然后紧挨着中间放置所有同s[n]的字符，因为不同字符个数大于等于3，所以现在最后面肯定还有空位，将剩余的字符随意放置在最后面即可。可以想到构成的这样的一个串，一定满足任意前缀字符集不等。<br>
-到此为止就可以放心做题了，但试图证明一下为何s[1]=s[n]  and  不同字符个数等于2的情况为何找不到。<br>
-假设字符只有a和b两种，而且s[1]=s[n]=a,那么我们构造出来的串必须满足任意前缀中b的个数，都大于s对应前缀中b的个数。那么考虑s中最后出现b的位置x,可以想到s[1..x−1]前缀比t[1..x−1]少一个b，而s[x]=b得出现使得t[x]必须再放置一个b,这样才能满足任意前缀中b得个数都要比s多，但此时已经没有b可以放了（因为s[1..x−1]就已经多放了一个b）所以在x这个位置，无法构造。<br>
-<strong>代码：</strong></p>
-<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-const int maxn = 1e6;
-char s[maxn];
-int pre[maxn][27];
-
-int main()
-{
-	ios::sync_with_stdio(false);
-  	cin.tie(0);
-	cin &gt;&gt; (s + 1);
-	int len = strlen(s + 1);
-	for(int i = 1; i &lt;= len; i++)
+	char id[100];
+	char name[100];
+	char gender[100];
+	int age;
+	int score;
+	bool operator&lt; (const student&amp; b)
 	{
-		memcpy(pre[i], pre[i - 1], sizeof(pre[i]));
-		pre[i][s[i] - 'a' + 1]++;
+		return strcmp(id, b.id) &lt; 0;
 	}
-	int q; cin &gt;&gt; q;
-	while(q--)
+	//student(char a[], char b[], char c[], int d, int e) : id(a), name(b), gender(c), age(d), score(e) {}
+};
+typedef struct
+{
+	student* base;
+	int length;
+	int listsize;
+}SqList;
+
+void IniList(SqList* l)
+{
+	l-&gt;base = (student*)malloc(LIST_INIT_SIZE * sizeof(student));
+	l-&gt;length = 0, l-&gt;listsize = LIST_INIT_SIZE;
+}
+
+void showinf(student s)
+{
+	cout &lt;&lt; s.id &lt;&lt; &quot; &quot; &lt;&lt; s.name &lt;&lt; &quot; &quot; &lt;&lt; s.gender &lt;&lt; &quot; &quot; &lt;&lt; s.age &lt;&lt; &quot; &quot; &lt;&lt; s.score &lt;&lt; endl;
+}
+
+void showallinf(SqList* l)
+{
+	cout &lt;&lt; &quot;准考证号&quot; &lt;&lt; &quot; &quot; &lt;&lt; &quot;姓名&quot; &lt;&lt; &quot; &quot; &lt;&lt; &quot;性别&quot; &lt;&lt; &quot; &quot; &lt;&lt; &quot;年龄&quot; &lt;&lt; &quot; &quot; &lt;&lt; &quot;成绩&quot; &lt;&lt; endl;
+	for (int i = 0; i &lt; l-&gt;length; i++)
+		showinf(l-&gt;base[i]);
+}
+
+SqList* loadinf()
+{
+	SqList* l = (SqList*)malloc(sizeof(SqList));
+	IniList(l);
+	FILE* p = fopen(&quot;score.txt&quot;, &quot;r&quot;);
+	if (!p) exit(0);
+	char buf[1000];
+	while (fgets(buf, 100, p))
 	{
-		int l, r; cin &gt;&gt; l &gt;&gt; r;
-		if(l == r)
-			cout &lt;&lt; &quot;Yes&quot; &lt;&lt; endl;
-		else if(s[l] != s[r])
-			cout &lt;&lt; &quot;Yes&quot; &lt;&lt; endl;
-		else
+		char a[100], b[100], c[100];
+		int d;
+		int e;
+		sscanf(buf, &quot;%s %s %s %d %d&quot;, a, b, c, &amp;d, &amp;e);
+		student stu;
+		strcpy(stu.id, a), strcpy(stu.name, b), strcpy(stu.gender, c), stu.age = d, stu.score = e;
+		l-&gt;base[l-&gt;length++] = stu;
+		if (l-&gt;length == l-&gt;listsize) l-&gt;base = (student*)realloc(l-&gt;base, (l-&gt;listsize + LISTINCREMENT) * sizeof(student));
+	}
+	fclose(p);
+	return l;
+}
+void writeinf(SqList* l)
+{
+	FILE* p = fopen(&quot;score.txt&quot;, &quot;w&quot;);
+	char buf[1000];
+
+	for (int i = 0; i &lt; l-&gt;length; i++)
+	{
+		sprintf(buf, &quot;%s %s %s %d %d\n&quot;, l-&gt;base[i].id, l-&gt;base[i].name, l-&gt;base[i].gender, l-&gt;base[i].age, l-&gt;base[i].score);
+		fputs(buf, p);
+	}
+	fclose(p);
+}
+
+int exist(SqList* l, char id[])//检查文件中是否已经存在考号为id的学生
+{
+	for (int i = 0; i &lt; l-&gt;length; i++)
+		if (strcmp(l-&gt;base[i].id, id) == 0)
+			return i;
+	return -1;
+}
+
+void Add()//添加学生
+{
+	SqList* l = loadinf();
+	cout &lt;&lt; &quot;请输入学生信息&quot; &lt;&lt; endl;
+	char a[100], b[100], c[100];
+	int d;
+	int e;
+	cout &lt;&lt; &quot;准考证号：&quot;; cin &gt;&gt; a;
+	cout &lt;&lt; &quot;姓名：&quot;; cin &gt;&gt; b;
+	cout &lt;&lt; &quot;性别：&quot;; cin &gt;&gt; c;
+	cout &lt;&lt; &quot;年龄：&quot;; cin &gt;&gt; d;
+	cout &lt;&lt; &quot;成绩：&quot;; cin &gt;&gt; e;
+	student stu;
+	strcpy(stu.id, a), strcpy(stu.name, b), strcpy(stu.gender, c), stu.age = d, stu.score = e;
+
+	if (exist(l, stu.id) != -1) { cout &lt;&lt; &quot;该学生已存在！&quot; &lt;&lt; endl; return; }
+	if (l-&gt;length == l-&gt;listsize) l-&gt;base = (student*)realloc(l, (LIST_INIT_SIZE + LISTINCREMENT) * sizeof(student));
+	l-&gt;base[l-&gt;length++] = stu;
+	sort(l-&gt;base, l-&gt;base + l-&gt;length);
+	cout &lt;&lt; &quot;添加成功&quot; &lt;&lt; endl;
+	writeinf(l);
+}
+
+void edit()//编辑学生
+{
+	SqList* l = loadinf();
+	char id[100];
+	cout &lt;&lt; &quot;请输入编辑学生的id&quot; &lt;&lt; endl; cin &gt;&gt; id;
+	if (exist(l, id) == -1) { cout &lt;&lt; &quot;该学生不存在，无法修改&quot; &lt;&lt; endl; }
+	else
+	{
+		for (int i = 0; i &lt; l-&gt;length; i++)
+			if (strcmp(l-&gt;base[i].id, id) == 0)
+			{
+				cout &lt;&lt; &quot;请输入修改后的学生信息:&quot; &lt;&lt; endl;
+				char name[100], gender[100];
+				int age;
+				int score;
+				cout &lt;&lt; &quot;姓名:&quot;; cin &gt;&gt; name;
+				cout &lt;&lt; &quot;性别:&quot;; cin &gt;&gt; gender;
+				cout &lt;&lt; &quot;年龄:&quot;; cin &gt;&gt; age;
+				cout &lt;&lt; &quot;成绩:&quot;; cin &gt;&gt; score;
+				student stu;
+				strcpy(stu.id, id), strcpy(stu.name, name), strcpy(stu.gender, gender), stu.age = age, stu.score = score;
+				l-&gt;base[i] = stu;
+				cout &lt;&lt; &quot;添加成功：&quot; &lt;&lt; endl;
+				cout &lt;&lt; &quot;该学生的信息如下：&quot; &lt;&lt; endl;
+				showinf(l-&gt;base[i]);
+				break;
+			}
+	}
+	writeinf(l);
+}
+void Delete()//删除学生
+{
+	SqList* l = loadinf();
+	char id[100];
+	cout &lt;&lt; &quot;学生信息如下：&quot; &lt;&lt; endl;
+	showallinf(l);
+	cout &lt;&lt; &quot;请输入删除学生的id&quot; &lt;&lt; endl; cin &gt;&gt; id;
+	int pos;
+	if ((pos = exist(l, id)) == -1) { cout &lt;&lt; &quot;该学生不存在，无法删除！&quot; &lt;&lt; endl; }
+	else
+	{
+		for (int i = pos + 1; i &lt; l-&gt;length; i++)
+			l-&gt;base[i - 1] = l-&gt;base[i];
+		cout &lt;&lt; &quot;删除成功&quot; &lt;&lt; endl;
+		showallinf(l);
+	}
+	writeinf(l);
+}
+
+void save(SqList* l)
+{
+	FILE* p = fopen(&quot;result.txt&quot;, &quot;w&quot;);
+	char buf[1000];
+
+	for (int i = 0; i &lt; l-&gt;length; i++)
+	{
+		sprintf(buf, &quot;%s %s %s %d %d\n&quot;, l-&gt;base[i].id, l-&gt;base[i].name, l-&gt;base[i].gender, l-&gt;base[i].age, l-&gt;base[i].score);
+		fputs(buf, p);
+	}
+	fclose(p);
+	cout &lt;&lt; &quot;查询结果导出成功&quot; &lt;&lt; endl;
+}
+
+void search(int ope) //0 - 模糊  1 - 精确
+{
+	SqList l;
+	IniList(&amp;l);
+	FILE* p = fopen(&quot;score.txt&quot;, &quot;r&quot;);
+	if (!p) exit(0);
+	char buf[1000];
+	char tar[100];
+
+	cout &lt;&lt; &quot;请输入姓名关键词&quot; &lt;&lt; endl;
+	cin &gt;&gt; tar;
+	while (fgets(buf, 1000, p))
+	{
+		char id[100], name[100], gender[100];
+		int age;
+		int score;
+		sscanf(buf, &quot;%s %s %s %d %d&quot;, id, name, gender, &amp;age, &amp;score);
+
+		if (!ope &amp;&amp; strstr(name, tar) != NULL || ope &amp;&amp; strcmp(name, tar) == 0)
 		{
-			int cnt = 0;
-			for(int i = 1; i &lt;= 26; i++)
-				cnt += (pre[r][i] - pre[l][i]) &gt; 0;
-			if(cnt &gt;= 3)
-				cout &lt;&lt; &quot;Yes&quot; &lt;&lt; endl;
-			else cout &lt;&lt; &quot;No&quot; &lt;&lt; endl;
+			student stu;
+			strcpy(stu.id, id), strcpy(stu.name, name), strcpy(stu.gender, gender), stu.age = age, stu.score = score;
+			l.base[l.length++] = stu;
+			if (l.length == l.listsize) l.base = (student*)realloc(l.base, (l.listsize + LISTINCREMENT) * sizeof(student));
 		}
 	}
+	if (!l.length) { cout &lt;&lt; &quot;查询结果为空&quot; &lt;&lt; endl; }
+	else
+	{
+		cout &lt;&lt; &quot;查询结果如下:&quot; &lt;&lt; endl;
+		showallinf(&amp;l);
+	}
+	cout &lt;&lt; &quot;是否保存为excel文件？(是/否)&quot;;
+	string s; cin &gt;&gt; s;
+	if (s == &quot;是&quot;) save(&amp;l);
+
+}
+
+bool menu()
+{
+	cout &lt;&lt; &quot;***学生成绩管理系统***&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;0、退出系统&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;1、添加学生信息&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;2、编辑学生信息&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;3、删除学生信息&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;4、精确查询学生信息&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;5、模糊查询学生信息&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;6、显示全部学生&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;请输入操作序号&quot; &lt;&lt; endl;
+	int ope; cin &gt;&gt; ope;
+	switch (ope)
+	{
+	case 0:
+		return false;
+	case 1:
+		Add();
+		break;
+	case 2:
+		edit();
+		break;
+	case 3:
+		Delete();
+		break;
+	case 4:
+		search(1);
+		break;
+	case 5:
+		search(0);
+		break;
+	case 6:
+		SqList * l = loadinf();
+		showallinf(l);
+		break;
+	}
+	system(&quot;pause&quot;);
+	system(&quot;cls&quot;);
+	return true;
+}
+
+int main()
+{
+	while (menu());
 }
 </code></pre>
 
@@ -649,7 +554,7 @@ int main()
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://8421BCD.github.io/post/codeforces-round-616-div-2-ti-jie" title="Codeforces Round #616 (Div. 2) 题解">Codeforces Round #616 (Div. 2) 题解</a>
+      <a href="https://8421BCD.github.io/post/shu-ju-jie-gou-ke-she-xiao-zuo-ye-or-cheng-ji-guan-li-xi-tong" title="数据结构课设小作业 | 成绩管理系统">数据结构课设小作业 | 成绩管理系统</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -658,21 +563,15 @@ int main()
   </ul>
   <div class="tags">
     
-      <a href="https://8421BCD.github.io/tag/QcqmodxwM"># CodeForces</a>
-    
   </div>
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="ACM题目题解写作模板" href="https://8421BCD.github.io/post/acm-ti-mu-ti-jie-xie-zuo-mo-ban">ACM题目题解写作模板</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="ACM题目题解写作模板" href="https://8421BCD.github.io/post/acm-ti-mu-ti-jie-xie-zuo-mo-ban">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="CF题解写作模板" href="https://8421BCD.github.io/post/cf-ti-jie-xie-zuo-mo-ban">CF题解写作模板</a>
-        <a class="nav-mobile-next" title="CF题解写作模板" href="https://8421BCD.github.io/post/cf-ti-jie-xie-zuo-mo-ban">下一篇</a>
+        <a class="nav-pc-next" title="Round Numbers POJ - 3252 | 数位dp" href="https://8421BCD.github.io/post/round-numbers-poj-3252-or-shu-wei-dp">Round Numbers POJ - 3252 | 数位dp</a>
+        <a class="nav-mobile-next" title="Round Numbers POJ - 3252 | 数位dp" href="https://8421BCD.github.io/post/round-numbers-poj-3252-or-shu-wei-dp">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
