@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8"/>
+      <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="小小的天，有大大的梦想">
 <meta name="theme-color" content="#000">
-<title>Rng HDU - 6574 | 概率 + 快速幂求逆元 | Wannafly</title>
+<title>Wannafly</title>
 <link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1582444696259">
 <link rel="stylesheet" href="https://8421BCD.github.io//styles/main.css">
 
@@ -25,8 +25,6 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
     onload="renderMathInElement(document.body);"></script>
 
-    <meta name="description" content="Rng HDU - 6574 | 概率 + 快速幂求逆元" />
-    <meta name="keywords" content="概率" />
   </head>
   <body>
     <div class="head-top-line"></div>
@@ -124,16 +122,10 @@
     </div>
     <div class="main-continer">
       
-      <div class="section-layout pisces ">
+      <div class="section-layout  pisces">
         <div class="section-layout-wrapper">
-          
-
-<div class="sidebar">
-    <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
-      
-      <div class="sidebar-body pisces" id="sidebar_body">
-        
-          
+          <div class="sidebar">
+    
 <div class="sidebar-wrapper box-shadow-wrapper bg-color">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="https://8421BCD.github.io//images/avatar.png"/>
@@ -175,226 +167,170 @@
 
 
 </div>
-        
-      </div>
-    </div>
 </div>
-<script>
-  const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
-  const SIDEBAR_BODY_ACTIVE = 'sidebar-body-active';
-  const SLIDE_UP_IN = 'slide-up-in';
-
-  let sidebar = document.querySelector('#sidebar'),
-  tocSideBar = document.querySelector('#tocSideBar'),
-  metaSideBar = document.querySelector('#metaSideBar'),
-  postToc = document.querySelector('#post_toc'),
-  postSiteMeta = document.querySelector('#post_side_meta'),
-  sidebarTitle = document.querySelector('.sidebar-title'),
-  sidebarBody = document.querySelector('#sidebar_body');
-
-  tocSideBar && tocSideBar.addEventListener('click', (e) => {
-    toggleSidebar(e);
-  });
-
-  metaSideBar && metaSideBar.addEventListener('click', (e) => {
-    toggleSidebar(e);
-  });
-
-  function toggleSidebar(e) {
-    let currentTitle = document.querySelector("."+SIDEBAR_TITLE_ACTIVE);
-    if (currentTitle == e.srcElement) {
-      return ;
-    }
-    let current, showElement, hideElement;
-    if (e.srcElement == metaSideBar) {
-      showElement = postSiteMeta;
-      hideElement = postToc;
-    } else if (e.srcElement == tocSideBar){
-      showElement = postToc;
-      hideElement = postSiteMeta;
-    }
-    currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
-    e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
-
-    window.Velocity(hideElement, 'stop');
-    window.Velocity(hideElement, 'transition.slideUpOut', {
-      display: 'none',
-      duration: 200,
-      complete: function () {
-        window.Velocity(showElement, 'transition.slideDownIn', {
-          duration: 200
-        });
-      }
-    })
-    hideElement.classList.remove(SIDEBAR_BODY_ACTIVE);
-    showElement.classList.add(SIDEBAR_BODY_ACTIVE);
-  }
-
-  postToc.addEventListener('transitionend', function() {
-    this.classList.remove(SLIDE_UP_IN);
-  });
-
-
-  if (sidebarBody.classList.contains('pisces') || sidebarBody.classList.contains('gemini')) {
-    let hasFix = false;
-    let scrollEl = document.querySelector('.main-continer');
-    let limitTop = document.querySelector('#nav_ul').children.length * 42 + 162;
-    window.addEventListener('scroll', function(e) {
-    if (document.scrollingElement.scrollTop >= limitTop) {
-      if (!hasFix) {
-        sidebar.classList.add('sidebar-fixed');
-        hasFix = true;
-      }
-    } else {
-      if (hasFix) {
-        sidebar.classList.remove('sidebar-fixed');
-        hasFix = false;
-      }
-    }
-  });
-  }
-  
-</script>
-          <div class="section-box box-shadow-wrapper">
-            <div class="section bg-color post post-page">
-              <div class="article-box">
-    <header class="post-header">
-  <h1 class="post-title">
-    <a class="post-title-link" href="https://8421BCD.github.io/post/rng-hdu-6574-or-gai-lu-kuai-su-mi-qiu-ni-yuan">
-      Rng HDU - 6574 | 概率 + 快速幂求逆元
-    </a>
-  </h1>
-  <div class="post-meta">
-    
-    <span class="meta-item pc-show">
-      <i class="fa fa-calendar-o"></i>
-      <span>发布于</span>
-      <span>2020-02-13</span>
-      <span class="post-meta-divider pc-show">|</span>
-    </span>
-    
-      <span class="meta-item">
-        <i class="fa fa-folder-o"></i>
-        <span class="pc-show">分类于</span>
+            <div class="section-box tag-line">
+              <div class="box-shadow-wrapper">
+                <div class="bg-color">
+                  <section class="section posts-expand">
+                    <div class="padding-wrapper">
+  <div class="tag-timeline-box">
+    <div class="tag-timeline-wrapper">
+      <div class="tag-timeline-title">
+        <h2>
+          课设
+          <small>标签</small>
+        </h2>
+      </div>
+      
         
           
-            <a href="https://8421BCD.github.io/tag/bV99qdJxk">
-              <span>概率</span>
+            <a href="https://8421BCD.github.io/post/shu-ju-jie-gou-ke-she-xiao-zuo-ye-or-cheng-ji-guan-li-xi-tong">
+              <div class="motion-warpper">
+                <div class="tag-post-node">
+                  <h1>
+                    02-23
+                    <small>数据结构课设小作业 | 成绩管理系统</small>
+                  </h1>
+                </div>  
+              </div>
             </a>
           
         
-      </span>
-      <span class="post-meta-divider">|</span>
-    
-    <span class="meta-item">
-      <i class="fa fa-clock-o"></i>
-      <span>1分钟</span>
-    </span>
-    <span class="meta-item">
-      <span class="post-meta-divider">|</span>
-      <i class="fa fa-file-word-o"></i>
-      <span>216<span class="pc-show">字数</span></span>
-    </span>
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+    </div>
   </div>
-</header>
 </div>
-              <div class="post-body next-md-body" id="post_body">
-                <p>挺简单一个概率题，想了好久推不出公式，太菜了，发自内心的。</p>
-<!--more-->
-<p><strong>题意：</strong><br>
-给你一个[1, n]的区间， 让你在这个区间内再选两个区间（区间长度可以为零），区间端点必须为整数，问两个区间相交的概率。输出分子 * （分母mod 1e9 + 7的逆元）；<br>
-<strong>分析：</strong><br>
-先求不相交的概率：决定不相交的条件是右区间的左边点 &gt; 左区间的右端点。枚举左区间的右端点即可。<br>
-另熟悉快速幂求逆元模板<br>
-<strong>代码：</strong></p>
-<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-typedef long long ll;
-ll mod = 1e9 + 7;
-ll n;
-
-ll qpow(ll a, ll n)
-{
-	ll res = 1;
-	while(n)
-	{
-		if(n &amp; 1) res = res * a % mod;
-		n &gt;&gt;= 1;
-		a = a * a % mod;
-	}
-	return res;
-}
-
-int main()
-{
-	while(cin &gt;&gt; n)
-	{
-		cout &lt;&lt; (n + 1) * qpow(2 * n, mod - 2) % mod &lt;&lt; endl;
-	}	
-}
-</code></pre>
-
+                  </section>
+                </div>
               </div>
-              <div class="post-footer">
-  <ul class="post-copyright">
-    <li class="post-copyright-author">
-      <strong>本文作者：</strong>
-      Wannafly
-    </li>
-    <li class="post-copyright-link">
-      <strong>本文链接：</strong>
-      <a href="https://8421BCD.github.io/post/rng-hdu-6574-or-gai-lu-kuai-su-mi-qiu-ni-yuan" title="Rng HDU - 6574 | 概率 + 快速幂求逆元">Rng HDU - 6574 | 概率 + 快速幂求逆元</a>
-    </li>
-    <li class="post-copyright-license">
-      <strong>版权声明： </strong>
-      本博客所有文章除特别声明外，转载请注明出处！
-    </li>
-  </ul>
-  <div class="tags">
-    
-      <a href="https://8421BCD.github.io/tag/bV99qdJxk"># 概率</a>
-    
-  </div>
-  <div class="nav">
-    <div class="nav-prev">
-      
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="Cotree HDU - 6567 | 树的重心" href="https://8421BCD.github.io/post/cotree-hdu-6567-or-shu-de-chong-xin">Cotree HDU - 6567 | 树的重心</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="Cotree HDU - 6567 | 树的重心" href="https://8421BCD.github.io/post/cotree-hdu-6567-or-shu-de-chong-xin">上一篇</a>
-      
-    </div>
-    <div class="nav-next">
-      
-        <a class="nav-pc-next" title="B - Happy King HDU - 5314 | 点分治 + 容斥原理" href="https://8421BCD.github.io/post/b-happy-king-hdu-5314-or-dian-fen-zhi-rong-chi-yuan-li">B - Happy King HDU - 5314 | 点分治 + 容斥原理</a>
-        <a class="nav-mobile-next" title="B - Happy King HDU - 5314 | 点分治 + 容斥原理" href="https://8421BCD.github.io/post/b-happy-king-hdu-5314-or-dian-fen-zhi-rong-chi-yuan-li">下一篇</a>
-        <i class="fa fa-chevron-right"></i>
-      
-    </div>
-  </div>
-</div>
-              
-                
-                  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-
-<div id="gitalk-container"></div>
-
-<script>
-  var gitalk = new Gitalk({
-    clientID: '',
-    clientSecret: '',
-    repo: '',
-    owner: '',
-    admin: [''],
-    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
-    distractionFreeMode: false  // Facebook-like distraction free mode
-  })
-  gitalk.render('gitalk-container')
-</script>
-                
-                
-              
-            </div>
           </div>
         </div>
       </div>

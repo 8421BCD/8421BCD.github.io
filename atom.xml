@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-02-23T07:44:43.860Z</updated>
+    <updated>2020-02-23T07:58:22.687Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -171,6 +171,7 @@ void Delete()//删除学生
 		for (int i = pos + 1; i &lt; l-&gt;length; i++)
 			l-&gt;base[i - 1] = l-&gt;base[i];
 		cout &lt;&lt; &quot;删除成功&quot; &lt;&lt; endl;
+		l-&gt;length--;
 		showallinf(l);
 	}
 	writeinf(l);
