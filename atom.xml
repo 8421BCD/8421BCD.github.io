@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-02-25T03:40:19.113Z</updated>
+    <updated>2020-02-25T05:01:33.660Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -10,6 +10,154 @@
     <logo>https://8421BCD.github.io/images/avatar.png</logo>
     <icon>https://8421BCD.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
+    <entry>
+        <title type="html"><![CDATA[Count on a tree SPOJ - COT | 主席树]]></title>
+        <id>https://8421BCD.github.io/post/count-on-a-tree-spoj-cot-or-zhu-xi-shu</id>
+        <link href="https://8421BCD.github.io/post/count-on-a-tree-spoj-cot-or-zhu-xi-shu">
+        </link>
+        <updated>2020-02-25T04:18:38.000Z</updated>
+        <summary type="html"><![CDATA[<p>主席树入门题</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>主席树入门题</p>
+<!--more-->
+<p><strong>题意：</strong><br>
+给你一棵树，以及每个节点的权值。询问：对于给定的结点u, v，求连线上的第k小权值（我感觉准确就应该叫第k小，虽然网上都叫第k大。。。）<br>
+<strong>分析：</strong><br>
+这道题目跟主席树入门题目：求一段区间第k大很像，不同的是这道题目是求在树的一条链上的第k大。一开始的时候我只感觉到这道题目隐约的跟lca有点关系，但是不知道该如何去处理。然后我看了别人的博客，但是大多数都是直接给出了一个结论：对于查询区间[u,v]，答案就是root[u]+root[v]-root[lca]-root[lca的父亲]上的第k大<br>
+一开始不是很理解，后来发现其实类似于前缀和，对于一个节点，它的每个儿子节点做一棵新版本的树。如果从整棵树的根节点开始做的话，最后得到的一个root[u]，就表示了u这个节点到根节点的信息。如果要获得从u到v这条链上的信息，拿就要先算出这两个点的lca，u到lca的信息是通过root[u]-root[lca的父亲]获得的，那么另外的一段就是root[v]-root[lca]获得的。合起来就是那个结论了。<br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+//typedef __int128 lll;
+#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
+#define mem(a, b) memset(a, b, sizeof(a))
+#define debug(a) cout &lt;&lt; &quot;debug :&quot; &lt;&lt; a &lt;&lt; endl
+#define fi first
+#define se second
+const int maxn =  1e5 + 10;
+const int inf = 0x3f3f3f3f;
+struct edge
+{
+    int ep, nex;
+    edge(int a = 0, int b = 0) : ep(a), nex(b){};
+}e[maxn &lt;&lt; 1];
+struct node
+{
+    int l, r, sum;
+}t[maxn &lt;&lt; 5];
+
+int tot, head[maxn];
+int v[maxn], sorted[maxn], num;
+int root[maxn], rootnum;
+int depth[maxn], fa[maxn][20];
+
+void init()
+{
+    mem(head, -1); tot = 0;
+}
+void addedge(int sp, int ep)
+{
+    e[tot] = edge(ep, head[sp]);
+    head[sp] = tot++;
+    e[tot] = edge(sp, head[ep]);
+    head[ep] = tot++;
+}
+
+int getid(int x)
+{
+    return lower_bound(sorted + 1, sorted + 1 + num, x) - sorted;
+}
+
+
+void build(int l, int r, int &amp;tar)
+{
+    tar = ++rootnum;
+    t[tar].sum = 0;
+    if(l == r) return;
+    int mid = l + r &gt;&gt; 1;
+    build(l, mid, t[tar].l);
+    build(mid + 1, r, t[tar].r);
+}
+
+void update(int last, int &amp;tar, int l, int r, int x)
+{
+    tar = ++rootnum;
+    t[tar] = t[last];
+    t[tar].sum++;
+    if(l == r) return;
+    int mid = l + r &gt;&gt; 1;
+    if(x &lt;= mid) update(t[last].l, t[tar].l, l, mid, x);
+    else update(t[last].r, t[tar].r, mid + 1, r, x);
+}
+
+int query(int lson, int rson, int lca, int lcaf, int l, int r, int k)
+{
+    if(l == r) return l;
+    int mid = l + r &gt;&gt; 1;
+    int dif = t[t[lson].l].sum + t[t[rson].l].sum - t[t[lca].l].sum - t[t[lcaf].l].sum;
+    if(dif &gt;= k) return query(t[lson].l, t[rson].l, t[lca].l, t[lcaf].l, l, mid, k);
+    else return query(t[lson].r, t[rson].r, t[lca].r, t[lcaf].r, mid + 1, r, k - dif);
+}
+
+void dfs(int now, int f)
+{
+    depth[now] = depth[f] + 1;
+    fa[now][0] = f;
+    for(int i = 1; i &lt; 20; i++)
+        fa[now][i] = fa[fa[now][i - 1]][i - 1];
+    update(root[f], root[now], 1, num, getid(v[now]));
+    for(int i = head[now]; ~i; i = e[i].nex)
+    {
+        int ep = e[i].ep;
+        if(ep == f) continue;
+        dfs(ep, now);
+    }
+}
+
+int lca(int x, int y)
+{
+    if(depth[x] &lt; depth[y]) swap(x, y);
+    int dif = depth[x] - depth[y];
+    for(int i = 0; i &lt; 20; i++)
+        if((1 &lt;&lt; i) &amp; dif)
+            x = fa[x][i];
+    if(x == y) return x;
+    for(int i = 19; i &gt;= 0; i--)
+        if(fa[x][i] != fa[y][i])
+            x = fa[x][i], y = fa[y][i];
+    return fa[x][0];
+}
+
+int main()
+{
+    int n, m;
+    cin &gt;&gt; n &gt;&gt; m;
+    init();
+    for(int i = 1; i &lt;= n; i++)
+        scanf(&quot;%d&quot;, v + i), sorted[i] = v[i];
+    sort(sorted + 1, sorted + 1 + n);
+    num = unique(sorted + 1, sorted + 1 + n) - sorted - 1;
+
+    for(int i = 1; i &lt;= n - 1; i++)
+    {
+        int x, y;
+        scanf(&quot;%d%d&quot;, &amp;x, &amp;y);
+        addedge(x, y);
+    }
+    dfs(1, 0);
+    for(int i = 1; i &lt;= m; i++)
+    {
+        int a, b, k;
+        scanf(&quot;%d%d%d&quot;, &amp;a, &amp;b, &amp;k);
+        int f = lca(a, b);
+        int id = query(root[a], root[b], root[f], root[fa[f][0]], 1, num, k);
+        printf(&quot;%d\n&quot;, sorted[id]);
+    }
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Skyscrapers (hard version) | 分治+线段树]]></title>
         <id>https://8421BCD.github.io/post/skyscrapers-hard-version-or-fen-zhi-xian-duan-shu</id>
@@ -810,124 +958,6 @@ if __name__ == '__main__':
 
 # Process finished with exit code 0
 
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Problem I. Spell Boost HDU - 6508 | 有顺序的背包dp]]></title>
-        <id>https://8421BCD.github.io/post/problem-i-spell-boost-hdu-6508-or-you-shun-xu-de-bei-bao-dp</id>
-        <link href="https://8421BCD.github.io/post/problem-i-spell-boost-hdu-6508-or-you-shun-xu-de-bei-bao-dp">
-        </link>
-        <updated>2020-02-17T14:48:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>又是烧脑的背包dp，永远也理解不了的背包dp，哎。<br>
-待更:为什么要按照w排序？？？？？？？？？？？？！！</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>又是烧脑的背包dp，永远也理解不了的背包dp，哎。<br>
-待更:为什么要按照w排序？？？？？？？？？？？？！！</p>
-<!--more-->
-<p><strong>题意：</strong><br>
-给一些卡，分为四种卡。<br>
-1.白卡（没效果）<br>
-2.魔法，作用卡（会对作用卡的费用减少，也会被魔法卡作用）<br>
-3.作用卡（会被魔法卡作用使其费用减少）<br>
-4.魔法卡（会对作用卡的费用减少）<br>
-<strong>分析：</strong><br>
-https://www.cnblogs.com/SSummerZzz/p/11163795.html<br>
-先附上别人的题解，由于没有看懂，所以待补吧<br>
-<strong>代码：</strong><br>
-别人的代码</p>
-<pre><code class="language-cpp">#include&lt;iostream&gt;
-#include&lt;algorithm&gt;
-using namespace std;
-#define rep(i,j,k) for(int i = (j); i &lt;= (k); i++)
-#define per(i,j,k) for(int i = (j); i &gt;= (k); i--)
-
-const int N = 510;
-int dp[N][N];
-
-struct node{
-    int w, x;
-    int is_m, is_s;
-
-    bool friend operator &lt; (node a, node b){
-        if (a.is_m != b.is_m) return a.is_m &gt; b.is_m;//魔法卡先返回
-        else if (a.is_s != b.is_s) return a.is_s &lt; b.is_s;//作用卡越晚用越好
-
-        return a.w &lt; b.w;//先用费用小的，使其dp可以得到全部可能
-    }
-};
-
-node arr[N];
-
-void init(int x){
-//    rep(i, 0, x)rep(j, 0, x) dp[i][j] = 0;
-    memset(dp, 0, sizeof(dp));
-}
-
-int main(){
-
-    ios::sync_with_stdio(false);
-    cin.tie(0);
-
-    int n, W;
-    while (cin &gt;&gt; n &gt;&gt; W){
-        int m_num = 0;
-        rep(i, 1, n){
-            cin &gt;&gt; arr[i].w &gt;&gt; arr[i].x &gt;&gt; arr[i].is_m &gt;&gt; arr[i].is_s;
-            if (arr[i].is_m) ++m_num;//统计魔法卡数量
-        }
-        init(n);
-        sort(arr + 1, arr + 1 + n);
-        bool is_s = false;//判断是不是作用卡
-        //从大到小遍历，可以不影响之前的状态
-        rep(i, 1, n){
-            if (arr[i].is_m){
-                per(k, i, 1){//魔法卡从多到少
-                    per(j, W, 0){//费用从多到少
-
-                        int tmp_w = 0;
-                        if (arr[i].is_s){//有被作用效果
-                            is_s = true;
-                            tmp_w = max(0, arr[i].w - (k - 1));//触发魔法卡效果
-                        }
-                        //对于k张魔法卡，之前只有k-1张魔法卡，假如一张魔法卡去更新dp,所以被作用时
-                        //应该是魔法卡数量-1的费用减少
-                        if (is_s &amp;&amp; tmp_w &lt;= j){//是作用卡，费用足够
-                            dp[j][k] = max(dp[j][k],dp[j - tmp_w][k - 1] + arr[i].x);
-                        }
-                        else if (!is_s &amp;&amp; arr[i].w &lt;= j){//不是作用卡，费用足够
-                            dp[j][k] = max(dp[j][k], dp[j - arr[i].w][k - 1] + arr[i].x);
-                        }
-                    }
-                }
-            }
-            else {
-                //进入该部分时，全部的魔法卡使用情况已经存入dp，之后的都不是魔法卡
-                per(k, m_num, 0){//m_num是魔法卡总数量，可能有不用魔法卡才能的到最大攻击的情况
-                    per(j, W, 0){     
-                        int tmp_w = 0;
-                        if (arr[i].is_s){
-                            is_s = true;
-                            tmp_w = max(0, arr[i].w - k);
-                        }
-                        //对于k张魔法卡，被作用卡卡费用减少k
-                        if (is_s &amp;&amp; tmp_w &lt;= j){
-                            dp[j][k] = max(dp[j][k], dp[j - tmp_w][k] + arr[i].x);
-                        }
-                        else if (!is_s &amp;&amp; arr[i].w &lt;= j){
-                            dp[j][k] = max(dp[j][k], dp[j - arr[i].w][k] + arr[i].x);
-                        }
-                    }
-                }
-            }
-            is_s = false;
-        }
-        int ans = 0;
-        rep(i, 0, m_num) ans = max(ans, dp[W][i]);//遍历费用是W的dp最大值，即为最大攻击力
-        cout &lt;&lt; ans &lt;&lt; endl;
-    }
-    return 0;
-}
 </code></pre>
 ]]></content>
     </entry>
