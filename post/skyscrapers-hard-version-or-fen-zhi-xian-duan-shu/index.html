@@ -6,7 +6,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="小小的天，有大大的梦想">
 <meta name="theme-color" content="#000">
-<title>subline text3 配置c++万能头文件和C11标准 | Wannafly</title>
+<title>Skyscrapers (hard version) | 分治+线段树 | Wannafly</title>
 <link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1582601952498">
 <link rel="stylesheet" href="https://8421BCD.github.io//styles/main.css">
 
@@ -25,8 +25,8 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
     onload="renderMathInElement(document.body);"></script>
 
-    <meta name="description" content="subline text3 配置c++万能头文件和C11标准" />
-    <meta name="keywords" content="软件安装教程" />
+    <meta name="description" content="Skyscrapers (hard version) | 分治+线段树" />
+    <meta name="keywords" content="" />
   </head>
   <body>
     <div class="head-top-line"></div>
@@ -260,8 +260,8 @@
               <div class="article-box">
     <header class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://8421BCD.github.io/post/subline-text3-pei-zhi-cwan-neng-tou-wen-jian-he-c11-biao-zhun">
-      subline text3 配置c++万能头文件和C11标准
+    <a class="post-title-link" href="https://8421BCD.github.io/post/skyscrapers-hard-version-or-fen-zhi-xian-duan-shu">
+      Skyscrapers (hard version) | 分治+线段树
     </a>
   </h1>
   <div class="post-meta">
@@ -269,22 +269,9 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span>发布于</span>
-      <span>2020-02-11</span>
+      <span>2020-02-24</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
-    
-      <span class="meta-item">
-        <i class="fa fa-folder-o"></i>
-        <span class="pc-show">分类于</span>
-        
-          
-            <a href="https://8421BCD.github.io/tag/fu2QS9-a6">
-              <span>软件安装教程</span>
-            </a>
-          
-        
-      </span>
-      <span class="post-meta-divider">|</span>
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
@@ -293,151 +280,101 @@
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>644<span class="pc-show">字数</span></span>
+      <span>534<span class="pc-show">字数</span></span>
     </span>
   </div>
 </header>
 </div>
               <div class="post-body next-md-body" id="post_body">
-                <p>-** C++.sublime-build文件**</p>
-<pre><code class="language-json">{
-	&quot;path&quot;: &quot;C:/Program Files (x86)/TDM-GCC-64/TDM-GCC-64/bin&quot;,
-	&quot;shell_cmd&quot;: &quot;g++ \&quot;${file}\&quot; -o \&quot;${file_path}/${file_base_name}\&quot;&quot;,
-	&quot;file_regex&quot;: &quot;^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$&quot;,
-	&quot;working_dir&quot;: &quot;${file_path}&quot;,
-	&quot;selector&quot;: &quot;source.c, source.c++&quot;,
+                <p>-题目：<br>
+http://codeforces.com/contest/1313/problem/C2<br>
+-分析:<br>
+一开始一直在往最高点方面想，题解的方向是最低点。。。巧妙地避开了答案<br>
+考虑分治的做法，对于当前的区间，找出最小值点u（线段数预处理一波。。）。由于u两侧一定有一侧会跟u的值一样，所以两边都分治一下，然后更新res[]；<br>
+-代码：</p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+#define mp(a, b) make_pair(a, b)
+//typedef __int128 lll;
+#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
+#define mem(a, b) memset(a, b, sizeof(a))
+#define fi first
+#define se second
+const int maxn = 5e5 + 10;
+const int inf = 0x3f3f3f3f;
+typedef pair&lt;long long, int&gt; par;
+struct node
+{
+	int l, r;
+	par minn;
+}t[maxn &lt;&lt; 2];
+int n;
+ll a[maxn], res[maxn];
 
-	&quot;variants&quot;:
-	[
-		{
-			&quot;name&quot;: &quot;Run&quot;,
-			&quot;shell_cmd&quot;: &quot;g++ -std=c++11 \&quot;${file}\&quot; -o \&quot;${file_path}/${file_base_name}\&quot; &amp;&amp; \&quot;${file_path}/${file_base_name}\&quot; &lt; input.txt &gt; output.txt&quot;
-		}
-	]
+void pushup(int tar)
+{
+	if(t[tar &lt;&lt; 1].minn.fi &lt; t[tar &lt;&lt; 1 | 1].minn.fi) t[tar].minn = t[tar &lt;&lt; 1].minn;
+	else t[tar].minn = t[tar &lt;&lt; 1 | 1].minn;
 }
-</code></pre>
-<ul>
-<li><strong>添加万能头文件</strong></li>
-<li>path：C:\Program Files (x86)\TDM-GCC-64\TDM-GCC-64\include<br>
-在include的下面创建一个bits文件，在文件夹下面粘贴stdc++.h文件</li>
-</ul>
-<pre><code class="language-cpp">// C++ includes used for precompiling -*- C++ -*-
- 
-// Copyright (C) 2003-2014 Free Software Foundation, Inc.
-//
-// This file is part of the GNU ISO C++ Library.  This library is free
-// software; you can redistribute it and/or modify it under the
-// terms of the GNU General Public License as published by the
-// Free Software Foundation; either version 3, or (at your option)
-// any later version.
- 
-// This library is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
- 
-// Under Section 7 of GPL version 3, you are granted additional
-// permissions described in the GCC Runtime Library Exception, version
-// 3.1, as published by the Free Software Foundation.
- 
-// You should have received a copy of the GNU General Public License and
-// a copy of the GCC Runtime Library Exception along with this program;
-// see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
-// &lt;http://www.gnu.org/licenses/&gt;.
- 
-/** @file stdc++.h
- *  This is an implementation file for a precompiled header.
- */
- 
-// 17.4.1.2 Headers
- 
-// C
-#ifndef _GLIBCXX_NO_ASSERT
-#include &lt;cassert&gt;
-#endif
-#include &lt;cctype&gt;
-#include &lt;cerrno&gt;
-#include &lt;cfloat&gt;
-#include &lt;ciso646&gt;
-#include &lt;climits&gt;
-#include &lt;clocale&gt;
-#include &lt;cmath&gt;
-#include &lt;csetjmp&gt;
-#include &lt;csignal&gt;
-#include &lt;cstdarg&gt;
-#include &lt;cstddef&gt;
-#include &lt;cstdio&gt;
-#include &lt;cstdlib&gt;
-#include &lt;cstring&gt;
-#include &lt;ctime&gt;
- 
-#if __cplusplus &gt;= 201103L
-#include &lt;ccomplex&gt;
-#include &lt;cfenv&gt;
-#include &lt;cinttypes&gt;
-#include &lt;cstdbool&gt;
-#include &lt;cstdint&gt;
-#include &lt;ctgmath&gt;
-#include &lt;cwchar&gt;
-#include &lt;cwctype&gt;
-#endif
- 
-// C++
-#include &lt;algorithm&gt;
-#include &lt;bitset&gt;
-#include &lt;complex&gt;
-#include &lt;deque&gt;
-#include &lt;exception&gt;
-#include &lt;fstream&gt;
-#include &lt;functional&gt;
-#include &lt;iomanip&gt;
-#include &lt;ios&gt;
-#include &lt;iosfwd&gt;
-#include &lt;iostream&gt;
-#include &lt;istream&gt;
-#include &lt;iterator&gt;
-#include &lt;limits&gt;
-#include &lt;list&gt;
-#include &lt;locale&gt;
-#include &lt;map&gt;
-#include &lt;memory&gt;
-#include &lt;new&gt;
-#include &lt;numeric&gt;
-#include &lt;ostream&gt;
-#include &lt;queue&gt;
-#include &lt;set&gt;
-#include &lt;sstream&gt;
-#include &lt;stack&gt;
-#include &lt;stdexcept&gt;
-#include &lt;streambuf&gt;
-#include &lt;string&gt;
-#include &lt;typeinfo&gt;
-#include &lt;utility&gt;
-#include &lt;valarray&gt;
-#include &lt;vector&gt;
- 
-#if __cplusplus &gt;= 201103L
-#include &lt;array&gt;
-#include &lt;atomic&gt;
-#include &lt;chrono&gt;
-#include &lt;condition_variable&gt;
-#include &lt;forward_list&gt;
-#include &lt;future&gt;
-#include &lt;initializer_list&gt;
-#include &lt;mutex&gt;
-#include &lt;random&gt;
-#include &lt;ratio&gt;
-#include &lt;regex&gt;
-#include &lt;scoped_allocator&gt;
-#include &lt;system_error&gt;
-#include &lt;thread&gt;
-#include &lt;tuple&gt;
-#include &lt;typeindex&gt;
-#include &lt;type_traits&gt;
-#include &lt;unordered_map&gt;
-#include &lt;unordered_set&gt;
-#endif
 
+void build(int l, int r, int tar)
+{
+	t[tar].l = l, t[tar].r = r;	
+	if(l == r)
+	{
+		t[tar].minn = mp(a[l], l);
+		return;
+	}
+	int mid = l + r &gt;&gt; 1;
+	build(l, mid, tar &lt;&lt; 1), build(mid + 1, r, tar &lt;&lt; 1 | 1);
+	pushup(tar);
+}
+
+par query(int l, int r, int tar)
+{
+	if(t[tar].l == l &amp;&amp; t[tar].r == r) return t[tar].minn;
+	int mid = t[tar].l + t[tar].r &gt;&gt; 1;
+	if(r &lt;= mid) return query(l, r, tar &lt;&lt; 1);
+	else if(l &gt; mid) return query(l, r, tar &lt;&lt; 1 | 1);
+	else return min(query(l, mid, tar &lt;&lt; 1), query(mid + 1, r, tar &lt;&lt; 1 | 1));
+}
+
+ll solve(int l, int r)
+{
+	if(l &gt; r) return 0ll;
+	if(l == r)
+	{
+		res[l] = a[l];
+		return res[l];
+	}
+	par min = query(l, r, 1);
+	ll suml = solve(l, min.se - 1), sumr = solve(min.se + 1, r);
+	ll lenl = min.se - l, lenr = r - min.se;
+	if(suml + min.fi + lenr * min.fi &gt; sumr + min.fi + lenl * min.fi) 
+	{
+		for(int i = min.second; i &lt;= r; i++) res[i] = min.first;
+		return suml + min.fi + lenr * min.fi;
+	}
+	else
+	{
+		for(int i = l; i &lt;= min.second; i++) res[i] = min.first;
+		return sumr + min.fi + lenl * min.fi;
+	}
+}
+
+int main()
+{
+	//close();
+	cin &gt;&gt; n;
+	for(int i = 1; i &lt;= n; i++)
+		scanf(&quot;%lld&quot;, a + i);
+	build(1, n, 1);
+	///cout &lt;&lt; query(1, n - 1, 1).first &lt;&lt; &quot; &quot; &lt;&lt; query(1, n - 1, 1).second &lt;&lt; endl;
+	solve(1, n);
+	for(int i = 1; i &lt;= n; i++)
+		printf(&quot;%lld%c&quot;, res[i], i == n ? '\n' : ' ');
+}
 </code></pre>
 
               </div>
@@ -449,7 +386,7 @@
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://8421BCD.github.io/post/subline-text3-pei-zhi-cwan-neng-tou-wen-jian-he-c11-biao-zhun" title="subline text3 配置c++万能头文件和C11标准">subline text3 配置c++万能头文件和C11标准</a>
+      <a href="https://8421BCD.github.io/post/skyscrapers-hard-version-or-fen-zhi-xian-duan-shu" title="Skyscrapers (hard version) | 分治+线段树">Skyscrapers (hard version) | 分治+线段树</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -458,21 +395,15 @@
   </ul>
   <div class="tags">
     
-      <a href="https://8421BCD.github.io/tag/fu2QS9-a6"># 软件安装教程</a>
-    
   </div>
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="B - Happy King HDU - 5314 | 点分治 + 容斥原理" href="https://8421BCD.github.io/post/b-happy-king-hdu-5314-or-dian-fen-zhi-rong-chi-yuan-li">B - Happy King HDU - 5314 | 点分治 + 容斥原理</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="B - Happy King HDU - 5314 | 点分治 + 容斥原理" href="https://8421BCD.github.io/post/b-happy-king-hdu-5314-or-dian-fen-zhi-rong-chi-yuan-li">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="P3806 【模板】点分治1 | 点分治模板题" href="https://8421BCD.github.io/post/p3806-mo-ban-dian-fen-zhi-1-or-dian-fen-zhi-mo-ban-ti">P3806 【模板】点分治1 | 点分治模板题</a>
-        <a class="nav-mobile-next" title="P3806 【模板】点分治1 | 点分治模板题" href="https://8421BCD.github.io/post/p3806-mo-ban-dian-fen-zhi-1-or-dian-fen-zhi-mo-ban-ti">下一篇</a>
+        <a class="nav-pc-next" title="数据结构课设小作业 | 成绩管理系统" href="https://8421BCD.github.io/post/shu-ju-jie-gou-ke-she-xiao-zuo-ye-or-cheng-ji-guan-li-xi-tong">数据结构课设小作业 | 成绩管理系统</a>
+        <a class="nav-mobile-next" title="数据结构课设小作业 | 成绩管理系统" href="https://8421BCD.github.io/post/shu-ju-jie-gou-ke-she-xiao-zuo-ye-or-cheng-ji-guan-li-xi-tong">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
