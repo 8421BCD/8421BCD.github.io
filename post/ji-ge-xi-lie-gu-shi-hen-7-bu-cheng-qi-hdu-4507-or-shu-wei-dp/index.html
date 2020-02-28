@@ -6,7 +6,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="不需要外界告诉自己自己的价值是什么">
 <meta name="theme-color" content="#000">
-<title>Problem I. Spell Boost HDU - 6508 | 有顺序的背包dp | Wannafly</title>
+<title>吉哥系列故事——恨7不成妻 HDU - 4507  | 数位dp | Wannafly</title>
 <link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1582859173758">
 <link rel="stylesheet" href="https://8421BCD.github.io//styles/main.css">
 
@@ -25,8 +25,8 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
     onload="renderMathInElement(document.body);"></script>
 
-    <meta name="description" content="Problem I. Spell Boost HDU - 6508 | 有顺序的背包dp" />
-    <meta name="keywords" content="动态规划" />
+    <meta name="description" content="吉哥系列故事——恨7不成妻 HDU - 4507  | 数位dp" />
+    <meta name="keywords" content="数位dp" />
   </head>
   <body>
     <div class="head-top-line"></div>
@@ -260,8 +260,8 @@
               <div class="article-box">
     <header class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://8421BCD.github.io/post/problem-i-spell-boost-hdu-6508-or-you-shun-xu-de-bei-bao-dp">
-      Problem I. Spell Boost HDU - 6508 | 有顺序的背包dp
+    <a class="post-title-link" href="https://8421BCD.github.io/post/ji-ge-xi-lie-gu-shi-hen-7-bu-cheng-qi-hdu-4507-or-shu-wei-dp">
+      吉哥系列故事——恨7不成妻 HDU - 4507  | 数位dp
     </a>
   </h1>
   <div class="post-meta">
@@ -269,7 +269,7 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span>发布于</span>
-      <span>2020-02-17</span>
+      <span>2020-02-28</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
@@ -278,8 +278,8 @@
         <span class="pc-show">分类于</span>
         
           
-            <a href="https://8421BCD.github.io/tag/zkdtF3HzJ">
-              <span>动态规划</span>
+            <a href="https://8421BCD.github.io/tag/6yjnLEo7i">
+              <span>数位dp</span>
             </a>
           
         
@@ -288,122 +288,102 @@
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>4分钟</span>
+      <span>3分钟</span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>738<span class="pc-show">字数</span></span>
+      <span>497<span class="pc-show">字数</span></span>
     </span>
   </div>
 </header>
 </div>
               <div class="post-body next-md-body" id="post_body">
-                <p>又是烧脑的背包dp，永远也理解不了的背包dp，哎。<br>
-待更:为什么要按照w排序？？？？？？？？？？？？！！</p>
+                <p>dp数组存放结构体，看到平方要想到拆项</p>
 <!--more-->
 <p><strong>题意：</strong><br>
-给一些卡，分为四种卡。<br>
-1.白卡（没效果）<br>
-2.魔法，作用卡（会对作用卡的费用减少，也会被魔法卡作用）<br>
-3.作用卡（会被魔法卡作用使其费用减少）<br>
-4.魔法卡（会对作用卡的费用减少）<br>
+如果一个整数符合下面3个条件之一，那么我们就说这个整数和7有关——<br>
+　　1、整数中某一位是7；<br>
+　　2、整数的每一位加起来的和是7的整数倍；<br>
+　　3、这个整数是7的整数倍；<br>
+要求一个区间中和7无关的数的平方和。<br>
 <strong>分析：</strong><br>
-https://www.cnblogs.com/SSummerZzz/p/11163795.html<br>
-先附上别人的题解，由于没有看懂，所以待补吧<br>
-<strong>代码：</strong><br>
-别人的代码</p>
-<pre><code class="language-cpp">#include&lt;iostream&gt;
-#include&lt;algorithm&gt;
+需要用数位DP维护3个值：<br>
+1.与7无关的数的个数<br>
+2.与7无关的数的和<br>
+3、与7无关的数的平方和。<br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
 using namespace std;
-#define rep(i,j,k) for(int i = (j); i &lt;= (k); i++)
-#define per(i,j,k) for(int i = (j); i &gt;= (k); i--)
-
-const int N = 510;
-int dp[N][N];
-
-struct node{
-    int w, x;
-    int is_m, is_s;
-
-    bool friend operator &lt; (node a, node b){
-        if (a.is_m != b.is_m) return a.is_m &gt; b.is_m;//魔法卡先返回
-        else if (a.is_s != b.is_s) return a.is_s &lt; b.is_s;//作用卡越晚用越好
-
-        return a.w &lt; b.w;//先用费用小的，使其dp可以得到全部可能
-    }
+typedef long long ll;
+//typedef __int128 lll;
+#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
+#define mem(a, b) memset(a, b, sizeof(a))
+const ll mod = 1e9 + 7;
+const int maxn = 1e6;
+const int inf = 0x3f3f3f3f;
+struct node
+{
+	ll num, sum, sqsum;
+	node(ll a = 0, ll b = 0, ll c = 0) : num(a), sum(b), sqsum(c){}
 };
+int v[30];
+node dp[30][10][10];
+ll p[30];
 
-node arr[N];
-
-void init(int x){
-//    rep(i, 0, x)rep(j, 0, x) dp[i][j] = 0;
-    memset(dp, 0, sizeof(dp));
+void init()
+{
+	for(int i = 0; i &lt; 30; i++)	
+		for(int j = 0; j &lt; 10; j++)
+			for(int k = 0; k &lt; 10; k++)
+				dp[i][j][k] = node(-1, 0, 0);
+	p[0] = 1;
+	for(int i = 1; i &lt; 30; i++)
+		p[i] = 10 * p[i - 1] % mod;
 }
 
-int main(){
+node dfs(int pos, int sum, ll preval, int limit)
+{
+	if(!pos) return sum &amp;&amp; preval ? node(1, 0, 0) : node(0, 0, 0);
+	if(!limit &amp;&amp; ~dp[pos][sum][preval].num) return dp[pos][sum][preval];
+	int up = limit ? v[pos] : 9;
+	node res = node(0, 0, 0);
+	for(int i = 0; i &lt;= up; i++)
+	{
+		if(i == 7) continue;
+		int nowsum = (sum + i) % 7;
+		ll nowval = preval + i * (ll)pow(10, pos - 1); nowval %= 7;
+		node tmp = dfs(pos - 1, nowsum, nowval, limit &amp;&amp; i == up);
+		res.num += tmp.num, res.num %= mod;
+		res.sum += (tmp.num * (i * p[pos - 1] % mod) % mod + tmp.sum) % mod, res.sum %= mod;
+		res.sqsum += (tmp.sqsum + 2 * i * p[pos - 1] % mod * tmp.sum % mod) % mod, res.sqsum %= mod;
+		res.sqsum += tmp.num * (i * p[pos - 1] % mod) % mod * (i * p[pos - 1] % mod) % mod, res.sqsum %= mod;
+	}
+	if(!limit) dp[pos][sum][preval] = res;
+	return res;
+}
 
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+ll solve(ll x)
+{
+	int len = 0;
+	while(x)
+	{
+		v[++len] = x % 10;
+		x /= 10;
+	}
+	return dfs(len, 0, 0, 1).sqsum;
+}
 
-    int n, W;
-    while (cin &gt;&gt; n &gt;&gt; W){
-        int m_num = 0;
-        rep(i, 1, n){
-            cin &gt;&gt; arr[i].w &gt;&gt; arr[i].x &gt;&gt; arr[i].is_m &gt;&gt; arr[i].is_s;
-            if (arr[i].is_m) ++m_num;//统计魔法卡数量
-        }
-        init(n);
-        sort(arr + 1, arr + 1 + n);
-        bool is_s = false;//判断是不是作用卡
-        //从大到小遍历，可以不影响之前的状态
-        rep(i, 1, n){
-            if (arr[i].is_m){
-                per(k, i, 1){//魔法卡从多到少
-                    per(j, W, 0){//费用从多到少
-
-                        int tmp_w = 0;
-                        if (arr[i].is_s){//有被作用效果
-                            is_s = true;
-                            tmp_w = max(0, arr[i].w - (k - 1));//触发魔法卡效果
-                        }
-                        //对于k张魔法卡，之前只有k-1张魔法卡，假如一张魔法卡去更新dp,所以被作用时
-                        //应该是魔法卡数量-1的费用减少
-                        if (is_s &amp;&amp; tmp_w &lt;= j){//是作用卡，费用足够
-                            dp[j][k] = max(dp[j][k],dp[j - tmp_w][k - 1] + arr[i].x);
-                        }
-                        else if (!is_s &amp;&amp; arr[i].w &lt;= j){//不是作用卡，费用足够
-                            dp[j][k] = max(dp[j][k], dp[j - arr[i].w][k - 1] + arr[i].x);
-                        }
-                    }
-                }
-            }
-            else {
-                //进入该部分时，全部的魔法卡使用情况已经存入dp，之后的都不是魔法卡
-                per(k, m_num, 0){//m_num是魔法卡总数量，可能有不用魔法卡才能的到最大攻击的情况
-                    per(j, W, 0){     
-                        int tmp_w = 0;
-                        if (arr[i].is_s){
-                            is_s = true;
-                            tmp_w = max(0, arr[i].w - k);
-                        }
-                        //对于k张魔法卡，被作用卡卡费用减少k
-                        if (is_s &amp;&amp; tmp_w &lt;= j){
-                            dp[j][k] = max(dp[j][k], dp[j - tmp_w][k] + arr[i].x);
-                        }
-                        else if (!is_s &amp;&amp; arr[i].w &lt;= j){
-                            dp[j][k] = max(dp[j][k], dp[j - arr[i].w][k] + arr[i].x);
-                        }
-                    }
-                }
-            }
-            is_s = false;
-        }
-        int ans = 0;
-        rep(i, 0, m_num) ans = max(ans, dp[W][i]);//遍历费用是W的dp最大值，即为最大攻击力
-        cout &lt;&lt; ans &lt;&lt; endl;
-    }
-    return 0;
+int main()
+{
+	int t; cin &gt;&gt; t;
+	init();
+	while(t--)
+	{
+		ll l, r;
+		cin &gt;&gt; l &gt;&gt; r;
+		cout &lt;&lt; ((solve(r) - solve(l - 1)) + mod) % mod &lt;&lt; endl;
+	}
 }
 </code></pre>
 
@@ -416,7 +396,7 @@ int main(){
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://8421BCD.github.io/post/problem-i-spell-boost-hdu-6508-or-you-shun-xu-de-bei-bao-dp" title="Problem I. Spell Boost HDU - 6508 | 有顺序的背包dp">Problem I. Spell Boost HDU - 6508 | 有顺序的背包dp</a>
+      <a href="https://8421BCD.github.io/post/ji-ge-xi-lie-gu-shi-hen-7-bu-cheng-qi-hdu-4507-or-shu-wei-dp" title="吉哥系列故事——恨7不成妻 HDU - 4507  | 数位dp">吉哥系列故事——恨7不成妻 HDU - 4507  | 数位dp</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -425,21 +405,17 @@ int main(){
   </ul>
   <div class="tags">
     
-      <a href="https://8421BCD.github.io/tag/zkdtF3HzJ"># 动态规划</a>
+      <a href="https://8421BCD.github.io/tag/6yjnLEo7i"># 数位dp</a>
     
   </div>
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="加速爬虫: 多进程分布式 | 爬取莫烦python的网页" href="https://8421BCD.github.io/post/jia-su-pa-chong-duo-jin-cheng-fen-bu-shi-or-pa-qu-mo-fan-python-de-wang-ye">加速爬虫: 多进程分布式 | 爬取莫烦python的网页</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="加速爬虫: 多进程分布式 | 爬取莫烦python的网页" href="https://8421BCD.github.io/post/jia-su-pa-chong-duo-jin-cheng-fen-bu-shi-or-pa-qu-mo-fan-python-de-wang-ye">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="Proud Merchants HDU - 3466 | 有顺序的背包问题" href="https://8421BCD.github.io/post/proud-merchants-hdu-3466-or-you-shun-xu-de-bei-bao-wen-ti">Proud Merchants HDU - 3466 | 有顺序的背包问题</a>
-        <a class="nav-mobile-next" title="Proud Merchants HDU - 3466 | 有顺序的背包问题" href="https://8421BCD.github.io/post/proud-merchants-hdu-3466-or-you-shun-xu-de-bei-bao-wen-ti">下一篇</a>
+        <a class="nav-pc-next" title="Count on a tree SPOJ - COT | 主席树" href="https://8421BCD.github.io/post/count-on-a-tree-spoj-cot-or-zhu-xi-shu">Count on a tree SPOJ - COT | 主席树</a>
+        <a class="nav-mobile-next" title="Count on a tree SPOJ - COT | 主席树" href="https://8421BCD.github.io/post/count-on-a-tree-spoj-cot-or-zhu-xi-shu">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
