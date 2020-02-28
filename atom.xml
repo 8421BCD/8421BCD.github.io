@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-02-28T03:06:22.322Z</updated>
+    <updated>2020-02-28T03:08:58.160Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -16,9 +16,11 @@
         <link href="https://8421BCD.github.io/post/ji-ge-xi-lie-gu-shi-hen-7-bu-cheng-qi-hdu-4507-or-shu-wei-dp">
         </link>
         <updated>2020-02-28T03:04:29.000Z</updated>
-        <summary type="html"><![CDATA[<p>dp数组存放结构体，看到平方要想到拆项</p>
+        <summary type="html"><![CDATA[<p>dp数组存放结构体，看到平方要想到拆项<br>
+debug：p[]数组是mod 1e9 + 7， 不是mod7，在求preval的时候不能用这个数组。debug好久难受了。。。</p>
 ]]></summary>
-        <content type="html"><![CDATA[<p>dp数组存放结构体，看到平方要想到拆项</p>
+        <content type="html"><![CDATA[<p>dp数组存放结构体，看到平方要想到拆项<br>
+debug：p[]数组是mod 1e9 + 7， 不是mod7，在求preval的时候不能用这个数组。debug好久难受了。。。</p>
 <!--more-->
 <p><strong>题意：</strong><br>
 如果一个整数符合下面3个条件之一，那么我们就说这个整数和7有关——<br>
