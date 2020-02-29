@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-02-28T03:08:58.160Z</updated>
+    <updated>2020-02-29T11:18:08.193Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -10,6 +10,80 @@
     <logo>https://8421BCD.github.io/images/avatar.png</logo>
     <icon>https://8421BCD.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
+    <entry>
+        <title type="html"><![CDATA[Monitor HDU - 6514 | 二维差分]]></title>
+        <id>https://8421BCD.github.io/post/monitor-hdu-6514-or-er-wei-chai-fen</id>
+        <link href="https://8421BCD.github.io/post/monitor-hdu-6514-or-er-wei-chai-fen">
+        </link>
+        <updated>2020-02-29T11:09:35.000Z</updated>
+        <summary type="html"><![CDATA[<p>TMD找bug找了一万年。。。一直re，跟题解对了2个小时md。<br>
+个人感想：强者就是脑子比你好使，完成同样的任务比你更快更好，然后拿出剩下的时间去享受生活(自闭时的所想，不代表个人观点)<br>
+<img src="https://cdn.jsdelivr.net/gh/8421BCD/CDN/img/1.png" alt="avatar" loading="lazy"></p>
+]]></summary>
+        <content type="html"><![CDATA[<p>TMD找bug找了一万年。。。一直re，跟题解对了2个小时md。<br>
+个人感想：强者就是脑子比你好使，完成同样的任务比你更快更好，然后拿出剩下的时间去享受生活(自闭时的所想，不代表个人观点)<br>
+<img src="https://cdn.jsdelivr.net/gh/8421BCD/CDN/img/1.png" alt="avatar" loading="lazy"></p>
+<!--more-->
+<p><strong>题意：</strong></p>
+<p><strong>分析：</strong><br>
+模板背过<br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+//typedef __int128 lll;
+#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
+#define mem(a, b) memset(a, b, sizeof(a))
+const ll mod = 1e9 + 7;
+const int maxn = 2e7 + 100;
+const int inf = 0x3f3f3f3f;
+int n, m;
+int a[maxn];
+
+int getid(int x, int y)
+{
+    if(x &lt; 1 || x &gt; n || y &gt; m) return 0;
+    return (x - 1) * m + y;
+}
+
+int main()
+{
+    while(cin &gt;&gt; n &gt;&gt; m)
+    {
+        for(int i = 0; i &lt;= n * m; i++) a[i] = 0;
+        int q;cin &gt;&gt; q;
+        for(int i = 1; i &lt;= q; i++)
+        {
+            int x1, y1, x2, y2;
+            scanf(&quot;%d%d%d%d&quot;, &amp;x1, &amp;y1, &amp;x2, &amp;y2);
+            a[getid(x1, y1)]++;
+            a[getid(x2 + 1, y1)]--;
+            a[getid(x1, y2 + 1)]--;
+            a[getid(x2 + 1, y2 + 1)]++;
+        }
+        for(int i = 1; i &lt;= n; i++)
+            for(int j = 1; j &lt;= m; j++)
+                a[getid(i, j)] += a[getid(i, j - 1)] + a[getid(i - 1, j)] - a[getid(i - 1, j - 1)];
+        for(int i = 1; i &lt;= n; i++)
+            for(int j = 1; j &lt;= m; j++)
+                a[getid(i, j)] = a[getid(i, j)] &gt; 0;
+        for(int i = 1; i &lt;= n; i++)
+            for(int j = 1; j &lt;= m; j++)
+                a[getid(i, j)] += a[getid(i - 1, j)] + a[getid(i, j - 1)] - a[getid(i - 1, j - 1)];
+        int p; cin &gt;&gt; p;
+        while(p--)
+        {
+            int x1, y1, x2, y2;
+            scanf(&quot;%d%d%d%d&quot;, &amp;x1, &amp;y1, &amp;x2, &amp;y2);
+            int sum = a[getid(x2, y2)] - a[getid(x2, y1 - 1)] - a[getid(x1 - 1, y2) + a[getid(x1 - 1, y1 - 1)]];
+            if(sum == (x2 - x1 + 1) * (y2 - y1 + 1)) cout &lt;&lt; &quot;YES&quot; &lt;&lt; endl;
+            else cout &lt;&lt; &quot;NO&quot; &lt;&lt; endl;
+        }
+    }
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[吉哥系列故事——恨7不成妻 HDU - 4507  | 数位dp]]></title>
         <id>https://8421BCD.github.io/post/ji-ge-xi-lie-gu-shi-hen-7-bu-cheng-qi-hdu-4507-or-shu-wei-dp</id>
@@ -933,16 +1007,6 @@ for x in list:
 <li><strong>爬取结果</strong><br>
 <img src="https://cdn.jsdelivr.net/gh/8421BCD/CDN/img/123123.png" alt="avatar" loading="lazy"></li>
 </ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[高效快速图床配置教程]]></title>
-        <id>https://8421BCD.github.io/post/gao-xiao-kuai-su-tu-chuang-pei-zhi-jiao-cheng</id>
-        <link href="https://8421BCD.github.io/post/gao-xiao-kuai-su-tu-chuang-pei-zhi-jiao-cheng">
-        </link>
-        <updated>2020-02-18T13:51:40.000Z</updated>
-        <content type="html"><![CDATA[<p>https://www.itrhx.com/2019/02/10/A18-free-cdn/<br>
-itrhx.com/2019/08/01/A27-image-hosting/</p>
 ]]></content>
     </entry>
 </feed>

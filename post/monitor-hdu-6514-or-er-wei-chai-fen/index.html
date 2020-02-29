@@ -6,7 +6,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="不需要外界告诉自己自己的价值是什么">
 <meta name="theme-color" content="#000">
-<title>Round Numbers POJ - 3252 | 数位dp | Wannafly</title>
+<title>Monitor HDU - 6514 | 二维差分 | Wannafly</title>
 <link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1582975079735">
 <link rel="stylesheet" href="https://8421BCD.github.io//styles/main.css">
 
@@ -25,7 +25,7 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
     onload="renderMathInElement(document.body);"></script>
 
-    <meta name="description" content="Round Numbers POJ - 3252 | 数位dp" />
+    <meta name="description" content="Monitor HDU - 6514 | 二维差分" />
     <meta name="keywords" content="" />
   </head>
   <body>
@@ -260,8 +260,8 @@
               <div class="article-box">
     <header class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://8421BCD.github.io/post/round-numbers-poj-3252-or-shu-wei-dp">
-      Round Numbers POJ - 3252 | 数位dp
+    <a class="post-title-link" href="https://8421BCD.github.io/post/monitor-hdu-6514-or-er-wei-chai-fen">
+      Monitor HDU - 6514 | 二维差分
     </a>
   </h1>
   <div class="post-meta">
@@ -269,31 +269,30 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span>发布于</span>
-      <span>2020-02-22</span>
+      <span>2020-02-29</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>2分钟</span>
+      <span>3分钟</span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>354<span class="pc-show">字数</span></span>
+      <span>413<span class="pc-show">字数</span></span>
     </span>
   </div>
 </header>
 </div>
               <div class="post-body next-md-body" id="post_body">
-                <p>debug了一上午，还是做的少，应该想到先导0的影响的</p>
+                <p>TMD找bug找了一万年。。。一直re，跟题解对了2个小时md。<br>
+个人感想：强者就是脑子比你好使，完成同样的任务比你更快更好，然后拿出剩下的时间去享受生活(自闭时的所想，不代表个人观点)<br>
+<img src="https://cdn.jsdelivr.net/gh/8421BCD/CDN/img/1.png" alt="avatar" loading="lazy"></p>
 <!--more-->
-<p><strong>题意：</strong><br>
-问一个区间的数有多少个二进制中0的个数大于1<br>
-<strong>分析：</strong><br>
-1、dp[i][j]表示第i位之前0与1个数差为j且该位valid != 0（也即无前导零）时，满足题意的数的总数。<br>
-2、由于差可能为负，所以整体+32<br>
-3、注意如果当前位有前导零，那么其计算的结果数不能放入dp数组（使得结果偏小）。<br>
+<p><strong>题意：</strong></p>
+<p><strong>分析：</strong><br>
+模板背过<br>
 <strong>代码：</strong></p>
 <pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
 using namespace std;
@@ -301,46 +300,52 @@ typedef long long ll;
 //typedef __int128 lll;
 #define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
 #define mem(a, b) memset(a, b, sizeof(a))
-#define debug(a) cout &lt;&lt; &quot;debug :&quot; &lt;&lt; a &lt;&lt; endl
-#define fi first
-#define se second
-const int maxn = 1e6;
+const ll mod = 1e9 + 7;
+const int maxn = 2e7 + 100;
 const int inf = 0x3f3f3f3f;
-int dp[33][70];
-int v[33];
+int n, m;
+int a[maxn];
 
-int dfs(int pos, int valid, int dif, int limit)
+int getid(int x, int y)
 {
-    if(!pos) return dif &gt;= 0;
-    if(!limit &amp;&amp; valid &amp;&amp; ~dp[pos][dif + 32]) return dp[pos][dif + 32];
-    int up = limit ? v[pos] : 1;
-    ll res = 0;
-    for(int i = 0; i &lt;= up; i++)
-    {
-        res += dfs(pos - 1, valid || i, (valid || i) ? (!i ? dif + 1 : dif - 1) : 0, limit &amp;&amp; i == up);
-        //if(pos == 4) cout &lt;&lt; res &lt;&lt; endl;
-    }
-    if(!limit &amp;&amp; valid) dp[pos][dif + 32] = res;
-    return res;
-}
-
-int work(int x)
-{
-    int pos = 0;
-    while(x)
-    {
-        v[++pos] = x &amp; 1;
-        x &gt;&gt;= 1;
-    }
-    return dfs(pos, 0, 0, 1);//一开始假设有前导零,valid = 0
+    if(x &lt; 1 || x &gt; n || y &gt; m) return 0;
+    return (x - 1) * m + y;
 }
 
 int main()
 {
-    int l, r;
-    mem(dp, -1);
-    cin &gt;&gt; l &gt;&gt; r;
-    cout &lt;&lt; work(r) - work(l - 1) &lt;&lt; endl;
+    while(cin &gt;&gt; n &gt;&gt; m)
+    {
+        for(int i = 0; i &lt;= n * m; i++) a[i] = 0;
+        int q;cin &gt;&gt; q;
+        for(int i = 1; i &lt;= q; i++)
+        {
+            int x1, y1, x2, y2;
+            scanf(&quot;%d%d%d%d&quot;, &amp;x1, &amp;y1, &amp;x2, &amp;y2);
+            a[getid(x1, y1)]++;
+            a[getid(x2 + 1, y1)]--;
+            a[getid(x1, y2 + 1)]--;
+            a[getid(x2 + 1, y2 + 1)]++;
+        }
+        for(int i = 1; i &lt;= n; i++)
+            for(int j = 1; j &lt;= m; j++)
+                a[getid(i, j)] += a[getid(i, j - 1)] + a[getid(i - 1, j)] - a[getid(i - 1, j - 1)];
+        for(int i = 1; i &lt;= n; i++)
+            for(int j = 1; j &lt;= m; j++)
+                a[getid(i, j)] = a[getid(i, j)] &gt; 0;
+        for(int i = 1; i &lt;= n; i++)
+            for(int j = 1; j &lt;= m; j++)
+                a[getid(i, j)] += a[getid(i - 1, j)] + a[getid(i, j - 1)] - a[getid(i - 1, j - 1)];
+        int p; cin &gt;&gt; p;
+        while(p--)
+        {
+            int x1, y1, x2, y2;
+            scanf(&quot;%d%d%d%d&quot;, &amp;x1, &amp;y1, &amp;x2, &amp;y2);
+            int sum = a[getid(x2, y2)] - a[getid(x2, y1 - 1)] - a[getid(x1 - 1, y2) + a[getid(x1 - 1, y1 - 1)]];
+            if(sum == (x2 - x1 + 1) * (y2 - y1 + 1)) cout &lt;&lt; &quot;YES&quot; &lt;&lt; endl;
+            else cout &lt;&lt; &quot;NO&quot; &lt;&lt; endl;
+        }
+    }
 }
 </code></pre>
 
@@ -353,7 +358,7 @@ int main()
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://8421BCD.github.io/post/round-numbers-poj-3252-or-shu-wei-dp" title="Round Numbers POJ - 3252 | 数位dp">Round Numbers POJ - 3252 | 数位dp</a>
+      <a href="https://8421BCD.github.io/post/monitor-hdu-6514-or-er-wei-chai-fen" title="Monitor HDU - 6514 | 二维差分">Monitor HDU - 6514 | 二维差分</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -366,15 +371,11 @@ int main()
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="数据结构课设小作业 | 成绩管理系统" href="https://8421BCD.github.io/post/shu-ju-jie-gou-ke-she-xiao-zuo-ye-or-cheng-ji-guan-li-xi-tong">数据结构课设小作业 | 成绩管理系统</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="数据结构课设小作业 | 成绩管理系统" href="https://8421BCD.github.io/post/shu-ju-jie-gou-ke-she-xiao-zuo-ye-or-cheng-ji-guan-li-xi-tong">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="XHXJ&#39;s LIS HDU - 4352 | 数位dp" href="https://8421BCD.github.io/post/xhxjs-lis-hdu-4352-or-zhuang-ya-dp">XHXJ&#39;s LIS HDU - 4352 | 数位dp</a>
-        <a class="nav-mobile-next" title="XHXJ&#39;s LIS HDU - 4352 | 数位dp" href="https://8421BCD.github.io/post/xhxjs-lis-hdu-4352-or-zhuang-ya-dp">下一篇</a>
+        <a class="nav-pc-next" title="吉哥系列故事——恨7不成妻 HDU - 4507  | 数位dp" href="https://8421BCD.github.io/post/ji-ge-xi-lie-gu-shi-hen-7-bu-cheng-qi-hdu-4507-or-shu-wei-dp">吉哥系列故事——恨7不成妻 HDU - 4507  | 数位dp</a>
+        <a class="nav-mobile-next" title="吉哥系列故事——恨7不成妻 HDU - 4507  | 数位dp" href="https://8421BCD.github.io/post/ji-ge-xi-lie-gu-shi-hen-7-bu-cheng-qi-hdu-4507-or-shu-wei-dp">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
