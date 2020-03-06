@@ -6,7 +6,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="不需要外界告诉自己自己的价值是什么">
 <meta name="theme-color" content="#000">
-<title>Codeforces Round #616 (Div. 2) 题解 | Wannafly</title>
+<title>BCD Code ZOJ - 3494 | AC自动机 + 数位dp | Wannafly</title>
 <link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1583502208004">
 <link rel="stylesheet" href="https://8421BCD.github.io//styles/main.css">
 
@@ -25,8 +25,8 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
     onload="renderMathInElement(document.body);"></script>
 
-    <meta name="description" content="Codeforces Round #616 (Div. 2) 题解" />
-    <meta name="keywords" content="CodeForces" />
+    <meta name="description" content="BCD Code ZOJ - 3494 | AC自动机 + 数位dp" />
+    <meta name="keywords" content="" />
   </head>
   <body>
     <div class="head-top-line"></div>
@@ -131,17 +131,9 @@
 <div class="sidebar">
     <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
       
-        <div class="post-list-sidebar">
-          <div class="sidebar-title">
-            <span id="tocSideBar" class="sidebar-title-item sidebar-title-active">文章目录</span>
-            <span id="metaSideBar" class="sidebar-title-item">站点概览</span>
-          </div>
-        </div>
-      
       <div class="sidebar-body pisces" id="sidebar_body">
         
-          <div class="post-side-meta" id="post_side_meta">
-            
+          
 <div class="sidebar-wrapper box-shadow-wrapper bg-color">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="https://8421BCD.github.io//images/avatar.png"/>
@@ -183,181 +175,6 @@
 
 
 </div>
-          </div>
-          <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
-            <div class="toc-box right-motion">
-  <div class="toc-wrapper auto-number auto" id="toc_wrapper">
-    <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#codeforces-round-616-div-2-%E9%A2%98%E8%A7%A3">Codeforces Round #616 (Div. 2) 题解</a></li>
-</ul>
-</li>
-</ul>
-
-  </div>
-</div>
-
-<script>
-
-let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1; 
-let active = 'active-show', activeClass = 'active-current';
-let tocWrapper = document.querySelector('#toc_wrapper');
-let tocContent = tocWrapper.children[0];
-let autoNumber = tocWrapper&&tocWrapper.classList.contains('auto-number');
-
-function addTocNumber(elem, deep) {
-  if (!elem) {
-    return;
-  }
-  let prop = elem.__proto__;
-
-  if (prop === HTMLUListElement.prototype) {
-    for (let i = 0; i < elem.children.length; i++) {
-      addTocNumber(elem.children[i], deep + (i + 1) + '.');
-    }
-  } else if (prop === HTMLLIElement.prototype) {
-    // 保存li元素
-    lList.push(elem);
-    for (let i = 0; i < elem.children.length; i++) {
-      let cur = elem.children[i];
-      if (cur.__proto__ === HTMLAnchorElement.prototype) {
-        if (autoNumber) {
-          cur.text =  deep + ' ' + cur.text;
-        }
-      } else if (cur.__proto__ === HTMLUListElement.prototype) {
-        addTocNumber(cur, deep);
-      }
-    }
-  }
-}
-
-
-document.addEventListener('scroll', function(e) {
-  if (lList.length <= 0) {
-    return;
-  }
-  let scrollTop = document.scrollingElement.scrollTop;
-  let dir;
-
-  if (lastTop - scrollTop > 0) {
-    dir = 'up';
-  } else {
-    dir = 'down';
-  }
-
-  lastTop = scrollTop;
-  if (scrollTop <= 0) {
-    if (lastIndex >= 0 && lastIndex < hList.length) {
-      lList[lastIndex].classList.remove(activeClass);
-    }
-    return;
-  }
-
-  let current = 0, hasFind = false;
-  for (let i = 0; i < hList.length; i++) {
-    if (hList[i].offsetTop > scrollTop) {
-      current = i;
-      hasFind = true;
-      break;
-    }
-  }
-  if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
-    current = hList.length - 1;
-  } else {
-    current--;
-  }
-  if (dir === 'down') {
-    if (current > lastIndex) {
-      addActiveClass(current);
-      removeActiveClass(lastIndex) 
-      lastIndex = current;
-      removeParentActiveClass();
-      lList[current] && addActiveLiElemment(lList[current].parentElement,tocContent);
-    }
-  } else {
-    if (current < lastIndex) {
-      addActiveClass(current);
-      removeActiveClass(lastIndex);
-      lastIndex = current;
-      removeParentActiveClass();
-      lList[current] && addActiveLiElemment(lList[current].parentElement,tocContent);
-    }
-  }
-});
-
-function removeParentActiveClass() {
-  let parents = tocContent.querySelectorAll('.'+active)
-  parents.forEach(function(elem) {
-    elem.classList.remove(active);
-  });
-}
-
-function addActiveClass(index) {
-  if (index >= 0 && index < hList.length) {
-    lList[index].classList.add(activeClass);
-  }
-}
-
-function removeActiveClass(index) {
-  if (index >= 0 && index < hList.length) {
-    lList[index].classList.remove(activeClass);
-  }
-}
-
-function addActiveLiElemment(elem, parent) {
-  if (!elem || elem === parent) {
-    return;
-  } else {
-    if (elem.__proto__ === HTMLLIElement.prototype) {
-      elem.classList.add(active);
-    }
-    addActiveLiElemment(elem.parentElement, parent);
-  }
-}
-
-function showToc() {
-  if (tocWrapper) {
-    postBody = document.querySelector('#post_body');
-    for (let i = 0; i < postBody.children.length; i++) {
-      if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
-        hList.push(postBody.children[i]);
-      }
-    }
-    if (tocWrapper.classList.contains('compress')) {
-        tocContent.classList.add('closed');
-    } else if (tocWrapper.classList.contains('no_compress')){
-      tocContent.classList.add('expanded');
-    } else {
-      if (hList.length > 10) {
-        active = 'active-hidden'
-        tocContent.classList.add('closed');
-      } else {
-        tocContent.classList.add('expanded');
-      }
-    }
-  }
-}
-addTocNumber(tocContent, '');
-
-window.addEventListener('load', function() {
-  showToc();
-  document.querySelector('#sidebar').style='display: block;';
-  tocWrapper.classList.add('toc-active');
-  setTimeout(function() {
-    if ("createEvent" in document) {
-      let evt = document.createEvent("HTMLEvents");
-      evt.initEvent("scroll", false, true);
-      document.dispatchEvent(evt);
-    }
-    else {
-      document.fireEvent("scroll");
-    }
-  }, 500)
-})
-
-</script>
-          </div>
         
       </div>
     </div>
@@ -443,8 +260,8 @@ window.addEventListener('load', function() {
               <div class="article-box">
     <header class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://8421BCD.github.io/post/codeforces-round-616-div-2-ti-jie">
-      Codeforces Round #616 (Div. 2) 题解
+    <a class="post-title-link" href="https://8421BCD.github.io/post/bcd-code-zoj-3494-or-ac-zi-dong-ji-shu-wei-dp">
+      BCD Code ZOJ - 3494 | AC自动机 + 数位dp
     </a>
   </h1>
   <div class="post-meta">
@@ -452,191 +269,171 @@ window.addEventListener('load', function() {
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span>发布于</span>
-      <span>2020-02-03</span>
+      <span>2020-03-06</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
-      <span class="meta-item">
-        <i class="fa fa-folder-o"></i>
-        <span class="pc-show">分类于</span>
-        
-          
-            <a href="https://8421BCD.github.io/tag/QcqmodxwM">
-              <span>CodeForces</span>
-            </a>
-          
-        
-      </span>
-      <span class="post-meta-divider">|</span>
-    
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>8分钟</span>
+      <span>5分钟</span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>1608<span class="pc-show">字数</span></span>
+      <span>752<span class="pc-show">字数</span></span>
     </span>
   </div>
 </header>
 </div>
               <div class="post-body next-md-body" id="post_body">
-                <hr>
-<h2 id="codeforces-round-616-div-2-题解">Codeforces Round #616 (Div. 2) 题解</h2>
-<hr>
-<p>**A. **</p>
+                <p>初始化函数又忘了在主函数写，debug到永远。。。。</p>
+<!--more-->
 <p><strong>题意：</strong><br>
-定义一个数所有位置的和为偶数它本身不为偶数的数为ebne,现在给你一个数字字符串，你可以删除任意位置上的数字使其变为ebne输出任意改变后的结果，如果不能则输出-1<br>
+问A到B之间的所有整数，转换成BCD Code后，<br>
+有多少个不包含属于给定病毒串集合的子串,A,B &lt;=10^200,病毒串总长度&lt;= 2000.<br>
 <strong>分析：</strong><br>
-如果奇数的个数&gt;=2，则输出前两个奇数<br>
-<strong>代码：</strong></p>
-<pre><code class="language-cpp">#include&lt;iostream&gt;
-#include&lt;algorithm&gt;
-#include&lt;string&gt;
- using namespace std;
- int main()
- {
-     int t,n;
-     scanf(&quot;%d&quot;,&amp;t);
-     while(t--){
-         string a,b;
-         cin&gt;&gt;n&gt;&gt;a;
-         for(int i=0;i&lt;n;i++){
-             if((a[i]-'0')%2)
-                 b+=a[i];
-         }
-        if(b.length()&lt;2)    cout&lt;&lt;&quot;-1&quot;&lt;&lt;endl;
-        else    cout&lt;&lt;b.substr(0,2)&lt;&lt;endl;
-     }
-    return 0;
-  }
-</code></pre>
-<p>**B. **</p>
-<p><strong>题意：</strong><br>
-给你一个数组，你可以对任意位置上的元素进行任意次的减1操作(不能使元素小于0)，使得该数组变成一个先严格递增再严格递减的数组(也可以只升不降，只降不升)<br>
-<strong>分析：</strong><br>
-从左右两边构造上升序列，a1 = an = 0， 公差为1。如果两个序列有交集，则合法。<br>
-<strong>代码：</strong></p>
-<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-
-int main()
+1、先建立一颗trie树，注意：build函数end[]数组不仅仅要涉及本结点是不是结束符，还要检查其fail节点是不是结束符。具体代码:</p>
+<pre><code class="language-cpp">while(!q.empty())
 {
-    ios::sync_with_stdio(false); cin.tie(0);
-
-    int nbTests; cin &gt;&gt; nbTests;
-    while (nbTests--) {
-	    int nbElem; cin &gt;&gt; nbElem;
-	    vector&lt;int&gt; tab(nbElem);
-
-	    for (int i = 0; i &lt; nbElem; ++i)
-		    cin &gt;&gt; tab[i];
-
-	    int prefixEnd = -1, suffixEnd = nbElem;
-
-	    for (int i = 0; i &lt; nbElem; ++i) {
-		    if (tab[i] &lt; i) break;
-		    prefixEnd = i;
-	    }
-	    for (int i = nbElem-1; i &gt;= 0; --i) {
-		    if (tab[i] &lt; (nbElem-1)-i) break;
-		    suffixEnd = i;
-	    }
-
-	    if (suffixEnd &lt;= prefixEnd) // Non-empty intersection
-		    cout &lt;&lt; &quot;Yes\n&quot;;
-	    else
-		    cout &lt;&lt; &quot;No\n&quot;;
-    }
+    int now = q.front(); q.pop();
+    if(end[fail[now]] == 1) end[now] = 1;
+    for(int i = 0; i &lt; 2; i++)
+        if(nex[now][i] == -1) nex[now][i] = nex[fail[now]][i];
+        else fail[nex[now][i]] = nex[fail[now]][i], q.push(nex[now][i]);
 }
 </code></pre>
-<p>**C. **</p>
-<p><strong>题意：</strong><br>
-n个元素，n个人轮流取数，可以取数组头或尾元素，你在第m轮取，并且你可以控制k个人取什么元素，问你能取得最大元素是多少(前面的人不一定都取最大的)<br>
-<strong>分析：</strong><br>
-k一定是用于在自己前面的人的身上，至于用于前面哪些人身上其实无关紧要。影响最终结果的是数列左右两边数的取走数量。对于左边：从0-k枚举听从命令的人，对于每次枚举，再枚举剩余的不听命令的人，对于内层枚举取最坏情况，对于外层枚举，取最好情况。<br>
-<strong>代码：</strong></p>
-<pre><code class="language-cpp">#include&lt;iostream&gt;
-#include&lt;algorithm&gt;
-#define inf 0x3f3f3f3f
- using namespace std;
- const int maxn=3510;
- int a[maxn],t,n,m,k;
- int main()
- {
-     scanf(&quot;%d&quot;,&amp;t);
-     while(t--){
-         scanf(&quot;%d%d%d&quot;,&amp;n,&amp;m,&amp;k);
-         for(int i=0;i&lt;n;i++)    scanf(&quot;%d&quot;,&amp;a[i]);
-         k=min(m-1,k);
-         int ans=-inf;
-         for(int i=0;i&lt;=k;i++){
-             int x=inf;
-             for(int j=0;j&lt;m-k;j++)    x=min(x,max(a[i+j],a[n+i+j-m]));
-            ans=max(ans,x);
-         }
-        cout&lt;&lt;ans&lt;&lt;endl;    
-     }
-    return 0;
- }
-</code></pre>
-<p>**D. **</p>
-<p><strong>题意：</strong><br>
-若两个字符串中每个字符的个数都是一样的，则称他们互为anagrams。现在定义两个字符串s,t是reducible anagram的，必须满足下面的条件：<br>
-将s、t两个字符串分别拆成k(k&gt;=2)个连续子串<br>
-s1,s2⋯sk 按顺序排列构成s<br>
-t1,t2⋯tk 按顺序排列构成t<br>
-∀i∈[1,k],都有si是ti的anagrams<br>
-现在给了一个字符串，每次询问它的一个字串是否存在一个irreducible anagram（请注意这些概念必须是以s是t的anagrams前提下进行的）<br>
-<strong>分析：</strong><br>
-对于每个询问的字符串s，是否存在一个字符串t，使得t是s的irreducible anagram.分析题目条件可以将问题转换为：在t和s的任意等长前缀中，它们的字符集的个数必须是不同的（也就是确保它们不是anagrams)<br>
-我们声明满足下面条件的字符串存在irreducible anagram<br>
-1、长度等于1<br>
-2、首字符和尾字符不同<br>
-3、字符串包含至少三种不同的字符<br>
-求证这些条件后，利用前缀和的技巧可以很容易的解决本题。下面试证一下：</p>
-<p>长度等于1，那么就无法找到一个 k(k&gt;=2) ，所以它的irreducible anagram就是它本身<br>
-s[1]≠s[n] 即首字符和尾字符不同，我们可以尽量靠前的将所有同s[n]一样的字符写在前面。然后剩下的字符随便放置即可。可以想到对于任意的k∈[1,n−1],都满足s[1..k]与t[1..k]的字符集不同。<br>
-字符串包含至少三种不同的字符，并且s[1]=s[n]。可以找到一个最大的j满足s[j]≠s[n]。可以把所以同s[j]一样的字符放到最前面，然后紧挨着中间放置所有同s[n]的字符，因为不同字符个数大于等于3，所以现在最后面肯定还有空位，将剩余的字符随意放置在最后面即可。可以想到构成的这样的一个串，一定满足任意前缀字符集不等。<br>
-到此为止就可以放心做题了，但试图证明一下为何s[1]=s[n]  and  不同字符个数等于2的情况为何找不到。<br>
-假设字符只有a和b两种，而且s[1]=s[n]=a,那么我们构造出来的串必须满足任意前缀中b的个数，都大于s对应前缀中b的个数。那么考虑s中最后出现b的位置x,可以想到s[1..x−1]前缀比t[1..x−1]少一个b，而s[x]=b得出现使得t[x]必须再放置一个b,这样才能满足任意前缀中b得个数都要比s多，但此时已经没有b可以放了（因为s[1..x−1]就已经多放了一个b）所以在x这个位置，无法构造。<br>
+<p>2、预处理出trie上每个节点从0-9的BCD码转移的过程中会不会出现病毒串，其实对于0-9每个数转移四次就好。<br>
+3、数位dp<br>
+-注意前导零的判断<br>
+-注意字符数组减一的处理<br>
 <strong>代码：</strong></p>
 <pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
 using namespace std;
-const int maxn = 1e6;
-char s[maxn];
-int pre[maxn][27];
+typedef long long ll;
+//typedef __int128 lll;
+#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
+#define mem(a, b) memset(a, b, sizeof(a))
+const ll mod = 1e9 + 9;
+const int maxn = 2e3 + 10;
+const int inf = 0x3f3f3f3f;
+struct trie
+{
+    int tot, root;
+    int nex[maxn][2], fail[maxn], end[maxn];
+    int newnode()
+    {
+        for(int i = 0; i &lt; 2; i++)
+            nex[tot][i] = -1;
+        end[tot++] = -1;
+        return tot - 1;
+    }
+    void init()
+    {
+        tot = 0;
+        root = newnode();
+    }
+    void insert(char s[])
+    {
+        int now = root;
+        for(int i = 0; s[i]; i++)
+        {
+            if(nex[now][s[i] - '0'] == -1) nex[now][s[i] - '0'] = newnode();
+            now = nex[now][s[i] - '0'];
+        }
+        end[now] = 1;
+    }
+    void build()
+    {
+        queue&lt;int&gt; q;
+        fail[root] = root;
+        for(int i = 0; i &lt; 2; i++)
+        {
+            if(nex[root][i] == -1) nex[root][i] = root;
+            else fail[nex[root][i]] = root, q.push(nex[root][i]);
+        }
+        while(!q.empty())
+        {
+            int now = q.front(); q.pop();
+            if(end[fail[now]] == 1) end[now] = 1;
+            for(int i = 0; i &lt; 2; i++)
+                if(nex[now][i] == -1) nex[now][i] = nex[fail[now]][i];
+                else fail[nex[now][i]] = nex[fail[now]][i], q.push(nex[now][i]);
+        }
+    }
+};
+trie ti;
+int v[maxn];
+int dp[maxn][maxn];
+int bcd[maxn][10];
+
+int find(int pos, int num)
+{
+    if(ti.end[pos] != -1) return -1;
+    for(int i = 3; i &gt;= 0; i--)
+    {
+        int now = ti.nex[pos][(num &gt;&gt; i) &amp; 1];
+        if(ti.end[now] != -1) return -1;
+        pos = now;
+    }
+    return pos;
+}
+
+void makebcd()
+{
+    for(int i = 0; i &lt; ti.tot; i++)
+        for(int j = 0; j &lt; 10; j++)
+            bcd[i][j] = find(i, j);
+}
+
+ll dfs(int pos, int state, int zero, int limit)
+{
+    if(!pos) return 1;
+    if(!limit &amp;&amp; ~dp[pos][state]) return dp[pos][state];
+    int up = limit ? v[pos] : 9;
+    ll res = 0;
+    for(int i = 0; i &lt;= up; i++)
+    {
+        if(!i &amp;&amp; zero) res += dfs(pos - 1, state, i == 0 &amp;&amp; zero, limit &amp;&amp; i == up);
+        else if(bcd[state][i] != -1) res += dfs(pos - 1, bcd[state][i], i == 0 &amp;&amp; zero, limit &amp;&amp; i == up);
+        res %= mod;
+    }
+    if(!limit &amp;&amp; !zero) dp[pos][state] = res;
+    return res;
+}
+
+ll solve(char s[])
+{
+    int len = strlen(s);
+    int pos = 0;
+    for(int i = len - 1; i &gt;= 0; i--) v[++pos] = s[i] - '0';
+    return dfs(pos, 0, 1, 1);
+}
 
 int main()
 {
-	ios::sync_with_stdio(false);
-  	cin.tie(0);
-	cin &gt;&gt; (s + 1);
-	int len = strlen(s + 1);
-	for(int i = 1; i &lt;= len; i++)
-	{
-		memcpy(pre[i], pre[i - 1], sizeof(pre[i]));
-		pre[i][s[i] - 'a' + 1]++;
-	}
-	int q; cin &gt;&gt; q;
-	while(q--)
-	{
-		int l, r; cin &gt;&gt; l &gt;&gt; r;
-		if(l == r)
-			cout &lt;&lt; &quot;Yes&quot; &lt;&lt; endl;
-		else if(s[l] != s[r])
-			cout &lt;&lt; &quot;Yes&quot; &lt;&lt; endl;
-		else
-		{
-			int cnt = 0;
-			for(int i = 1; i &lt;= 26; i++)
-				cnt += (pre[r][i] - pre[l][i]) &gt; 0;
-			if(cnt &gt;= 3)
-				cout &lt;&lt; &quot;Yes&quot; &lt;&lt; endl;
-			else cout &lt;&lt; &quot;No&quot; &lt;&lt; endl;
-		}
-	}
+    int t; cin &gt;&gt; t;
+    while(t--)
+    {
+        int n; cin &gt;&gt; n;
+        char s[300];
+        ti.init();
+        mem(dp, -1);
+        for(int i = 1; i &lt;= n; i++)
+            scanf(&quot;%s&quot;, s), ti.insert(s);
+        ti.build();
+        makebcd();
+        char l[maxn], r[maxn];
+        scanf(&quot;%s%s&quot;, l, r);
+        int len = strlen(l);
+        for(int i = len - 1; i &gt;= 0; i--)
+            if(l[i] == '0') l[i] = '9';
+            else 
+            {
+                l[i]--;
+                break;
+            }
+        cout &lt;&lt; (solve(r) - solve(l) + mod) % mod &lt;&lt; endl;
+    }
 }
 </code></pre>
 
@@ -649,7 +446,7 @@ int main()
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://8421BCD.github.io/post/codeforces-round-616-div-2-ti-jie" title="Codeforces Round #616 (Div. 2) 题解">Codeforces Round #616 (Div. 2) 题解</a>
+      <a href="https://8421BCD.github.io/post/bcd-code-zoj-3494-or-ac-zi-dong-ji-shu-wei-dp" title="BCD Code ZOJ - 3494 | AC自动机 + 数位dp">BCD Code ZOJ - 3494 | AC自动机 + 数位dp</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -658,21 +455,15 @@ int main()
   </ul>
   <div class="tags">
     
-      <a href="https://8421BCD.github.io/tag/QcqmodxwM"># CodeForces</a>
-    
   </div>
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="ACM题目题解写作模板" href="https://8421BCD.github.io/post/acm-ti-mu-ti-jie-xie-zuo-mo-ban">ACM题目题解写作模板</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="ACM题目题解写作模板" href="https://8421BCD.github.io/post/acm-ti-mu-ti-jie-xie-zuo-mo-ban">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="CF题解写作模板" href="https://8421BCD.github.io/post/cf-ti-jie-xie-zuo-mo-ban">CF题解写作模板</a>
-        <a class="nav-mobile-next" title="CF题解写作模板" href="https://8421BCD.github.io/post/cf-ti-jie-xie-zuo-mo-ban">下一篇</a>
+        <a class="nav-pc-next" title="Strings in the Pocket ZOJ - 4110 | manacher算法" href="https://8421BCD.github.io/post/strings-in-the-pocket-zoj-4110-or-manacher-suan-fa">Strings in the Pocket ZOJ - 4110 | manacher算法</a>
+        <a class="nav-mobile-next" title="Strings in the Pocket ZOJ - 4110 | manacher算法" href="https://8421BCD.github.io/post/strings-in-the-pocket-zoj-4110-or-manacher-suan-fa">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-03-06T13:19:35.574Z</updated>
+    <updated>2020-03-06T13:43:34.955Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -10,6 +10,166 @@
     <logo>https://8421BCD.github.io/images/avatar.png</logo>
     <icon>https://8421BCD.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
+    <entry>
+        <title type="html"><![CDATA[BCD Code ZOJ - 3494 | AC自动机 + 数位dp]]></title>
+        <id>https://8421BCD.github.io/post/bcd-code-zoj-3494-or-ac-zi-dong-ji-shu-wei-dp</id>
+        <link href="https://8421BCD.github.io/post/bcd-code-zoj-3494-or-ac-zi-dong-ji-shu-wei-dp">
+        </link>
+        <updated>2020-03-06T13:27:10.000Z</updated>
+        <summary type="html"><![CDATA[<p>初始化函数又忘了在主函数写，debug到永远。。。。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>初始化函数又忘了在主函数写，debug到永远。。。。</p>
+<!--more-->
+<p><strong>题意：</strong><br>
+问A到B之间的所有整数，转换成BCD Code后，<br>
+有多少个不包含属于给定病毒串集合的子串,A,B &lt;=10^200,病毒串总长度&lt;= 2000.<br>
+<strong>分析：</strong><br>
+1、先建立一颗trie树，注意：build函数end[]数组不仅仅要涉及本结点是不是结束符，还要检查其fail节点是不是结束符。具体代码:</p>
+<pre><code class="language-cpp">while(!q.empty())
+{
+    int now = q.front(); q.pop();
+    if(end[fail[now]] == 1) end[now] = 1;
+    for(int i = 0; i &lt; 2; i++)
+        if(nex[now][i] == -1) nex[now][i] = nex[fail[now]][i];
+        else fail[nex[now][i]] = nex[fail[now]][i], q.push(nex[now][i]);
+}
+</code></pre>
+<p>2、预处理出trie上每个节点从0-9的BCD码转移的过程中会不会出现病毒串，其实对于0-9每个数转移四次就好。<br>
+3、数位dp<br>
+-注意前导零的判断<br>
+-注意字符数组减一的处理<br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+//typedef __int128 lll;
+#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
+#define mem(a, b) memset(a, b, sizeof(a))
+const ll mod = 1e9 + 9;
+const int maxn = 2e3 + 10;
+const int inf = 0x3f3f3f3f;
+struct trie
+{
+    int tot, root;
+    int nex[maxn][2], fail[maxn], end[maxn];
+    int newnode()
+    {
+        for(int i = 0; i &lt; 2; i++)
+            nex[tot][i] = -1;
+        end[tot++] = -1;
+        return tot - 1;
+    }
+    void init()
+    {
+        tot = 0;
+        root = newnode();
+    }
+    void insert(char s[])
+    {
+        int now = root;
+        for(int i = 0; s[i]; i++)
+        {
+            if(nex[now][s[i] - '0'] == -1) nex[now][s[i] - '0'] = newnode();
+            now = nex[now][s[i] - '0'];
+        }
+        end[now] = 1;
+    }
+    void build()
+    {
+        queue&lt;int&gt; q;
+        fail[root] = root;
+        for(int i = 0; i &lt; 2; i++)
+        {
+            if(nex[root][i] == -1) nex[root][i] = root;
+            else fail[nex[root][i]] = root, q.push(nex[root][i]);
+        }
+        while(!q.empty())
+        {
+            int now = q.front(); q.pop();
+            if(end[fail[now]] == 1) end[now] = 1;
+            for(int i = 0; i &lt; 2; i++)
+                if(nex[now][i] == -1) nex[now][i] = nex[fail[now]][i];
+                else fail[nex[now][i]] = nex[fail[now]][i], q.push(nex[now][i]);
+        }
+    }
+};
+trie ti;
+int v[maxn];
+int dp[maxn][maxn];
+int bcd[maxn][10];
+
+int find(int pos, int num)
+{
+    if(ti.end[pos] != -1) return -1;
+    for(int i = 3; i &gt;= 0; i--)
+    {
+        int now = ti.nex[pos][(num &gt;&gt; i) &amp; 1];
+        if(ti.end[now] != -1) return -1;
+        pos = now;
+    }
+    return pos;
+}
+
+void makebcd()
+{
+    for(int i = 0; i &lt; ti.tot; i++)
+        for(int j = 0; j &lt; 10; j++)
+            bcd[i][j] = find(i, j);
+}
+
+ll dfs(int pos, int state, int zero, int limit)
+{
+    if(!pos) return 1;
+    if(!limit &amp;&amp; ~dp[pos][state]) return dp[pos][state];
+    int up = limit ? v[pos] : 9;
+    ll res = 0;
+    for(int i = 0; i &lt;= up; i++)
+    {
+        if(!i &amp;&amp; zero) res += dfs(pos - 1, state, i == 0 &amp;&amp; zero, limit &amp;&amp; i == up);
+        else if(bcd[state][i] != -1) res += dfs(pos - 1, bcd[state][i], i == 0 &amp;&amp; zero, limit &amp;&amp; i == up);
+        res %= mod;
+    }
+    if(!limit &amp;&amp; !zero) dp[pos][state] = res;
+    return res;
+}
+
+ll solve(char s[])
+{
+    int len = strlen(s);
+    int pos = 0;
+    for(int i = len - 1; i &gt;= 0; i--) v[++pos] = s[i] - '0';
+    return dfs(pos, 0, 1, 1);
+}
+
+int main()
+{
+    int t; cin &gt;&gt; t;
+    while(t--)
+    {
+        int n; cin &gt;&gt; n;
+        char s[300];
+        ti.init();
+        mem(dp, -1);
+        for(int i = 1; i &lt;= n; i++)
+            scanf(&quot;%s&quot;, s), ti.insert(s);
+        ti.build();
+        makebcd();
+        char l[maxn], r[maxn];
+        scanf(&quot;%s%s&quot;, l, r);
+        int len = strlen(l);
+        for(int i = len - 1; i &gt;= 0; i--)
+            if(l[i] == '0') l[i] = '9';
+            else 
+            {
+                l[i]--;
+                break;
+            }
+        cout &lt;&lt; (solve(r) - solve(l) + mod) % mod &lt;&lt; endl;
+    }
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Strings in the Pocket ZOJ - 4110 | manacher算法]]></title>
         <id>https://8421BCD.github.io/post/strings-in-the-pocket-zoj-4110-or-manacher-suan-fa</id>
@@ -946,102 +1106,6 @@ int main()
         <updated>2020-02-20T15:16:19.000Z</updated>
         <content type="html"><![CDATA[<p>-<strong>学习链接</strong><br>
 https://github.com/ziishaned/learn-regex/blob/master/translations/README-cn.md#learn-regex</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[拯救大兵瑞恩 HDU - 4845 | bfs + 状压]]></title>
-        <id>https://8421BCD.github.io/post/zheng-jiu-da-bing-rui-en-hdu-4845-or-bfs-zhuang-ya</id>
-        <link href="https://8421BCD.github.io/post/zheng-jiu-da-bing-rui-en-hdu-4845-or-bfs-zhuang-ya">
-        </link>
-        <updated>2020-02-20T14:23:44.000Z</updated>
-        <content type="html"><![CDATA[<!--more-->
-<p><strong>题意：</strong><br>
-1944年，特种兵麦克接到国防部的命令，要求立即赶赴太平洋上的一个孤岛，营救被敌军俘虏的大兵瑞恩。瑞恩被关押在一个迷宫里，迷宫地形复杂，但是幸好麦克得到了迷宫的地形图。<br>
-迷宫的外形是一个长方形，其在南北方向被划分为N行，在东西方向被划分为M列，于是整个迷宫被划分为N*M个单元。我们用一个有序数对（单元的行号，单元的列号）来表示单元位置。南北或东西方向相邻的两个单元之间可以互通，或者存在一扇锁着的门，又或者存在一堵不可逾越的墙。迷宫中有一些单元存放着钥匙，并且所有的门被分为P类，打开同一类的门的钥匙相同，打开不同类的门的钥匙不同。<br>
-　　　大兵瑞恩被关押在迷宫的东南角，即（N,M）单元里，并已经昏迷。迷宫只有一个入口，在西北角，也就是说，麦克可以直接进入(1,1)单元。另外，麦克从一个单元移动到另一个相邻单元的时间为1，拿取所在单元的钥匙的时间以及用钥匙开门的时间忽略不计。<br>
-　　　你的任务是帮助麦克以最快的方式抵达瑞恩所在单元，营救大兵瑞恩。<br>
-<strong>分析：</strong><br>
-这个状压体现在key上  我i们用把key状压一下  就能记录到一个点时 已经拥有的key的种类<br>
-ban[x1][y1][x2][y1]记录两个点之间的状态 是门 还是墙 还是啥都没有<br>
-inc[x][y]记录这个点所存储的钥匙  （可能不止一个 所以要用二进制）<br>
-vis[x][y][key]  标记当前点 在拥有的钥匙种类为key时是否走过<br>
-<strong>代码：</strong></p>
-<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-typedef long long ll;
-//typedef __int128 lll;
-#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
-#define mem(a, b) memset(a, b, sizeof(a))
-#define debug(a) cout &lt;&lt; &quot;debug :&quot; &lt;&lt; a &lt;&lt; endl
-#define fi first
-#define se second
-const int maxn = 1e6;
-const int inf = 0x3f3f3f3f;
-struct node
-{
-    int x, y, key, step;
-    node(int a = 0, int b = 0, int c = 0, int d = 0) : x(a), y(b), key(c), step(d){}
-};
-int vis[20][20][10000], wall[20][20][20][20];
-int key[20][20];
-int n, m, p;
-int dir[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
-void init()
-{
-    mem(wall, -1), mem(vis, 0), mem(key, 0);
-}
-
-int bfs()
-{
-    queue&lt;node&gt; q;
-    q.push(node(1, 1, key[1][1], 0));
-    vis[1][1][key[1][1]] = 1;
-    while(!q.empty())
-    {
-        node now = q.front(); q.pop();
-        if(now.x == n &amp;&amp; now.y == m) return now.step;
-        for(int i = 0; i &lt; 4; i++)
-        {
-            int x = now.x + dir[i][0], y = now.y + dir[i][1];
-            if(x &lt; 1 || x &gt; n || y &lt; 1 || y &gt; m || !wall[now.x][now.y][x][y]) continue;
-            if(wall[now.x][now.y][x][y] == -1 || (now.key &amp; (1 &lt;&lt; (wall[now.x][now.y][x][y] - 1))))
-            {
-                int nexkey = now.key | key[x][y];
-                if(vis[x][y][nexkey]) continue;
-                vis[x][y][nexkey] = 1;
-                node nex = node(x, y, nexkey, now.step + 1);
-                q.push(nex);
-            }
-
-        }
-    }
-    return -1;
-}
-
-int main()
-{
-    while(cin &gt;&gt; n &gt;&gt; m &gt;&gt; p)
-    {
-        int k;cin &gt;&gt; k;
-        init();
-        while(k--)
-        {
-            int x1, y1, x2, y2, wal;
-            cin &gt;&gt; x1 &gt;&gt; y1 &gt;&gt; x2 &gt;&gt; y2 &gt;&gt; wal;
-            wall[x1][y1][x2][y2] = wall[x2][y2][x1][y1] = wal;
-        }
-        cin &gt;&gt; k;
-        while(k--)
-        {
-            int x, y, ke;
-            cin &gt;&gt; x &gt;&gt; y &gt;&gt; ke;
-            key[x][y] |= (1 &lt;&lt; (ke - 1));
-        }
-        cout &lt;&lt; bfs() &lt;&lt; endl;
-    }
-    
-}
-</code></pre>
 ]]></content>
     </entry>
 </feed>
