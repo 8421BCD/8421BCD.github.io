@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-      <meta charset="UTF-8"/>
+    <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="不需要外界告诉自己自己的价值是什么">
 <meta name="theme-color" content="#000">
-<title>Wannafly</title>
+<title>Strings in the Pocket ZOJ - 4110 | manacher算法 | Wannafly</title>
 <link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1583500739286">
 <link rel="stylesheet" href="https://8421BCD.github.io//styles/main.css">
 
@@ -25,6 +25,8 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
     onload="renderMathInElement(document.body);"></script>
 
+    <meta name="description" content="Strings in the Pocket ZOJ - 4110 | manacher算法" />
+    <meta name="keywords" content="" />
   </head>
   <body>
     <div class="head-top-line"></div>
@@ -122,10 +124,16 @@
     </div>
     <div class="main-continer">
       
-      <div class="section-layout  pisces">
+      <div class="section-layout pisces ">
         <div class="section-layout-wrapper">
-          <div class="sidebar">
-    
+          
+
+<div class="sidebar">
+    <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
+      
+      <div class="sidebar-body pisces" id="sidebar_body">
+        
+          
 <div class="sidebar-wrapper box-shadow-wrapper bg-color">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="https://8421BCD.github.io//images/avatar.png"/>
@@ -167,182 +175,249 @@
 
 
 </div>
-</div>
-            <div class="section-box tag-line">
-              <div class="box-shadow-wrapper">
-                <div class="bg-color">
-                  <section class="section posts-expand">
-                    <div class="padding-wrapper">
-  <div class="tag-timeline-box">
-    <div class="tag-timeline-wrapper">
-      <div class="tag-timeline-title">
-        <h2>
-          并查集
-          <small>标签</small>
-        </h2>
+        
       </div>
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-            <a href="https://8421BCD.github.io/post/poj-1703-find-them-catch-them-or-bing-cha-ji">
-              <div class="motion-warpper">
-                <div class="tag-post-node">
-                  <h1>
-                    02-06
-                    <small>【POJ-1703】Find them, Catch them | 并查集</small>
-                  </h1>
-                </div>  
+    </div>
+</div>
+<script>
+  const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
+  const SIDEBAR_BODY_ACTIVE = 'sidebar-body-active';
+  const SLIDE_UP_IN = 'slide-up-in';
+
+  let sidebar = document.querySelector('#sidebar'),
+  tocSideBar = document.querySelector('#tocSideBar'),
+  metaSideBar = document.querySelector('#metaSideBar'),
+  postToc = document.querySelector('#post_toc'),
+  postSiteMeta = document.querySelector('#post_side_meta'),
+  sidebarTitle = document.querySelector('.sidebar-title'),
+  sidebarBody = document.querySelector('#sidebar_body');
+
+  tocSideBar && tocSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  metaSideBar && metaSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  function toggleSidebar(e) {
+    let currentTitle = document.querySelector("."+SIDEBAR_TITLE_ACTIVE);
+    if (currentTitle == e.srcElement) {
+      return ;
+    }
+    let current, showElement, hideElement;
+    if (e.srcElement == metaSideBar) {
+      showElement = postSiteMeta;
+      hideElement = postToc;
+    } else if (e.srcElement == tocSideBar){
+      showElement = postToc;
+      hideElement = postSiteMeta;
+    }
+    currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
+    e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
+
+    window.Velocity(hideElement, 'stop');
+    window.Velocity(hideElement, 'transition.slideUpOut', {
+      display: 'none',
+      duration: 200,
+      complete: function () {
+        window.Velocity(showElement, 'transition.slideDownIn', {
+          duration: 200
+        });
+      }
+    })
+    hideElement.classList.remove(SIDEBAR_BODY_ACTIVE);
+    showElement.classList.add(SIDEBAR_BODY_ACTIVE);
+  }
+
+  postToc.addEventListener('transitionend', function() {
+    this.classList.remove(SLIDE_UP_IN);
+  });
+
+
+  if (sidebarBody.classList.contains('pisces') || sidebarBody.classList.contains('gemini')) {
+    let hasFix = false;
+    let scrollEl = document.querySelector('.main-continer');
+    let limitTop = document.querySelector('#nav_ul').children.length * 42 + 162;
+    window.addEventListener('scroll', function(e) {
+    if (document.scrollingElement.scrollTop >= limitTop) {
+      if (!hasFix) {
+        sidebar.classList.add('sidebar-fixed');
+        hasFix = true;
+      }
+    } else {
+      if (hasFix) {
+        sidebar.classList.remove('sidebar-fixed');
+        hasFix = false;
+      }
+    }
+  });
+  }
+  
+</script>
+          <div class="section-box box-shadow-wrapper">
+            <div class="section bg-color post post-page">
+              <div class="article-box">
+    <header class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://8421BCD.github.io/post/strings-in-the-pocket-zoj-4110-or-manacher-suan-fa">
+      Strings in the Pocket ZOJ - 4110 | manacher算法
+    </a>
+  </h1>
+  <div class="post-meta">
+    
+    <span class="meta-item pc-show">
+      <i class="fa fa-calendar-o"></i>
+      <span>发布于</span>
+      <span>2020-03-02</span>
+      <span class="post-meta-divider pc-show">|</span>
+    </span>
+    
+    <span class="meta-item">
+      <i class="fa fa-clock-o"></i>
+      <span>3分钟</span>
+    </span>
+    <span class="meta-item">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span>417<span class="pc-show">字数</span></span>
+    </span>
+  </div>
+</header>
+</div>
+              <div class="post-body next-md-body" id="post_body">
+                <p>第一道马拉车的题。。纪念一下花了一个小时学的🐎拉🚗算法</p>
+<!--more-->
+<p><strong>题意：</strong><br>
+给你两个串 s 和 t ， 问能否翻转 s 串的子串让 s 和 t 一样，问可以翻转的种类有多少个？<br>
+<strong>分析：</strong><br>
+如果两个字符串相同时用 Manacher 求出回文串的个数。如果不同的话，找到那部分串，以这个串为中心向两边扩展 （可以证明左右扩展总是同步的），如果两边是回文串，那就 ans ++。<br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+//typedef __int128 lll;
+#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
+#define mem(a, b) memset(a, b, sizeof(a))
+const ll mod = 1e9 + 7;
+const int maxn = 2e6 + 10;
+const int inf = 0x3f3f3f3f;
+char a[maxn], b[maxn];
+char ma[maxn &lt;&lt; 1];
+int mp[maxn &lt;&lt; 1];
+
+ll manacher(char s[])
+{
+    int l = 0;
+    ma[l++] = '$', ma[l++] = '#';
+    for(int i = 0; s[i]; i++)
+        ma[l++] = s[i], ma[l++] = '#';
+    ma[l] = 0;
+    int maxx = 0, pos = 0;
+    ll res = 0;
+    for(int i = 0; i &lt; l; i++)
+    {
+        mp[i] = maxx &gt; i ? min(mp[2 * pos - i], maxx - i) : 1;
+        while(ma[i + mp[i]] == ma[i - mp[i]]) mp[i]++;
+        if(i + mp[i] &gt; maxx) maxx = i + mp[i], pos = i;
+    }
+    for(int i = 0; i &lt; l; i++) res += mp[i] / 2;
+    return res;
+}
+
+int main()
+{
+    int t; cin &gt;&gt; t;
+    while(t--)
+    {
+        scanf(&quot;%s%s&quot;, a, b);
+        int len = strlen(a);
+        int l = 0, r = len - 1;
+        for(; l &lt; len; l++) if(a[l] != b[l]) break;
+        for(; r &gt;= 0; r--) if(a[r] != b[r]) break;
+        if(r == -1)
+        {
+            cout &lt;&lt; manacher(a) &lt;&lt; endl;
+            continue;
+        }
+        int flag = 0;
+        for(int i = l; i &lt;= r; i++)
+            if(a[i] != b[l + r - i]) 
+            {
+                flag = 1;
+                break;
+            }
+        if(flag)
+        {
+            cout &lt;&lt; 0 &lt;&lt; endl;
+            continue;
+        }
+        int sum = 1;
+        l--, r++;
+        while(l &gt;= 0 &amp;&amp; r &lt;= len - 1)
+            if(a[l] == b[r])
+                sum++, l--, r++;
+            else break;
+        cout &lt;&lt; sum &lt;&lt; endl;
+    }
+}
+</code></pre>
+
               </div>
-            </a>
-          
-        
+              <div class="post-footer">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Wannafly
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://8421BCD.github.io/post/strings-in-the-pocket-zoj-4110-or-manacher-suan-fa" title="Strings in the Pocket ZOJ - 4110 | manacher算法">Strings in the Pocket ZOJ - 4110 | manacher算法</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，转载请注明出处！
+    </li>
+  </ul>
+  <div class="tags">
+    
+  </div>
+  <div class="nav">
+    <div class="nav-prev">
       
-        
+    </div>
+    <div class="nav-next">
       
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-      
-        
-      
-        
-          
-        
+        <a class="nav-pc-next" title="Monitor HDU - 6514 | 二维差分" href="https://8421BCD.github.io/post/monitor-hdu-6514-or-er-wei-chai-fen">Monitor HDU - 6514 | 二维差分</a>
+        <a class="nav-mobile-next" title="Monitor HDU - 6514 | 二维差分" href="https://8421BCD.github.io/post/monitor-hdu-6514-or-er-wei-chai-fen">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
       
     </div>
   </div>
 </div>
-                  </section>
-                </div>
-              </div>
+              
+                
+                  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '',
+    clientSecret: '',
+    repo: '',
+    owner: '',
+    admin: [''],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+  gitalk.render('gitalk-container')
+</script>
+                
+                
+              
+            </div>
           </div>
         </div>
       </div>

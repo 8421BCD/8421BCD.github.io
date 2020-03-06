@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-02-29T11:18:08.193Z</updated>
+    <updated>2020-03-06T13:19:35.574Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -10,6 +10,92 @@
     <logo>https://8421BCD.github.io/images/avatar.png</logo>
     <icon>https://8421BCD.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
+    <entry>
+        <title type="html"><![CDATA[Strings in the Pocket ZOJ - 4110 | manacher算法]]></title>
+        <id>https://8421BCD.github.io/post/strings-in-the-pocket-zoj-4110-or-manacher-suan-fa</id>
+        <link href="https://8421BCD.github.io/post/strings-in-the-pocket-zoj-4110-or-manacher-suan-fa">
+        </link>
+        <updated>2020-03-02T10:35:57.000Z</updated>
+        <summary type="html"><![CDATA[<p>第一道马拉车的题。。纪念一下花了一个小时学的🐎拉🚗算法</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>第一道马拉车的题。。纪念一下花了一个小时学的🐎拉🚗算法</p>
+<!--more-->
+<p><strong>题意：</strong><br>
+给你两个串 s 和 t ， 问能否翻转 s 串的子串让 s 和 t 一样，问可以翻转的种类有多少个？<br>
+<strong>分析：</strong><br>
+如果两个字符串相同时用 Manacher 求出回文串的个数。如果不同的话，找到那部分串，以这个串为中心向两边扩展 （可以证明左右扩展总是同步的），如果两边是回文串，那就 ans ++。<br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+//typedef __int128 lll;
+#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
+#define mem(a, b) memset(a, b, sizeof(a))
+const ll mod = 1e9 + 7;
+const int maxn = 2e6 + 10;
+const int inf = 0x3f3f3f3f;
+char a[maxn], b[maxn];
+char ma[maxn &lt;&lt; 1];
+int mp[maxn &lt;&lt; 1];
+
+ll manacher(char s[])
+{
+    int l = 0;
+    ma[l++] = '$', ma[l++] = '#';
+    for(int i = 0; s[i]; i++)
+        ma[l++] = s[i], ma[l++] = '#';
+    ma[l] = 0;
+    int maxx = 0, pos = 0;
+    ll res = 0;
+    for(int i = 0; i &lt; l; i++)
+    {
+        mp[i] = maxx &gt; i ? min(mp[2 * pos - i], maxx - i) : 1;
+        while(ma[i + mp[i]] == ma[i - mp[i]]) mp[i]++;
+        if(i + mp[i] &gt; maxx) maxx = i + mp[i], pos = i;
+    }
+    for(int i = 0; i &lt; l; i++) res += mp[i] / 2;
+    return res;
+}
+
+int main()
+{
+    int t; cin &gt;&gt; t;
+    while(t--)
+    {
+        scanf(&quot;%s%s&quot;, a, b);
+        int len = strlen(a);
+        int l = 0, r = len - 1;
+        for(; l &lt; len; l++) if(a[l] != b[l]) break;
+        for(; r &gt;= 0; r--) if(a[r] != b[r]) break;
+        if(r == -1)
+        {
+            cout &lt;&lt; manacher(a) &lt;&lt; endl;
+            continue;
+        }
+        int flag = 0;
+        for(int i = l; i &lt;= r; i++)
+            if(a[i] != b[l + r - i]) 
+            {
+                flag = 1;
+                break;
+            }
+        if(flag)
+        {
+            cout &lt;&lt; 0 &lt;&lt; endl;
+            continue;
+        }
+        int sum = 1;
+        l--, r++;
+        while(l &gt;= 0 &amp;&amp; r &lt;= len - 1)
+            if(a[l] == b[r])
+                sum++, l--, r++;
+            else break;
+        cout &lt;&lt; sum &lt;&lt; endl;
+    }
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Monitor HDU - 6514 | 二维差分]]></title>
         <id>https://8421BCD.github.io/post/monitor-hdu-6514-or-er-wei-chai-fen</id>
@@ -956,57 +1042,6 @@ int main()
     
 }
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[爬取“Python 100例”练习题以及代码 | 爬虫练习]]></title>
-        <id>https://8421BCD.github.io/post/pa-qu-python-100-li-lian-xi-ti-yi-ji-dai-ma-or-pa-chong-lian-xi</id>
-        <link href="https://8421BCD.github.io/post/pa-qu-python-100-li-lian-xi-ti-yi-ji-dai-ma-or-pa-chong-lian-xi">
-        </link>
-        <updated>2020-02-19T16:07:58.000Z</updated>
-        <content type="html"><![CDATA[<ul>
-<li><strong>代码</strong></li>
-</ul>
-<pre><code class="language-cpp">from bs4 import BeautifulSoup
-import requests
-from urllib.parse import urljoin
-url = 'http://www.runoob.com/python/python-100-examples.html'
-
-headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.79 Safari/537.36'}      #反爬机制，其实没用上。。。
-
-r = requests.get(url, headers = headers).content.decode('utf-8')
-soup = BeautifulSoup(r, 'lxml')
-
-re_a = soup.find(id = 'content').ul.find_all('a')
-
-list = []
-for i in re_a:
-	list.append(i['href'])  #收集100个url
-data = []
-for x in list:
-	dict = {}
-	test = requests.get('http://www.runoob.com' + x, headers = headers).content.decode('utf-8')
-	soup_test = BeautifulSoup(test, 'html.parser')
-	dict['title'] = soup_test.find(id = 'content').h1.text	#分析html结构
-	dict['problem'] = soup_test.find(id = 'content').find_all('p')[1].text
-	dict['analyse'] = soup_test.find(id = 'content').find_all('p')[2].text
-	try:
-		dict['code'] = soup_test.find(class_=&quot;hl-main&quot;).text
-	except Exception as e:
-		dict['code'] = soup_test.find('pre').text
-	with open('100-py.csv', 'a+', encoding = 'utf-8') as file:  #文件保存
-		file.write(dict['title'] + '\n')
-		file.write(dict['problem'] + '\n')
-		file.write(dict['analyse'] + '\n')
-		file.write(dict['code'] + '\n')
-		file.write('-' * 50 + '\n')
-		file.write('\n')
-	print(dict['title'])
-</code></pre>
-<ul>
-<li><strong>爬取结果</strong><br>
-<img src="https://cdn.jsdelivr.net/gh/8421BCD/CDN/img/123123.png" alt="avatar" loading="lazy"></li>
-</ul>
 ]]></content>
     </entry>
 </feed>
