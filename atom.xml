@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-03-08T00:55:39.802Z</updated>
+    <updated>2020-03-08T01:49:26.148Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -11,7 +11,7 @@
     <icon>https://8421BCD.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
     <entry>
-        <title type="html"><![CDATA[To the moon HDU - 4348 | 主席树套线段树]]></title>
+        <title type="html"><![CDATA[To the moon HDU - 4348 | 主席树套线段树（区间修改区间查询）]]></title>
         <id>https://8421BCD.github.io/post/to-the-moon-hdu-4348-or-zhu-xi-shu-tao-xian-duan-shu</id>
         <link href="https://8421BCD.github.io/post/to-the-moon-hdu-4348-or-zhu-xi-shu-tao-xian-duan-shu">
         </link>
