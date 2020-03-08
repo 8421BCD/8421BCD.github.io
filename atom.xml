@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-03-06T13:45:50.509Z</updated>
+    <updated>2020-03-08T00:55:39.802Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -10,6 +10,122 @@
     <logo>https://8421BCD.github.io/images/avatar.png</logo>
     <icon>https://8421BCD.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
+    <entry>
+        <title type="html"><![CDATA[To the moon HDU - 4348 | 主席树套线段树]]></title>
+        <id>https://8421BCD.github.io/post/to-the-moon-hdu-4348-or-zhu-xi-shu-tao-xian-duan-shu</id>
+        <link href="https://8421BCD.github.io/post/to-the-moon-hdu-4348-or-zhu-xi-shu-tao-xian-duan-shu">
+        </link>
+        <updated>2020-03-08T00:29:36.000Z</updated>
+        <summary type="html"><![CDATA[<p>主席树套线段数模板</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>主席树套线段数模板</p>
+<!--more-->
+<p><strong>题意：</strong></p>
+<p><strong>分析：</strong><br>
+-由于主席树的节点是公用的，所以在update的时候不能用传统的pushdown（会破坏之前的历史状态）；又因为不能pushdown，所以update时候就不能pushup了，因为下面的数据不准。<br>
+-query的时候遇到懒惰标记就加上<br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+//typedef __int128 lll;
+#define print(i) cout &lt;&lt; &quot;debug: &quot; &lt;&lt; i &lt;&lt; endl
+#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
+#define mem(a, b) memset(a, b, sizeof(a))
+const ll mod = 1e9 + 7;
+const int maxn = 1e5 + 10;
+const int inf = 0x3f3f3f3f;
+struct node
+{
+    int lson, rson;
+    ll sum, add;
+}t[maxn &lt;&lt; 5];
+int root[maxn], v[maxn];
+int tot;
+int tim;
+int n, m;
+
+void init()
+{
+    tot = 0;
+    tim = 0;
+}
+
+int build(int l, int r)
+{
+    int tar = tot++;
+    t[tar].add = 0;
+    if(l == r) t[tar].sum = v[l];
+    else
+    {
+        int mid = l + r &gt;&gt; 1;
+        t[tar].lson = build(l, mid), t[tar].rson = build(mid + 1, r);
+        t[tar].sum = t[t[tar].lson].sum + t[t[tar].rson].sum;
+    }
+    return tar;
+}
+
+int update(int pre, int ll, int rr, int val, int l, int r)
+{
+    int tar = tot++;
+    t[tar] = t[pre];
+    t[tar].sum += (min(rr, r) - max(ll, l) + 1) * val;
+    if(ll &lt;= l &amp;&amp; r &lt;= rr) t[tar].add += val;
+    else
+    {
+        int mid = l + r &gt;&gt; 1;
+        if(ll &lt;= mid) t[tar].lson = update(t[pre].lson, ll, rr, val, l, mid);
+        if(rr &gt; mid) t[tar].rson = update(t[pre].rson, ll, rr, val, mid + 1, r);
+    }
+    return tar;
+}
+
+ll query(int tar, int li, int ri, int l, int r)
+{
+    if(li &lt;= l &amp;&amp; r &lt;= ri) return t[tar].sum;
+    int mid = l + r &gt;&gt; 1;
+    ll res = (min(ri, r) - max(li, l) + 1) * t[tar].add;
+    if(li &lt;= mid) res += query(t[tar].lson, li, ri, l, mid);
+    if(ri &gt; mid) res += query(t[tar].rson, li, ri, mid + 1, r);
+    return res;
+}
+
+int main()
+{
+    close();
+   while(cin &gt;&gt; n &gt;&gt; m)
+   {
+        init();
+        for(int i = 1; i &lt;= n; i++) cin &gt;&gt; v[i];
+        root[0] = build(1, n);
+        while(m--)
+        {
+            char ope[3];
+            int l, r, v;
+            cin &gt;&gt; ope;
+            if(ope[0] == 'C')
+            {
+                cin &gt;&gt; l &gt;&gt; r &gt;&gt; v;
+                tim++;
+                root[tim] = update(root[tim - 1], l, r, v, 1, n);
+            }
+            else if(ope[0] == 'Q')
+            {
+                cin &gt;&gt; l &gt;&gt; r;
+                cout &lt;&lt; query(root[tim], l, r, 1, n) &lt;&lt; endl;
+            }
+            else if(ope[0] == 'H')
+            {
+                cin &gt;&gt; l &gt;&gt; r &gt;&gt; v;
+                cout &lt;&lt; query(root[v], l , r, 1, n) &lt;&lt; endl;
+            }
+            else cin &gt;&gt; v, tim = v;
+        }
+   }
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[BCD Code ZOJ - 3494 | AC自动机 + 数位dp]]></title>
         <id>https://8421BCD.github.io/post/bcd-code-zoj-3494-or-ac-zi-dong-ji-shu-wei-dp</id>
@@ -1096,16 +1212,6 @@ int main()
     }
 }
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[python正则表达式 | 元字符]]></title>
-        <id>https://8421BCD.github.io/post/python-zheng-ze-biao-da-shi-or-yuan-zi-fu</id>
-        <link href="https://8421BCD.github.io/post/python-zheng-ze-biao-da-shi-or-yuan-zi-fu">
-        </link>
-        <updated>2020-02-20T15:16:19.000Z</updated>
-        <content type="html"><![CDATA[<p>-<strong>学习链接</strong><br>
-https://github.com/ziishaned/learn-regex/blob/master/translations/README-cn.md#learn-regex</p>
 ]]></content>
     </entry>
 </feed>
