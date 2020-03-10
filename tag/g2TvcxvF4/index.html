@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8"/>
+      <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="不需要外界告诉自己自己的价值是什么">
 <meta name="theme-color" content="#000">
-<title>爬取百度百科 | Wannafly</title>
+<title>Wannafly</title>
 <link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1583837499534">
 <link rel="stylesheet" href="https://8421BCD.github.io//styles/main.css">
 
@@ -25,8 +25,6 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
     onload="renderMathInElement(document.body);"></script>
 
-    <meta name="description" content="爬取百度百科" />
-    <meta name="keywords" content="爬虫" />
   </head>
   <body>
     <div class="head-top-line"></div>
@@ -124,16 +122,10 @@
     </div>
     <div class="main-continer">
       
-      <div class="section-layout pisces ">
+      <div class="section-layout  pisces">
         <div class="section-layout-wrapper">
-          
-
-<div class="sidebar">
-    <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
-      
-      <div class="sidebar-body pisces" id="sidebar_body">
-        
-          
+          <div class="sidebar">
+    
 <div class="sidebar-wrapper box-shadow-wrapper bg-color">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="https://8421BCD.github.io//images/avatar.png"/>
@@ -175,262 +167,196 @@
 
 
 </div>
-        
-      </div>
-    </div>
 </div>
-<script>
-  const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
-  const SIDEBAR_BODY_ACTIVE = 'sidebar-body-active';
-  const SLIDE_UP_IN = 'slide-up-in';
-
-  let sidebar = document.querySelector('#sidebar'),
-  tocSideBar = document.querySelector('#tocSideBar'),
-  metaSideBar = document.querySelector('#metaSideBar'),
-  postToc = document.querySelector('#post_toc'),
-  postSiteMeta = document.querySelector('#post_side_meta'),
-  sidebarTitle = document.querySelector('.sidebar-title'),
-  sidebarBody = document.querySelector('#sidebar_body');
-
-  tocSideBar && tocSideBar.addEventListener('click', (e) => {
-    toggleSidebar(e);
-  });
-
-  metaSideBar && metaSideBar.addEventListener('click', (e) => {
-    toggleSidebar(e);
-  });
-
-  function toggleSidebar(e) {
-    let currentTitle = document.querySelector("."+SIDEBAR_TITLE_ACTIVE);
-    if (currentTitle == e.srcElement) {
-      return ;
-    }
-    let current, showElement, hideElement;
-    if (e.srcElement == metaSideBar) {
-      showElement = postSiteMeta;
-      hideElement = postToc;
-    } else if (e.srcElement == tocSideBar){
-      showElement = postToc;
-      hideElement = postSiteMeta;
-    }
-    currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
-    e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
-
-    window.Velocity(hideElement, 'stop');
-    window.Velocity(hideElement, 'transition.slideUpOut', {
-      display: 'none',
-      duration: 200,
-      complete: function () {
-        window.Velocity(showElement, 'transition.slideDownIn', {
-          duration: 200
-        });
-      }
-    })
-    hideElement.classList.remove(SIDEBAR_BODY_ACTIVE);
-    showElement.classList.add(SIDEBAR_BODY_ACTIVE);
-  }
-
-  postToc.addEventListener('transitionend', function() {
-    this.classList.remove(SLIDE_UP_IN);
-  });
-
-
-  if (sidebarBody.classList.contains('pisces') || sidebarBody.classList.contains('gemini')) {
-    let hasFix = false;
-    let scrollEl = document.querySelector('.main-continer');
-    let limitTop = document.querySelector('#nav_ul').children.length * 42 + 162;
-    window.addEventListener('scroll', function(e) {
-    if (document.scrollingElement.scrollTop >= limitTop) {
-      if (!hasFix) {
-        sidebar.classList.add('sidebar-fixed');
-        hasFix = true;
-      }
-    } else {
-      if (hasFix) {
-        sidebar.classList.remove('sidebar-fixed');
-        hasFix = false;
-      }
-    }
-  });
-  }
-  
-</script>
-          <div class="section-box box-shadow-wrapper">
-            <div class="section bg-color post post-page">
-              <div class="article-box">
-    <header class="post-header">
-  <h1 class="post-title">
-    <a class="post-title-link" href="https://8421BCD.github.io/post/pa-qu-bai-du-bai-ke">
-      爬取百度百科
-    </a>
-  </h1>
-  <div class="post-meta">
-    
-    <span class="meta-item pc-show">
-      <i class="fa fa-calendar-o"></i>
-      <span>发布于</span>
-      <span>2020-01-31</span>
-      <span class="post-meta-divider pc-show">|</span>
-    </span>
-    
-      <span class="meta-item">
-        <i class="fa fa-folder-o"></i>
-        <span class="pc-show">分类于</span>
+            <div class="section-box tag-line">
+              <div class="box-shadow-wrapper">
+                <div class="bg-color">
+                  <section class="section posts-expand">
+                    <div class="padding-wrapper">
+  <div class="tag-timeline-box">
+    <div class="tag-timeline-wrapper">
+      <div class="tag-timeline-title">
+        <h2>
+          区间dp
+          <small>标签</small>
+        </h2>
+      </div>
+      
         
           
-            <a href="https://8421BCD.github.io/tag/kEfTZlFGs">
-              <span>爬虫</span>
+            <a href="https://8421BCD.github.io/post/array-shrinking-codeforces-1312e-or-qu-jian-dp">
+              <div class="motion-warpper">
+                <div class="tag-post-node">
+                  <h1>
+                    03-10
+                    <small>Array Shrinking CodeForces - 1312E | 区间dp</small>
+                  </h1>
+                </div>  
+              </div>
             </a>
           
         
-      </span>
-      <span class="post-meta-divider">|</span>
-    
-    <span class="meta-item">
-      <i class="fa fa-clock-o"></i>
-      <span>3分钟</span>
-    </span>
-    <span class="meta-item">
-      <span class="post-meta-divider">|</span>
-      <i class="fa fa-file-word-o"></i>
-      <span>459<span class="pc-show">字数</span></span>
-    </span>
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+    </div>
   </div>
-</header>
 </div>
-              <div class="post-body next-md-body" id="post_body">
-                <p>深度跳转网页，有时候会报错，不知道为什么</p>
-<!--more-->
-<figure data-type="image" tabindex="1"><img src="https://8421BCD.github.io//post-images/1580430245069.jpg" alt="" loading="lazy"></figure>
-<ul>
-<li><strong>导入需要的包</strong></li>
-</ul>
-<pre><code class="language-python">from bs4 import BeautifulSoup
-from urllib.request import urlopen
-import re
-import random
-</code></pre>
-<ul>
-<li><strong>导入网址</strong></li>
-</ul>
-<pre><code class="language-python">base_url = &quot;https://baike.baidu.com&quot;
-his = [&quot;/item/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/5162711&quot;]
-</code></pre>
-<ul>
-<li><strong>lxml解析，find选择匹配结果</strong></li>
-</ul>
-<pre><code class="language-python">url = base_url + his[-1]
-html = urlopen(url).read().decode('utf-8')
-soup = BeautifulSoup(html, features = &quot;lxml&quot;)
-print(soup.find('a').get_text(), &quot;url:&quot;, his[-1])
-
-</code></pre>
-<ul>
-<li><strong>正则表达式匹配筛选内容</strong></li>
-</ul>
-<pre><code class="language-python">sub_urls = soup.find_all(&quot;a&quot;, {&quot;target&quot;: &quot;_blank&quot;, &quot;href&quot;: re.compile(&quot;/item/(%.{2})+$&quot;)})
-if len(sub_urls) != 0:
-    his.append(random.sample(sub_urls, 1)[0]['href'])
-else:
-    his.pop()
-print(his)
-</code></pre>
-<ul>
-<li><strong>dfs跳转网页</strong></li>
-</ul>
-<pre><code class="language-python">base_url = &quot;https://baike.baidu.com&quot;
-his = [&quot;/item/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/5162711&quot;]
-
-for i in range(20):
-    url = base_url + his[-1]
-    html = urlopen(url).read().decode('utf-8')
-    soup = BeautifulSoup(html, features='lxml')
-    print('第', i, '次访问', soup.find('h1').get_text(), 'url:', his[-1])
-
-    sub_urls = soup.find_all(&quot;a&quot;, {&quot;target&quot;: &quot;_blank&quot;, &quot;href&quot;: re.compile(&quot;/item/(%.{2})+$&quot;)})
-    if len(sub_urls) != 0:
-        his.append(random.sample(sub_urls, 1)[0]['href'])#[0]表示样本列表中要抽取元素的下标
-    else:
-        his.pop()
-
-</code></pre>
-<ul>
-<li><strong>爬取结果</strong></li>
-</ul>
-<pre><code class="language-python">0 网络爬虫 url: /item/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/5162711
-1 用户标识 url: /item/%E7%94%A8%E6%88%B7%E6%A0%87%E8%AF%86
-2 义项 url: /item/%E4%B9%89%E9%A1%B9
-3 小提琴协奏曲 url: /item/%E5%B0%8F%E6%8F%90%E7%90%B4%E5%8D%8F%E5%A5%8F%E6%9B%B2
-4 彼得·伊里奇·柴可夫斯基 url: /item/%E6%9F%B4%E7%A7%91%E5%A4%AB%E6%96%AF%E5%9F%BA
-5 作曲家 url: /item/%E4%BD%9C%E6%9B%B2%E5%AE%B6
-6 义项 url: /item/%E4%B9%89%E9%A1%B9
-7 李健 url: /item/%E6%9D%8E%E5%81%A5
-8 三月的一整月 url: /item/%E4%B8%89%E6%9C%88%E7%9A%84%E4%B8%80%E6%95%B4%E6%9C%88
-9 快乐阳光 url: /item/%E5%BF%AB%E4%B9%90%E9%98%B3%E5%85%89
-
-</code></pre>
-
+                  </section>
+                </div>
               </div>
-              <div class="post-footer">
-  <ul class="post-copyright">
-    <li class="post-copyright-author">
-      <strong>本文作者：</strong>
-      Wannafly
-    </li>
-    <li class="post-copyright-link">
-      <strong>本文链接：</strong>
-      <a href="https://8421BCD.github.io/post/pa-qu-bai-du-bai-ke" title="爬取百度百科">爬取百度百科</a>
-    </li>
-    <li class="post-copyright-license">
-      <strong>版权声明： </strong>
-      本博客所有文章除特别声明外，转载请注明出处！
-    </li>
-  </ul>
-  <div class="tags">
-    
-      <a href="https://8421BCD.github.io/tag/kEfTZlFGs"># 爬虫</a>
-    
-  </div>
-  <div class="nav">
-    <div class="nav-prev">
-      
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="不要62 hdu2089（数位dp + 记忆化搜索）" href="https://8421BCD.github.io/post/bu-yao-62-hdu2089shu-wei-dp-ji-yi-hua-sou-suo">不要62 hdu2089（数位dp + 记忆化搜索）</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="不要62 hdu2089（数位dp + 记忆化搜索）" href="https://8421BCD.github.io/post/bu-yao-62-hdu2089shu-wei-dp-ji-yi-hua-sou-suo">上一篇</a>
-      
-    </div>
-    <div class="nav-next">
-      
-        <a class="nav-pc-next" title="Mondriaan&#39;s Dream（状压dp）" href="https://8421BCD.github.io/post/mondriaans-dreamzhuang-ya-dp">Mondriaan&#39;s Dream（状压dp）</a>
-        <a class="nav-mobile-next" title="Mondriaan&#39;s Dream（状压dp）" href="https://8421BCD.github.io/post/mondriaans-dreamzhuang-ya-dp">下一篇</a>
-        <i class="fa fa-chevron-right"></i>
-      
-    </div>
-  </div>
-</div>
-              
-                
-                  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-
-<div id="gitalk-container"></div>
-
-<script>
-  var gitalk = new Gitalk({
-    clientID: '',
-    clientSecret: '',
-    repo: '',
-    owner: '',
-    admin: [''],
-    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
-    distractionFreeMode: false  // Facebook-like distraction free mode
-  })
-  gitalk.render('gitalk-container')
-</script>
-                
-                
-              
-            </div>
           </div>
         </div>
       </div>

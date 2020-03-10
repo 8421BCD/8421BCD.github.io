@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-03-08T01:49:26.148Z</updated>
+    <updated>2020-03-10T10:51:49.704Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -10,6 +10,65 @@
     <logo>https://8421BCD.github.io/images/avatar.png</logo>
     <icon>https://8421BCD.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
+    <entry>
+        <title type="html"><![CDATA[Array Shrinking CodeForces - 1312E | 区间dp]]></title>
+        <id>https://8421BCD.github.io/post/array-shrinking-codeforces-1312e-or-qu-jian-dp</id>
+        <link href="https://8421BCD.github.io/post/array-shrinking-codeforces-1312e-or-qu-jian-dp">
+        </link>
+        <updated>2020-03-10T10:42:17.000Z</updated>
+        <summary type="html"><![CDATA[<p>首蓝不易。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>首蓝不易。</p>
+<!--more-->
+<p><strong>题意：</strong><br>
+略<br>
+<strong>分析：</strong><br>
+区间dp的状态转移可以从母状态入手，通过分析母状态的所有可能情况，去寻找子状态。比如：<br>
+对于一段[l, r]， 他最后可能只剩下1个，也可能2个、3个。。。，对于1个来说，他一定能找到两个子状态压缩之后长度为1且元素相等；对于多个来说，他一定能找到两个子状态分别压缩之后两个结合时不能再压缩。于是可以得到转移方程。<br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+//typedef __int128 lll;
+#define print(i) cout &lt;&lt; &quot;debug: &quot; &lt;&lt; i &lt;&lt; endl
+#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
+#define mem(a, b) memset(a, b, sizeof(a))
+const ll mod = 1e9 + 7;
+const int maxn = 1e3;
+const int inf = 0x3f3f3f3f;
+int v[maxn];
+int dp[maxn][maxn];
+int final[maxn][maxn];//记录该区间压缩为1个元素之后元素的值
+int n; 
+void init()
+{
+    for(int i = 1; i &lt;= n; i++)
+        for(int j = i; j &lt;= n; j++)
+            dp[i][j] = i == j ? 1 : j - i + 1;
+    for(int i = 1; i &lt;= n; i++) final[i][i] = v[i];
+}
+
+int main()
+{
+   cin &gt;&gt; n;
+   for(int i = 1; i &lt;= n; i++) cin &gt;&gt; v[i];
+   init();
+   for(int len = 2; len &lt;= n; len++)
+    for(int i = 1; i + len - 1 &lt;= n; i++)
+    {
+        int j = i + len - 1;
+        for(int k = i; k &lt; j; k++)
+        {
+            dp[i][j] = min(dp[i][j], dp[i][k] + dp[k + 1][j]);
+            if(dp[i][k] == 1 &amp;&amp; dp[k + 1][j] == 1 &amp;&amp; final[i][k] == final[k + 1][j])
+                dp[i][j] = 1, final[i][j] = final[i][k] + 1;
+        }
+    }
+    cout &lt;&lt; dp[1][n] &lt;&lt; endl;
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[To the moon HDU - 4348 | 主席树套线段树（区间修改区间查询）]]></title>
         <id>https://8421BCD.github.io/post/to-the-moon-hdu-4348-or-zhu-xi-shu-tao-xian-duan-shu</id>
@@ -1121,95 +1180,6 @@ int main()
     mem(dp, -1);
     cin &gt;&gt; l &gt;&gt; r;
     cout &lt;&lt; work(r) - work(l - 1) &lt;&lt; endl;
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[XHXJ's LIS HDU - 4352 | 数位dp]]></title>
-        <id>https://8421BCD.github.io/post/xhxjs-lis-hdu-4352-or-zhuang-ya-dp</id>
-        <link href="https://8421BCD.github.io/post/xhxjs-lis-hdu-4352-or-zhuang-ya-dp">
-        </link>
-        <updated>2020-02-21T12:54:23.000Z</updated>
-        <summary type="html"><![CDATA[<p>时隔两个月重新看这道状压dp，还是比较容易理解的。状压dp大同小异，记忆化搜索、limit记录、状态压缩。。</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>时隔两个月重新看这道状压dp，还是比较容易理解的。状压dp大同小异，记忆化搜索、limit记录、状态压缩。。</p>
-<!--more-->
-<p><strong>题意：</strong><br>
-这题意思就是给你一个LL范围内的区间，问你在这个区间内最长递增子序列长度恰为K的数有多少个？<br>
-<strong>分析：</strong><br>
-1、结合nlogn求LIS进行状态压缩。<br>
-eg: ( 0  1 2 3 4 5 6 7 8 9)<br>
-0  1 1 0 1 0 0 0 0 0 (state)<br>
-以上state表示长度为1的上升序列末尾最小为1， 长度为2的...为2， 长度为3的....为4，也即用1的个数表示上升序列的长度，用位数表示末尾最大数。如果下一个数为3， 则新的状态为01110..<br>
-2、dp[i][j][k]表示对第i位，前几位的状态为j， LIS = k而且当前的limit为0的时候，接下来几位随意取数一共有多少个数满足。<br>
-3、注意已经处理过的位如果都是0的情况，也即前导零的处理。<br>
-<strong>代码：</strong></p>
-<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-typedef long long ll;
-//typedef __int128 lll;
-#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
-#define mem(a, b) memset(a, b, sizeof(a))
-#define debug(a) cout &lt;&lt; &quot;debug :&quot; &lt;&lt; a &lt;&lt; endl
-#define fi first
-#define se second
-const int maxn = 1e6;
-const int inf = 0x3f3f3f3f;
-ll l, r, k;
-ll dp[20][5000][20];
-int v[100];
-
-int getnum(ll state)
-{
-    int num = 0;
-    while(state) num += (state &amp; 1), state &gt;&gt;= 1;
-    return num;
-}
-
-int newstate(ll state, int v)
-{
-    for(int i = v; i &lt; 10; i++) if(state &amp; (1 &lt;&lt; i)) return state ^ (1 &lt;&lt; i) | (1 &lt;&lt; v) ;
-    return state | (1 &lt;&lt; v);
-}
-
-ll dfs(int pos, ll state, bool valid, bool limit)
-{
-    if(!pos) return getnum(state) == k;
-    if(!limit &amp;&amp; ~dp[pos][state][k]) return dp[pos][state][k];
-    int up = limit ? v[pos] : 9;
-    ll res = 0;
-    for(int i = 0; i &lt;= up; i++)
-    {
-        bool isvalid = valid | i;
-        res += dfs(pos - 1, isvalid ? newstate(state, i) : false, isvalid, limit &amp;&amp; i == up);
-    }
-    if(!limit) dp[pos][state][k] = res;
-    return res;
-}
-
-ll work(ll x)
-{
-    int pos = 0;
-    while(x)
-    {
-        v[++pos] = x % 10;
-        x /= 10;
-    }
-    return dfs(pos, 0, 0, 1);
-}
-
-
-int main()
-{
-    int t; cin &gt;&gt; t;
-    int cases = 0;
-    mem(dp, -1);
-    while(t--)
-    {
-        scanf(&quot;%lld%lld%lld&quot;, &amp;l, &amp;r, &amp;k);
-        printf(&quot;Case #%d: %lld\n&quot;, ++cases, work(r) - work(l - 1));
-    }
 }
 </code></pre>
 ]]></content>

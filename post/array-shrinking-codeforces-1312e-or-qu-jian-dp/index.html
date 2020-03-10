@@ -6,7 +6,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="不需要外界告诉自己自己的价值是什么">
 <meta name="theme-color" content="#000">
-<title>爬取百度百科 | Wannafly</title>
+<title>Array Shrinking CodeForces - 1312E | 区间dp | Wannafly</title>
 <link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1583837499534">
 <link rel="stylesheet" href="https://8421BCD.github.io//styles/main.css">
 
@@ -25,8 +25,8 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
     onload="renderMathInElement(document.body);"></script>
 
-    <meta name="description" content="爬取百度百科" />
-    <meta name="keywords" content="爬虫" />
+    <meta name="description" content="Array Shrinking CodeForces - 1312E | 区间dp" />
+    <meta name="keywords" content="区间dp" />
   </head>
   <body>
     <div class="head-top-line"></div>
@@ -260,8 +260,8 @@
               <div class="article-box">
     <header class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://8421BCD.github.io/post/pa-qu-bai-du-bai-ke">
-      爬取百度百科
+    <a class="post-title-link" href="https://8421BCD.github.io/post/array-shrinking-codeforces-1312e-or-qu-jian-dp">
+      Array Shrinking CodeForces - 1312E | 区间dp
     </a>
   </h1>
   <div class="post-meta">
@@ -269,7 +269,7 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span>发布于</span>
-      <span>2020-01-31</span>
+      <span>2020-03-10</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
@@ -278,8 +278,8 @@
         <span class="pc-show">分类于</span>
         
           
-            <a href="https://8421BCD.github.io/tag/kEfTZlFGs">
-              <span>爬虫</span>
+            <a href="https://8421BCD.github.io/tag/g2TvcxvF4">
+              <span>区间dp</span>
             </a>
           
         
@@ -288,86 +288,65 @@
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>3分钟</span>
+      <span>2分钟</span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>459<span class="pc-show">字数</span></span>
+      <span>386<span class="pc-show">字数</span></span>
     </span>
   </div>
 </header>
 </div>
               <div class="post-body next-md-body" id="post_body">
-                <p>深度跳转网页，有时候会报错，不知道为什么</p>
+                <p>首蓝不易。</p>
 <!--more-->
-<figure data-type="image" tabindex="1"><img src="https://8421BCD.github.io//post-images/1580430245069.jpg" alt="" loading="lazy"></figure>
-<ul>
-<li><strong>导入需要的包</strong></li>
-</ul>
-<pre><code class="language-python">from bs4 import BeautifulSoup
-from urllib.request import urlopen
-import re
-import random
-</code></pre>
-<ul>
-<li><strong>导入网址</strong></li>
-</ul>
-<pre><code class="language-python">base_url = &quot;https://baike.baidu.com&quot;
-his = [&quot;/item/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/5162711&quot;]
-</code></pre>
-<ul>
-<li><strong>lxml解析，find选择匹配结果</strong></li>
-</ul>
-<pre><code class="language-python">url = base_url + his[-1]
-html = urlopen(url).read().decode('utf-8')
-soup = BeautifulSoup(html, features = &quot;lxml&quot;)
-print(soup.find('a').get_text(), &quot;url:&quot;, his[-1])
+<p><strong>题意：</strong><br>
+略<br>
+<strong>分析：</strong><br>
+区间dp的状态转移可以从母状态入手，通过分析母状态的所有可能情况，去寻找子状态。比如：<br>
+对于一段[l, r]， 他最后可能只剩下1个，也可能2个、3个。。。，对于1个来说，他一定能找到两个子状态压缩之后长度为1且元素相等；对于多个来说，他一定能找到两个子状态分别压缩之后两个结合时不能再压缩。于是可以得到转移方程。<br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+//typedef __int128 lll;
+#define print(i) cout &lt;&lt; &quot;debug: &quot; &lt;&lt; i &lt;&lt; endl
+#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
+#define mem(a, b) memset(a, b, sizeof(a))
+const ll mod = 1e9 + 7;
+const int maxn = 1e3;
+const int inf = 0x3f3f3f3f;
+int v[maxn];
+int dp[maxn][maxn];
+int final[maxn][maxn];//记录该区间压缩为1个元素之后元素的值
+int n; 
+void init()
+{
+    for(int i = 1; i &lt;= n; i++)
+        for(int j = i; j &lt;= n; j++)
+            dp[i][j] = i == j ? 1 : j - i + 1;
+    for(int i = 1; i &lt;= n; i++) final[i][i] = v[i];
+}
 
-</code></pre>
-<ul>
-<li><strong>正则表达式匹配筛选内容</strong></li>
-</ul>
-<pre><code class="language-python">sub_urls = soup.find_all(&quot;a&quot;, {&quot;target&quot;: &quot;_blank&quot;, &quot;href&quot;: re.compile(&quot;/item/(%.{2})+$&quot;)})
-if len(sub_urls) != 0:
-    his.append(random.sample(sub_urls, 1)[0]['href'])
-else:
-    his.pop()
-print(his)
-</code></pre>
-<ul>
-<li><strong>dfs跳转网页</strong></li>
-</ul>
-<pre><code class="language-python">base_url = &quot;https://baike.baidu.com&quot;
-his = [&quot;/item/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/5162711&quot;]
-
-for i in range(20):
-    url = base_url + his[-1]
-    html = urlopen(url).read().decode('utf-8')
-    soup = BeautifulSoup(html, features='lxml')
-    print('第', i, '次访问', soup.find('h1').get_text(), 'url:', his[-1])
-
-    sub_urls = soup.find_all(&quot;a&quot;, {&quot;target&quot;: &quot;_blank&quot;, &quot;href&quot;: re.compile(&quot;/item/(%.{2})+$&quot;)})
-    if len(sub_urls) != 0:
-        his.append(random.sample(sub_urls, 1)[0]['href'])#[0]表示样本列表中要抽取元素的下标
-    else:
-        his.pop()
-
-</code></pre>
-<ul>
-<li><strong>爬取结果</strong></li>
-</ul>
-<pre><code class="language-python">0 网络爬虫 url: /item/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/5162711
-1 用户标识 url: /item/%E7%94%A8%E6%88%B7%E6%A0%87%E8%AF%86
-2 义项 url: /item/%E4%B9%89%E9%A1%B9
-3 小提琴协奏曲 url: /item/%E5%B0%8F%E6%8F%90%E7%90%B4%E5%8D%8F%E5%A5%8F%E6%9B%B2
-4 彼得·伊里奇·柴可夫斯基 url: /item/%E6%9F%B4%E7%A7%91%E5%A4%AB%E6%96%AF%E5%9F%BA
-5 作曲家 url: /item/%E4%BD%9C%E6%9B%B2%E5%AE%B6
-6 义项 url: /item/%E4%B9%89%E9%A1%B9
-7 李健 url: /item/%E6%9D%8E%E5%81%A5
-8 三月的一整月 url: /item/%E4%B8%89%E6%9C%88%E7%9A%84%E4%B8%80%E6%95%B4%E6%9C%88
-9 快乐阳光 url: /item/%E5%BF%AB%E4%B9%90%E9%98%B3%E5%85%89
-
+int main()
+{
+   cin &gt;&gt; n;
+   for(int i = 1; i &lt;= n; i++) cin &gt;&gt; v[i];
+   init();
+   for(int len = 2; len &lt;= n; len++)
+    for(int i = 1; i + len - 1 &lt;= n; i++)
+    {
+        int j = i + len - 1;
+        for(int k = i; k &lt; j; k++)
+        {
+            dp[i][j] = min(dp[i][j], dp[i][k] + dp[k + 1][j]);
+            if(dp[i][k] == 1 &amp;&amp; dp[k + 1][j] == 1 &amp;&amp; final[i][k] == final[k + 1][j])
+                dp[i][j] = 1, final[i][j] = final[i][k] + 1;
+        }
+    }
+    cout &lt;&lt; dp[1][n] &lt;&lt; endl;
+}
 </code></pre>
 
               </div>
@@ -379,7 +358,7 @@ for i in range(20):
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://8421BCD.github.io/post/pa-qu-bai-du-bai-ke" title="爬取百度百科">爬取百度百科</a>
+      <a href="https://8421BCD.github.io/post/array-shrinking-codeforces-1312e-or-qu-jian-dp" title="Array Shrinking CodeForces - 1312E | 区间dp">Array Shrinking CodeForces - 1312E | 区间dp</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -388,21 +367,17 @@ for i in range(20):
   </ul>
   <div class="tags">
     
-      <a href="https://8421BCD.github.io/tag/kEfTZlFGs"># 爬虫</a>
+      <a href="https://8421BCD.github.io/tag/g2TvcxvF4"># 区间dp</a>
     
   </div>
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="不要62 hdu2089（数位dp + 记忆化搜索）" href="https://8421BCD.github.io/post/bu-yao-62-hdu2089shu-wei-dp-ji-yi-hua-sou-suo">不要62 hdu2089（数位dp + 记忆化搜索）</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="不要62 hdu2089（数位dp + 记忆化搜索）" href="https://8421BCD.github.io/post/bu-yao-62-hdu2089shu-wei-dp-ji-yi-hua-sou-suo">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="Mondriaan&#39;s Dream（状压dp）" href="https://8421BCD.github.io/post/mondriaans-dreamzhuang-ya-dp">Mondriaan&#39;s Dream（状压dp）</a>
-        <a class="nav-mobile-next" title="Mondriaan&#39;s Dream（状压dp）" href="https://8421BCD.github.io/post/mondriaans-dreamzhuang-ya-dp">下一篇</a>
+        <a class="nav-pc-next" title="To the moon HDU - 4348 | 主席树套线段树（区间修改区间查询）" href="https://8421BCD.github.io/post/to-the-moon-hdu-4348-or-zhu-xi-shu-tao-xian-duan-shu">To the moon HDU - 4348 | 主席树套线段树（区间修改区间查询）</a>
+        <a class="nav-mobile-next" title="To the moon HDU - 4348 | 主席树套线段树（区间修改区间查询）" href="https://8421BCD.github.io/post/to-the-moon-hdu-4348-or-zhu-xi-shu-tao-xian-duan-shu">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
