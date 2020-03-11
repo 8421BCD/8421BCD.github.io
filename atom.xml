@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-03-11T07:53:19.646Z</updated>
+    <updated>2020-03-11T08:07:17.440Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -27,7 +27,7 @@ string a, b;
 int lena, lenb;
 vector&lt;int&gt; ans;
 
-void NewFile()
+void NewFile()//C++文件流创建文件
 {
 	cout &lt;&lt; &quot;请输入要创建的文件名称:&quot; &lt;&lt; endl;
 	string name; cin &gt;&gt; name; getchar(); name += &quot;.txt&quot;;
@@ -42,7 +42,7 @@ void NewFile()
 	outfile.close();
 }
 
-void getnex()
+void getnex()//next数组处理
 {
 	int j = 0, k = -1;
 	nex[0] = -1;
@@ -54,7 +54,7 @@ void getnex()
 	}
 }
 
-int kmpcount()
+int kmpcount()//kmp算法
 {
 	getnex();
 	ans.clear();
@@ -70,7 +70,7 @@ int kmpcount()
 	return res;
 }
 
-void count()
+void count()//功能2
 {
 	cout &lt;&lt; &quot;请输入要查询的文件名称:&quot; &lt;&lt; endl;
 	string name; cin &gt;&gt; name; getchar(); name += &quot;.txt&quot;;
@@ -86,7 +86,7 @@ void count()
 	cout &lt;&lt; &quot;匹配到的个数为：&quot; &lt;&lt; res &lt;&lt; endl;
 }
 
-void search()
+void search()//功能3
 {
 	cout &lt;&lt; &quot;请输入要查询的文件名称:&quot; &lt;&lt; endl;
 	string name; cin &gt;&gt; name; getchar(); name += &quot;.txt&quot;;
@@ -112,7 +112,7 @@ void search()
 }
 
 
-bool menu()
+bool menu() //菜单显示
 {
 	cout &lt;&lt; &quot;***文本匹配系统***&quot; &lt;&lt; endl;
 	cout &lt;&lt; &quot;1、建立文件&quot; &lt;&lt; endl;

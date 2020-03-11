@@ -7,7 +7,7 @@
 <meta name="description" content="不需要外界告诉自己自己的价值是什么">
 <meta name="theme-color" content="#000">
 <title>数据结构小作业-串模式匹配 | C++文件流读写 | Wannafly</title>
-<link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1583913187908">
+<link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1583913312643">
 <link rel="stylesheet" href="https://8421BCD.github.io//styles/main.css">
 
 <link rel="stylesheet" href="/media/css/pisces.css">
@@ -280,7 +280,7 @@
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>561<span class="pc-show">字数</span></span>
+      <span>587<span class="pc-show">字数</span></span>
     </span>
   </div>
 </header>
@@ -297,7 +297,7 @@ string a, b;
 int lena, lenb;
 vector&lt;int&gt; ans;
 
-void NewFile()
+void NewFile()//C++文件流创建文件
 {
 	cout &lt;&lt; &quot;请输入要创建的文件名称:&quot; &lt;&lt; endl;
 	string name; cin &gt;&gt; name; getchar(); name += &quot;.txt&quot;;
@@ -312,7 +312,7 @@ void NewFile()
 	outfile.close();
 }
 
-void getnex()
+void getnex()//next数组处理
 {
 	int j = 0, k = -1;
 	nex[0] = -1;
@@ -324,7 +324,7 @@ void getnex()
 	}
 }
 
-int kmpcount()
+int kmpcount()//kmp算法
 {
 	getnex();
 	ans.clear();
@@ -340,7 +340,7 @@ int kmpcount()
 	return res;
 }
 
-void count()
+void count()//功能2
 {
 	cout &lt;&lt; &quot;请输入要查询的文件名称:&quot; &lt;&lt; endl;
 	string name; cin &gt;&gt; name; getchar(); name += &quot;.txt&quot;;
@@ -356,7 +356,7 @@ void count()
 	cout &lt;&lt; &quot;匹配到的个数为：&quot; &lt;&lt; res &lt;&lt; endl;
 }
 
-void search()
+void search()//功能3
 {
 	cout &lt;&lt; &quot;请输入要查询的文件名称:&quot; &lt;&lt; endl;
 	string name; cin &gt;&gt; name; getchar(); name += &quot;.txt&quot;;
@@ -382,7 +382,7 @@ void search()
 }
 
 
-bool menu()
+bool menu() //菜单显示
 {
 	cout &lt;&lt; &quot;***文本匹配系统***&quot; &lt;&lt; endl;
 	cout &lt;&lt; &quot;1、建立文件&quot; &lt;&lt; endl;
