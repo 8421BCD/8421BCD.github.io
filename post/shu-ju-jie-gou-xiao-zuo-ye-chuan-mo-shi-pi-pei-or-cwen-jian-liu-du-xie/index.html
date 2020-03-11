@@ -6,7 +6,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="不需要外界告诉自己自己的价值是什么">
 <meta name="theme-color" content="#000">
-<title>CF题解写作模板 | Wannafly</title>
+<title>数据结构小作业-串模式匹配 | C++文件流读写 | Wannafly</title>
 <link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1583913187908">
 <link rel="stylesheet" href="https://8421BCD.github.io//styles/main.css">
 
@@ -25,8 +25,8 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
     onload="renderMathInElement(document.body);"></script>
 
-    <meta name="description" content="CF题解写作模板" />
-    <meta name="keywords" content="写作模板" />
+    <meta name="description" content="数据结构小作业-串模式匹配 | C++文件流读写" />
+    <meta name="keywords" content="" />
   </head>
   <body>
     <div class="head-top-line"></div>
@@ -260,8 +260,8 @@
               <div class="article-box">
     <header class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://8421BCD.github.io/post/cf-ti-jie-xie-zuo-mo-ban">
-      CF题解写作模板
+    <a class="post-title-link" href="https://8421BCD.github.io/post/shu-ju-jie-gou-xiao-zuo-ye-chuan-mo-shi-pi-pei-or-cwen-jian-liu-du-xie">
+      数据结构小作业-串模式匹配 | C++文件流读写
     </a>
   </h1>
   <div class="post-meta">
@@ -269,66 +269,154 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span>发布于</span>
-      <span>2020-02-03</span>
+      <span>2020-03-11</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
-      <span class="meta-item">
-        <i class="fa fa-folder-o"></i>
-        <span class="pc-show">分类于</span>
-        
-          
-            <a href="https://8421BCD.github.io/tag/srxEFJobV">
-              <span>写作模板</span>
-            </a>
-          
-        
-      </span>
-      <span class="post-meta-divider">|</span>
-    
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>1分钟</span>
+      <span>4分钟</span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>35<span class="pc-show">字数</span></span>
+      <span>561<span class="pc-show">字数</span></span>
     </span>
   </div>
 </header>
 </div>
               <div class="post-body next-md-body" id="post_body">
-                <!--more-->
-<p><strong>A.</strong></p>
-<p><strong>题意：</strong></p>
-<p><strong>分析：</strong></p>
-<p><strong>代码：</strong></p>
-<pre><code class="language-cpp">
-</code></pre>
-<p><strong>B.</strong></p>
-<p><strong>题意：</strong></p>
-<p><strong>分析：</strong></p>
-<p><strong>代码：</strong></p>
-<pre><code class="language-cpp">
-</code></pre>
-<p><strong>C.</strong></p>
-<p><strong>题意：</strong></p>
-<p><strong>分析：</strong></p>
-<p><strong>代码：</strong></p>
-<pre><code class="language-cpp">
-</code></pre>
-<p><strong>D.</strong></p>
-<p><strong>题意：</strong></p>
-<p><strong>分析：</strong></p>
-<p><strong>代码：</strong></p>
-<pre><code class="language-cpp">
-</code></pre>
-<p><strong>E.</strong></p>
-<p><strong>题意：</strong></p>
-<p><strong>分析：</strong></p>
-<p><strong>代码：</strong></p>
-<pre><code class="language-cpp">
+                <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+using namespace std;
+const int maxn = 1e4;
+int nex[maxn];
+string a, b;
+int lena, lenb;
+vector&lt;int&gt; ans;
+
+void NewFile()
+{
+	cout &lt;&lt; &quot;请输入要创建的文件名称:&quot; &lt;&lt; endl;
+	string name; cin &gt;&gt; name; getchar(); name += &quot;.txt&quot;;
+	cout &lt;&lt; &quot;请输入文本(以Ctrl+z结束)&quot; &lt;&lt; endl;
+	ofstream outfile(name.c_str());
+	string buf;
+	while (getline(cin, buf))
+	{
+		outfile &lt;&lt; buf &lt;&lt; endl;
+	}
+	cout &lt;&lt; &quot;文件创建成功&quot; &lt;&lt; endl;
+	outfile.close();
+}
+
+void getnex()
+{
+	int j = 0, k = -1;
+	nex[0] = -1;
+	while (j &lt; lenb)
+	{
+		if (k == -1 || b[j] == b[k])
+			nex[++j] = ++k;
+		else k = nex[k];
+	}
+}
+
+int kmpcount()
+{
+	getnex();
+	ans.clear();
+	int i = 0, j = 0, res = 0;
+	while (i &lt; lena)
+	{
+		while (b[j] != a[i] &amp;&amp; j &gt; 0)
+			j = nex[j];
+		if (a[i] == b[j]) j++;
+		if (j == lenb) res++, ans.push_back(i - lenb + 1), j = nex[j];
+		i++;
+	}
+	return res;
+}
+
+void count()
+{
+	cout &lt;&lt; &quot;请输入要查询的文件名称:&quot; &lt;&lt; endl;
+	string name; cin &gt;&gt; name; getchar(); name += &quot;.txt&quot;;
+	ifstream infile(name.c_str());
+	cout &lt;&lt; &quot;请输入您要计数的单词&quot; &lt;&lt; endl;
+	cin &gt;&gt; b; lenb = b.length();
+	int res = 0;
+	while (getline(infile, a))
+	{
+		lena = a.length();
+		res += kmpcount();
+	}
+	cout &lt;&lt; &quot;匹配到的个数为：&quot; &lt;&lt; res &lt;&lt; endl;
+}
+
+void search()
+{
+	cout &lt;&lt; &quot;请输入要查询的文件名称:&quot; &lt;&lt; endl;
+	string name; cin &gt;&gt; name; getchar(); name += &quot;.txt&quot;;
+
+	ifstream infile(name.c_str());
+	cout &lt;&lt; &quot;请输入您要计数的单词&quot; &lt;&lt; endl;
+	cin &gt;&gt; b; lenb = b.length();
+	int lines = 0, flag = 0;
+	while (getline(infile, a))
+	{
+		lines++;
+		lena = a.length();
+		int res = kmpcount();
+		if (res)
+		{
+			flag = 1;
+			printf(&quot;第%d行内容为:%s共匹配到%d处, 起始位置是: &quot;, lines, a.c_str(), res);
+			for (int i = 0; i &lt; ans.size(); i++)
+				printf(&quot;%d%c&quot;, ans[i] + 1, i == ans.size() - 1 ? '\n' : ' ');
+		}
+	}
+	if (!flag) cout &lt;&lt; &quot;未匹配到相关单词&quot; &lt;&lt; endl;
+}
+
+
+bool menu()
+{
+	cout &lt;&lt; &quot;***文本匹配系统***&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;1、建立文件&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;2、单词计数&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;3、单词定位&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;4、退出程序&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;请输入操作序号&quot; &lt;&lt; endl;
+	cin.clear();
+	int ope; cin &gt;&gt; ope;
+	switch (ope)
+	{
+	case 1:
+		NewFile();
+		break;
+	case 2:
+		count();
+		break;
+	case 3:
+		search();
+		break;
+	case 4:
+		return false;
+	default:
+		return false;
+	}
+	system(&quot;pause&quot;);
+	system(&quot;cls&quot;);
+	return true;
+}
+
+int main()
+{
+	while (menu());
+}
 </code></pre>
 
               </div>
@@ -340,7 +428,7 @@
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://8421BCD.github.io/post/cf-ti-jie-xie-zuo-mo-ban" title="CF题解写作模板">CF题解写作模板</a>
+      <a href="https://8421BCD.github.io/post/shu-ju-jie-gou-xiao-zuo-ye-chuan-mo-shi-pi-pei-or-cwen-jian-liu-du-xie" title="数据结构小作业-串模式匹配 | C++文件流读写">数据结构小作业-串模式匹配 | C++文件流读写</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -349,21 +437,15 @@
   </ul>
   <div class="tags">
     
-      <a href="https://8421BCD.github.io/tag/srxEFJobV"># 写作模板</a>
-    
   </div>
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="Codeforces Round #616 (Div. 2) 题解" href="https://8421BCD.github.io/post/codeforces-round-616-div-2-ti-jie">Codeforces Round #616 (Div. 2) 题解</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="Codeforces Round #616 (Div. 2) 题解" href="https://8421BCD.github.io/post/codeforces-round-616-div-2-ti-jie">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="不要62 hdu2089（数位dp + 记忆化搜索）" href="https://8421BCD.github.io/post/bu-yao-62-hdu2089shu-wei-dp-ji-yi-hua-sou-suo">不要62 hdu2089（数位dp + 记忆化搜索）</a>
-        <a class="nav-mobile-next" title="不要62 hdu2089（数位dp + 记忆化搜索）" href="https://8421BCD.github.io/post/bu-yao-62-hdu2089shu-wei-dp-ji-yi-hua-sou-suo">下一篇</a>
+        <a class="nav-pc-next" title="Array Shrinking CodeForces - 1312E | 区间dp" href="https://8421BCD.github.io/post/array-shrinking-codeforces-1312e-or-qu-jian-dp">Array Shrinking CodeForces - 1312E | 区间dp</a>
+        <a class="nav-mobile-next" title="Array Shrinking CodeForces - 1312E | 区间dp" href="https://8421BCD.github.io/post/array-shrinking-codeforces-1312e-or-qu-jian-dp">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>

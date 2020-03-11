@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-03-10T10:51:49.704Z</updated>
+    <updated>2020-03-11T07:53:19.646Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -10,6 +10,146 @@
     <logo>https://8421BCD.github.io/images/avatar.png</logo>
     <icon>https://8421BCD.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
+    <entry>
+        <title type="html"><![CDATA[数据结构小作业-串模式匹配 | C++文件流读写]]></title>
+        <id>https://8421BCD.github.io/post/shu-ju-jie-gou-xiao-zuo-ye-chuan-mo-shi-pi-pei-or-cwen-jian-liu-du-xie</id>
+        <link href="https://8421BCD.github.io/post/shu-ju-jie-gou-xiao-zuo-ye-chuan-mo-shi-pi-pei-or-cwen-jian-liu-du-xie">
+        </link>
+        <updated>2020-03-11T07:51:54.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+using namespace std;
+const int maxn = 1e4;
+int nex[maxn];
+string a, b;
+int lena, lenb;
+vector&lt;int&gt; ans;
+
+void NewFile()
+{
+	cout &lt;&lt; &quot;请输入要创建的文件名称:&quot; &lt;&lt; endl;
+	string name; cin &gt;&gt; name; getchar(); name += &quot;.txt&quot;;
+	cout &lt;&lt; &quot;请输入文本(以Ctrl+z结束)&quot; &lt;&lt; endl;
+	ofstream outfile(name.c_str());
+	string buf;
+	while (getline(cin, buf))
+	{
+		outfile &lt;&lt; buf &lt;&lt; endl;
+	}
+	cout &lt;&lt; &quot;文件创建成功&quot; &lt;&lt; endl;
+	outfile.close();
+}
+
+void getnex()
+{
+	int j = 0, k = -1;
+	nex[0] = -1;
+	while (j &lt; lenb)
+	{
+		if (k == -1 || b[j] == b[k])
+			nex[++j] = ++k;
+		else k = nex[k];
+	}
+}
+
+int kmpcount()
+{
+	getnex();
+	ans.clear();
+	int i = 0, j = 0, res = 0;
+	while (i &lt; lena)
+	{
+		while (b[j] != a[i] &amp;&amp; j &gt; 0)
+			j = nex[j];
+		if (a[i] == b[j]) j++;
+		if (j == lenb) res++, ans.push_back(i - lenb + 1), j = nex[j];
+		i++;
+	}
+	return res;
+}
+
+void count()
+{
+	cout &lt;&lt; &quot;请输入要查询的文件名称:&quot; &lt;&lt; endl;
+	string name; cin &gt;&gt; name; getchar(); name += &quot;.txt&quot;;
+	ifstream infile(name.c_str());
+	cout &lt;&lt; &quot;请输入您要计数的单词&quot; &lt;&lt; endl;
+	cin &gt;&gt; b; lenb = b.length();
+	int res = 0;
+	while (getline(infile, a))
+	{
+		lena = a.length();
+		res += kmpcount();
+	}
+	cout &lt;&lt; &quot;匹配到的个数为：&quot; &lt;&lt; res &lt;&lt; endl;
+}
+
+void search()
+{
+	cout &lt;&lt; &quot;请输入要查询的文件名称:&quot; &lt;&lt; endl;
+	string name; cin &gt;&gt; name; getchar(); name += &quot;.txt&quot;;
+
+	ifstream infile(name.c_str());
+	cout &lt;&lt; &quot;请输入您要计数的单词&quot; &lt;&lt; endl;
+	cin &gt;&gt; b; lenb = b.length();
+	int lines = 0, flag = 0;
+	while (getline(infile, a))
+	{
+		lines++;
+		lena = a.length();
+		int res = kmpcount();
+		if (res)
+		{
+			flag = 1;
+			printf(&quot;第%d行内容为:%s共匹配到%d处, 起始位置是: &quot;, lines, a.c_str(), res);
+			for (int i = 0; i &lt; ans.size(); i++)
+				printf(&quot;%d%c&quot;, ans[i] + 1, i == ans.size() - 1 ? '\n' : ' ');
+		}
+	}
+	if (!flag) cout &lt;&lt; &quot;未匹配到相关单词&quot; &lt;&lt; endl;
+}
+
+
+bool menu()
+{
+	cout &lt;&lt; &quot;***文本匹配系统***&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;1、建立文件&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;2、单词计数&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;3、单词定位&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;4、退出程序&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;请输入操作序号&quot; &lt;&lt; endl;
+	cin.clear();
+	int ope; cin &gt;&gt; ope;
+	switch (ope)
+	{
+	case 1:
+		NewFile();
+		break;
+	case 2:
+		count();
+		break;
+	case 3:
+		search();
+		break;
+	case 4:
+		return false;
+	default:
+		return false;
+	}
+	system(&quot;pause&quot;);
+	system(&quot;cls&quot;);
+	return true;
+}
+
+int main()
+{
+	while (menu());
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Array Shrinking CodeForces - 1312E | 区间dp]]></title>
         <id>https://8421BCD.github.io/post/array-shrinking-codeforces-1312e-or-qu-jian-dp</id>
@@ -1113,73 +1253,6 @@ bool menu()
 int main()
 {
 	while (menu());
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Round Numbers POJ - 3252 | 数位dp]]></title>
-        <id>https://8421BCD.github.io/post/round-numbers-poj-3252-or-shu-wei-dp</id>
-        <link href="https://8421BCD.github.io/post/round-numbers-poj-3252-or-shu-wei-dp">
-        </link>
-        <updated>2020-02-22T06:13:21.000Z</updated>
-        <summary type="html"><![CDATA[<p>debug了一上午，还是做的少，应该想到先导0的影响的</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>debug了一上午，还是做的少，应该想到先导0的影响的</p>
-<!--more-->
-<p><strong>题意：</strong><br>
-问一个区间的数有多少个二进制中0的个数大于1<br>
-<strong>分析：</strong><br>
-1、dp[i][j]表示第i位之前0与1个数差为j且该位valid != 0（也即无前导零）时，满足题意的数的总数。<br>
-2、由于差可能为负，所以整体+32<br>
-3、注意如果当前位有前导零，那么其计算的结果数不能放入dp数组（使得结果偏小）。<br>
-<strong>代码：</strong></p>
-<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-typedef long long ll;
-//typedef __int128 lll;
-#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
-#define mem(a, b) memset(a, b, sizeof(a))
-#define debug(a) cout &lt;&lt; &quot;debug :&quot; &lt;&lt; a &lt;&lt; endl
-#define fi first
-#define se second
-const int maxn = 1e6;
-const int inf = 0x3f3f3f3f;
-int dp[33][70];
-int v[33];
-
-int dfs(int pos, int valid, int dif, int limit)
-{
-    if(!pos) return dif &gt;= 0;
-    if(!limit &amp;&amp; valid &amp;&amp; ~dp[pos][dif + 32]) return dp[pos][dif + 32];
-    int up = limit ? v[pos] : 1;
-    ll res = 0;
-    for(int i = 0; i &lt;= up; i++)
-    {
-        res += dfs(pos - 1, valid || i, (valid || i) ? (!i ? dif + 1 : dif - 1) : 0, limit &amp;&amp; i == up);
-        //if(pos == 4) cout &lt;&lt; res &lt;&lt; endl;
-    }
-    if(!limit &amp;&amp; valid) dp[pos][dif + 32] = res;
-    return res;
-}
-
-int work(int x)
-{
-    int pos = 0;
-    while(x)
-    {
-        v[++pos] = x &amp; 1;
-        x &gt;&gt;= 1;
-    }
-    return dfs(pos, 0, 0, 1);//一开始假设有前导零,valid = 0
-}
-
-int main()
-{
-    int l, r;
-    mem(dp, -1);
-    cin &gt;&gt; l &gt;&gt; r;
-    cout &lt;&lt; work(r) - work(l - 1) &lt;&lt; endl;
 }
 </code></pre>
 ]]></content>
