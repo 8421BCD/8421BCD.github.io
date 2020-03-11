@@ -6,7 +6,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="不需要外界告诉自己自己的价值是什么">
 <meta name="theme-color" content="#000">
-<title>代码保佑图 | Wannafly</title>
+<title>Halloween Costumes LightOJ - 1422 | 区间dp | Wannafly</title>
 <link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1583931726651">
 <link rel="stylesheet" href="https://8421BCD.github.io//styles/main.css">
 
@@ -25,8 +25,8 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
     onload="renderMathInElement(document.body);"></script>
 
-    <meta name="description" content="代码保佑图" />
-    <meta name="keywords" content="" />
+    <meta name="description" content="Halloween Costumes LightOJ - 1422 | 区间dp" />
+    <meta name="keywords" content="区间dp" />
   </head>
   <body>
     <div class="head-top-line"></div>
@@ -260,8 +260,8 @@
               <div class="article-box">
     <header class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://8421BCD.github.io/post/dai-ma-bao-you-tu">
-      代码保佑图
+    <a class="post-title-link" href="https://8421BCD.github.io/post/halloween-costumes-lightoj-1422-or-qu-jian-dp">
+      Halloween Costumes LightOJ - 1422 | 区间dp
     </a>
   </h1>
   <div class="post-meta">
@@ -269,68 +269,86 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span>发布于</span>
-      <span>2020-02-05</span>
+      <span>2020-03-11</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
+      <span class="meta-item">
+        <i class="fa fa-folder-o"></i>
+        <span class="pc-show">分类于</span>
+        
+          
+            <a href="https://8421BCD.github.io/tag/g2TvcxvF4">
+              <span>区间dp</span>
+            </a>
+          
+        
+      </span>
+      <span class="post-meta-divider">|</span>
+    
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>1分钟</span>
+      <span>3分钟</span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>74<span class="pc-show">字数</span></span>
+      <span>514<span class="pc-show">字数</span></span>
     </span>
   </div>
 </header>
 </div>
               <div class="post-body next-md-body" id="post_body">
-                <pre><code class="language-cpp">/**
- *　　　　　　　　┏┓　　 　┏┓
- * 　　　　　　　┏┛┗━━━━━━━┛┗━━━┓
- * 　　　　　　　┃　　　　　　　┃ 　
- * 　　　　　　　┃　　　━　　 　┃
- * 　　　　　　　┃　＞　　　＜　┃
- * 　　　　　　　┃　　　　　　　┃
- * 　　　　　　　┃...　⌒　... 　┃
- * 　　　　　　　┃　　　　　　　┃
- * 　　　　　　　┗━┓　　　┏━┛
- * 　　　　　　　　　┃　　　┃　Code is far away from bug with the animal protecting　　　　　　　　　　
- * 　　　　　　　　　┃　　　┃   神兽保佑,代码无bug
- * 　　　　　　　　　┃　　　┃　　　　　　　　　　　
- * 　　　　　　　　　┃　　　┃  　　　　　　
- * 　　　　　　　　　┃　　　┃
- * 　　　　　　　　　┃　　　┃　　　　　　　　　　　
- * 　　　　　　　　　┃　　　┗━━━┓
- * 　　　　　　　　　┃　　　　　　　┣┓
- * 　　　　　　　　　┃　　　　　　　┏┛
- * 　　　　　　　　　┗┓┓┏━┳┓┏┛
- * 　　　　　　　　　　┃┫┫　┃┫┫
- * 　　　　　　　　　　┗┻┛　┗┻┛
- */
-// warm heart, wagging tail,and a smile just for you!
-//
-//                            _ooOoo_
-//                           o8888888o
-//                           88&quot; . &quot;88
-//                           (| -_- |)
-//                           O\  =  /O
-//                        ____/`---'\____
-//                      .'  \|     |//  `.
-//                     /  \|||  :  |||//  \
-//                    /  _||||| -:- |||||-  \
-//                    |   | \  -  /// |   |
-//                    | \_|  ''\---/''  |   |
-//                    \  .-\__  `-`  ___/-. /
-//                  ___`. .'  /--.--\  `. . __
-//               .&quot;&quot; '&lt;  `.___\_&lt;|&gt;_/___.'  &gt;'&quot;&quot;.
-//              | | :  `- \`.;`\ _ /`;.`/ - ` : | |
-//              \  \ `-.   \_ __\ /__ _/   .-` /  /
-//         ======`-.____`-.___\_____/___.-`____.-'======
-//                            `=---='
-//        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-//                     佛祖保佑      永无BUG
+                <p>区间dp的关键就是分好类</p>
+<!--more-->
+<p><strong>题意：</strong><br>
+小灰灰参加圣诞节的一些派对，并且需要穿上对应派对的衣服，所以他需要多次换衣服，为了方便，他可以选择脱掉一些衣服或者穿上新衣服，比如说，他穿着超人的衣服，外面又穿着死侍的衣服，当他要参加超人服装派对时，他可以选择脱掉死侍的衣服（因为死侍衣服的里面有超人的衣服），或者他可以在穿一件超人的衣服，小灰灰是个爱干净的人，当他脱下死侍的衣服后，如果需要再穿死侍的衣服，他会选择再穿一件新的。（如果他先穿A衣服，又穿上B衣服，再穿一件C衣服，如果他想让最外面的衣服是A，他可以选择直接穿一件A，或者先把C脱掉，再把B脱掉）。<br>
+<strong>分析：</strong><br>
+对于[i, j]， 对j进行分类讨论：<br>
+-j穿的衣服是新的, dp[i][j] = dp[i][j - 1] + 1<br>
+-j穿的衣服是旧的，则<strong>最近一次穿</strong>一定是由[i, j - 1]中跟j相同的元素转移过来的，详见代码。（最近一次穿是理解转移的关键）<br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+//typedef __int128 lll;
+#define print(i) cout &lt;&lt; &quot;debug: &quot; &lt;&lt; i &lt;&lt; endl
+#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
+#define mem(a, b) memset(a, b, sizeof(a))
+const ll mod = 1e9 + 7;
+const int maxn = 1e3;
+const int inf = 0x3f3f3f3f;
+int dp[maxn][maxn];
+int n;
+int v[maxn];
+
+void init()
+{
+    for(int i = 1; i &lt;= n; i++)
+        dp[i][i] = 1;
+}
+
+int main()
+{
+    int t; cin &gt;&gt; t;
+    int cases = 0;
+    while(t--)
+    {
+        cin &gt;&gt; n;
+        for(int i = 1; i &lt;= n; i++) cin &gt;&gt; v[i];
+        init();
+        for(int len = 2; len &lt;= n; len++)
+            for(int i = 1; i + len - 1 &lt;= n; i++)
+            {
+                int j = i + len - 1;
+                dp[i][j] = dp[i][j - 1] + 1;
+                for(int k = i; k &lt; j; k++)
+                    if(v[k] == v[j])
+                        dp[i][j] = min(dp[i][j], dp[i][k] + dp[k + 1][j - 1]);
+            }
+        printf(&quot;Case %d: %d\n&quot;, ++cases, dp[1][n]);
+    }
+}
 </code></pre>
 
               </div>
@@ -342,7 +360,7 @@
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://8421BCD.github.io/post/dai-ma-bao-you-tu" title="代码保佑图">代码保佑图</a>
+      <a href="https://8421BCD.github.io/post/halloween-costumes-lightoj-1422-or-qu-jian-dp" title="Halloween Costumes LightOJ - 1422 | 区间dp">Halloween Costumes LightOJ - 1422 | 区间dp</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -351,19 +369,17 @@
   </ul>
   <div class="tags">
     
+      <a href="https://8421BCD.github.io/tag/g2TvcxvF4"># 区间dp</a>
+    
   </div>
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="下载文件 | 爬虫入门 （待更。。。）" href="https://8421BCD.github.io/post/xia-zai-wen-jian-or-pa-chong-ru-men-dai-geng">下载文件 | 爬虫入门 （待更。。。）</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="下载文件 | 爬虫入门 （待更。。。）" href="https://8421BCD.github.io/post/xia-zai-wen-jian-or-pa-chong-ru-men-dai-geng">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="Codeforces Round #617 (Div. 3) | 题解" href="https://8421BCD.github.io/post/codeforces-round-617-div-3-or-ti-jie">Codeforces Round #617 (Div. 3) | 题解</a>
-        <a class="nav-mobile-next" title="Codeforces Round #617 (Div. 3) | 题解" href="https://8421BCD.github.io/post/codeforces-round-617-div-3-or-ti-jie">下一篇</a>
+        <a class="nav-pc-next" title="Halloween Costumes LightOJ - 1422 " href="https://8421BCD.github.io/post/halloween-costumes-lightoj-1422">Halloween Costumes LightOJ - 1422 </a>
+        <a class="nav-mobile-next" title="Halloween Costumes LightOJ - 1422 " href="https://8421BCD.github.io/post/halloween-costumes-lightoj-1422">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
