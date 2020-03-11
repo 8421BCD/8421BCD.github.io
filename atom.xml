@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-03-11T08:07:17.440Z</updated>
+    <updated>2020-03-11T12:17:09.566Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -10,6 +10,157 @@
     <logo>https://8421BCD.github.io/images/avatar.png</logo>
     <icon>https://8421BCD.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
+    <entry>
+        <title type="html"><![CDATA[Dynamic Rankings ZOJ - 2112 | 动态区间第k大->主席树 + 树状数组]]></title>
+        <id>https://8421BCD.github.io/post/dynamic-rankings-zoj-2112-or-dong-tai-qu-jian-di-k-da-greaterzhu-xi-shu-shu-zhuang-shu-zu</id>
+        <link href="https://8421BCD.github.io/post/dynamic-rankings-zoj-2112-or-dong-tai-qu-jian-di-k-da-greaterzhu-xi-shu-shu-zhuang-shu-zu">
+        </link>
+        <updated>2020-03-11T12:15:17.000Z</updated>
+        <content type="html"><![CDATA[<!--more-->
+<p><strong>题意：</strong></p>
+<p><strong>分析：</strong><br>
+-used数组存储接下来树状数组求和要用到的结点编号<br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+//typedef __int128 lll;
+#define print(i) cout &lt;&lt; &quot;debug: &quot; &lt;&lt; i &lt;&lt; endl
+#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
+#define mem(a, b) memset(a, b, sizeof(a))
+const ll mod = 1e9 + 7;
+const int maxn = 1e5;
+const int inf = 0x3f3f3f3f;
+struct node
+{
+    int lson, rson, num;
+}t[maxn &lt;&lt; 6];
+struct node1
+{
+    int kind;
+    int l, r, k;
+    int pos, val;
+}buf[maxn];
+int n, q;
+int root[maxn], tot, num;
+int v[maxn], sorted[maxn];
+int used[maxn], groot[maxn];
+
+void init()
+{
+    tot = 0;
+}
+int getid(int x)
+{
+    return lower_bound(sorted + 1, sorted + 1 + num, x) - sorted;
+}
+
+int lowbit(int x)
+{
+    return x &amp; (-x);
+}
+
+int build(int l, int r)
+{
+    int tar = tot++;
+    t[tar].num = 0;
+    if(l &lt; r)
+    {
+        int mid = l + r &gt;&gt; 1;
+        t[tar].lson = build(l, mid), t[tar].rson = build(mid + 1, r);
+    }
+    return tar;
+}
+
+int update(int pre, int val, int num, int l, int r)
+{
+    int tar = tot++;
+    t[tar] = t[pre], t[tar].num += num;
+    if(l &lt; r)
+    {
+        int mid = l + r &gt;&gt; 1;
+        if(val &lt;= mid) t[tar].lson = update(t[pre].lson, val, num, l, mid);
+        else t[tar].rson = update(t[pre].rson, val, num, mid + 1, r);
+    }
+    return tar;
+}
+
+int update1(int pos, int val)
+{
+    for(int i = pos; i &lt;= n; i += lowbit(i)) groot[i] = update(groot[i], getid(v[pos]), -1, 1, num);
+    for(int i = pos; i &lt;= n; i += lowbit(i)) groot[i] = update(groot[i], getid(val), 1, 1, num);
+    v[pos] = val;
+}
+
+int query(int gl, int gr, int pre, int tar, int k, int l, int r)
+{
+    if(l == r) return l;
+    int res = t[t[tar].lson].num - t[t[pre].lson].num;
+    for(int i = gr; i &gt;= 1; i -= lowbit(i)) res += t[t[used[i]].lson].num;
+    for(int i = gl; i &gt;= 1; i -= lowbit(i)) res -= t[t[used[i]].lson].num;
+    int mid = l + r &gt;&gt; 1;
+    if(res &gt;= k)
+    {
+        for(int i = gr; i &gt;= 1; i -= lowbit(i)) used[i] = t[used[i]].lson;
+        for(int i = gl; i &gt;= 1; i -= lowbit(i)) used[i] = t[used[i]].lson;
+        return query(gl, gr, t[pre].lson, t[tar].lson, k, l, mid);
+    }
+    else
+    {
+        for(int i = gr; i &gt;= 1; i-= lowbit(i)) used[i] = t[used[i]].rson;
+        for(int i = gl; i &gt;= 1; i -= lowbit(i)) used[i] = t[used[i]].rson;
+        return query(gl, gr, t[pre].rson, t[tar].rson, k - res, mid + 1, r);
+    }
+}
+
+int main()
+{
+   int t; cin &gt;&gt; t;
+   while(t--)
+   {
+       init();
+       cin &gt;&gt; n &gt;&gt; q;
+       for(int i = 1; i &lt;= n; i++) cin &gt;&gt; v[i], sorted[i] = v[i];
+       int cnt = n;
+       for(int i = 1; i &lt;= q; i++)
+       {
+           char ope[10]; cin &gt;&gt; ope;
+           if(ope[0] == 'Q')
+           {
+               buf[i].kind = 0;
+               cin &gt;&gt; buf[i].l &gt;&gt; buf[i].r &gt;&gt; buf[i].k;
+           }
+           else
+           {
+               buf[i].kind = 1;
+               cin &gt;&gt; buf[i].pos &gt;&gt; buf[i].val;
+               sorted[++cnt] = buf[i].val;
+           }
+       }
+       sort(sorted + 1, sorted + 1 + cnt);
+       num = unique(sorted + 1, sorted + 1 + cnt) - sorted - 1;
+       root[0] = build(1, num);
+       for(int i = 1; i &lt;= n; i++) root[i] = update(root[i - 1], getid(v[i]), 1, 1, num);
+       for(int i = 1; i &lt;= n; i++) groot[i] = root[0];
+       for(int i = 1; i &lt;= q; i++)
+       {
+           if(buf[i].kind == 0)
+           {
+               for(int j = buf[i].l - 1; j &gt;= 1; j -= lowbit(j)) used[j] = groot[j];
+               for(int j = buf[i].r; j &gt;= 1; j -= lowbit(j)) used[j] = groot[j];
+               int res = query(buf[i].l - 1, buf[i].r, root[buf[i].l - 1], root[buf[i].r], buf[i].k, 1, num);
+               cout &lt;&lt; sorted[res] &lt;&lt; endl;
+           }
+           else
+           {
+               update1(buf[i].pos, buf[i].val);
+           }
+       }
+   }
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[数据结构小作业-串模式匹配 | C++文件流读写]]></title>
         <id>https://8421BCD.github.io/post/shu-ju-jie-gou-xiao-zuo-ye-chuan-mo-shi-pi-pei-or-cwen-jian-liu-du-xie</id>
@@ -210,7 +361,7 @@ int main()
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[To the moon HDU - 4348 | 主席树套线段树（区间修改区间查询）]]></title>
+        <title type="html"><![CDATA[To the moon HDU - 4348 | 主席树套线段树（区间修改区间求和）]]></title>
         <id>https://8421BCD.github.io/post/to-the-moon-hdu-4348-or-zhu-xi-shu-tao-xian-duan-shu</id>
         <link href="https://8421BCD.github.io/post/to-the-moon-hdu-4348-or-zhu-xi-shu-tao-xian-duan-shu">
         </link>
@@ -986,273 +1137,6 @@ int main()
 	solve(1, n);
 	for(int i = 1; i &lt;= n; i++)
 		printf(&quot;%lld%c&quot;, res[i], i == n ? '\n' : ' ');
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[数据结构课设小作业 | 成绩管理系统]]></title>
-        <id>https://8421BCD.github.io/post/shu-ju-jie-gou-ke-she-xiao-zuo-ye-or-cheng-ji-guan-li-xi-tong</id>
-        <link href="https://8421BCD.github.io/post/shu-ju-jie-gou-ke-she-xiao-zuo-ye-or-cheng-ji-guan-li-xi-tong">
-        </link>
-        <updated>2020-02-23T07:43:37.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-cpp">#include &lt;cstring&gt;
-#include &lt;string&gt;
-#include &lt;iostream&gt;
-#include &lt;algorithm&gt;
-#include &lt;cstdlib&gt;
-using namespace std;
-#define LIST_INIT_SIZE 1000
-#define LISTINCREMENT 100
-struct student
-{
-	char id[100];
-	char name[100];
-	char gender[100];
-	int age;
-	int score;
-	bool operator&lt; (const student&amp; b)
-	{
-		return strcmp(id, b.id) &lt; 0;
-	}
-	//student(char a[], char b[], char c[], int d, int e) : id(a), name(b), gender(c), age(d), score(e) {}
-};
-typedef struct
-{
-	student* base;
-	int length;
-	int listsize;
-}SqList;
-
-void IniList(SqList* l)
-{
-	l-&gt;base = (student*)malloc(LIST_INIT_SIZE * sizeof(student));
-	l-&gt;length = 0, l-&gt;listsize = LIST_INIT_SIZE;
-}
-
-void showinf(student s)
-{
-	cout &lt;&lt; s.id &lt;&lt; &quot; &quot; &lt;&lt; s.name &lt;&lt; &quot; &quot; &lt;&lt; s.gender &lt;&lt; &quot; &quot; &lt;&lt; s.age &lt;&lt; &quot; &quot; &lt;&lt; s.score &lt;&lt; endl;
-}
-
-void showallinf(SqList* l)
-{
-	cout &lt;&lt; &quot;准考证号&quot; &lt;&lt; &quot; &quot; &lt;&lt; &quot;姓名&quot; &lt;&lt; &quot; &quot; &lt;&lt; &quot;性别&quot; &lt;&lt; &quot; &quot; &lt;&lt; &quot;年龄&quot; &lt;&lt; &quot; &quot; &lt;&lt; &quot;成绩&quot; &lt;&lt; endl;
-	for (int i = 0; i &lt; l-&gt;length; i++)
-		showinf(l-&gt;base[i]);
-}
-
-SqList* loadinf()
-{
-	SqList* l = (SqList*)malloc(sizeof(SqList));
-	IniList(l);
-	FILE* p = fopen(&quot;score.txt&quot;, &quot;r&quot;);
-	if (!p) exit(0);
-	char buf[1000];
-	while (fgets(buf, 100, p))
-	{
-		char a[100], b[100], c[100];
-		int d;
-		int e;
-		sscanf(buf, &quot;%s %s %s %d %d&quot;, a, b, c, &amp;d, &amp;e);
-		student stu;
-		strcpy(stu.id, a), strcpy(stu.name, b), strcpy(stu.gender, c), stu.age = d, stu.score = e;
-		l-&gt;base[l-&gt;length++] = stu;
-		if (l-&gt;length == l-&gt;listsize) l-&gt;base = (student*)realloc(l-&gt;base, (l-&gt;listsize + LISTINCREMENT) * sizeof(student));
-	}
-	fclose(p);
-	return l;
-}
-void writeinf(SqList* l)
-{
-	FILE* p = fopen(&quot;score.txt&quot;, &quot;w&quot;);
-	char buf[1000];
-
-	for (int i = 0; i &lt; l-&gt;length; i++)
-	{
-		sprintf(buf, &quot;%s %s %s %d %d\n&quot;, l-&gt;base[i].id, l-&gt;base[i].name, l-&gt;base[i].gender, l-&gt;base[i].age, l-&gt;base[i].score);
-		fputs(buf, p);
-	}
-	fclose(p);
-}
-
-int exist(SqList* l, char id[])//检查文件中是否已经存在考号为id的学生
-{
-	for (int i = 0; i &lt; l-&gt;length; i++)
-		if (strcmp(l-&gt;base[i].id, id) == 0)
-			return i;
-	return -1;
-}
-
-void Add()//添加学生
-{
-	SqList* l = loadinf();
-	cout &lt;&lt; &quot;请输入学生信息&quot; &lt;&lt; endl;
-	char a[100], b[100], c[100];
-	int d;
-	int e;
-	cout &lt;&lt; &quot;准考证号：&quot;; cin &gt;&gt; a;
-	cout &lt;&lt; &quot;姓名：&quot;; cin &gt;&gt; b;
-	cout &lt;&lt; &quot;性别：&quot;; cin &gt;&gt; c;
-	cout &lt;&lt; &quot;年龄：&quot;; cin &gt;&gt; d;
-	cout &lt;&lt; &quot;成绩：&quot;; cin &gt;&gt; e;
-	student stu;
-	strcpy(stu.id, a), strcpy(stu.name, b), strcpy(stu.gender, c), stu.age = d, stu.score = e;
-
-	if (exist(l, stu.id) != -1) { cout &lt;&lt; &quot;该学生已存在！&quot; &lt;&lt; endl; return; }
-	if (l-&gt;length == l-&gt;listsize) l-&gt;base = (student*)realloc(l, (LIST_INIT_SIZE + LISTINCREMENT) * sizeof(student));
-	l-&gt;base[l-&gt;length++] = stu;
-	sort(l-&gt;base, l-&gt;base + l-&gt;length);
-	cout &lt;&lt; &quot;添加成功&quot; &lt;&lt; endl;
-	writeinf(l);
-}
-
-void edit()//编辑学生
-{
-	SqList* l = loadinf();
-	char id[100];
-	cout &lt;&lt; &quot;请输入编辑学生的id&quot; &lt;&lt; endl; cin &gt;&gt; id;
-	if (exist(l, id) == -1) { cout &lt;&lt; &quot;该学生不存在，无法修改&quot; &lt;&lt; endl; }
-	else
-	{
-		for (int i = 0; i &lt; l-&gt;length; i++)
-			if (strcmp(l-&gt;base[i].id, id) == 0)
-			{
-				cout &lt;&lt; &quot;请输入修改后的学生信息:&quot; &lt;&lt; endl;
-				char name[100], gender[100];
-				int age;
-				int score;
-				cout &lt;&lt; &quot;姓名:&quot;; cin &gt;&gt; name;
-				cout &lt;&lt; &quot;性别:&quot;; cin &gt;&gt; gender;
-				cout &lt;&lt; &quot;年龄:&quot;; cin &gt;&gt; age;
-				cout &lt;&lt; &quot;成绩:&quot;; cin &gt;&gt; score;
-				student stu;
-				strcpy(stu.id, id), strcpy(stu.name, name), strcpy(stu.gender, gender), stu.age = age, stu.score = score;
-				l-&gt;base[i] = stu;
-				cout &lt;&lt; &quot;添加成功：&quot; &lt;&lt; endl;
-				cout &lt;&lt; &quot;该学生的信息如下：&quot; &lt;&lt; endl;
-				showinf(l-&gt;base[i]);
-				break;
-			}
-	}
-	writeinf(l);
-}
-void Delete()//删除学生
-{
-	SqList* l = loadinf();
-	char id[100];
-	cout &lt;&lt; &quot;学生信息如下：&quot; &lt;&lt; endl;
-	showallinf(l);
-	cout &lt;&lt; &quot;请输入删除学生的id&quot; &lt;&lt; endl; cin &gt;&gt; id;
-	int pos;
-	if ((pos = exist(l, id)) == -1) { cout &lt;&lt; &quot;该学生不存在，无法删除！&quot; &lt;&lt; endl; }
-	else
-	{
-		for (int i = pos + 1; i &lt; l-&gt;length; i++)
-			l-&gt;base[i - 1] = l-&gt;base[i];
-		cout &lt;&lt; &quot;删除成功&quot; &lt;&lt; endl;
-		l-&gt;length--;
-		showallinf(l);
-	}
-	writeinf(l);
-}
-
-void save(SqList* l)
-{
-	FILE* p = fopen(&quot;result.txt&quot;, &quot;w&quot;);
-	char buf[1000];
-
-	for (int i = 0; i &lt; l-&gt;length; i++)
-	{
-		sprintf(buf, &quot;%s %s %s %d %d\n&quot;, l-&gt;base[i].id, l-&gt;base[i].name, l-&gt;base[i].gender, l-&gt;base[i].age, l-&gt;base[i].score);
-		fputs(buf, p);
-	}
-	fclose(p);
-	cout &lt;&lt; &quot;查询结果导出成功&quot; &lt;&lt; endl;
-}
-
-void search(int ope) //0 - 模糊  1 - 精确
-{
-	SqList l;
-	IniList(&amp;l);
-	FILE* p = fopen(&quot;score.txt&quot;, &quot;r&quot;);
-	if (!p) exit(0);
-	char buf[1000];
-	char tar[100];
-
-	cout &lt;&lt; &quot;请输入姓名关键词&quot; &lt;&lt; endl;
-	cin &gt;&gt; tar;
-	while (fgets(buf, 1000, p))
-	{
-		char id[100], name[100], gender[100];
-		int age;
-		int score;
-		sscanf(buf, &quot;%s %s %s %d %d&quot;, id, name, gender, &amp;age, &amp;score);
-
-		if (!ope &amp;&amp; strstr(name, tar) != NULL || ope &amp;&amp; strcmp(name, tar) == 0)
-		{
-			student stu;
-			strcpy(stu.id, id), strcpy(stu.name, name), strcpy(stu.gender, gender), stu.age = age, stu.score = score;
-			l.base[l.length++] = stu;
-			if (l.length == l.listsize) l.base = (student*)realloc(l.base, (l.listsize + LISTINCREMENT) * sizeof(student));
-		}
-	}
-	if (!l.length) { cout &lt;&lt; &quot;查询结果为空&quot; &lt;&lt; endl; }
-	else
-	{
-		cout &lt;&lt; &quot;查询结果如下:&quot; &lt;&lt; endl;
-		showallinf(&amp;l);
-	}
-	cout &lt;&lt; &quot;是否保存为excel文件？(是/否)&quot;;
-	string s; cin &gt;&gt; s;
-	if (s == &quot;是&quot;) save(&amp;l);
-
-}
-
-bool menu()
-{
-	cout &lt;&lt; &quot;***学生成绩管理系统***&quot; &lt;&lt; endl;
-	cout &lt;&lt; &quot;0、退出系统&quot; &lt;&lt; endl;
-	cout &lt;&lt; &quot;1、添加学生信息&quot; &lt;&lt; endl;
-	cout &lt;&lt; &quot;2、编辑学生信息&quot; &lt;&lt; endl;
-	cout &lt;&lt; &quot;3、删除学生信息&quot; &lt;&lt; endl;
-	cout &lt;&lt; &quot;4、精确查询学生信息&quot; &lt;&lt; endl;
-	cout &lt;&lt; &quot;5、模糊查询学生信息&quot; &lt;&lt; endl;
-	cout &lt;&lt; &quot;6、显示全部学生&quot; &lt;&lt; endl;
-	cout &lt;&lt; &quot;请输入操作序号&quot; &lt;&lt; endl;
-	int ope; cin &gt;&gt; ope;
-	switch (ope)
-	{
-	case 0:
-		return false;
-	case 1:
-		Add();
-		break;
-	case 2:
-		edit();
-		break;
-	case 3:
-		Delete();
-		break;
-	case 4:
-		search(1);
-		break;
-	case 5:
-		search(0);
-		break;
-	case 6:
-		SqList * l = loadinf();
-		showallinf(l);
-		break;
-	}
-	system(&quot;pause&quot;);
-	system(&quot;cls&quot;);
-	return true;
-}
-
-int main()
-{
-	while (menu());
 }
 </code></pre>
 ]]></content>
