@@ -7,7 +7,7 @@
 <meta name="description" content="不需要外界告诉自己自己的价值是什么">
 <meta name="theme-color" content="#000">
 <title>Halloween Costumes LightOJ - 1422 | 区间dp | Wannafly</title>
-<link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1583932380353">
+<link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1583971853094">
 <link rel="stylesheet" href="https://8421BCD.github.io//styles/main.css">
 
 <link rel="stylesheet" href="/media/css/pisces.css">
@@ -304,10 +304,12 @@
 <p><strong>题意：</strong><br>
 小灰灰参加圣诞节的一些派对，并且需要穿上对应派对的衣服，所以他需要多次换衣服，为了方便，他可以选择脱掉一些衣服或者穿上新衣服，比如说，他穿着超人的衣服，外面又穿着死侍的衣服，当他要参加超人服装派对时，他可以选择脱掉死侍的衣服（因为死侍衣服的里面有超人的衣服），或者他可以在穿一件超人的衣服，小灰灰是个爱干净的人，当他脱下死侍的衣服后，如果需要再穿死侍的衣服，他会选择再穿一件新的。（如果他先穿A衣服，又穿上B衣服，再穿一件C衣服，如果他想让最外面的衣服是A，他可以选择直接穿一件A，或者先把C脱掉，再把B脱掉）。<br>
 <strong>分析：</strong><br>
-对于[i, j]， 对j进行分类讨论：<br>
--j穿的衣服是新的, dp[i][j] = dp[i][j - 1] + 1<br>
--j穿的衣服是旧的，则<strong>最近一次穿</strong>一定是由[i, j - 1]中跟j相同的元素转移过来的，详见代码。（最近一次穿是理解转移的关键）<br>
-<strong>代码：</strong></p>
+对于[i, j]， 对j进行分类讨论：</p>
+<ul>
+<li>j穿的衣服是新的, dp[i][j] = dp[i][j - 1] + 1</li>
+<li>j穿的衣服是旧的，则<strong>最近一次穿</strong>一定是由[i, j - 1]中跟j相同的元素转移过来的，详见代码。（最近一次穿是理解转移的关键）<br>
+<strong>代码：</strong></li>
+</ul>
 <pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
 using namespace std;
 typedef long long ll;
