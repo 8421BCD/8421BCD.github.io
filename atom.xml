@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://localhost:4000</id>
+    <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-03-15T05:14:41.683Z</updated>
+    <updated>2020-03-15T12:47:05.218Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="http://localhost:4000"/>
-    <link rel="self" href="http://localhost:4000/atom.xml"/>
+    <link rel="alternate" href="https://8421BCD.github.io/"/>
+    <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
     <subtitle>不需要外界告诉自己自己的价值是什么</subtitle>
-    <logo>http://localhost:4000/images/avatar.png</logo>
-    <icon>http://localhost:4000/favicon.ico</icon>
+    <logo>https://8421BCD.github.io/images/avatar.png</logo>
+    <icon>https://8421BCD.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
     <entry>
         <title type="html"><![CDATA[codeforces树和构造算法题目集]]></title>
-        <id>http://localhost:4000/post/codeforces-shu-he-gou-zao-suan-fa-ti-mu-ji</id>
-        <link href="http://localhost:4000/post/codeforces-shu-he-gou-zao-suan-fa-ti-mu-ji">
+        <id>https://8421BCD.github.io/post/codeforces-shu-he-gou-zao-suan-fa-ti-mu-ji</id>
+        <link href="https://8421BCD.github.io/post/codeforces-shu-he-gou-zao-suan-fa-ti-mu-ji">
         </link>
         <updated>2020-03-15T04:10:48.000Z</updated>
         <content type="html"><![CDATA[<ol>
@@ -821,8 +821,8 @@ if __name__ == '__main__':
     </entry>
     <entry>
         <title type="html"><![CDATA[Halloween Costumes LightOJ - 1422 | 区间dp]]></title>
-        <id>http://localhost:4000/post/halloween-costumes-lightoj-1422-or-qu-jian-dp</id>
-        <link href="http://localhost:4000/post/halloween-costumes-lightoj-1422-or-qu-jian-dp">
+        <id>https://8421BCD.github.io/post/halloween-costumes-lightoj-1422-or-qu-jian-dp</id>
+        <link href="https://8421BCD.github.io/post/halloween-costumes-lightoj-1422-or-qu-jian-dp">
         </link>
         <updated>2020-03-11T12:58:03.000Z</updated>
         <summary type="html"><![CDATA[<p>区间dp的关键就是分好类</p>
@@ -884,8 +884,8 @@ int main()
     </entry>
     <entry>
         <title type="html"><![CDATA[Halloween Costumes LightOJ - 1422 ]]></title>
-        <id>http://localhost:4000/post/halloween-costumes-lightoj-1422</id>
-        <link href="http://localhost:4000/post/halloween-costumes-lightoj-1422">
+        <id>https://8421BCD.github.io/post/halloween-costumes-lightoj-1422</id>
+        <link href="https://8421BCD.github.io/post/halloween-costumes-lightoj-1422">
         </link>
         <updated>2020-03-11T12:58:03.000Z</updated>
         <summary type="html"><![CDATA[<p>区间dp的关键就是分好类</p>
@@ -945,8 +945,8 @@ int main()
     </entry>
     <entry>
         <title type="html"><![CDATA[Dynamic Rankings ZOJ - 2112 | 动态区间第k大->主席树 + 树状数组]]></title>
-        <id>http://localhost:4000/post/dynamic-rankings-zoj-2112-or-dong-tai-qu-jian-di-k-da-greaterzhu-xi-shu-shu-zhuang-shu-zu</id>
-        <link href="http://localhost:4000/post/dynamic-rankings-zoj-2112-or-dong-tai-qu-jian-di-k-da-greaterzhu-xi-shu-shu-zhuang-shu-zu">
+        <id>https://8421BCD.github.io/post/dynamic-rankings-zoj-2112-or-dong-tai-qu-jian-di-k-da-greaterzhu-xi-shu-shu-zhuang-shu-zu</id>
+        <link href="https://8421BCD.github.io/post/dynamic-rankings-zoj-2112-or-dong-tai-qu-jian-di-k-da-greaterzhu-xi-shu-shu-zhuang-shu-zu">
         </link>
         <updated>2020-03-11T12:15:17.000Z</updated>
         <content type="html"><![CDATA[<!--more-->
@@ -1096,8 +1096,8 @@ int main()
     </entry>
     <entry>
         <title type="html"><![CDATA[数据结构小作业-串模式匹配 | C++文件流读写]]></title>
-        <id>http://localhost:4000/post/shu-ju-jie-gou-xiao-zuo-ye-chuan-mo-shi-pi-pei-or-cwen-jian-liu-du-xie</id>
-        <link href="http://localhost:4000/post/shu-ju-jie-gou-xiao-zuo-ye-chuan-mo-shi-pi-pei-or-cwen-jian-liu-du-xie">
+        <id>https://8421BCD.github.io/post/shu-ju-jie-gou-xiao-zuo-ye-chuan-mo-shi-pi-pei-or-cwen-jian-liu-du-xie</id>
+        <link href="https://8421BCD.github.io/post/shu-ju-jie-gou-xiao-zuo-ye-chuan-mo-shi-pi-pei-or-cwen-jian-liu-du-xie">
         </link>
         <updated>2020-03-11T07:51:54.000Z</updated>
         <content type="html"><![CDATA[<pre><code class="language-cpp">#include &lt;iostream&gt;
@@ -1236,8 +1236,8 @@ int main()
     </entry>
     <entry>
         <title type="html"><![CDATA[Array Shrinking CodeForces - 1312E | 区间dp]]></title>
-        <id>http://localhost:4000/post/array-shrinking-codeforces-1312e-or-qu-jian-dp</id>
-        <link href="http://localhost:4000/post/array-shrinking-codeforces-1312e-or-qu-jian-dp">
+        <id>https://8421BCD.github.io/post/array-shrinking-codeforces-1312e-or-qu-jian-dp</id>
+        <link href="https://8421BCD.github.io/post/array-shrinking-codeforces-1312e-or-qu-jian-dp">
         </link>
         <updated>2020-03-10T10:42:17.000Z</updated>
         <summary type="html"><![CDATA[<p>首蓝不易。</p>
@@ -1295,8 +1295,8 @@ int main()
     </entry>
     <entry>
         <title type="html"><![CDATA[To the moon HDU - 4348 | 主席树套线段树（区间修改区间求和）]]></title>
-        <id>http://localhost:4000/post/to-the-moon-hdu-4348-or-zhu-xi-shu-tao-xian-duan-shu</id>
-        <link href="http://localhost:4000/post/to-the-moon-hdu-4348-or-zhu-xi-shu-tao-xian-duan-shu">
+        <id>https://8421BCD.github.io/post/to-the-moon-hdu-4348-or-zhu-xi-shu-tao-xian-duan-shu</id>
+        <link href="https://8421BCD.github.io/post/to-the-moon-hdu-4348-or-zhu-xi-shu-tao-xian-duan-shu">
         </link>
         <updated>2020-03-08T00:29:36.000Z</updated>
         <summary type="html"><![CDATA[<p>主席树套线段数模板</p>
@@ -1411,8 +1411,8 @@ int main()
     </entry>
     <entry>
         <title type="html"><![CDATA[BCD Code ZOJ - 3494 | AC自动机 + 数位dp]]></title>
-        <id>http://localhost:4000/post/bcd-code-zoj-3494-or-ac-zi-dong-ji-shu-wei-dp</id>
-        <link href="http://localhost:4000/post/bcd-code-zoj-3494-or-ac-zi-dong-ji-shu-wei-dp">
+        <id>https://8421BCD.github.io/post/bcd-code-zoj-3494-or-ac-zi-dong-ji-shu-wei-dp</id>
+        <link href="https://8421BCD.github.io/post/bcd-code-zoj-3494-or-ac-zi-dong-ji-shu-wei-dp">
         </link>
         <updated>2020-03-06T13:27:10.000Z</updated>
         <summary type="html"><![CDATA[<p>初始化函数又忘了在主函数写，debug到永远。。。。</p>
@@ -1571,8 +1571,8 @@ int main()
     </entry>
     <entry>
         <title type="html"><![CDATA[Strings in the Pocket ZOJ - 4110 | manacher算法]]></title>
-        <id>http://localhost:4000/post/strings-in-the-pocket-zoj-4110-or-manacher-suan-fa</id>
-        <link href="http://localhost:4000/post/strings-in-the-pocket-zoj-4110-or-manacher-suan-fa">
+        <id>https://8421BCD.github.io/post/strings-in-the-pocket-zoj-4110-or-manacher-suan-fa</id>
+        <link href="https://8421BCD.github.io/post/strings-in-the-pocket-zoj-4110-or-manacher-suan-fa">
         </link>
         <updated>2020-03-02T10:35:57.000Z</updated>
         <summary type="html"><![CDATA[<p>第一道马拉车的题。。纪念一下花了一个小时学的🐎拉🚗算法</p>
@@ -1657,8 +1657,8 @@ int main()
     </entry>
     <entry>
         <title type="html"><![CDATA[Monitor HDU - 6514 | 二维差分]]></title>
-        <id>http://localhost:4000/post/monitor-hdu-6514-or-er-wei-chai-fen</id>
-        <link href="http://localhost:4000/post/monitor-hdu-6514-or-er-wei-chai-fen">
+        <id>https://8421BCD.github.io/post/monitor-hdu-6514-or-er-wei-chai-fen</id>
+        <link href="https://8421BCD.github.io/post/monitor-hdu-6514-or-er-wei-chai-fen">
         </link>
         <updated>2020-02-29T11:09:35.000Z</updated>
         <summary type="html"><![CDATA[<p>TMD找bug找了一万年。。。一直re，跟题解对了2个小时md。<br>
