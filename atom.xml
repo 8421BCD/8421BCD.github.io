@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-03-12T00:13:25.479Z</updated>
+    <updated>2020-03-15T04:51:44.840Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -10,6 +10,242 @@
     <logo>https://8421BCD.github.io/images/avatar.png</logo>
     <icon>https://8421BCD.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
+    <entry>
+        <title type="html"><![CDATA[codeforces树和构造算法题目集]]></title>
+        <id>https://8421BCD.github.io/post/codeforces-shu-he-gou-zao-suan-fa-ti-mu-ji</id>
+        <link href="https://8421BCD.github.io/post/codeforces-shu-he-gou-zao-suan-fa-ti-mu-ji">
+        </link>
+        <updated>2020-03-15T04:10:48.000Z</updated>
+        <content type="html"><![CDATA[<ol>
+<li>http://codeforces.com/contest/1325/problem/C  tags:['constructive algorithms', 'dfs and similar', 'trees']  rating:None</li>
+<li>http://codeforces.com/contest/1324/problem/F  tags:['dfs and similar', 'dp', 'graphs', 'trees']  rating:2000</li>
+<li>http://codeforces.com/contest/1305/problem/D  tags:['constructive algorithms', 'dfs and similar', 'interactive', 'trees']  rating:1900</li>
+<li>http://codeforces.com/contest/1297/problem/E  tags:['*special', 'dfs and similar', 'trees']  rating:None</li>
+<li>http://codeforces.com/contest/1304/problem/E  tags:['data structures', 'dfs and similar', 'shortest paths', 'trees']  rating:2000</li>
+<li>http://codeforces.com/contest/1294/problem/F  tags:['dfs and similar', 'dp', 'greedy', 'trees']  rating:2100</li>
+<li>http://codeforces.com/contest/1292/problem/C  tags:['combinatorics', 'dfs and similar', 'dp', 'greedy', 'trees']  rating:2300</li>
+<li>http://codeforces.com/contest/1285/problem/E  tags:['brute force', 'constructive algorithms', 'data structures', 'dp', 'graphs', 'sortings', 'trees', 'two pointers']  rating:2300</li>
+<li>http://codeforces.com/contest/1285/problem/D  tags:['bitmasks', 'brute force', 'dfs and similar', 'divide and conquer', 'dp', 'greedy', 'strings', 'trees']  rating:1800</li>
+<li>http://codeforces.com/contest/1286/problem/B  tags:['constructive algorithms', 'data structures', 'dfs and similar', 'graphs', 'greedy', 'trees']  rating:2000</li>
+<li>http://codeforces.com/contest/1278/problem/E  tags:['constructive algorithms', 'dfs and similar', 'divide and conquer', 'trees']  rating:2200</li>
+<li>http://codeforces.com/contest/1278/problem/D  tags:['data structures', 'dsu', 'graphs', 'trees']  rating:2100</li>
+<li>http://codeforces.com/contest/1280/problem/C  tags:['dfs and similar', 'graphs', 'greedy', 'trees']  rating:2000</li>
+<li>http://codeforces.com/contest/1245/problem/D  tags:['dsu', 'graphs', 'greedy', 'shortest paths', 'trees']  rating:1900</li>
+<li>http://codeforces.com/contest/1244/problem/D  tags:['brute force', 'constructive algorithms', 'dp', 'graphs', 'implementation', 'trees']  rating:1700</li>
+<li>http://codeforces.com/contest/1238/problem/F  tags:['dfs and similar', 'dp', 'graphs', 'trees']  rating:2300</li>
+<li>http://codeforces.com/contest/1223/problem/E  tags:['dp', 'sortings', 'trees']  rating:2200</li>
+<li>http://codeforces.com/contest/1210/problem/C  tags:['math', 'number theory', 'trees']  rating:2100</li>
+<li>http://codeforces.com/contest/1220/problem/E  tags:['dfs and similar', 'dp', 'dsu', 'graphs', 'greedy', 'trees']  rating:2200</li>
+<li>http://codeforces.com/contest/1214/problem/E  tags:['constructive algorithms', 'graphs', 'math', 'sortings', 'trees']  rating:2000</li>
+<li>http://codeforces.com/contest/1213/problem/G  tags:['divide and conquer', 'dsu', 'graphs', 'sortings', 'trees']  rating:2000</li>
+<li>http://codeforces.com/contest/1193/problem/B  tags:['*special', 'data structures', 'dp', 'trees']  rating:None</li>
+<li>http://codeforces.com/contest/1192/problem/B  tags:['*special', 'data structures', 'dfs and similar', 'divide and conquer', 'trees']  rating:None</li>
+<li>http://codeforces.com/contest/1184/problem/E2  tags:['dfs and similar', 'graphs', 'shortest paths', 'trees']  rating:2200</li>
+<li>http://codeforces.com/contest/1184/problem/E1  tags:['graphs', 'trees']  rating:2000</li>
+<li>http://codeforces.com/contest/1188/problem/A1  tags:['trees']  rating:1600</li>
+<li>http://codeforces.com/contest/1187/problem/E  tags:['dfs and similar', 'dp', 'trees']  rating:2000</li>
+<li>http://codeforces.com/contest/1181/problem/D  tags:['binary search', 'data structures', 'implementation', 'sortings', 'trees', 'two pointers']  rating:2100</li>
+<li>http://codeforces.com/contest/1176/problem/E  tags:['dfs and similar', 'dsu', 'graphs', 'shortest paths', 'trees']  rating:1700</li>
+<li>http://codeforces.com/contest/1172/problem/B  tags:['combinatorics', 'dfs and similar', 'dp', 'trees']  rating:2000</li>
+<li>http://codeforces.com/contest/1175/problem/E  tags:['data structures', 'dfs and similar', 'divide and conquer', 'dp', 'greedy', 'implementation', 'trees']  rating:2200</li>
+<li>http://codeforces.com/contest/1174/problem/F  tags:['constructive algorithms', 'divide and conquer', 'graphs', 'implementation', 'interactive', 'trees']  rating:2300</li>
+<li>http://codeforces.com/contest/1156/problem/D  tags:['dfs and similar', 'divide and conquer', 'dp', 'dsu', 'trees']  rating:2300</li>
+<li>http://codeforces.com/contest/1152/problem/D  tags:['dp', 'greedy', 'trees']  rating:2000</li>
+<li>http://codeforces.com/contest/1153/problem/D  tags:['binary search', 'dfs and similar', 'dp', 'greedy', 'trees']  rating:1800</li>
+<li>http://codeforces.com/contest/1142/problem/B  tags:['data structures', 'dfs and similar', 'dp', 'math', 'trees']  rating:2300</li>
+<li>http://codeforces.com/contest/1139/problem/C  tags:['dfs and similar', 'dsu', 'graphs', 'math', 'trees']  rating:1500</li>
+<li>http://codeforces.com/contest/1118/problem/F1  tags:['dfs and similar', 'trees']  rating:1800</li>
+<li>http://codeforces.com/contest/1101/problem/D  tags:['data structures', 'dfs and similar', 'dp', 'number theory', 'trees']  rating:2000</li>
+<li>http://codeforces.com/contest/1099/problem/F  tags:['binary search', 'data structures', 'dfs and similar', 'dp', 'games', 'trees']  rating:2300</li>
+<li>http://codeforces.com/contest/1098/problem/C  tags:['binary search', 'constructive algorithms', 'dfs and similar', 'graphs', 'greedy', 'trees']  rating:2300</li>
+<li>http://codeforces.com/contest/1098/problem/A  tags:['constructive algorithms', 'dfs and similar', 'greedy', 'trees']  rating:1600</li>
+<li>http://codeforces.com/contest/1085/problem/D  tags:['constructive algorithms', 'implementation', 'trees']  rating:1700</li>
+<li>http://codeforces.com/contest/1092/problem/F  tags:['dfs and similar', 'dp', 'trees']  rating:2100</li>
+<li>http://codeforces.com/contest/1083/problem/A  tags:['data structures', 'dp', 'trees']  rating:1800</li>
+<li>http://codeforces.com/contest/1056/problem/D  tags:['constructive algorithms', 'dfs and similar', 'dp', 'graphs', 'greedy', 'sortings', 'trees']  rating:1600</li>
+<li>http://codeforces.com/contest/1062/problem/E  tags:['binary search', 'data structures', 'dfs and similar', 'greedy', 'trees']  rating:2300</li>
+<li>http://codeforces.com/contest/1076/problem/E  tags:['data structures', 'trees']  rating:1900</li>
+<li>http://codeforces.com/contest/1044/problem/B  tags:['dfs and similar', 'interactive', 'trees']  rating:1900</li>
+<li>http://codeforces.com/contest/1057/problem/A  tags:['*special', 'dfs and similar', 'trees']  rating:1700</li>
+<li>http://codeforces.com/contest/1060/problem/E  tags:['dfs and similar', 'dp', 'trees']  rating:2000</li>
+<li>http://codeforces.com/contest/1051/problem/F  tags:['graphs', 'shortest paths', 'trees']  rating:2300</li>
+<li>http://codeforces.com/contest/1037/problem/D  tags:['dfs and similar', 'graphs', 'shortest paths', 'trees']  rating:1700</li>
+<li>http://codeforces.com/contest/1025/problem/D  tags:['brute force', 'dp', 'math', 'number theory', 'trees']  rating:2000</li>
+<li>http://codeforces.com/contest/1010/problem/D  tags:['dfs and similar', 'graphs', 'implementation', 'trees']  rating:2100</li>
+<li>http://codeforces.com/contest/1006/problem/E  tags:['dfs and similar', 'graphs', 'trees']  rating:1600</li>
+<li>http://codeforces.com/contest/1009/problem/F  tags:['data structures', 'dsu', 'trees']  rating:2300</li>
+<li>http://codeforces.com/contest/1000/problem/E  tags:['dfs and similar', 'graphs', 'trees']  rating:2100</li>
+<li>http://codeforces.com/contest/982/problem/D  tags:['brute force', 'data structures', 'dsu', 'trees']  rating:1900</li>
+<li>http://codeforces.com/contest/982/problem/C  tags:['dfs and similar', 'dp', 'graphs', 'greedy', 'trees']  rating:1500</li>
+<li>http://codeforces.com/contest/979/problem/D  tags:['binary search', 'bitmasks', 'brute force', 'data structures', 'dp', 'dsu', 'greedy', 'math', 'number theory', 'strings', 'trees']  rating:2200</li>
+<li>http://codeforces.com/contest/979/problem/C  tags:['dfs and similar', 'trees']  rating:1600</li>
+<li>http://codeforces.com/contest/980/problem/E  tags:['data structures', 'greedy', 'trees']  rating:2300</li>
+<li>http://codeforces.com/contest/963/problem/B  tags:['constructive algorithms', 'dfs and similar', 'dp', 'greedy', 'trees']  rating:2100</li>
+<li>http://codeforces.com/contest/960/problem/E  tags:['combinatorics', 'dfs and similar', 'divide and conquer', 'dp', 'probabilities', 'trees']  rating:2200</li>
+<li>http://codeforces.com/contest/960/problem/D  tags:['brute force', 'implementation', 'trees']  rating:2100</li>
+<li>http://codeforces.com/contest/959/problem/C  tags:['constructive algorithms', 'trees']  rating:1500</li>
+<li>http://codeforces.com/contest/923/problem/C  tags:['data structures', 'greedy', 'strings', 'trees']  rating:1900</li>
+<li>http://codeforces.com/contest/930/problem/A  tags:['dfs and similar', 'graphs', 'trees']  rating:1500</li>
+<li>http://codeforces.com/contest/932/problem/D  tags:['binary search', 'dp', 'trees']  rating:2200</li>
+<li>http://codeforces.com/contest/901/problem/A  tags:['constructive algorithms', 'trees']  rating:1500</li>
+<li>http://codeforces.com/contest/893/problem/F  tags:['data structures', 'trees']  rating:2300</li>
+<li>http://codeforces.com/contest/894/problem/D  tags:['brute force', 'data structures', 'trees']  rating:2300</li>
+<li>http://codeforces.com/contest/877/problem/E  tags:['bitmasks', 'data structures', 'trees']  rating:2000</li>
+<li>http://codeforces.com/contest/855/problem/C  tags:['dp', 'trees']  rating:2000</li>
+<li>http://codeforces.com/contest/859/problem/E  tags:['combinatorics', 'dfs and similar', 'dsu', 'graphs', 'trees']  rating:2100</li>
+<li>http://codeforces.com/contest/859/problem/D  tags:['dp', 'probabilities', 'trees']  rating:2100</li>
+<li>http://codeforces.com/contest/842/problem/C  tags:['dfs and similar', 'graphs', 'math', 'number theory', 'trees']  rating:2000</li>
+<li>http://codeforces.com/contest/839/problem/C  tags:['dfs and similar', 'dp', 'graphs', 'probabilities', 'trees']  rating:1500</li>
+<li>http://codeforces.com/contest/838/problem/B  tags:['data structures', 'dfs and similar', 'trees']  rating:2100</li>
+<li>http://codeforces.com/contest/832/problem/D  tags:['dfs and similar', 'graphs', 'trees']  rating:1900</li>
+<li>http://codeforces.com/contest/827/problem/B  tags:['constructive algorithms', 'greedy', 'implementation', 'trees']  rating:1800</li>
+<li>http://codeforces.com/contest/821/problem/C  tags:['data structures', 'greedy', 'trees']  rating:1600</li>
+<li>http://codeforces.com/contest/817/problem/E  tags:['bitmasks', 'data structures', 'trees']  rating:2100</li>
+<li>http://codeforces.com/contest/814/problem/D  tags:['dfs and similar', 'dp', 'geometry', 'greedy', 'trees']  rating:2000</li>
+<li>http://codeforces.com/contest/812/problem/E  tags:['games', 'trees']  rating:2200</li>
+<li>http://codeforces.com/contest/802/problem/K  tags:['dp', 'trees']  rating:2100</li>
+<li>http://codeforces.com/contest/802/problem/J  tags:['dfs and similar', 'graphs', 'trees']  rating:1500</li>
+<li>http://codeforces.com/contest/796/problem/D  tags:['constructive algorithms', 'dfs and similar', 'dp', 'graphs', 'shortest paths', 'trees']  rating:2100</li>
+<li>http://codeforces.com/contest/796/problem/C  tags:['constructive algorithms', 'data structures', 'dp', 'trees']  rating:1900</li>
+<li>http://codeforces.com/contest/792/problem/D  tags:['bitmasks', 'trees']  rating:1800</li>
+<li>http://codeforces.com/contest/771/problem/C  tags:['dfs and similar', 'dp', 'trees']  rating:2100</li>
+<li>http://codeforces.com/contest/780/problem/C  tags:['dfs and similar', 'graphs', 'greedy', 'trees']  rating:1500</li>
+<li>http://codeforces.com/contest/767/problem/C  tags:['dfs and similar', 'graphs', 'greedy', 'trees']  rating:2000</li>
+<li>http://codeforces.com/contest/765/problem/E  tags:['dfs and similar', 'dp', 'greedy', 'implementation', 'trees']  rating:2200</li>
+<li>http://codeforces.com/contest/766/problem/E  tags:['bitmasks', 'constructive algorithms', 'data structures', 'dfs and similar', 'dp', 'math', 'trees']  rating:2200</li>
+<li>http://codeforces.com/contest/763/problem/A  tags:['dfs and similar', 'dp', 'dsu', 'graphs', 'implementation', 'trees']  rating:1600</li>
+<li>http://codeforces.com/contest/761/problem/E  tags:['constructive algorithms', 'dfs and similar', 'graphs', 'greedy', 'trees']  rating:2000</li>
+<li>http://codeforces.com/contest/746/problem/G  tags:['constructive algorithms', 'graphs', 'trees']  rating:2100</li>
+<li>http://codeforces.com/contest/743/problem/D  tags:['dfs and similar', 'dp', 'graphs', 'trees']  rating:1800</li>
+<li>http://codeforces.com/contest/739/problem/B  tags:['binary search', 'data structures', 'dfs and similar', 'graphs', 'trees']  rating:2000</li>
+<li>http://codeforces.com/contest/734/problem/E  tags:['dfs and similar', 'dp', 'trees']  rating:2100</li>
+<li>http://codeforces.com/contest/722/problem/D  tags:['binary search', 'data structures', 'dfs and similar', 'greedy', 'strings', 'trees']  rating:1900</li>
+<li>http://codeforces.com/contest/706/problem/D  tags:['binary search', 'bitmasks', 'data structures', 'trees']  rating:1800</li>
+<li>http://codeforces.com/contest/700/problem/B  tags:['dfs and similar', 'dp', 'graphs', 'trees']  rating:2100</li>
+<li>http://codeforces.com/contest/698/problem/B  tags:['constructive algorithms', 'dfs and similar', 'dsu', 'graphs', 'trees']  rating:1700</li>
+<li>http://codeforces.com/contest/696/problem/B  tags:['dfs and similar', 'math', 'probabilities', 'trees']  rating:1800</li>
+<li>http://codeforces.com/contest/696/problem/A  tags:['brute force', 'data structures', 'implementation', 'trees']  rating:1500</li>
+<li>http://codeforces.com/contest/690/problem/C3  tags:['trees']  rating:2200</li>
+<li>http://codeforces.com/contest/690/problem/C2  tags:['dfs and similar', 'graphs', 'trees']  rating:1600</li>
+<li>http://codeforces.com/contest/685/problem/B  tags:['data structures', 'dfs and similar', 'dp', 'trees']  rating:2000</li>
+<li>http://codeforces.com/contest/682/problem/C  tags:['dfs and similar', 'dp', 'graphs', 'trees']  rating:1700</li>
+<li>http://codeforces.com/contest/681/problem/D  tags:['constructive algorithms', 'dfs and similar', 'graphs', 'trees']  rating:2100</li>
+<li>http://codeforces.com/contest/675/problem/D  tags:['data structures', 'trees']  rating:1800</li>
+<li>http://codeforces.com/contest/639/problem/B  tags:['constructive algorithms', 'graphs', 'trees']  rating:1600</li>
+<li>http://codeforces.com/contest/652/problem/E  tags:['dfs and similar', 'dsu', 'graphs', 'trees']  rating:2300</li>
+<li>http://codeforces.com/contest/638/problem/C  tags:['*special', 'dfs and similar', 'graphs', 'greedy', 'trees']  rating:2100</li>
+<li>http://codeforces.com/contest/622/problem/E  tags:['dfs and similar', 'greedy', 'sortings', 'trees']  rating:2300</li>
+<li>http://codeforces.com/contest/618/problem/D  tags:['dfs and similar', 'dp', 'graph matchings', 'greedy', 'trees']  rating:2200</li>
+<li>http://codeforces.com/contest/620/problem/E  tags:['bitmasks', 'data structures', 'trees']  rating:2100</li>
+<li>http://codeforces.com/contest/615/problem/C  tags:['dp', 'greedy', 'strings', 'trees']  rating:1900</li>
+<li>http://codeforces.com/contest/609/problem/E  tags:['data structures', 'dfs and similar', 'dsu', 'graphs', 'trees']  rating:2100</li>
+<li>http://codeforces.com/contest/600/problem/E  tags:['data structures', 'dfs and similar', 'dsu', 'trees']  rating:2300</li>
+<li>http://codeforces.com/contest/599/problem/E  tags:['bitmasks', 'dp', 'trees']  rating:2100</li>
+<li>http://codeforces.com/contest/593/problem/D  tags:['data structures', 'dfs and similar', 'graphs', 'math', 'trees']  rating:2300</li>
+<li>http://codeforces.com/contest/592/problem/D  tags:['dfs and similar', 'dp', 'graphs', 'trees']  rating:2200</li>
+<li>http://codeforces.com/contest/587/problem/C  tags:['data structures', 'trees']  rating:2200</li>
+<li>http://codeforces.com/contest/580/problem/C  tags:['dfs and similar', 'graphs', 'trees']  rating:1500</li>
+<li>http://codeforces.com/contest/576/problem/B  tags:['constructive algorithms', 'dfs and similar', 'greedy', 'trees']  rating:2300</li>
+<li>http://codeforces.com/contest/575/problem/B  tags:['dfs and similar', 'graphs', 'trees']  rating:2300</li>
+<li>http://codeforces.com/contest/566/problem/A  tags:['dfs and similar', 'strings', 'trees']  rating:2300</li>
+<li>http://codeforces.com/contest/543/problem/D  tags:['dp', 'trees']  rating:2300</li>
+<li>http://codeforces.com/contest/538/problem/E  tags:['dfs and similar', 'dp', 'math', 'trees']  rating:2200</li>
+<li>http://codeforces.com/contest/533/problem/B  tags:['dfs and similar', 'dp', 'graphs', 'strings', 'trees']  rating:2000</li>
+<li>http://codeforces.com/contest/522/problem/A  tags:['*special', 'dfs and similar', 'dp', 'graphs', 'trees']  rating:1700</li>
+<li>http://codeforces.com/contest/519/problem/E  tags:['binary search', 'data structures', 'dfs and similar', 'dp', 'trees']  rating:2300</li>
+<li>http://codeforces.com/contest/507/problem/C  tags:['implementation', 'math', 'trees']  rating:1700</li>
+<li>http://codeforces.com/contest/501/problem/C  tags:['constructive algorithms', 'data structures', 'greedy', 'sortings', 'trees']  rating:1700</li>
+<li>http://codeforces.com/contest/500/problem/D  tags:['combinatorics', 'dfs and similar', 'graphs', 'trees']  rating:1900</li>
+<li>http://codeforces.com/contest/486/problem/D  tags:['dfs and similar', 'dp', 'math', 'trees']  rating:2300</li>
+<li>http://codeforces.com/contest/482/problem/B  tags:['constructive algorithms', 'data structures', 'trees']  rating:2000</li>
+<li>http://codeforces.com/contest/474/problem/E  tags:['binary search', 'data structures', 'dp', 'sortings', 'trees']  rating:2200</li>
+<li>http://codeforces.com/contest/472/problem/D  tags:['dfs and similar', 'dsu', 'shortest paths', 'trees']  rating:1900</li>
+<li>http://codeforces.com/contest/461/problem/B  tags:['dfs and similar', 'dp', 'trees']  rating:2200</li>
+<li>http://codeforces.com/contest/455/problem/C  tags:['dfs and similar', 'dp', 'dsu', 'ternary search', 'trees']  rating:2200</li>
+<li>http://codeforces.com/contest/455/problem/B  tags:['dfs and similar', 'dp', 'games', 'implementation', 'strings', 'trees']  rating:2100</li>
+<li>http://codeforces.com/contest/452/problem/B  tags:['brute force', 'constructive algorithms', 'geometry', 'trees']  rating:1800</li>
+<li>http://codeforces.com/contest/436/problem/C  tags:['dsu', 'graphs', 'greedy', 'trees']  rating:1800</li>
+<li>http://codeforces.com/contest/431/problem/C  tags:['dp', 'implementation', 'trees']  rating:1600</li>
+<li>http://codeforces.com/contest/429/problem/A  tags:['dfs and similar', 'trees']  rating:1500</li>
+<li>http://codeforces.com/contest/414/problem/D  tags:['binary search', 'data structures', 'greedy', 'trees', 'two pointers']  rating:2300</li>
+<li>http://codeforces.com/contest/406/problem/D  tags:['dfs and similar', 'geometry', 'trees']  rating:2200</li>
+<li>http://codeforces.com/contest/396/problem/C  tags:['data structures', 'graphs', 'trees']  rating:None</li>
+<li>http://codeforces.com/contest/382/problem/D  tags:['dfs and similar', 'graphs', 'implementation', 'trees']  rating:2300</li>
+<li>http://codeforces.com/contest/374/problem/D  tags:['binary search', 'data structures', 'dp', 'trees']  rating:2300</li>
+<li>http://codeforces.com/contest/371/problem/D  tags:['data structures', 'dsu', 'implementation', 'trees']  rating:1900</li>
+<li>http://codeforces.com/contest/369/problem/C  tags:['dfs and similar', 'graphs', 'trees']  rating:1700</li>
+<li>http://codeforces.com/contest/343/problem/D  tags:['data structures', 'dfs and similar', 'graphs', 'trees']  rating:2100</li>
+<li>http://codeforces.com/contest/342/problem/E  tags:['data structures', 'divide and conquer', 'trees']  rating:2200</li>
+<li>http://codeforces.com/contest/339/problem/D  tags:['data structures', 'trees']  rating:1700</li>
+<li>http://codeforces.com/contest/337/problem/D  tags:['dfs and similar', 'divide and conquer', 'dp', 'trees']  rating:2100</li>
+<li>http://codeforces.com/contest/288/problem/D  tags:['combinatorics', 'dfs and similar', 'trees']  rating:2300</li>
+<li>http://codeforces.com/contest/290/problem/C  tags:['*special', 'graph matchings', 'implementation', 'trees']  rating:1800</li>
+<li>http://codeforces.com/contest/282/problem/E  tags:['bitmasks', 'data structures', 'trees']  rating:2100</li>
+<li>http://codeforces.com/contest/276/problem/E  tags:['data structures', 'graphs', 'trees']  rating:2300</li>
+<li>http://codeforces.com/contest/274/problem/B  tags:['dfs and similar', 'dp', 'greedy', 'trees']  rating:2000</li>
+<li>http://codeforces.com/contest/260/problem/D  tags:['constructive algorithms', 'dsu', 'graphs', 'greedy', 'trees']  rating:2200</li>
+<li>http://codeforces.com/contest/238/problem/C  tags:['dfs and similar', 'dp', 'greedy', 'trees']  rating:2200</li>
+<li>http://codeforces.com/contest/237/problem/D  tags:['dfs and similar', 'graphs', 'greedy', 'trees']  rating:2200</li>
+<li>http://codeforces.com/contest/219/problem/D  tags:['dfs and similar', 'dp', 'graphs', 'trees']  rating:1900</li>
+<li>http://codeforces.com/contest/212/problem/E  tags:['dfs and similar', 'dp', 'trees']  rating:1800</li>
+<li>http://codeforces.com/contest/193/problem/A  tags:['constructive algorithms', 'graphs', 'trees']  rating:1700</li>
+<li>http://codeforces.com/contest/191/problem/E  tags:['binary search', 'data structures', 'trees']  rating:2200</li>
+<li>http://codeforces.com/contest/191/problem/C  tags:['data structures', 'dfs and similar', 'trees']  rating:2100</li>
+<li>http://codeforces.com/contest/165/problem/D  tags:['data structures', 'dsu', 'trees']  rating:2200</li>
+<li>http://codeforces.com/contest/161/problem/D  tags:['dfs and similar', 'dp', 'trees']  rating:1800</li>
+<li>http://codeforces.com/contest/120/problem/F  tags:['dp', 'greedy', 'trees']  rating:1500</li>
+<li>http://codeforces.com/contest/109/problem/C  tags:['dp', 'dsu', 'trees']  rating:2000</li>
+<li>http://codeforces.com/contest/101/problem/D  tags:['dp', 'greedy', 'probabilities', 'sortings', 'trees']  rating:2300</li>
+<li>http://codeforces.com/contest/87/problem/D  tags:['dfs and similar', 'dp', 'dsu', 'graphs', 'implementation', 'sortings', 'trees']  rating:2300</li>
+<li>http://codeforces.com/contest/85/problem/C  tags:['binary search', 'dfs and similar', 'probabilities', 'sortings', 'trees']  rating:2200</li>
+<li>http://codeforces.com/contest/77/problem/C  tags:['dfs and similar', 'dp', 'dsu', 'greedy', 'trees']  rating:2300</li>
+<li>http://codeforces.com/contest/75/problem/D  tags:['data structures', 'dp', 'greedy', 'implementation', 'math', 'trees']  rating:2100</li>
+<li>http://codeforces.com/contest/76/problem/A  tags:['dsu', 'graphs', 'sortings', 'trees']  rating:2300</li>
+<li>http://codeforces.com/contest/61/problem/E  tags:['data structures', 'trees']  rating:2100</li>
+<li>http://codeforces.com/contest/61/problem/D  tags:['dfs and similar', 'graphs', 'greedy', 'shortest paths', 'trees']  rating:1900</li>
+<li>http://codeforces.com/contest/37/problem/C  tags:['data structures', 'greedy', 'trees']  rating:1900</li>
+<li>http://codeforces.com/contest/29/problem/D  tags:['constructive algorithms', 'dfs and similar', 'trees']  rating:1900</li>
+<li>http://codeforces.com/contest/25/problem/D  tags:['dsu', 'graphs', 'trees']  rating:1900</li>
+<li>http://codeforces.com/contest/14/problem/D  tags:['dfs and similar', 'dp', 'graphs', 'shortest paths', 'trees', 'two pointers']  rating:2100</li>
+<li>http://codeforces.com/contest/6/problem/E  tags:['binary search', 'data structures', 'dsu', 'trees', 'two pointers']  rating:1900</li>
+</ol>
+<p>爬取代码:</p>
+<pre><code class="language-python">import requests
+import json
+import os
+
+def writefile(res):
+    with open(&quot;F:/myfiles/3、ACM/codeforces 题集/tree and constructive algorithms(rating1500-2300).txt&quot;, 'w') as f:
+        num = 1
+        for i in res:
+            f.write(str(num) + &quot;. &quot; + i + '\n')
+            num = num + 1
+            print(i)
+
+
+if __name__ == '__main__':
+    url = &quot;http://codeforces.com/api/problemset.problems?tags=trees&amp;tags=constructive%20algorithms&quot;
+    response = requests.get(url)
+    content = json.loads(response.text)
+    problems = content['result']['problems']
+    res = []
+    for problem in problems:
+        url = &quot;http://codeforces.com/contest/&quot;
+        contestid = str(problem['contestId'])
+        index = str(problem['index'])
+        tags = str(problem['tags'])
+        rating = None
+        if 'rating' in problem.keys():
+            rating = problem['rating']
+        if not rating or rating &lt;= 2300 and rating &gt;= 1500:
+            url = url + contestid + &quot;/problem/&quot; + index
+            res.append(url + &quot;  tags:&quot; + tags + &quot;  rating:&quot; + str(rating))
+    writefile(res)
+
+
+``</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Halloween Costumes LightOJ - 1422 | 区间dp]]></title>
         <id>https://8421BCD.github.io/post/halloween-costumes-lightoj-1422-or-qu-jian-dp</id>
@@ -916,105 +1152,6 @@ int main()
             else cout &lt;&lt; &quot;NO&quot; &lt;&lt; endl;
         }
     }
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[吉哥系列故事——恨7不成妻 HDU - 4507  | 数位dp]]></title>
-        <id>https://8421BCD.github.io/post/ji-ge-xi-lie-gu-shi-hen-7-bu-cheng-qi-hdu-4507-or-shu-wei-dp</id>
-        <link href="https://8421BCD.github.io/post/ji-ge-xi-lie-gu-shi-hen-7-bu-cheng-qi-hdu-4507-or-shu-wei-dp">
-        </link>
-        <updated>2020-02-28T03:04:29.000Z</updated>
-        <summary type="html"><![CDATA[<p>dp数组存放结构体，看到平方要想到拆项<br>
-debug：p[]数组是mod 1e9 + 7， 不是mod7，在求preval的时候不能用这个数组。debug好久难受了。。。</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>dp数组存放结构体，看到平方要想到拆项<br>
-debug：p[]数组是mod 1e9 + 7， 不是mod7，在求preval的时候不能用这个数组。debug好久难受了。。。</p>
-<!--more-->
-<p><strong>题意：</strong><br>
-如果一个整数符合下面3个条件之一，那么我们就说这个整数和7有关——<br>
-　　1、整数中某一位是7；<br>
-　　2、整数的每一位加起来的和是7的整数倍；<br>
-　　3、这个整数是7的整数倍；<br>
-要求一个区间中和7无关的数的平方和。<br>
-<strong>分析：</strong><br>
-需要用数位DP维护3个值：<br>
-1.与7无关的数的个数<br>
-2.与7无关的数的和<br>
-3、与7无关的数的平方和。<br>
-<strong>代码：</strong></p>
-<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-typedef long long ll;
-//typedef __int128 lll;
-#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
-#define mem(a, b) memset(a, b, sizeof(a))
-const ll mod = 1e9 + 7;
-const int maxn = 1e6;
-const int inf = 0x3f3f3f3f;
-struct node
-{
-	ll num, sum, sqsum;
-	node(ll a = 0, ll b = 0, ll c = 0) : num(a), sum(b), sqsum(c){}
-};
-int v[30];
-node dp[30][10][10];
-ll p[30];
-
-void init()
-{
-	for(int i = 0; i &lt; 30; i++)	
-		for(int j = 0; j &lt; 10; j++)
-			for(int k = 0; k &lt; 10; k++)
-				dp[i][j][k] = node(-1, 0, 0);
-	p[0] = 1;
-	for(int i = 1; i &lt; 30; i++)
-		p[i] = 10 * p[i - 1] % mod;
-}
-
-node dfs(int pos, int sum, ll preval, int limit)
-{
-	if(!pos) return sum &amp;&amp; preval ? node(1, 0, 0) : node(0, 0, 0);
-	if(!limit &amp;&amp; ~dp[pos][sum][preval].num) return dp[pos][sum][preval];
-	int up = limit ? v[pos] : 9;
-	node res = node(0, 0, 0);
-	for(int i = 0; i &lt;= up; i++)
-	{
-		if(i == 7) continue;
-		int nowsum = (sum + i) % 7;
-		ll nowval = preval + i * (ll)pow(10, pos - 1); nowval %= 7;
-		node tmp = dfs(pos - 1, nowsum, nowval, limit &amp;&amp; i == up);
-		res.num += tmp.num, res.num %= mod;
-		res.sum += (tmp.num * (i * p[pos - 1] % mod) % mod + tmp.sum) % mod, res.sum %= mod;
-		res.sqsum += (tmp.sqsum + 2 * i * p[pos - 1] % mod * tmp.sum % mod) % mod, res.sqsum %= mod;
-		res.sqsum += tmp.num * (i * p[pos - 1] % mod) % mod * (i * p[pos - 1] % mod) % mod, res.sqsum %= mod;
-	}
-	if(!limit) dp[pos][sum][preval] = res;
-	return res;
-}
-
-ll solve(ll x)
-{
-	int len = 0;
-	while(x)
-	{
-		v[++len] = x % 10;
-		x /= 10;
-	}
-	return dfs(len, 0, 0, 1).sqsum;
-}
-
-int main()
-{
-	int t; cin &gt;&gt; t;
-	init();
-	while(t--)
-	{
-		ll l, r;
-		cin &gt;&gt; l &gt;&gt; r;
-		cout &lt;&lt; ((solve(r) - solve(l - 1)) + mod) % mod &lt;&lt; endl;
-	}
 }
 </code></pre>
 ]]></content>
