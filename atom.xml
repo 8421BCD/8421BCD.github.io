@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-03-16T02:05:45.735Z</updated>
+    <updated>2020-03-16T12:11:51.762Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -11,12 +11,143 @@
     <icon>https://8421BCD.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
     <entry>
+        <title type="html"><![CDATA[ZOJ 3871 Convex Hull | 计算几何、凸包]]></title>
+        <id>https://8421BCD.github.io/post/zoj-3871-convex-hull-or-ji-suan-ji-he-tu-bao</id>
+        <link href="https://8421BCD.github.io/post/zoj-3871-convex-hull-or-ji-suan-ji-he-tu-bao">
+        </link>
+        <updated>2020-03-16T11:59:15.000Z</updated>
+        <summary type="html"><![CDATA[<ul>
+<li>double atan2(double y,double x) 返回的是原点至点(x,y)的方位角，即与 x 轴的夹角。返回值的单位为弧度，取值范围为（-π, π]。结果为正表示从 X 轴逆时针旋转的角度，结果为负表示从 X 轴顺时针旋转的角度。</li>
+<li>理解多边形求面积的方法</li>
+</ul>
+]]></summary>
+        <content type="html"><![CDATA[<ul>
+<li>double atan2(double y,double x) 返回的是原点至点(x,y)的方位角，即与 x 轴的夹角。返回值的单位为弧度，取值范围为（-π, π]。结果为正表示从 X 轴逆时针旋转的角度，结果为负表示从 X 轴顺时针旋转的角度。</li>
+<li>理解多边形求面积的方法</li>
+</ul>
+<!--more-->
+<p><strong>题意：</strong><br>
+给n个点，|x[i]|，|y[i]| &lt;= 1e9。求在所有情况下的子集下（子集点数&gt;=3），凸包的面积和。<br>
+<strong>分析：</strong><br>
+<img src="https://8421BCD.github.io//post-images/1584360620333.png" alt="" loading="lazy"><br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+//typedef __int128 lll;
+#define print(i) cout &lt;&lt; &quot;debug: &quot; &lt;&lt; i &lt;&lt; endl
+#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
+#define mem(a, b) memset(a, b, sizeof(a))
+const ll mod = 998244353;
+const int maxn = 1e3 + 10;
+const int inf = 0x3f3f3f3f;
+const double pi = 4 * atan(1);
+struct point
+{
+    ll x, y;
+    double angle;
+    point(ll a = 0, ll b = 0, double c = 0) : x(a), y(b), angle(c){}
+    bool operator&lt; (const point&amp; b)
+    {
+        return angle &lt; b.angle;
+    }
+    point operator -(const point&amp; b)
+    {
+        return point(x - b.x, y - b.y);
+    }
+    ll operator * (const point&amp; b)
+    {
+        return x * b.y - y * b.x;
+    }
+}a[maxn], b[maxn &lt;&lt; 1];
+ll p[maxn];
+int n;
+
+void make()
+{
+    p[0] = 1;
+    for(int i = 1; i &lt; maxn; i++) p[i] = p[i - 1] * 2 % mod;
+    for(int i = 0; i &lt; maxn; i++) p[i] = (p[i] - 1 + mod) % mod;
+}
+
+int main()
+{
+    int t; cin &gt;&gt; t;
+    make();
+    while(t--)
+    {
+        cin &gt;&gt; n;
+        for(int i = 1; i &lt;= n; i++)
+            cin &gt;&gt; a[i].x &gt;&gt; a[i].y;
+        ll res = 0;
+        for(int i = 1; i &lt;= n; i++)
+        {
+            int tot = 0;
+            for(int j = 1; j &lt;= n; j++)
+            {
+                if(i == j) continue;
+                b[++tot] = a[j];
+                b[tot].angle = atan2(a[j].y - a[i].y, a[j].x - a[i].x);
+            }
+            for(int k = 1; k &lt;= tot; k++) b[k + tot] = b[k], b[k + tot].angle = b[k].angle + 2.0 * pi; //后面的需要用到前面的
+            sort(b + 1, b + 1 + tot + tot);
+            int l = 1, r = 1;
+            for(; l &lt;= tot; l++)
+            {
+                while(b[r + 1].angle - b[l].angle &lt; pi) r++;
+                res = (res + ((a[i].x * b[l].y - a[i].y * b[l].x) % mod + mod) % mod * p[r - l] % mod) % mod;
+            }
+        }
+        cout &lt;&lt; res &lt;&lt; endl;
+    }
+}
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[codeforces树和构造算法题目集]]></title>
         <id>https://8421BCD.github.io/post/codeforces-shu-he-gou-zao-suan-fa-ti-mu-ji</id>
         <link href="https://8421BCD.github.io/post/codeforces-shu-he-gou-zao-suan-fa-ti-mu-ji">
         </link>
         <updated>2020-03-15T04:10:48.000Z</updated>
-        <content type="html"><![CDATA[<ol>
+        <content type="html"><![CDATA[<ul>
+<li>爬取代码:</li>
+</ul>
+<pre><code class="language-python">import requests
+import json
+import os
+
+def writefile(res):
+    with open(&quot;F:/myfiles/3、ACM/codeforces 题集/tree and constructive algorithms(rating1500-2300).txt&quot;, 'w') as f:
+        num = 1
+        for i in res:
+            f.write(str(num) + &quot;. &quot; + i + '\n')
+            num = num + 1
+            print(i)
+
+
+if __name__ == '__main__':
+    url = &quot;http://codeforces.com/api/problemset.problems?tags=trees&amp;tags=constructive%20algorithms&quot;
+    response = requests.get(url)
+    content = json.loads(response.text)
+    problems = content['result']['problems']
+    res = []
+    for problem in problems:
+        url = &quot;http://codeforces.com/contest/&quot;
+        contestid = str(problem['contestId'])
+        index = str(problem['index'])
+        tags = str(problem['tags'])
+        rating = None
+        if 'rating' in problem.keys():
+            rating = problem['rating']
+        if not rating or rating &lt;= 2300 and rating &gt;= 1500:
+            url = url + contestid + &quot;/problem/&quot; + index
+            res.append(url + &quot;  tags:&quot; + tags + &quot;  rating:&quot; + str(rating))
+    writefile(res)
+
+</code></pre>
+<ol>
 <li></li>
 </ol>
 <p>链接: <a href="http://codeforces.com/contest/1325/problem/C">http://codeforces.com/contest/1325/problem/C</a><br>
@@ -782,41 +913,6 @@ rating:2100<br>
 链接: <a href="http://codeforces.com/contest/6/problem/E">http://codeforces.com/contest/6/problem/E</a><br>
 tags:binary search ,data structures ,dsu ,trees ,two pointers<br>
 rating:1900</p>
-<p>爬取代码:</p>
-<pre><code class="language-python">import requests
-import json
-import os
-
-def writefile(res):
-    with open(&quot;F:/myfiles/3、ACM/codeforces 题集/tree and constructive algorithms(rating1500-2300).txt&quot;, 'w') as f:
-        num = 1
-        for i in res:
-            f.write(str(num) + &quot;. &quot; + i + '\n')
-            num = num + 1
-            print(i)
-
-
-if __name__ == '__main__':
-    url = &quot;http://codeforces.com/api/problemset.problems?tags=trees&amp;tags=constructive%20algorithms&quot;
-    response = requests.get(url)
-    content = json.loads(response.text)
-    problems = content['result']['problems']
-    res = []
-    for problem in problems:
-        url = &quot;http://codeforces.com/contest/&quot;
-        contestid = str(problem['contestId'])
-        index = str(problem['index'])
-        tags = str(problem['tags'])
-        rating = None
-        if 'rating' in problem.keys():
-            rating = problem['rating']
-        if not rating or rating &lt;= 2300 and rating &gt;= 1500:
-            url = url + contestid + &quot;/problem/&quot; + index
-            res.append(url + &quot;  tags:&quot; + tags + &quot;  rating:&quot; + str(rating))
-    writefile(res)
-
-
-``</code></pre>
 ]]></content>
     </entry>
     <entry>
@@ -1650,80 +1746,6 @@ int main()
                 sum++, l--, r++;
             else break;
         cout &lt;&lt; sum &lt;&lt; endl;
-    }
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Monitor HDU - 6514 | 二维差分]]></title>
-        <id>https://8421BCD.github.io/post/monitor-hdu-6514-or-er-wei-chai-fen</id>
-        <link href="https://8421BCD.github.io/post/monitor-hdu-6514-or-er-wei-chai-fen">
-        </link>
-        <updated>2020-02-29T11:09:35.000Z</updated>
-        <summary type="html"><![CDATA[<p>TMD找bug找了一万年。。。一直re，跟题解对了2个小时md。<br>
-个人感想：强者就是脑子比你好使，完成同样的任务比你更快更好，然后拿出剩下的时间去享受生活(自闭时的所想，不代表个人观点)<br>
-<img src="https://cdn.jsdelivr.net/gh/8421BCD/CDN/img/1.png" alt="avatar" loading="lazy"></p>
-]]></summary>
-        <content type="html"><![CDATA[<p>TMD找bug找了一万年。。。一直re，跟题解对了2个小时md。<br>
-个人感想：强者就是脑子比你好使，完成同样的任务比你更快更好，然后拿出剩下的时间去享受生活(自闭时的所想，不代表个人观点)<br>
-<img src="https://cdn.jsdelivr.net/gh/8421BCD/CDN/img/1.png" alt="avatar" loading="lazy"></p>
-<!--more-->
-<p><strong>题意：</strong></p>
-<p><strong>分析：</strong><br>
-模板背过<br>
-<strong>代码：</strong></p>
-<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-typedef long long ll;
-//typedef __int128 lll;
-#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
-#define mem(a, b) memset(a, b, sizeof(a))
-const ll mod = 1e9 + 7;
-const int maxn = 2e7 + 100;
-const int inf = 0x3f3f3f3f;
-int n, m;
-int a[maxn];
-
-int getid(int x, int y)
-{
-    if(x &lt; 1 || x &gt; n || y &gt; m) return 0;
-    return (x - 1) * m + y;
-}
-
-int main()
-{
-    while(cin &gt;&gt; n &gt;&gt; m)
-    {
-        for(int i = 0; i &lt;= n * m; i++) a[i] = 0;
-        int q;cin &gt;&gt; q;
-        for(int i = 1; i &lt;= q; i++)
-        {
-            int x1, y1, x2, y2;
-            scanf(&quot;%d%d%d%d&quot;, &amp;x1, &amp;y1, &amp;x2, &amp;y2);
-            a[getid(x1, y1)]++;
-            a[getid(x2 + 1, y1)]--;
-            a[getid(x1, y2 + 1)]--;
-            a[getid(x2 + 1, y2 + 1)]++;
-        }
-        for(int i = 1; i &lt;= n; i++)
-            for(int j = 1; j &lt;= m; j++)
-                a[getid(i, j)] += a[getid(i, j - 1)] + a[getid(i - 1, j)] - a[getid(i - 1, j - 1)];
-        for(int i = 1; i &lt;= n; i++)
-            for(int j = 1; j &lt;= m; j++)
-                a[getid(i, j)] = a[getid(i, j)] &gt; 0;
-        for(int i = 1; i &lt;= n; i++)
-            for(int j = 1; j &lt;= m; j++)
-                a[getid(i, j)] += a[getid(i - 1, j)] + a[getid(i, j - 1)] - a[getid(i - 1, j - 1)];
-        int p; cin &gt;&gt; p;
-        while(p--)
-        {
-            int x1, y1, x2, y2;
-            scanf(&quot;%d%d%d%d&quot;, &amp;x1, &amp;y1, &amp;x2, &amp;y2);
-            int sum = a[getid(x2, y2)] - a[getid(x2, y1 - 1)] - a[getid(x1 - 1, y2) + a[getid(x1 - 1, y1 - 1)]];
-            if(sum == (x2 - x1 + 1) * (y2 - y1 + 1)) cout &lt;&lt; &quot;YES&quot; &lt;&lt; endl;
-            else cout &lt;&lt; &quot;NO&quot; &lt;&lt; endl;
-        }
     }
 }
 </code></pre>

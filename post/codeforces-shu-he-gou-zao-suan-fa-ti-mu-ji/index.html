@@ -7,7 +7,7 @@
 <meta name="description" content="不需要外界告诉自己自己的价值是什么">
 <meta name="theme-color" content="#000">
 <title>codeforces树和构造算法题目集 | Wannafly</title>
-<link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1584323340109">
+<link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1584360700753">
 <link rel="stylesheet" href="https://8421BCD.github.io//styles/main.css">
 
 <link rel="stylesheet" href="/media/css/pisces.css">
@@ -144,7 +144,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">51</span>
+        <span class="site-item-stat-count">52</span>
         <span class="site-item-stat-name">文章</span>
       </a>
     </div>
@@ -299,7 +299,43 @@
 </header>
 </div>
               <div class="post-body next-md-body" id="post_body">
-                <ol>
+                <ul>
+<li>爬取代码:</li>
+</ul>
+<pre><code class="language-python">import requests
+import json
+import os
+
+def writefile(res):
+    with open(&quot;F:/myfiles/3、ACM/codeforces 题集/tree and constructive algorithms(rating1500-2300).txt&quot;, 'w') as f:
+        num = 1
+        for i in res:
+            f.write(str(num) + &quot;. &quot; + i + '\n')
+            num = num + 1
+            print(i)
+
+
+if __name__ == '__main__':
+    url = &quot;http://codeforces.com/api/problemset.problems?tags=trees&amp;tags=constructive%20algorithms&quot;
+    response = requests.get(url)
+    content = json.loads(response.text)
+    problems = content['result']['problems']
+    res = []
+    for problem in problems:
+        url = &quot;http://codeforces.com/contest/&quot;
+        contestid = str(problem['contestId'])
+        index = str(problem['index'])
+        tags = str(problem['tags'])
+        rating = None
+        if 'rating' in problem.keys():
+            rating = problem['rating']
+        if not rating or rating &lt;= 2300 and rating &gt;= 1500:
+            url = url + contestid + &quot;/problem/&quot; + index
+            res.append(url + &quot;  tags:&quot; + tags + &quot;  rating:&quot; + str(rating))
+    writefile(res)
+
+</code></pre>
+<ol>
 <li></li>
 </ol>
 <p>链接: <a href="http://codeforces.com/contest/1325/problem/C">http://codeforces.com/contest/1325/problem/C</a><br>
@@ -1065,41 +1101,6 @@ rating:2100<br>
 链接: <a href="http://codeforces.com/contest/6/problem/E">http://codeforces.com/contest/6/problem/E</a><br>
 tags:binary search ,data structures ,dsu ,trees ,two pointers<br>
 rating:1900</p>
-<p>爬取代码:</p>
-<pre><code class="language-python">import requests
-import json
-import os
-
-def writefile(res):
-    with open(&quot;F:/myfiles/3、ACM/codeforces 题集/tree and constructive algorithms(rating1500-2300).txt&quot;, 'w') as f:
-        num = 1
-        for i in res:
-            f.write(str(num) + &quot;. &quot; + i + '\n')
-            num = num + 1
-            print(i)
-
-
-if __name__ == '__main__':
-    url = &quot;http://codeforces.com/api/problemset.problems?tags=trees&amp;tags=constructive%20algorithms&quot;
-    response = requests.get(url)
-    content = json.loads(response.text)
-    problems = content['result']['problems']
-    res = []
-    for problem in problems:
-        url = &quot;http://codeforces.com/contest/&quot;
-        contestid = str(problem['contestId'])
-        index = str(problem['index'])
-        tags = str(problem['tags'])
-        rating = None
-        if 'rating' in problem.keys():
-            rating = problem['rating']
-        if not rating or rating &lt;= 2300 and rating &gt;= 1500:
-            url = url + contestid + &quot;/problem/&quot; + index
-            res.append(url + &quot;  tags:&quot; + tags + &quot;  rating:&quot; + str(rating))
-    writefile(res)
-
-
-``</code></pre>
 
               </div>
               <div class="post-footer">
@@ -1124,6 +1125,10 @@ if __name__ == '__main__':
   </div>
   <div class="nav">
     <div class="nav-prev">
+      
+        <i class="fa fa-chevron-left"></i>
+        <a class="nav-pc-next" title="ZOJ 3871 Convex Hull | 计算几何、凸包" href="https://8421BCD.github.io/post/zoj-3871-convex-hull-or-ji-suan-ji-he-tu-bao">ZOJ 3871 Convex Hull | 计算几何、凸包</a class="nav-pc-next">
+        <a class="nav-mobile-prev" title="ZOJ 3871 Convex Hull | 计算几何、凸包" href="https://8421BCD.github.io/post/zoj-3871-convex-hull-or-ji-suan-ji-he-tu-bao">上一篇</a>
       
     </div>
     <div class="nav-next">
