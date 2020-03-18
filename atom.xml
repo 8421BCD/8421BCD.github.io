@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-03-18T12:01:20.851Z</updated>
+    <updated>2020-03-18T12:15:58.611Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -10,6 +10,86 @@
     <logo>https://8421BCD.github.io/images/avatar.png</logo>
     <icon>https://8421BCD.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
+    <entry>
+        <title type="html"><![CDATA[Buy Tickets POJ - 2828 | 线段树单点修改]]></title>
+        <id>https://8421BCD.github.io/post/buy-tickets-poj-2828-or-xian-duan-shu-dan-dian-xiu-gai</id>
+        <link href="https://8421BCD.github.io/post/buy-tickets-poj-2828-or-xian-duan-shu-dan-dian-xiu-gai">
+        </link>
+        <updated>2020-03-18T12:13:31.000Z</updated>
+        <summary type="html"><![CDATA[<p>很简单的线段树，逆序修改看题解看了好久才理解，思维有点跟不上了。。。不应该长时间一直做acm题，思维会疲惫的。<br>
+还是太菜了。。哎。。。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>很简单的线段树，逆序修改看题解看了好久才理解，思维有点跟不上了。。。不应该长时间一直做acm题，思维会疲惫的。<br>
+还是太菜了。。哎。。。</p>
+<!--more-->
+<p><strong>题意：</strong><br>
+给定一个数字N，表示N对数据，每对数据给出 pos位置和val值，后续来的数字根据位置值进行插入操作，当然如果出现位置重合的情况，先存在的数字要往后挪。<br>
+<strong>分析：</strong><br>
+用线段树记录每一个区间的空白的数量 ，从后往前插入，对应的位置就是选择当前存在的第几个空白位置进行插入。<br>
+<strong>代码：</strong></p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+typedef long long ll;
+//typedef __int128 lll;
+#define print(i) cout &lt;&lt; &quot;debug: &quot; &lt;&lt; i &lt;&lt; endl
+#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
+#define mem(a, b) memset(a, b, sizeof(a))
+const ll mod = 1e9 + 7;
+const int maxn = 2e5 + 10;
+const int inf = 0x3f3f3f3f;
+struct node
+{
+    int pos, val;
+}a[maxn &lt;&lt; 2];
+int sum[maxn &lt;&lt; 2];
+int v[maxn];
+int n;
+void pushup(int tar)
+{
+    sum[tar] = sum[tar &lt;&lt; 1] + sum[tar &lt;&lt; 1 | 1];
+}
+
+void build(int tar, int l, int r)
+{
+    if(l == r)
+    {
+        sum[tar] = 1;
+        return;
+    }
+    int mid = l + r &gt;&gt; 1;
+    build(tar &lt;&lt; 1, l, mid), build(tar &lt;&lt; 1 | 1, mid + 1, r);
+    pushup(tar);
+}
+
+void update(int tar, int pos, int val, int l, int r)
+{
+    if(l == r)
+    {
+        sum[tar] = 0;
+        v[l] = val;
+        return;
+    }
+    int mid = l + r &gt;&gt; 1;
+    if(sum[tar &lt;&lt; 1] &gt;= pos) update(tar &lt;&lt; 1, pos, val, l, mid);
+    else update(tar &lt;&lt; 1 | 1, pos - sum[tar &lt;&lt; 1], val, mid + 1, r);
+    pushup(tar);
+}
+
+int main()
+{
+    close();
+    while(cin &gt;&gt; n)
+    {
+        for(int i = 1; i &lt;= n; i++)
+            cin &gt;&gt; a[i].pos &gt;&gt; a[i].val, a[i].pos++;
+        build(1, 1, n);
+        for(int i = n; i &gt;= 1; i--) update(1, a[i].pos, a[i].val, 1, n);
+        for(int i = 1; i &lt;= n; i++) printf(&quot;%d%c&quot;, v[i], i == n ? '\n' : ' ');
+    }
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[String painter（HDU-2476）| 区间dp]]></title>
         <id>https://8421BCD.github.io/post/string-painterhdu-2476or-qu-jian-dp</id>
@@ -1563,166 +1643,6 @@ int main()
             else cin &gt;&gt; v, tim = v;
         }
    }
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[BCD Code ZOJ - 3494 | AC自动机 + 数位dp]]></title>
-        <id>https://8421BCD.github.io/post/bcd-code-zoj-3494-or-ac-zi-dong-ji-shu-wei-dp</id>
-        <link href="https://8421BCD.github.io/post/bcd-code-zoj-3494-or-ac-zi-dong-ji-shu-wei-dp">
-        </link>
-        <updated>2020-03-06T13:27:10.000Z</updated>
-        <summary type="html"><![CDATA[<p>初始化函数又忘了在主函数写，debug到永远。。。。</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>初始化函数又忘了在主函数写，debug到永远。。。。</p>
-<!--more-->
-<p><strong>题意：</strong><br>
-问A到B之间的所有整数，转换成BCD Code后，<br>
-有多少个不包含属于给定病毒串集合的子串,A,B &lt;=10^200,病毒串总长度&lt;= 2000.<br>
-<strong>分析：</strong><br>
-1、先建立一颗trie树，注意：build函数end[]数组不仅仅要涉及本结点是不是结束符，还要检查其fail节点是不是结束符。具体代码:</p>
-<pre><code class="language-cpp">while(!q.empty())
-{
-    int now = q.front(); q.pop();
-    if(end[fail[now]] == 1) end[now] = 1;
-    for(int i = 0; i &lt; 2; i++)
-        if(nex[now][i] == -1) nex[now][i] = nex[fail[now]][i];
-        else fail[nex[now][i]] = nex[fail[now]][i], q.push(nex[now][i]);
-}
-</code></pre>
-<p>2、预处理出trie上每个节点从0-9的BCD码转移的过程中会不会出现病毒串，其实对于0-9每个数转移四次就好。<br>
-3、数位dp<br>
--注意前导零的判断<br>
--注意字符数组减一的处理<br>
-<strong>代码：</strong></p>
-<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-typedef long long ll;
-//typedef __int128 lll;
-#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
-#define mem(a, b) memset(a, b, sizeof(a))
-const ll mod = 1e9 + 9;
-const int maxn = 2e3 + 10;
-const int inf = 0x3f3f3f3f;
-struct trie
-{
-    int tot, root;
-    int nex[maxn][2], fail[maxn], end[maxn];
-    int newnode()
-    {
-        for(int i = 0; i &lt; 2; i++)
-            nex[tot][i] = -1;
-        end[tot++] = -1;
-        return tot - 1;
-    }
-    void init()
-    {
-        tot = 0;
-        root = newnode();
-    }
-    void insert(char s[])
-    {
-        int now = root;
-        for(int i = 0; s[i]; i++)
-        {
-            if(nex[now][s[i] - '0'] == -1) nex[now][s[i] - '0'] = newnode();
-            now = nex[now][s[i] - '0'];
-        }
-        end[now] = 1;
-    }
-    void build()
-    {
-        queue&lt;int&gt; q;
-        fail[root] = root;
-        for(int i = 0; i &lt; 2; i++)
-        {
-            if(nex[root][i] == -1) nex[root][i] = root;
-            else fail[nex[root][i]] = root, q.push(nex[root][i]);
-        }
-        while(!q.empty())
-        {
-            int now = q.front(); q.pop();
-            if(end[fail[now]] == 1) end[now] = 1;
-            for(int i = 0; i &lt; 2; i++)
-                if(nex[now][i] == -1) nex[now][i] = nex[fail[now]][i];
-                else fail[nex[now][i]] = nex[fail[now]][i], q.push(nex[now][i]);
-        }
-    }
-};
-trie ti;
-int v[maxn];
-int dp[maxn][maxn];
-int bcd[maxn][10];
-
-int find(int pos, int num)
-{
-    if(ti.end[pos] != -1) return -1;
-    for(int i = 3; i &gt;= 0; i--)
-    {
-        int now = ti.nex[pos][(num &gt;&gt; i) &amp; 1];
-        if(ti.end[now] != -1) return -1;
-        pos = now;
-    }
-    return pos;
-}
-
-void makebcd()
-{
-    for(int i = 0; i &lt; ti.tot; i++)
-        for(int j = 0; j &lt; 10; j++)
-            bcd[i][j] = find(i, j);
-}
-
-ll dfs(int pos, int state, int zero, int limit)
-{
-    if(!pos) return 1;
-    if(!limit &amp;&amp; ~dp[pos][state]) return dp[pos][state];
-    int up = limit ? v[pos] : 9;
-    ll res = 0;
-    for(int i = 0; i &lt;= up; i++)
-    {
-        if(!i &amp;&amp; zero) res += dfs(pos - 1, state, i == 0 &amp;&amp; zero, limit &amp;&amp; i == up);
-        else if(bcd[state][i] != -1) res += dfs(pos - 1, bcd[state][i], i == 0 &amp;&amp; zero, limit &amp;&amp; i == up);
-        res %= mod;
-    }
-    if(!limit &amp;&amp; !zero) dp[pos][state] = res;
-    return res;
-}
-
-ll solve(char s[])
-{
-    int len = strlen(s);
-    int pos = 0;
-    for(int i = len - 1; i &gt;= 0; i--) v[++pos] = s[i] - '0';
-    return dfs(pos, 0, 1, 1);
-}
-
-int main()
-{
-    int t; cin &gt;&gt; t;
-    while(t--)
-    {
-        int n; cin &gt;&gt; n;
-        char s[300];
-        ti.init();
-        mem(dp, -1);
-        for(int i = 1; i &lt;= n; i++)
-            scanf(&quot;%s&quot;, s), ti.insert(s);
-        ti.build();
-        makebcd();
-        char l[maxn], r[maxn];
-        scanf(&quot;%s%s&quot;, l, r);
-        int len = strlen(l);
-        for(int i = len - 1; i &gt;= 0; i--)
-            if(l[i] == '0') l[i] = '9';
-            else 
-            {
-                l[i]--;
-                break;
-            }
-        cout &lt;&lt; (solve(r) - solve(l) + mod) % mod &lt;&lt; endl;
-    }
 }
 </code></pre>
 ]]></content>

@@ -6,7 +6,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="不需要外界告诉自己自己的价值是什么">
 <meta name="theme-color" content="#000">
-<title>Rng HDU - 6574 | 概率 + 快速幂求逆元 | Wannafly</title>
+<title>Buy Tickets POJ - 2828 | 线段树单点修改 | Wannafly</title>
 <link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1584533749690">
 <link rel="stylesheet" href="https://8421BCD.github.io//styles/main.css">
 
@@ -25,8 +25,8 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
     onload="renderMathInElement(document.body);"></script>
 
-    <meta name="description" content="Rng HDU - 6574 | 概率 + 快速幂求逆元" />
-    <meta name="keywords" content="概率" />
+    <meta name="description" content="Buy Tickets POJ - 2828 | 线段树单点修改" />
+    <meta name="keywords" content="" />
   </head>
   <body>
     <div class="head-top-line"></div>
@@ -260,8 +260,8 @@
               <div class="article-box">
     <header class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://8421BCD.github.io/post/rng-hdu-6574-or-gai-lu-kuai-su-mi-qiu-ni-yuan">
-      Rng HDU - 6574 | 概率 + 快速幂求逆元
+    <a class="post-title-link" href="https://8421BCD.github.io/post/buy-tickets-poj-2828-or-xian-duan-shu-dan-dian-xiu-gai">
+      Buy Tickets POJ - 2828 | 线段树单点修改
     </a>
   </h1>
   <div class="post-meta">
@@ -269,68 +269,90 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span>发布于</span>
-      <span>2020-02-13</span>
+      <span>2020-03-18</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
-      <span class="meta-item">
-        <i class="fa fa-folder-o"></i>
-        <span class="pc-show">分类于</span>
-        
-          
-            <a href="https://8421BCD.github.io/tag/bV99qdJxk">
-              <span>概率</span>
-            </a>
-          
-        
-      </span>
-      <span class="post-meta-divider">|</span>
-    
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>1分钟</span>
+      <span>3分钟</span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>216<span class="pc-show">字数</span></span>
+      <span>446<span class="pc-show">字数</span></span>
     </span>
   </div>
 </header>
 </div>
               <div class="post-body next-md-body" id="post_body">
-                <p>挺简单一个概率题，想了好久推不出公式，太菜了，发自内心的。</p>
+                <p>很简单的线段树，逆序修改看题解看了好久才理解，思维有点跟不上了。。。不应该长时间一直做acm题，思维会疲惫的。<br>
+还是太菜了。。哎。。。</p>
 <!--more-->
 <p><strong>题意：</strong><br>
-给你一个[1, n]的区间， 让你在这个区间内再选两个区间（区间长度可以为零），区间端点必须为整数，问两个区间相交的概率。输出分子 * （分母mod 1e9 + 7的逆元）；<br>
+给定一个数字N，表示N对数据，每对数据给出 pos位置和val值，后续来的数字根据位置值进行插入操作，当然如果出现位置重合的情况，先存在的数字要往后挪。<br>
 <strong>分析：</strong><br>
-先求不相交的概率：决定不相交的条件是右区间的左边点 &gt; 左区间的右端点。枚举左区间的右端点即可。<br>
-另熟悉快速幂求逆元模板<br>
+用线段树记录每一个区间的空白的数量 ，从后往前插入，对应的位置就是选择当前存在的第几个空白位置进行插入。<br>
 <strong>代码：</strong></p>
-<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+<pre><code class="language-cpp">#include &lt;iostream&gt;
 using namespace std;
 typedef long long ll;
-ll mod = 1e9 + 7;
-ll n;
-
-ll qpow(ll a, ll n)
+//typedef __int128 lll;
+#define print(i) cout &lt;&lt; &quot;debug: &quot; &lt;&lt; i &lt;&lt; endl
+#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
+#define mem(a, b) memset(a, b, sizeof(a))
+const ll mod = 1e9 + 7;
+const int maxn = 2e5 + 10;
+const int inf = 0x3f3f3f3f;
+struct node
 {
-	ll res = 1;
-	while(n)
-	{
-		if(n &amp; 1) res = res * a % mod;
-		n &gt;&gt;= 1;
-		a = a * a % mod;
-	}
-	return res;
+    int pos, val;
+}a[maxn &lt;&lt; 2];
+int sum[maxn &lt;&lt; 2];
+int v[maxn];
+int n;
+void pushup(int tar)
+{
+    sum[tar] = sum[tar &lt;&lt; 1] + sum[tar &lt;&lt; 1 | 1];
+}
+
+void build(int tar, int l, int r)
+{
+    if(l == r)
+    {
+        sum[tar] = 1;
+        return;
+    }
+    int mid = l + r &gt;&gt; 1;
+    build(tar &lt;&lt; 1, l, mid), build(tar &lt;&lt; 1 | 1, mid + 1, r);
+    pushup(tar);
+}
+
+void update(int tar, int pos, int val, int l, int r)
+{
+    if(l == r)
+    {
+        sum[tar] = 0;
+        v[l] = val;
+        return;
+    }
+    int mid = l + r &gt;&gt; 1;
+    if(sum[tar &lt;&lt; 1] &gt;= pos) update(tar &lt;&lt; 1, pos, val, l, mid);
+    else update(tar &lt;&lt; 1 | 1, pos - sum[tar &lt;&lt; 1], val, mid + 1, r);
+    pushup(tar);
 }
 
 int main()
 {
-	while(cin &gt;&gt; n)
-	{
-		cout &lt;&lt; (n + 1) * qpow(2 * n, mod - 2) % mod &lt;&lt; endl;
-	}	
+    close();
+    while(cin &gt;&gt; n)
+    {
+        for(int i = 1; i &lt;= n; i++)
+            cin &gt;&gt; a[i].pos &gt;&gt; a[i].val, a[i].pos++;
+        build(1, 1, n);
+        for(int i = n; i &gt;= 1; i--) update(1, a[i].pos, a[i].val, 1, n);
+        for(int i = 1; i &lt;= n; i++) printf(&quot;%d%c&quot;, v[i], i == n ? '\n' : ' ');
+    }
 }
 </code></pre>
 
@@ -343,7 +365,7 @@ int main()
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://8421BCD.github.io/post/rng-hdu-6574-or-gai-lu-kuai-su-mi-qiu-ni-yuan" title="Rng HDU - 6574 | 概率 + 快速幂求逆元">Rng HDU - 6574 | 概率 + 快速幂求逆元</a>
+      <a href="https://8421BCD.github.io/post/buy-tickets-poj-2828-or-xian-duan-shu-dan-dian-xiu-gai" title="Buy Tickets POJ - 2828 | 线段树单点修改">Buy Tickets POJ - 2828 | 线段树单点修改</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -352,21 +374,15 @@ int main()
   </ul>
   <div class="tags">
     
-      <a href="https://8421BCD.github.io/tag/bV99qdJxk"># 概率</a>
-    
   </div>
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="Cotree HDU - 6567 | 树的重心" href="https://8421BCD.github.io/post/cotree-hdu-6567-or-shu-de-chong-xin">Cotree HDU - 6567 | 树的重心</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="Cotree HDU - 6567 | 树的重心" href="https://8421BCD.github.io/post/cotree-hdu-6567-or-shu-de-chong-xin">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="B - Happy King HDU - 5314 | 点分治 + 容斥原理" href="https://8421BCD.github.io/post/b-happy-king-hdu-5314-or-dian-fen-zhi-rong-chi-yuan-li">B - Happy King HDU - 5314 | 点分治 + 容斥原理</a>
-        <a class="nav-mobile-next" title="B - Happy King HDU - 5314 | 点分治 + 容斥原理" href="https://8421BCD.github.io/post/b-happy-king-hdu-5314-or-dian-fen-zhi-rong-chi-yuan-li">下一篇</a>
+        <a class="nav-pc-next" title="String painter（HDU-2476）| 区间dp" href="https://8421BCD.github.io/post/string-painterhdu-2476or-qu-jian-dp">String painter（HDU-2476）| 区间dp</a>
+        <a class="nav-mobile-next" title="String painter（HDU-2476）| 区间dp" href="https://8421BCD.github.io/post/string-painterhdu-2476or-qu-jian-dp">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
