@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-03-16T12:31:32.138Z</updated>
+    <updated>2020-03-18T09:50:26.224Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -10,6 +10,68 @@
     <logo>https://8421BCD.github.io/images/avatar.png</logo>
     <icon>https://8421BCD.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
+    <entry>
+        <title type="html"><![CDATA[String painter（HDU-2476）| 区间dp]]></title>
+        <id>https://8421BCD.github.io/post/string-painterhdu-2476or-qu-jian-dp</id>
+        <link href="https://8421BCD.github.io/post/string-painterhdu-2476or-qu-jian-dp">
+        </link>
+        <updated>2020-03-18T09:48:24.000Z</updated>
+        <content type="html"><![CDATA[<!--more-->
+<p><strong>题意：</strong><br>
+给出两长度相同的字符串，每次操作可以把第一个字符串的一段区间内的所有字母都换成同一个字母，现要将第一个字符串转换成第二个，求最少执行多少次操作<br>
+<strong>分析：</strong></p>
+<ul>
+<li>通过区间的第一个点将区间分成两部分</li>
+<li>用 dp[i][j] 来表示在区间 i~j 内操作的最少次数，先对字符串2进行处理，假设第 i 个字符需要操作一次，则有 dp[i][j]=dp[i+1][j]+1，在区间 i~j 内，若第 k 个字符与第 i 个相同，则可以将区间 i~j 分成两部分 dp[i][j]=min(dp[i+1][k]+dp[k+1][j]);<br>
+<strong>代码：</strong></li>
+</ul>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+//typedef __int128 lll;
+#define print(i) cout &lt;&lt; &quot;debug: &quot; &lt;&lt; i &lt;&lt; endl
+#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
+#define mem(a, b) memset(a, b, sizeof(a))
+const ll mod = 1e9 + 7;
+const int maxn = 1e2 + 10;
+const int inf = 0x3f3f3f3f;
+int dp[maxn][maxn];
+int sum[maxn];
+char a[maxn], b[maxn];
+int n;
+
+int main()
+{
+    while(cin &gt;&gt; (a + 1) &gt;&gt; (b + 1))
+    {
+        int n = strlen(a + 1);
+        for(int i = 1; i &lt;= n; i++) dp[i][i] = 1;
+        for(int len = 2; len &lt;= n; len++)
+            for(int i = 1; i &lt;= n; i++)
+            {
+                int j = i + len - 1;
+                if(j &gt; n) continue;
+                dp[i][j] = dp[i + 1][j] + 1;
+                for(int k = i + 1; k &lt;= j; k++)
+                    if(b[k] == b[i])
+                        dp[i][j] = min(dp[i][j], dp[i + 1][k] + dp[k + 1][j]);
+            }
+        for(int i = 1; i &lt;= n; i++)
+        {
+            if(a[i] == b[i]) sum[i] = sum[i - 1];
+            else
+            {
+                sum[i] = sum[i - 1] + 1;
+                for(int k = 1; k &lt;= i - 1; k++)
+                    sum[i] = min(sum[i], sum[k - 1] + dp[k][i]);
+            }
+        }
+        cout &lt;&lt; sum[n] &lt;&lt; endl;
+    }
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[ZOJ 3871 Convex Hull | 计算几何、凸包]]></title>
         <id>https://8421BCD.github.io/post/zoj-3871-convex-hull-or-ji-suan-ji-he-tu-bao</id>
@@ -1660,92 +1722,6 @@ int main()
                 break;
             }
         cout &lt;&lt; (solve(r) - solve(l) + mod) % mod &lt;&lt; endl;
-    }
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Strings in the Pocket ZOJ - 4110 | manacher算法]]></title>
-        <id>https://8421BCD.github.io/post/strings-in-the-pocket-zoj-4110-or-manacher-suan-fa</id>
-        <link href="https://8421BCD.github.io/post/strings-in-the-pocket-zoj-4110-or-manacher-suan-fa">
-        </link>
-        <updated>2020-03-02T10:35:57.000Z</updated>
-        <summary type="html"><![CDATA[<p>第一道马拉车的题。。纪念一下花了一个小时学的🐎拉🚗算法</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>第一道马拉车的题。。纪念一下花了一个小时学的🐎拉🚗算法</p>
-<!--more-->
-<p><strong>题意：</strong><br>
-给你两个串 s 和 t ， 问能否翻转 s 串的子串让 s 和 t 一样，问可以翻转的种类有多少个？<br>
-<strong>分析：</strong><br>
-如果两个字符串相同时用 Manacher 求出回文串的个数。如果不同的话，找到那部分串，以这个串为中心向两边扩展 （可以证明左右扩展总是同步的），如果两边是回文串，那就 ans ++。<br>
-<strong>代码：</strong></p>
-<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-typedef long long ll;
-//typedef __int128 lll;
-#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
-#define mem(a, b) memset(a, b, sizeof(a))
-const ll mod = 1e9 + 7;
-const int maxn = 2e6 + 10;
-const int inf = 0x3f3f3f3f;
-char a[maxn], b[maxn];
-char ma[maxn &lt;&lt; 1];
-int mp[maxn &lt;&lt; 1];
-
-ll manacher(char s[])
-{
-    int l = 0;
-    ma[l++] = '$', ma[l++] = '#';
-    for(int i = 0; s[i]; i++)
-        ma[l++] = s[i], ma[l++] = '#';
-    ma[l] = 0;
-    int maxx = 0, pos = 0;
-    ll res = 0;
-    for(int i = 0; i &lt; l; i++)
-    {
-        mp[i] = maxx &gt; i ? min(mp[2 * pos - i], maxx - i) : 1;
-        while(ma[i + mp[i]] == ma[i - mp[i]]) mp[i]++;
-        if(i + mp[i] &gt; maxx) maxx = i + mp[i], pos = i;
-    }
-    for(int i = 0; i &lt; l; i++) res += mp[i] / 2;
-    return res;
-}
-
-int main()
-{
-    int t; cin &gt;&gt; t;
-    while(t--)
-    {
-        scanf(&quot;%s%s&quot;, a, b);
-        int len = strlen(a);
-        int l = 0, r = len - 1;
-        for(; l &lt; len; l++) if(a[l] != b[l]) break;
-        for(; r &gt;= 0; r--) if(a[r] != b[r]) break;
-        if(r == -1)
-        {
-            cout &lt;&lt; manacher(a) &lt;&lt; endl;
-            continue;
-        }
-        int flag = 0;
-        for(int i = l; i &lt;= r; i++)
-            if(a[i] != b[l + r - i]) 
-            {
-                flag = 1;
-                break;
-            }
-        if(flag)
-        {
-            cout &lt;&lt; 0 &lt;&lt; endl;
-            continue;
-        }
-        int sum = 1;
-        l--, r++;
-        while(l &gt;= 0 &amp;&amp; r &lt;= len - 1)
-            if(a[l] == b[r])
-                sum++, l--, r++;
-            else break;
-        cout &lt;&lt; sum &lt;&lt; endl;
     }
 }
 </code></pre>

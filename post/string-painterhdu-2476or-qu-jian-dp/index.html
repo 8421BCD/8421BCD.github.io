@@ -6,7 +6,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="不需要外界告诉自己自己的价值是什么">
 <meta name="theme-color" content="#000">
-<title>Dynamic Rankings ZOJ - 2112 | 动态区间第k大-&gt;主席树 + 树状数组 | Wannafly</title>
+<title>String painter（HDU-2476）| 区间dp | Wannafly</title>
 <link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1584525014652">
 <link rel="stylesheet" href="https://8421BCD.github.io//styles/main.css">
 
@@ -25,8 +25,8 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
     onload="renderMathInElement(document.body);"></script>
 
-    <meta name="description" content="Dynamic Rankings ZOJ - 2112 | 动态区间第k大->主席树 + 树状数组" />
-    <meta name="keywords" content="主席树" />
+    <meta name="description" content="String painter（HDU-2476）| 区间dp" />
+    <meta name="keywords" content="" />
   </head>
   <body>
     <div class="head-top-line"></div>
@@ -260,8 +260,8 @@
               <div class="article-box">
     <header class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://8421BCD.github.io/post/dynamic-rankings-zoj-2112-or-dong-tai-qu-jian-di-k-da-greaterzhu-xi-shu-shu-zhuang-shu-zu">
-      Dynamic Rankings ZOJ - 2112 | 动态区间第k大-&gt;主席树 + 树状数组
+    <a class="post-title-link" href="https://8421BCD.github.io/post/string-painterhdu-2476or-qu-jian-dp">
+      String painter（HDU-2476）| 区间dp
     </a>
   </h1>
   <div class="post-meta">
@@ -269,41 +269,32 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span>发布于</span>
-      <span>2020-03-11</span>
+      <span>2020-03-18</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
-      <span class="meta-item">
-        <i class="fa fa-folder-o"></i>
-        <span class="pc-show">分类于</span>
-        
-          
-            <a href="https://8421BCD.github.io/tag/Hp-KNT684">
-              <span>主席树</span>
-            </a>
-          
-        
-      </span>
-      <span class="post-meta-divider">|</span>
-    
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>5分钟</span>
+      <span>3分钟</span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>719<span class="pc-show">字数</span></span>
+      <span>411<span class="pc-show">字数</span></span>
     </span>
   </div>
 </header>
 </div>
               <div class="post-body next-md-body" id="post_body">
                 <!--more-->
-<p><strong>题意：</strong></p>
-<p><strong>分析：</strong><br>
--used数组存储接下来树状数组求和要用到的结点编号<br>
-<strong>代码：</strong></p>
+<p><strong>题意：</strong><br>
+给出两长度相同的字符串，每次操作可以把第一个字符串的一段区间内的所有字母都换成同一个字母，现要将第一个字符串转换成第二个，求最少执行多少次操作<br>
+<strong>分析：</strong></p>
+<ul>
+<li>通过区间的第一个点将区间分成两部分</li>
+<li>用 dp[i][j] 来表示在区间 i~j 内操作的最少次数，先对字符串2进行处理，假设第 i 个字符需要操作一次，则有 dp[i][j]=dp[i+1][j]+1，在区间 i~j 内，若第 k 个字符与第 i 个相同，则可以将区间 i~j 分成两部分 dp[i][j]=min(dp[i+1][k]+dp[k+1][j]);<br>
+<strong>代码：</strong></li>
+</ul>
 <pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
 using namespace std;
 typedef long long ll;
@@ -312,134 +303,41 @@ typedef long long ll;
 #define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
 #define mem(a, b) memset(a, b, sizeof(a))
 const ll mod = 1e9 + 7;
-const int maxn = 1e5;
+const int maxn = 1e2 + 10;
 const int inf = 0x3f3f3f3f;
-struct node
-{
-    int lson, rson, num;
-}t[maxn &lt;&lt; 6];
-struct node1
-{
-    int kind;
-    int l, r, k;
-    int pos, val;
-}buf[maxn];
-int n, q;
-int root[maxn], tot, num;
-int v[maxn], sorted[maxn];
-int used[maxn], groot[maxn];
-
-void init()
-{
-    tot = 0;
-}
-int getid(int x)
-{
-    return lower_bound(sorted + 1, sorted + 1 + num, x) - sorted;
-}
-
-int lowbit(int x)
-{
-    return x &amp; (-x);
-}
-
-int build(int l, int r)
-{
-    int tar = tot++;
-    t[tar].num = 0;
-    if(l &lt; r)
-    {
-        int mid = l + r &gt;&gt; 1;
-        t[tar].lson = build(l, mid), t[tar].rson = build(mid + 1, r);
-    }
-    return tar;
-}
-
-int update(int pre, int val, int num, int l, int r)
-{
-    int tar = tot++;
-    t[tar] = t[pre], t[tar].num += num;
-    if(l &lt; r)
-    {
-        int mid = l + r &gt;&gt; 1;
-        if(val &lt;= mid) t[tar].lson = update(t[pre].lson, val, num, l, mid);
-        else t[tar].rson = update(t[pre].rson, val, num, mid + 1, r);
-    }
-    return tar;
-}
-
-int update1(int pos, int val)
-{
-    for(int i = pos; i &lt;= n; i += lowbit(i)) groot[i] = update(groot[i], getid(v[pos]), -1, 1, num);
-    for(int i = pos; i &lt;= n; i += lowbit(i)) groot[i] = update(groot[i], getid(val), 1, 1, num);
-    v[pos] = val;
-}
-
-int query(int gl, int gr, int pre, int tar, int k, int l, int r)
-{
-    if(l == r) return l;
-    int res = t[t[tar].lson].num - t[t[pre].lson].num;
-    for(int i = gr; i &gt;= 1; i -= lowbit(i)) res += t[t[used[i]].lson].num;
-    for(int i = gl; i &gt;= 1; i -= lowbit(i)) res -= t[t[used[i]].lson].num;
-    int mid = l + r &gt;&gt; 1;
-    if(res &gt;= k)
-    {
-        for(int i = gr; i &gt;= 1; i -= lowbit(i)) used[i] = t[used[i]].lson;
-        for(int i = gl; i &gt;= 1; i -= lowbit(i)) used[i] = t[used[i]].lson;
-        return query(gl, gr, t[pre].lson, t[tar].lson, k, l, mid);
-    }
-    else
-    {
-        for(int i = gr; i &gt;= 1; i-= lowbit(i)) used[i] = t[used[i]].rson;
-        for(int i = gl; i &gt;= 1; i -= lowbit(i)) used[i] = t[used[i]].rson;
-        return query(gl, gr, t[pre].rson, t[tar].rson, k - res, mid + 1, r);
-    }
-}
+int dp[maxn][maxn];
+int sum[maxn];
+char a[maxn], b[maxn];
+int n;
 
 int main()
 {
-   int t; cin &gt;&gt; t;
-   while(t--)
-   {
-       init();
-       cin &gt;&gt; n &gt;&gt; q;
-       for(int i = 1; i &lt;= n; i++) cin &gt;&gt; v[i], sorted[i] = v[i];
-       int cnt = n;
-       for(int i = 1; i &lt;= q; i++)
-       {
-           char ope[10]; cin &gt;&gt; ope;
-           if(ope[0] == 'Q')
-           {
-               buf[i].kind = 0;
-               cin &gt;&gt; buf[i].l &gt;&gt; buf[i].r &gt;&gt; buf[i].k;
-           }
-           else
-           {
-               buf[i].kind = 1;
-               cin &gt;&gt; buf[i].pos &gt;&gt; buf[i].val;
-               sorted[++cnt] = buf[i].val;
-           }
-       }
-       sort(sorted + 1, sorted + 1 + cnt);
-       num = unique(sorted + 1, sorted + 1 + cnt) - sorted - 1;
-       root[0] = build(1, num);
-       for(int i = 1; i &lt;= n; i++) root[i] = update(root[i - 1], getid(v[i]), 1, 1, num);
-       for(int i = 1; i &lt;= n; i++) groot[i] = root[0];
-       for(int i = 1; i &lt;= q; i++)
-       {
-           if(buf[i].kind == 0)
-           {
-               for(int j = buf[i].l - 1; j &gt;= 1; j -= lowbit(j)) used[j] = groot[j];
-               for(int j = buf[i].r; j &gt;= 1; j -= lowbit(j)) used[j] = groot[j];
-               int res = query(buf[i].l - 1, buf[i].r, root[buf[i].l - 1], root[buf[i].r], buf[i].k, 1, num);
-               cout &lt;&lt; sorted[res] &lt;&lt; endl;
-           }
-           else
-           {
-               update1(buf[i].pos, buf[i].val);
-           }
-       }
-   }
+    while(cin &gt;&gt; (a + 1) &gt;&gt; (b + 1))
+    {
+        int n = strlen(a + 1);
+        for(int i = 1; i &lt;= n; i++) dp[i][i] = 1;
+        for(int len = 2; len &lt;= n; len++)
+            for(int i = 1; i &lt;= n; i++)
+            {
+                int j = i + len - 1;
+                if(j &gt; n) continue;
+                dp[i][j] = dp[i + 1][j] + 1;
+                for(int k = i + 1; k &lt;= j; k++)
+                    if(b[k] == b[i])
+                        dp[i][j] = min(dp[i][j], dp[i + 1][k] + dp[k + 1][j]);
+            }
+        for(int i = 1; i &lt;= n; i++)
+        {
+            if(a[i] == b[i]) sum[i] = sum[i - 1];
+            else
+            {
+                sum[i] = sum[i - 1] + 1;
+                for(int k = 1; k &lt;= i - 1; k++)
+                    sum[i] = min(sum[i], sum[k - 1] + dp[k][i]);
+            }
+        }
+        cout &lt;&lt; sum[n] &lt;&lt; endl;
+    }
 }
 </code></pre>
 
@@ -452,7 +350,7 @@ int main()
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://8421BCD.github.io/post/dynamic-rankings-zoj-2112-or-dong-tai-qu-jian-di-k-da-greaterzhu-xi-shu-shu-zhuang-shu-zu" title="Dynamic Rankings ZOJ - 2112 | 动态区间第k大-&gt;主席树 + 树状数组">Dynamic Rankings ZOJ - 2112 | 动态区间第k大-&gt;主席树 + 树状数组</a>
+      <a href="https://8421BCD.github.io/post/string-painterhdu-2476or-qu-jian-dp" title="String painter（HDU-2476）| 区间dp">String painter（HDU-2476）| 区间dp</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -461,21 +359,15 @@ int main()
   </ul>
   <div class="tags">
     
-      <a href="https://8421BCD.github.io/tag/Hp-KNT684"># 主席树</a>
-    
   </div>
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="Halloween Costumes LightOJ - 1422 " href="https://8421BCD.github.io/post/halloween-costumes-lightoj-1422">Halloween Costumes LightOJ - 1422 </a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="Halloween Costumes LightOJ - 1422 " href="https://8421BCD.github.io/post/halloween-costumes-lightoj-1422">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="数据结构小作业-串模式匹配 | C++文件流读写" href="https://8421BCD.github.io/post/shu-ju-jie-gou-xiao-zuo-ye-chuan-mo-shi-pi-pei-or-cwen-jian-liu-du-xie">数据结构小作业-串模式匹配 | C++文件流读写</a>
-        <a class="nav-mobile-next" title="数据结构小作业-串模式匹配 | C++文件流读写" href="https://8421BCD.github.io/post/shu-ju-jie-gou-xiao-zuo-ye-chuan-mo-shi-pi-pei-or-cwen-jian-liu-du-xie">下一篇</a>
+        <a class="nav-pc-next" title="ZOJ 3871 Convex Hull | 计算几何、凸包" href="https://8421BCD.github.io/post/zoj-3871-convex-hull-or-ji-suan-ji-he-tu-bao">ZOJ 3871 Convex Hull | 计算几何、凸包</a>
+        <a class="nav-mobile-next" title="ZOJ 3871 Convex Hull | 计算几何、凸包" href="https://8421BCD.github.io/post/zoj-3871-convex-hull-or-ji-suan-ji-he-tu-bao">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
