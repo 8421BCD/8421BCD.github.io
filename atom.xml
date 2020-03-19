@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-03-18T12:15:58.611Z</updated>
+    <updated>2020-03-19T02:58:57.620Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -10,6 +10,96 @@
     <logo>https://8421BCD.github.io/images/avatar.png</logo>
     <icon>https://8421BCD.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
+    <entry>
+        <title type="html"><![CDATA[Flipping Game ZOJ - 4114 | dp + 组合数]]></title>
+        <id>https://8421BCD.github.io/post/flipping-game-zoj-4114-or-dp-zu-he-shu</id>
+        <link href="https://8421BCD.github.io/post/flipping-game-zoj-4114-or-dp-zu-he-shu">
+        </link>
+        <updated>2020-03-19T02:49:22.000Z</updated>
+        <summary type="html"><![CDATA[<p>去年省赛题现在才AC。<br>
+我早应该补的，这道题我学到了好多知识点，值了。<br>
+省赛的时候看了两个小时没看出来是dp，就算看出来了也ac不了，太菜了。。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>去年省赛题现在才AC。<br>
+我早应该补的，这道题我学到了好多知识点，值了。<br>
+省赛的时候看了两个小时没看出来是dp，就算看出来了也ac不了，太菜了。。</p>
+<!--more-->
+<p><strong>题意：</strong><br>
+给你n个开关，一共是kk轮，一轮可以关m个灯（这m个灯必须都不同），问你有多少种方法能从初始状态到达最终状态。<br>
+<strong>分析：</strong></p>
+<ul>
+<li>dp[i][j]表示到第i轮的时候，有j个灯是合法的情况数。</li>
+<li>转移其实不难想，主要是枚举的对象，如果枚举的是第i轮的合法数，则子问题不好确定，if判断条件也不好写（至少我没想出来。。）;相反，如果枚举的是i-1轮的合法数，那么不但p的范围好确定，p确定之后该子问题的转移方向也就很清晰了（该状态可以向多个方向转移）</li>
+<li>逆元的表要先打出来，不然会tle，因为每次求逆元会把复杂度提高一个数量级（顺带复习了一波大组合数求法）<br>
+<strong>代码：</strong></li>
+</ul>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+//typedef __int128 lll;
+#define print(i) cout &lt;&lt; &quot;debug: &quot; &lt;&lt; i &lt;&lt; endl
+#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
+#define mem(a, b) memset(a, b, sizeof(a))
+const ll mod = 998244353;
+const int maxn = 1e2 + 10;
+const int inf = 0x3f3f3f3f;
+ll fac[maxn];
+ll inv[maxn];
+ll dp[maxn][maxn];
+int v1[maxn], v2[maxn];
+
+ll powmod(ll a, ll n)
+{
+    ll res = 1;
+    while(n)
+    {
+        if(n &amp; 1) res = res * a % mod;
+        n &gt;&gt;= 1;
+        a = a * a % mod;
+    }
+    return res;
+}
+
+void init()
+{
+    fac[0] = 1;
+    for(int i = 1; i &lt; maxn; i++) fac[i] = fac[i - 1] * i % mod, inv[i] = powmod(fac[i], mod - 2);
+}
+
+ll c(ll n, ll m)
+{
+    if(m == 0 || m == n) return 1; 
+    return fac[n] * inv[m] % mod * inv[n - m] % mod;
+}
+
+int main()
+{
+    int t; cin &gt;&gt; t;
+    init();
+    while(t--)
+    {
+        mem(dp, 0);
+        int n, k, m; scanf(&quot;%d%d%d&quot;, &amp;n, &amp;k, &amp;m);
+        int cnt = 0;
+        for(int i = 1; i &lt;= n; i++) scanf(&quot;%1d&quot;, v1 + i);
+        for(int i = 1; i &lt;= n; i++) scanf(&quot;%1d&quot;, v2 + i), cnt += v1[i] == v2[i];
+        dp[0][cnt] = 1;
+        for(int i = 1; i &lt;= k; i++)
+            for(int j = 0; j &lt;= n; j++)
+                for(int p = 0; p &lt;= m; p++)
+                {
+                    if(p &lt;= j &amp;&amp; m - p &lt;= n - j)
+                    {
+                        dp[i][j - p + m - p] += dp[i - 1][j] * c(j, p) % mod * c(n - j, m - p) % mod;
+                        dp[i][j - p + m - p] %= mod;
+                    }
+                }
+        printf(&quot;%lld\n&quot;, dp[k][n]);
+    }
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Buy Tickets POJ - 2828 | 线段树单点修改]]></title>
         <id>https://8421BCD.github.io/post/buy-tickets-poj-2828-or-xian-duan-shu-dan-dian-xiu-gai</id>
@@ -1527,122 +1617,6 @@ int main()
         }
     }
     cout &lt;&lt; dp[1][n] &lt;&lt; endl;
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[To the moon HDU - 4348 | 主席树套线段树（区间修改区间求和）]]></title>
-        <id>https://8421BCD.github.io/post/to-the-moon-hdu-4348-or-zhu-xi-shu-tao-xian-duan-shu</id>
-        <link href="https://8421BCD.github.io/post/to-the-moon-hdu-4348-or-zhu-xi-shu-tao-xian-duan-shu">
-        </link>
-        <updated>2020-03-08T00:29:36.000Z</updated>
-        <summary type="html"><![CDATA[<p>主席树套线段数模板</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>主席树套线段数模板</p>
-<!--more-->
-<p><strong>题意：</strong></p>
-<p><strong>分析：</strong><br>
--由于主席树的节点是公用的，所以在update的时候不能用传统的pushdown（会破坏之前的历史状态）；又因为不能pushdown，所以update时候就不能pushup了，因为下面的数据不准。<br>
--query的时候遇到懒惰标记就加上<br>
-<strong>代码：</strong></p>
-<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-typedef long long ll;
-//typedef __int128 lll;
-#define print(i) cout &lt;&lt; &quot;debug: &quot; &lt;&lt; i &lt;&lt; endl
-#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
-#define mem(a, b) memset(a, b, sizeof(a))
-const ll mod = 1e9 + 7;
-const int maxn = 1e5 + 10;
-const int inf = 0x3f3f3f3f;
-struct node
-{
-    int lson, rson;
-    ll sum, add;
-}t[maxn &lt;&lt; 5];
-int root[maxn], v[maxn];
-int tot;
-int tim;
-int n, m;
-
-void init()
-{
-    tot = 0;
-    tim = 0;
-}
-
-int build(int l, int r)
-{
-    int tar = tot++;
-    t[tar].add = 0;
-    if(l == r) t[tar].sum = v[l];
-    else
-    {
-        int mid = l + r &gt;&gt; 1;
-        t[tar].lson = build(l, mid), t[tar].rson = build(mid + 1, r);
-        t[tar].sum = t[t[tar].lson].sum + t[t[tar].rson].sum;
-    }
-    return tar;
-}
-
-int update(int pre, int ll, int rr, int val, int l, int r)
-{
-    int tar = tot++;
-    t[tar] = t[pre];
-    t[tar].sum += (min(rr, r) - max(ll, l) + 1) * val;
-    if(ll &lt;= l &amp;&amp; r &lt;= rr) t[tar].add += val;
-    else
-    {
-        int mid = l + r &gt;&gt; 1;
-        if(ll &lt;= mid) t[tar].lson = update(t[pre].lson, ll, rr, val, l, mid);
-        if(rr &gt; mid) t[tar].rson = update(t[pre].rson, ll, rr, val, mid + 1, r);
-    }
-    return tar;
-}
-
-ll query(int tar, int li, int ri, int l, int r)
-{
-    if(li &lt;= l &amp;&amp; r &lt;= ri) return t[tar].sum;
-    int mid = l + r &gt;&gt; 1;
-    ll res = (min(ri, r) - max(li, l) + 1) * t[tar].add;
-    if(li &lt;= mid) res += query(t[tar].lson, li, ri, l, mid);
-    if(ri &gt; mid) res += query(t[tar].rson, li, ri, mid + 1, r);
-    return res;
-}
-
-int main()
-{
-    close();
-   while(cin &gt;&gt; n &gt;&gt; m)
-   {
-        init();
-        for(int i = 1; i &lt;= n; i++) cin &gt;&gt; v[i];
-        root[0] = build(1, n);
-        while(m--)
-        {
-            char ope[3];
-            int l, r, v;
-            cin &gt;&gt; ope;
-            if(ope[0] == 'C')
-            {
-                cin &gt;&gt; l &gt;&gt; r &gt;&gt; v;
-                tim++;
-                root[tim] = update(root[tim - 1], l, r, v, 1, n);
-            }
-            else if(ope[0] == 'Q')
-            {
-                cin &gt;&gt; l &gt;&gt; r;
-                cout &lt;&lt; query(root[tim], l, r, 1, n) &lt;&lt; endl;
-            }
-            else if(ope[0] == 'H')
-            {
-                cin &gt;&gt; l &gt;&gt; r &gt;&gt; v;
-                cout &lt;&lt; query(root[v], l , r, 1, n) &lt;&lt; endl;
-            }
-            else cin &gt;&gt; v, tim = v;
-        }
-   }
 }
 </code></pre>
 ]]></content>
