@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-03-19T02:58:57.620Z</updated>
+    <updated>2020-03-21T14:36:56.520Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -10,6 +10,107 @@
     <logo>https://8421BCD.github.io/images/avatar.png</logo>
     <icon>https://8421BCD.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
+    <entry>
+        <title type="html"><![CDATA[Alice's mooncake shop HDU - 4122 | 单调队列]]></title>
+        <id>https://8421BCD.github.io/post/alices-mooncake-shop-hdu-4122-or-dan-diao-dui-lie</id>
+        <link href="https://8421BCD.github.io/post/alices-mooncake-shop-hdu-4122-or-dan-diao-dui-lie">
+        </link>
+        <updated>2020-03-21T14:34:31.000Z</updated>
+        <summary type="html"><![CDATA[<p>单调队列。。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>单调队列。。</p>
+<!--more-->
+<p><strong>题意：</strong><br>
+Alice开了家月饼店，现有2500笔订单，订单包括某小时（2000年1月1日0点算第1个小时的开始）和需要的月饼数量。然后给你前100000小时的信息，包括第i个小时做1个饼的花费cost[i]。然后给你月饼的保质期T（说明订单i只能买[order[i].hour-T ,order[i].hour ]这个区间生产的饼）和保存1小时的花费S，让你求最小的花费满足所有订单。<br>
+<strong>分析：</strong></p>
+<ul>
+<li>注意可能有多个订单在同一个时间</li>
+<li>每次维护完上升序列后，判断一下当前时间有无订单，有则维护区间长度。<br>
+<strong>代码：</strong></li>
+</ul>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+//typedef __int128 lll;
+#define print(i) cout &lt;&lt; &quot;debug: &quot; &lt;&lt; i &lt;&lt; endl
+#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
+#define mem(a, b) memset(a, b, sizeof(a))
+const ll mod = 1e9 + 7;
+const int maxn = 1e5;
+const int inf = 0x3f3f3f3f;
+struct node1
+{
+    ll tim, num;
+    node1(ll a = 0, ll b = 0) : tim(a), num(b){}
+};
+struct node2
+{
+    ll tim, cost;
+    node2(ll a = 0, ll b = 0) : tim(a), cost(b){}
+};
+string mon[20]={&quot;&quot;, &quot;Jan&quot;, &quot;Feb&quot;, &quot;Mar&quot;, &quot;Apr&quot;, &quot;May&quot;, &quot;Jun&quot;, &quot;Jul&quot;, &quot;Aug&quot;, &quot;Sep&quot;, &quot;Oct&quot;, &quot;Nov&quot;,&quot;Dec&quot;};
+int day[20]={0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+int n, m;
+
+bool judge(int year)
+{
+    return year % 400 == 0 || year % 4 == 0 &amp;&amp; year % 100;
+}
+
+ll gettime(int year, string month, int d, int hour)
+{
+    ll days = 0;
+    for(int i = 2000; i &lt; year; i++)
+        days += judge(i) ? 366 : 365;
+    int k = 0;
+    for(; ; k++) if(mon[k] == month) break;
+    for(int i = 1; i &lt; k; i++)
+        if(judge(year) &amp;&amp; i == 2) days += 29;
+        else days += day[i];
+    days += d - 1;
+    return days * 24 + hour;
+}
+
+int main()
+{
+    while(cin &gt;&gt; n &gt;&gt; m)
+    {
+        if(!n &amp;&amp; !m) return 0;
+        deque&lt;node1&gt; q1;
+        deque&lt;node2&gt; q2;
+        string month;
+        ll day, year, hour;
+        ll num;
+        
+        for(int i = 1; i &lt;= n; i++)
+        {
+            cin &gt;&gt; month &gt;&gt; day &gt;&gt; year &gt;&gt; hour &gt;&gt; num;
+            ll tim = gettime(year, month, day, hour);
+            //print(tim);
+            q1.push_back(node1(tim, num));
+        }
+        ll len, money; cin &gt;&gt; len &gt;&gt; money;
+        ll res = 0;
+        for(int i = 0; i &lt; m; i++)
+        {
+            ll x; cin &gt;&gt; x; //每个月饼价格
+            while(!q2.empty() &amp;&amp; x &lt;= q2.back().cost + (i - q2.back().tim) * money) 
+                q2.pop_back();
+            q2.push_back(node2(i, x));
+            while(!q1.empty() &amp;&amp; q1.front().tim == i)
+            {
+                while(!q2.empty() &amp;&amp; q2.front().tim &lt; i - len)
+                    q2.pop_front();
+                res += ((i - q2.front().tim) * money + q2.front().cost) * q1.front().num;
+                q1.pop_front();
+            }
+        }
+        cout &lt;&lt; res &lt;&lt; endl;
+    }
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Flipping Game ZOJ - 4114 | dp + 组合数]]></title>
         <id>https://8421BCD.github.io/post/flipping-game-zoj-4114-or-dp-zu-he-shu</id>
@@ -1558,65 +1659,6 @@ bool menu() //菜单显示
 int main()
 {
 	while (menu());
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Array Shrinking CodeForces - 1312E | 区间dp]]></title>
-        <id>https://8421BCD.github.io/post/array-shrinking-codeforces-1312e-or-qu-jian-dp</id>
-        <link href="https://8421BCD.github.io/post/array-shrinking-codeforces-1312e-or-qu-jian-dp">
-        </link>
-        <updated>2020-03-10T10:42:17.000Z</updated>
-        <summary type="html"><![CDATA[<p>首蓝不易。</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>首蓝不易。</p>
-<!--more-->
-<p><strong>题意：</strong><br>
-略<br>
-<strong>分析：</strong><br>
-区间dp的状态转移可以从母状态入手，通过分析母状态的所有可能情况，去寻找子状态。比如：<br>
-对于一段[l, r]， 他最后可能只剩下1个，也可能2个、3个。。。，对于1个来说，他一定能找到两个子状态压缩之后长度为1且元素相等；对于多个来说，他一定能找到两个子状态分别压缩之后两个结合时不能再压缩。于是可以得到转移方程。<br>
-<strong>代码：</strong></p>
-<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-typedef long long ll;
-//typedef __int128 lll;
-#define print(i) cout &lt;&lt; &quot;debug: &quot; &lt;&lt; i &lt;&lt; endl
-#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
-#define mem(a, b) memset(a, b, sizeof(a))
-const ll mod = 1e9 + 7;
-const int maxn = 1e3;
-const int inf = 0x3f3f3f3f;
-int v[maxn];
-int dp[maxn][maxn];
-int final[maxn][maxn];//记录该区间压缩为1个元素之后元素的值
-int n; 
-void init()
-{
-    for(int i = 1; i &lt;= n; i++)
-        for(int j = i; j &lt;= n; j++)
-            dp[i][j] = i == j ? 1 : j - i + 1;
-    for(int i = 1; i &lt;= n; i++) final[i][i] = v[i];
-}
-
-int main()
-{
-   cin &gt;&gt; n;
-   for(int i = 1; i &lt;= n; i++) cin &gt;&gt; v[i];
-   init();
-   for(int len = 2; len &lt;= n; len++)
-    for(int i = 1; i + len - 1 &lt;= n; i++)
-    {
-        int j = i + len - 1;
-        for(int k = i; k &lt; j; k++)
-        {
-            dp[i][j] = min(dp[i][j], dp[i][k] + dp[k + 1][j]);
-            if(dp[i][k] == 1 &amp;&amp; dp[k + 1][j] == 1 &amp;&amp; final[i][k] == final[k + 1][j])
-                dp[i][j] = 1, final[i][j] = final[i][k] + 1;
-        }
-    }
-    cout &lt;&lt; dp[1][n] &lt;&lt; endl;
 }
 </code></pre>
 ]]></content>

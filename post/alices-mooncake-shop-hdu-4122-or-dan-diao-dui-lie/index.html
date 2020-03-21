@@ -6,7 +6,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="不需要外界告诉自己自己的价值是什么">
 <meta name="theme-color" content="#000">
-<title>python正则表达式 | 元字符 | Wannafly</title>
+<title>Alice&#39;s mooncake shop HDU - 4122 | 单调队列 | Wannafly</title>
 <link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1584801407511">
 <link rel="stylesheet" href="https://8421BCD.github.io//styles/main.css">
 
@@ -25,8 +25,8 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
     onload="renderMathInElement(document.body);"></script>
 
-    <meta name="description" content="python正则表达式 | 元字符" />
-    <meta name="keywords" content="python" />
+    <meta name="description" content="Alice's mooncake shop HDU - 4122 | 单调队列" />
+    <meta name="keywords" content="" />
   </head>
   <body>
     <div class="head-top-line"></div>
@@ -260,8 +260,8 @@
               <div class="article-box">
     <header class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://8421BCD.github.io/post/python-zheng-ze-biao-da-shi-or-yuan-zi-fu">
-      python正则表达式 | 元字符
+    <a class="post-title-link" href="https://8421BCD.github.io/post/alices-mooncake-shop-hdu-4122-or-dan-diao-dui-lie">
+      Alice&#39;s mooncake shop HDU - 4122 | 单调队列
     </a>
   </h1>
   <div class="post-meta">
@@ -269,38 +269,114 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span>发布于</span>
-      <span>2020-02-20</span>
+      <span>2020-03-21</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
-      <span class="meta-item">
-        <i class="fa fa-folder-o"></i>
-        <span class="pc-show">分类于</span>
-        
-          
-            <a href="https://8421BCD.github.io/tag/8gEXxCU4_">
-              <span>python</span>
-            </a>
-          
-        
-      </span>
-      <span class="post-meta-divider">|</span>
-    
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>1分钟</span>
+      <span>4分钟</span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>18<span class="pc-show">字数</span></span>
+      <span>584<span class="pc-show">字数</span></span>
     </span>
   </div>
 </header>
 </div>
               <div class="post-body next-md-body" id="post_body">
-                <p>-<strong>学习链接</strong><br>
-https://github.com/ziishaned/learn-regex/blob/master/translations/README-cn.md#learn-regex</p>
+                <p>单调队列。。</p>
+<!--more-->
+<p><strong>题意：</strong><br>
+Alice开了家月饼店，现有2500笔订单，订单包括某小时（2000年1月1日0点算第1个小时的开始）和需要的月饼数量。然后给你前100000小时的信息，包括第i个小时做1个饼的花费cost[i]。然后给你月饼的保质期T（说明订单i只能买[order[i].hour-T ,order[i].hour ]这个区间生产的饼）和保存1小时的花费S，让你求最小的花费满足所有订单。<br>
+<strong>分析：</strong></p>
+<ul>
+<li>注意可能有多个订单在同一个时间</li>
+<li>每次维护完上升序列后，判断一下当前时间有无订单，有则维护区间长度。<br>
+<strong>代码：</strong></li>
+</ul>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+//typedef __int128 lll;
+#define print(i) cout &lt;&lt; &quot;debug: &quot; &lt;&lt; i &lt;&lt; endl
+#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
+#define mem(a, b) memset(a, b, sizeof(a))
+const ll mod = 1e9 + 7;
+const int maxn = 1e5;
+const int inf = 0x3f3f3f3f;
+struct node1
+{
+    ll tim, num;
+    node1(ll a = 0, ll b = 0) : tim(a), num(b){}
+};
+struct node2
+{
+    ll tim, cost;
+    node2(ll a = 0, ll b = 0) : tim(a), cost(b){}
+};
+string mon[20]={&quot;&quot;, &quot;Jan&quot;, &quot;Feb&quot;, &quot;Mar&quot;, &quot;Apr&quot;, &quot;May&quot;, &quot;Jun&quot;, &quot;Jul&quot;, &quot;Aug&quot;, &quot;Sep&quot;, &quot;Oct&quot;, &quot;Nov&quot;,&quot;Dec&quot;};
+int day[20]={0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+int n, m;
+
+bool judge(int year)
+{
+    return year % 400 == 0 || year % 4 == 0 &amp;&amp; year % 100;
+}
+
+ll gettime(int year, string month, int d, int hour)
+{
+    ll days = 0;
+    for(int i = 2000; i &lt; year; i++)
+        days += judge(i) ? 366 : 365;
+    int k = 0;
+    for(; ; k++) if(mon[k] == month) break;
+    for(int i = 1; i &lt; k; i++)
+        if(judge(year) &amp;&amp; i == 2) days += 29;
+        else days += day[i];
+    days += d - 1;
+    return days * 24 + hour;
+}
+
+int main()
+{
+    while(cin &gt;&gt; n &gt;&gt; m)
+    {
+        if(!n &amp;&amp; !m) return 0;
+        deque&lt;node1&gt; q1;
+        deque&lt;node2&gt; q2;
+        string month;
+        ll day, year, hour;
+        ll num;
+        
+        for(int i = 1; i &lt;= n; i++)
+        {
+            cin &gt;&gt; month &gt;&gt; day &gt;&gt; year &gt;&gt; hour &gt;&gt; num;
+            ll tim = gettime(year, month, day, hour);
+            //print(tim);
+            q1.push_back(node1(tim, num));
+        }
+        ll len, money; cin &gt;&gt; len &gt;&gt; money;
+        ll res = 0;
+        for(int i = 0; i &lt; m; i++)
+        {
+            ll x; cin &gt;&gt; x; //每个月饼价格
+            while(!q2.empty() &amp;&amp; x &lt;= q2.back().cost + (i - q2.back().tim) * money) 
+                q2.pop_back();
+            q2.push_back(node2(i, x));
+            while(!q1.empty() &amp;&amp; q1.front().tim == i)
+            {
+                while(!q2.empty() &amp;&amp; q2.front().tim &lt; i - len)
+                    q2.pop_front();
+                res += ((i - q2.front().tim) * money + q2.front().cost) * q1.front().num;
+                q1.pop_front();
+            }
+        }
+        cout &lt;&lt; res &lt;&lt; endl;
+    }
+}
+</code></pre>
 
               </div>
               <div class="post-footer">
@@ -311,7 +387,7 @@ https://github.com/ziishaned/learn-regex/blob/master/translations/README-cn.md#l
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://8421BCD.github.io/post/python-zheng-ze-biao-da-shi-or-yuan-zi-fu" title="python正则表达式 | 元字符">python正则表达式 | 元字符</a>
+      <a href="https://8421BCD.github.io/post/alices-mooncake-shop-hdu-4122-or-dan-diao-dui-lie" title="Alice&#39;s mooncake shop HDU - 4122 | 单调队列">Alice&#39;s mooncake shop HDU - 4122 | 单调队列</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -320,21 +396,15 @@ https://github.com/ziishaned/learn-regex/blob/master/translations/README-cn.md#l
   </ul>
   <div class="tags">
     
-      <a href="https://8421BCD.github.io/tag/8gEXxCU4_"># python</a>
-    
   </div>
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="XHXJ&#39;s LIS HDU - 4352 | 数位dp" href="https://8421BCD.github.io/post/xhxjs-lis-hdu-4352-or-zhuang-ya-dp">XHXJ&#39;s LIS HDU - 4352 | 数位dp</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="XHXJ&#39;s LIS HDU - 4352 | 数位dp" href="https://8421BCD.github.io/post/xhxjs-lis-hdu-4352-or-zhuang-ya-dp">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="拯救大兵瑞恩 HDU - 4845 | bfs + 状压" href="https://8421BCD.github.io/post/zheng-jiu-da-bing-rui-en-hdu-4845-or-bfs-zhuang-ya">拯救大兵瑞恩 HDU - 4845 | bfs + 状压</a>
-        <a class="nav-mobile-next" title="拯救大兵瑞恩 HDU - 4845 | bfs + 状压" href="https://8421BCD.github.io/post/zheng-jiu-da-bing-rui-en-hdu-4845-or-bfs-zhuang-ya">下一篇</a>
+        <a class="nav-pc-next" title="Flipping Game ZOJ - 4114 | dp + 组合数" href="https://8421BCD.github.io/post/flipping-game-zoj-4114-or-dp-zu-he-shu">Flipping Game ZOJ - 4114 | dp + 组合数</a>
+        <a class="nav-mobile-next" title="Flipping Game ZOJ - 4114 | dp + 组合数" href="https://8421BCD.github.io/post/flipping-game-zoj-4114-or-dp-zu-he-shu">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
