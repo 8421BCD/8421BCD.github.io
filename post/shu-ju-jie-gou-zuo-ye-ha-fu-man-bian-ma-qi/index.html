@@ -7,7 +7,7 @@
 <meta name="description" content="不需要外界告诉自己自己的价值是什么">
 <meta name="theme-color" content="#000">
 <title>数据结构作业—哈夫曼编码器 | Wannafly</title>
-<link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1584863929092">
+<link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1584866072341">
 <link rel="stylesheet" href="https://8421BCD.github.io//styles/main.css">
 
 <link rel="stylesheet" href="/media/css/pisces.css">
@@ -280,7 +280,7 @@
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>703<span class="pc-show">字数</span></span>
+      <span>704<span class="pc-show">字数</span></span>
     </span>
   </div>
 </header>
@@ -304,7 +304,7 @@
 {
     int val;
     node(int aa = 0) : val(aa){}
-    bool operator&lt; (const node&amp; b)//该行定义&lt;就代表着b是优先级高的，也就是b先出队，下面的语句代表什么情况下b优先级高，假设值越大优先级越高
+    bool operator&lt; (const node&amp; b) const//该行定义&lt;就代表着b是优先级高的，也就是b先出队，下面的语句代表什么情况下b优先级高，假设值越大优先级越高
     {
         b.val &gt; val;//这里最好把b写在左边，更加直观
     }
