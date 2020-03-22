@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-      <meta charset="UTF-8"/>
+    <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="不需要外界告诉自己自己的价值是什么">
 <meta name="theme-color" content="#000">
-<title>Wannafly</title>
+<title>数据结构作业—哈夫曼编码器 | Wannafly</title>
 <link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1584863929092">
 <link rel="stylesheet" href="https://8421BCD.github.io//styles/main.css">
 
@@ -25,6 +25,8 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
     onload="renderMathInElement(document.body);"></script>
 
+    <meta name="description" content="数据结构作业—哈夫曼编码器" />
+    <meta name="keywords" content="" />
   </head>
   <body>
     <div class="head-top-line"></div>
@@ -122,10 +124,16 @@
     </div>
     <div class="main-continer">
       
-      <div class="section-layout  pisces">
+      <div class="section-layout pisces ">
         <div class="section-layout-wrapper">
-          <div class="sidebar">
-    
+          
+
+<div class="sidebar">
+    <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
+      
+      <div class="sidebar-body pisces" id="sidebar_body">
+        
+          
 <div class="sidebar-wrapper box-shadow-wrapper bg-color">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="https://8421BCD.github.io//images/avatar.png"/>
@@ -167,248 +175,333 @@
 
 
 </div>
-</div>
-            <div class="section-box tag-line">
-              <div class="box-shadow-wrapper">
-                <div class="bg-color">
-                  <section class="section posts-expand">
-                    <div class="padding-wrapper">
-  <div class="tag-timeline-box">
-    <div class="tag-timeline-wrapper">
-      <div class="tag-timeline-title">
-        <h2>
-          区间dp
-          <small>标签</small>
-        </h2>
+        
       </div>
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-          
-            <a href="https://8421BCD.github.io/post/string-painterhdu-2476or-qu-jian-dp">
-              <div class="motion-warpper">
-                <div class="tag-post-node">
-                  <h1>
-                    03-18
-                    <small>String painter（HDU-2476）| 区间dp</small>
-                  </h1>
-                </div>  
+    </div>
+</div>
+<script>
+  const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
+  const SIDEBAR_BODY_ACTIVE = 'sidebar-body-active';
+  const SLIDE_UP_IN = 'slide-up-in';
+
+  let sidebar = document.querySelector('#sidebar'),
+  tocSideBar = document.querySelector('#tocSideBar'),
+  metaSideBar = document.querySelector('#metaSideBar'),
+  postToc = document.querySelector('#post_toc'),
+  postSiteMeta = document.querySelector('#post_side_meta'),
+  sidebarTitle = document.querySelector('.sidebar-title'),
+  sidebarBody = document.querySelector('#sidebar_body');
+
+  tocSideBar && tocSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  metaSideBar && metaSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  function toggleSidebar(e) {
+    let currentTitle = document.querySelector("."+SIDEBAR_TITLE_ACTIVE);
+    if (currentTitle == e.srcElement) {
+      return ;
+    }
+    let current, showElement, hideElement;
+    if (e.srcElement == metaSideBar) {
+      showElement = postSiteMeta;
+      hideElement = postToc;
+    } else if (e.srcElement == tocSideBar){
+      showElement = postToc;
+      hideElement = postSiteMeta;
+    }
+    currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
+    e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
+
+    window.Velocity(hideElement, 'stop');
+    window.Velocity(hideElement, 'transition.slideUpOut', {
+      display: 'none',
+      duration: 200,
+      complete: function () {
+        window.Velocity(showElement, 'transition.slideDownIn', {
+          duration: 200
+        });
+      }
+    })
+    hideElement.classList.remove(SIDEBAR_BODY_ACTIVE);
+    showElement.classList.add(SIDEBAR_BODY_ACTIVE);
+  }
+
+  postToc.addEventListener('transitionend', function() {
+    this.classList.remove(SLIDE_UP_IN);
+  });
+
+
+  if (sidebarBody.classList.contains('pisces') || sidebarBody.classList.contains('gemini')) {
+    let hasFix = false;
+    let scrollEl = document.querySelector('.main-continer');
+    let limitTop = document.querySelector('#nav_ul').children.length * 42 + 162;
+    window.addEventListener('scroll', function(e) {
+    if (document.scrollingElement.scrollTop >= limitTop) {
+      if (!hasFix) {
+        sidebar.classList.add('sidebar-fixed');
+        hasFix = true;
+      }
+    } else {
+      if (hasFix) {
+        sidebar.classList.remove('sidebar-fixed');
+        hasFix = false;
+      }
+    }
+  });
+  }
+  
+</script>
+          <div class="section-box box-shadow-wrapper">
+            <div class="section bg-color post post-page">
+              <div class="article-box">
+    <header class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://8421BCD.github.io/post/shu-ju-jie-gou-zuo-ye-ha-fu-man-bian-ma-qi">
+      数据结构作业—哈夫曼编码器
+    </a>
+  </h1>
+  <div class="post-meta">
+    
+    <span class="meta-item pc-show">
+      <i class="fa fa-calendar-o"></i>
+      <span>发布于</span>
+      <span>2020-03-22</span>
+      <span class="post-meta-divider pc-show">|</span>
+    </span>
+    
+    <span class="meta-item">
+      <i class="fa fa-clock-o"></i>
+      <span>4分钟</span>
+    </span>
+    <span class="meta-item">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span>703<span class="pc-show">字数</span></span>
+    </span>
+  </div>
+</header>
+</div>
+              <div class="post-body next-md-body" id="post_body">
+                <p><strong>知识点复习</strong></p>
+<ul>
+<li>priority_queue小于运算符定义， <strong>&lt;代表的是优先级的小于</strong><br>
+方式一：</li>
+</ul>
+<pre><code class="language-cpp">struct cmp
+{
+	bool operator()(int a, int b)
+	{
+		return a &lt; b;
+	}
+};
+</code></pre>
+<p>方式二：</p>
+<pre><code class="language-cpp">struct node
+{
+    int val;
+    node(int aa = 0) : val(aa){}
+    bool operator&lt; (const node&amp; b)//该行定义&lt;就代表着b是优先级高的，也就是b先出队，下面的语句代表什么情况下b优先级高，假设值越大优先级越高
+    {
+        b.val &gt; val;//这里最好把b写在左边，更加直观
+    }
+};
+
+</code></pre>
+<ul>
+<li>构造函数不能直接取地址, 就像常量字符串不能直接取地址一样，他们都是右值<br>
+-- 左右值的区别：</li>
+</ul>
+<pre><code class="language-cpp">//左值：
+int i = 1;   // i 是左值
+int *p = &amp;i; // i 的地址是可辨认的
+i = 2; // i 在内存中的值可以改变
+
+class A;
+A a; // 用户自定义类实例化的对象也是左值
+
+//右值
+int i = 2; // 2 是右值
+int x = i + 2; // (i + 2) 是右值
+int *p = &amp;(i + 2);//错误，不能对右值取地址
+i + 2 = 4; // 错误，不能对右值赋值
+
+class A;
+A a = A(); // A() 是右值
+
+int sum(int a, int b) {return a + b;}
+int i = sum(1, 2) // sum(1, 2) 是右值
+</code></pre>
+<ul>
+<li>
+<p>new、堆与栈<br>
+-- https://blog.csdn.net/qq_35451572/article/details/83302054</p>
+</li>
+<li>
+<p>代码：</p>
+</li>
+</ul>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;string&gt;
+#include &lt;set&gt;
+#include &lt;queue&gt;
+#include &lt;vector&gt;
+#include &lt;map&gt;
+#define print(i) cout &lt;&lt; &quot;debug: &quot; &lt;&lt; i &lt;&lt; endl
+using namespace std;
+const int maxn = 1e4;
+struct node
+{
+	int ch;
+	node* l, * r;
+	node(int a)
+	{
+		ch = a, l = r = NULL;
+	}
+	node(int a, node* b = NULL, node* c = NULL) : ch(a), l(b), r(c){}
+};
+struct cmp
+{
+	bool operator()(node* a, node* b)
+	{
+		return b-&gt;ch &lt; a-&gt;ch;
+	}
+};
+set&lt;char&gt; s;
+priority_queue&lt;node*, vector&lt;node*&gt;, cmp&gt; q;
+map&lt;char, string&gt; m;
+node* root;
+
+node* build()
+{
+	while (q.size() &gt;= 2)
+	{
+		node* left = q.top(); q.pop();
+		node* right = q.top(); q.pop();
+		q.push(new node(left-&gt;ch + right-&gt;ch, left, right));
+	}
+	return q.top();
+}
+
+void dfs(node* now, string code)
+{
+	if (!now-&gt;l &amp;&amp; !now-&gt;r)
+	{
+		m[now-&gt;ch] = code;
+		return;
+	}
+	if (now-&gt;l) dfs(now-&gt;l, code + &quot;0&quot;);
+	if (now-&gt;r) dfs(now-&gt;r, code + &quot;1&quot;);
+}
+
+void makecode(string text)
+{
+	string code;
+	for (int i = 0; i &lt; text.length(); i++) code += m[text[i]];
+	ofstream outfile(&quot;code.txt&quot;);
+	cout &lt;&lt; &quot;编码: &quot; &lt;&lt; code &lt;&lt; endl;
+	outfile &lt;&lt; code &lt;&lt; endl;
+	outfile.close();
+}
+
+void decode()
+{
+	string code, text;
+	node* now = root;
+
+	ifstream infile(&quot;code.txt&quot;);
+	getline(infile, code);
+	for (int i = 0; i &lt; code.length(); i++)
+	{
+		if (code[i] == '0') now = now-&gt;l;
+		else now = now-&gt;r;
+		if (now-&gt;l == NULL &amp;&amp; now-&gt;r == NULL) 
+			text += char(now-&gt;ch), now = root;
+	}
+	ofstream outfile(&quot;text.txt&quot;);
+	cout &lt;&lt; &quot;解码:&quot; &lt;&lt; text &lt;&lt; endl;
+	outfile &lt;&lt; text &lt;&lt; endl;
+	outfile.close();
+}
+
+int main()
+{
+	string text;
+	string tmp;
+
+	cout &lt;&lt; &quot;请输入一行要编码的字符串:&quot;;
+	getline(cin, text);
+	for (int i = 0; i &lt; text.length(); i++) s.insert(text[i]);
+	for (auto it = s.begin(); it != s.end(); it++)
+	{
+		q.push(new node(int(*it), NULL, NULL));
+	}
+	root = build();	
+	dfs(root, tmp);
+	makecode(text);
+	decode();
+}
+</code></pre>
+
               </div>
-            </a>
-          
-        
+              <div class="post-footer">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Wannafly
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://8421BCD.github.io/post/shu-ju-jie-gou-zuo-ye-ha-fu-man-bian-ma-qi" title="数据结构作业—哈夫曼编码器">数据结构作业—哈夫曼编码器</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，转载请注明出处！
+    </li>
+  </ul>
+  <div class="tags">
+    
+  </div>
+  <div class="nav">
+    <div class="nav-prev">
       
-        
+    </div>
+    <div class="nav-next">
       
-        
-          
-        
-      
-        
-          
-            <a href="https://8421BCD.github.io/post/halloween-costumes-lightoj-1422-or-qu-jian-dp">
-              <div class="motion-warpper">
-                <div class="tag-post-node">
-                  <h1>
-                    03-11
-                    <small>Halloween Costumes LightOJ - 1422 | 区间dp</small>
-                  </h1>
-                </div>  
-              </div>
-            </a>
-          
-        
-      
-        
-      
-        
-          
-        
-      
-        
-      
-        
-          
-            <a href="https://8421BCD.github.io/post/array-shrinking-codeforces-1312e-or-qu-jian-dp">
-              <div class="motion-warpper">
-                <div class="tag-post-node">
-                  <h1>
-                    03-10
-                    <small>Array Shrinking CodeForces - 1312E | 区间dp</small>
-                  </h1>
-                </div>  
-              </div>
-            </a>
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-      
-        
-          
-        
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-      
-        
-      
-        
-          
-        
+        <a class="nav-pc-next" title="Alice&#39;s mooncake shop HDU - 4122 | 单调队列" href="https://8421BCD.github.io/post/alices-mooncake-shop-hdu-4122-or-dan-diao-dui-lie">Alice&#39;s mooncake shop HDU - 4122 | 单调队列</a>
+        <a class="nav-mobile-next" title="Alice&#39;s mooncake shop HDU - 4122 | 单调队列" href="https://8421BCD.github.io/post/alices-mooncake-shop-hdu-4122-or-dan-diao-dui-lie">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
       
     </div>
   </div>
 </div>
-                  </section>
-                </div>
-              </div>
+              
+                
+                  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '',
+    clientSecret: '',
+    repo: '',
+    owner: '',
+    admin: [''],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+  gitalk.render('gitalk-container')
+</script>
+                
+                
+              
+            </div>
           </div>
         </div>
       </div>

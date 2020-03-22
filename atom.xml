@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-03-21T15:08:00.088Z</updated>
+    <updated>2020-03-22T07:59:06.020Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -10,6 +10,174 @@
     <logo>https://8421BCD.github.io/images/avatar.png</logo>
     <icon>https://8421BCD.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
+    <entry>
+        <title type="html"><![CDATA[数据结构作业—哈夫曼编码器]]></title>
+        <id>https://8421BCD.github.io/post/shu-ju-jie-gou-zuo-ye-ha-fu-man-bian-ma-qi</id>
+        <link href="https://8421BCD.github.io/post/shu-ju-jie-gou-zuo-ye-ha-fu-man-bian-ma-qi">
+        </link>
+        <updated>2020-03-22T06:56:36.000Z</updated>
+        <content type="html"><![CDATA[<p><strong>知识点复习</strong></p>
+<ul>
+<li>priority_queue小于运算符定义， <strong>&lt;代表的是优先级的小于</strong><br>
+方式一：</li>
+</ul>
+<pre><code class="language-cpp">struct cmp
+{
+	bool operator()(int a, int b)
+	{
+		return a &lt; b;
+	}
+};
+</code></pre>
+<p>方式二：</p>
+<pre><code class="language-cpp">struct node
+{
+    int val;
+    node(int aa = 0) : val(aa){}
+    bool operator&lt; (const node&amp; b)//该行定义&lt;就代表着b是优先级高的，也就是b先出队，下面的语句代表什么情况下b优先级高，假设值越大优先级越高
+    {
+        b.val &gt; val;//这里最好把b写在左边，更加直观
+    }
+};
+
+</code></pre>
+<ul>
+<li>构造函数不能直接取地址, 就像常量字符串不能直接取地址一样，他们都是右值<br>
+-- 左右值的区别：</li>
+</ul>
+<pre><code class="language-cpp">//左值：
+int i = 1;   // i 是左值
+int *p = &amp;i; // i 的地址是可辨认的
+i = 2; // i 在内存中的值可以改变
+
+class A;
+A a; // 用户自定义类实例化的对象也是左值
+
+//右值
+int i = 2; // 2 是右值
+int x = i + 2; // (i + 2) 是右值
+int *p = &amp;(i + 2);//错误，不能对右值取地址
+i + 2 = 4; // 错误，不能对右值赋值
+
+class A;
+A a = A(); // A() 是右值
+
+int sum(int a, int b) {return a + b;}
+int i = sum(1, 2) // sum(1, 2) 是右值
+</code></pre>
+<ul>
+<li>
+<p>new、堆与栈<br>
+-- https://blog.csdn.net/qq_35451572/article/details/83302054</p>
+</li>
+<li>
+<p>代码：</p>
+</li>
+</ul>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;string&gt;
+#include &lt;set&gt;
+#include &lt;queue&gt;
+#include &lt;vector&gt;
+#include &lt;map&gt;
+#define print(i) cout &lt;&lt; &quot;debug: &quot; &lt;&lt; i &lt;&lt; endl
+using namespace std;
+const int maxn = 1e4;
+struct node
+{
+	int ch;
+	node* l, * r;
+	node(int a)
+	{
+		ch = a, l = r = NULL;
+	}
+	node(int a, node* b = NULL, node* c = NULL) : ch(a), l(b), r(c){}
+};
+struct cmp
+{
+	bool operator()(node* a, node* b)
+	{
+		return b-&gt;ch &lt; a-&gt;ch;
+	}
+};
+set&lt;char&gt; s;
+priority_queue&lt;node*, vector&lt;node*&gt;, cmp&gt; q;
+map&lt;char, string&gt; m;
+node* root;
+
+node* build()
+{
+	while (q.size() &gt;= 2)
+	{
+		node* left = q.top(); q.pop();
+		node* right = q.top(); q.pop();
+		q.push(new node(left-&gt;ch + right-&gt;ch, left, right));
+	}
+	return q.top();
+}
+
+void dfs(node* now, string code)
+{
+	if (!now-&gt;l &amp;&amp; !now-&gt;r)
+	{
+		m[now-&gt;ch] = code;
+		return;
+	}
+	if (now-&gt;l) dfs(now-&gt;l, code + &quot;0&quot;);
+	if (now-&gt;r) dfs(now-&gt;r, code + &quot;1&quot;);
+}
+
+void makecode(string text)
+{
+	string code;
+	for (int i = 0; i &lt; text.length(); i++) code += m[text[i]];
+	ofstream outfile(&quot;code.txt&quot;);
+	cout &lt;&lt; &quot;编码: &quot; &lt;&lt; code &lt;&lt; endl;
+	outfile &lt;&lt; code &lt;&lt; endl;
+	outfile.close();
+}
+
+void decode()
+{
+	string code, text;
+	node* now = root;
+
+	ifstream infile(&quot;code.txt&quot;);
+	getline(infile, code);
+	for (int i = 0; i &lt; code.length(); i++)
+	{
+		if (code[i] == '0') now = now-&gt;l;
+		else now = now-&gt;r;
+		if (now-&gt;l == NULL &amp;&amp; now-&gt;r == NULL) 
+			text += char(now-&gt;ch), now = root;
+	}
+	ofstream outfile(&quot;text.txt&quot;);
+	cout &lt;&lt; &quot;解码:&quot; &lt;&lt; text &lt;&lt; endl;
+	outfile &lt;&lt; text &lt;&lt; endl;
+	outfile.close();
+}
+
+int main()
+{
+	string text;
+	string tmp;
+
+	cout &lt;&lt; &quot;请输入一行要编码的字符串:&quot;;
+	getline(cin, text);
+	for (int i = 0; i &lt; text.length(); i++) s.insert(text[i]);
+	for (auto it = s.begin(); it != s.end(); it++)
+	{
+		q.push(new node(int(*it), NULL, NULL));
+	}
+	root = build();	
+	dfs(root, tmp);
+	makecode(text);
+	decode();
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Alice's mooncake shop HDU - 4122 | 单调队列]]></title>
         <id>https://8421BCD.github.io/post/alices-mooncake-shop-hdu-4122-or-dan-diao-dui-lie</id>
@@ -1519,146 +1687,6 @@ int main()
            }
        }
    }
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[数据结构小作业-串模式匹配 | C++文件流读写]]></title>
-        <id>https://8421BCD.github.io/post/shu-ju-jie-gou-xiao-zuo-ye-chuan-mo-shi-pi-pei-or-cwen-jian-liu-du-xie</id>
-        <link href="https://8421BCD.github.io/post/shu-ju-jie-gou-xiao-zuo-ye-chuan-mo-shi-pi-pei-or-cwen-jian-liu-du-xie">
-        </link>
-        <updated>2020-03-11T07:51:54.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;fstream&gt;
-#include &lt;string&gt;
-#include &lt;vector&gt;
-using namespace std;
-const int maxn = 1e4;
-int nex[maxn];
-string a, b;
-int lena, lenb;
-vector&lt;int&gt; ans;
-
-void NewFile()//C++文件流创建文件
-{
-	cout &lt;&lt; &quot;请输入要创建的文件名称:&quot; &lt;&lt; endl;
-	string name; cin &gt;&gt; name; getchar(); name += &quot;.txt&quot;;
-	cout &lt;&lt; &quot;请输入文本(以Ctrl+z结束)&quot; &lt;&lt; endl;
-	ofstream outfile(name.c_str());
-	string buf;
-	while (getline(cin, buf))
-	{
-		outfile &lt;&lt; buf &lt;&lt; endl;
-	}
-	cout &lt;&lt; &quot;文件创建成功&quot; &lt;&lt; endl;
-	outfile.close();
-}
-
-void getnex()//next数组处理
-{
-	int j = 0, k = -1;
-	nex[0] = -1;
-	while (j &lt; lenb)
-	{
-		if (k == -1 || b[j] == b[k])
-			nex[++j] = ++k;
-		else k = nex[k];
-	}
-}
-
-int kmpcount()//kmp算法
-{
-	getnex();
-	ans.clear();
-	int i = 0, j = 0, res = 0;
-	while (i &lt; lena)
-	{
-		while (b[j] != a[i] &amp;&amp; j &gt; 0)
-			j = nex[j];
-		if (a[i] == b[j]) j++;
-		if (j == lenb) res++, ans.push_back(i - lenb + 1), j = nex[j];
-		i++;
-	}
-	return res;
-}
-
-void count()//功能2
-{
-	cout &lt;&lt; &quot;请输入要查询的文件名称:&quot; &lt;&lt; endl;
-	string name; cin &gt;&gt; name; getchar(); name += &quot;.txt&quot;;
-	ifstream infile(name.c_str());
-	cout &lt;&lt; &quot;请输入您要计数的单词&quot; &lt;&lt; endl;
-	cin &gt;&gt; b; lenb = b.length();
-	int res = 0;
-	while (getline(infile, a))
-	{
-		lena = a.length();
-		res += kmpcount();
-	}
-	cout &lt;&lt; &quot;匹配到的个数为：&quot; &lt;&lt; res &lt;&lt; endl;
-}
-
-void search()//功能3
-{
-	cout &lt;&lt; &quot;请输入要查询的文件名称:&quot; &lt;&lt; endl;
-	string name; cin &gt;&gt; name; getchar(); name += &quot;.txt&quot;;
-
-	ifstream infile(name.c_str());
-	cout &lt;&lt; &quot;请输入您要计数的单词&quot; &lt;&lt; endl;
-	cin &gt;&gt; b; lenb = b.length();
-	int lines = 0, flag = 0;
-	while (getline(infile, a))
-	{
-		lines++;
-		lena = a.length();
-		int res = kmpcount();
-		if (res)
-		{
-			flag = 1;
-			printf(&quot;第%d行内容为:%s共匹配到%d处, 起始位置是: &quot;, lines, a.c_str(), res);
-			for (int i = 0; i &lt; ans.size(); i++)
-				printf(&quot;%d%c&quot;, ans[i] + 1, i == ans.size() - 1 ? '\n' : ' ');
-		}
-	}
-	if (!flag) cout &lt;&lt; &quot;未匹配到相关单词&quot; &lt;&lt; endl;
-}
-
-
-bool menu() //菜单显示
-{
-	cout &lt;&lt; &quot;***文本匹配系统***&quot; &lt;&lt; endl;
-	cout &lt;&lt; &quot;1、建立文件&quot; &lt;&lt; endl;
-	cout &lt;&lt; &quot;2、单词计数&quot; &lt;&lt; endl;
-	cout &lt;&lt; &quot;3、单词定位&quot; &lt;&lt; endl;
-	cout &lt;&lt; &quot;4、退出程序&quot; &lt;&lt; endl;
-	cout &lt;&lt; &quot;请输入操作序号&quot; &lt;&lt; endl;
-	cin.clear();
-	int ope; cin &gt;&gt; ope;
-	switch (ope)
-	{
-	case 1:
-		NewFile();
-		break;
-	case 2:
-		count();
-		break;
-	case 3:
-		search();
-		break;
-	case 4:
-		return false;
-	default:
-		return false;
-	}
-	system(&quot;pause&quot;);
-	system(&quot;cls&quot;);
-	return true;
-}
-
-int main()
-{
-	while (menu());
 }
 </code></pre>
 ]]></content>
