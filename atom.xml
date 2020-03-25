@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-03-22T08:36:36.496Z</updated>
+    <updated>2020-03-25T15:01:55.637Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -10,6 +10,85 @@
     <logo>https://8421BCD.github.io/images/avatar.png</logo>
     <icon>https://8421BCD.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
+    <entry>
+        <title type="html"><![CDATA[Print Article HDU - 3507 | 斜率dp]]></title>
+        <id>https://8421BCD.github.io/post/print-article-hdu-3507-or-xie-lu-dp</id>
+        <link href="https://8421BCD.github.io/post/print-article-hdu-3507-or-xie-lu-dp">
+        </link>
+        <updated>2020-03-25T14:58:37.000Z</updated>
+        <summary type="html"><![CDATA[<p>把i看成j了，佛系debug一晚上，感觉越来越菜了</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>把i看成j了，佛系debug一晚上，感觉越来越菜了</p>
+<!--more-->
+<p><strong>题意：</strong><br>
+给出N个单词，每个单词有个非负权值Ci，现在要将它们分成连续的若干段，每段的代价为此段单词的权值和的平方，还要加一个常数M,，即。现在想求出一种最优方案，使得总费用之和最小。<br>
+<strong>分析：</strong></p>
+<ul>
+<li>注意一开始0要入队</li>
+<li>注意斜率的比较不能用double，要交叉相乘，考虑到分母不为零<br>
+<strong>代码：</strong></li>
+</ul>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+//typedef __int128 lll;
+#define print(i) cout &lt;&lt; &quot;debug: &quot; &lt;&lt; i &lt;&lt; endl
+#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
+#define mem(a, b) memset(a, b, sizeof(a))
+const ll mod = 1e9 + 7;
+const int maxn = 5e5 + 10;
+const int inf = 0x3f3f3f3f;
+int n, m;
+int dp[maxn], q[maxn];
+int sum[maxn];
+int head, tail;
+
+int sq(int n)
+{
+    return n * n;
+}
+
+int getdp(int i, int j)
+{
+    return dp[j] + sq(sum[i] - sum[j]) + m;
+}
+
+int getup(int i, int j)
+{
+    return dp[i] + sq(sum[i]) - dp[j] - sq(sum[j]);
+}
+
+int getdown(int i, int j)
+{
+    return 2 * (sum[i] - sum[j]);
+}
+
+int main()
+{
+    while(scanf(&quot;%d%d&quot;, &amp;n, &amp;m) == 2)
+    {
+        for(int i=1;i&lt;=n;i++)
+           scanf(&quot;%d&quot;,&amp;sum[i]);
+        sum[0]=dp[0]=0;
+        for(int i=1;i&lt;=n;i++)
+           sum[i]+=sum[i-1];
+        head=tail=0;
+        q[tail]=0;
+        for(int i = 1; i &lt;= n; i++)
+        {
+            while(head&lt;tail &amp;&amp;  getup(q[head+1],q[head])&lt;=sum[i]*getdown(q[head+1],q[head]))
+               head++;
+            dp[i]=getdp(i,q[head]);
+            while(head&lt;tail &amp;&amp; getup(i,q[tail])*getdown(q[tail],q[tail-1])&lt;=getup(q[tail],q[tail-1])*getdown(i,q[tail]))
+                tail--;
+            q[++tail]=i;
+        }
+        cout &lt;&lt; dp[n] &lt;&lt; endl;
+    }
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[数据结构作业—哈夫曼编码器]]></title>
         <id>https://8421BCD.github.io/post/shu-ju-jie-gou-zuo-ye-ha-fu-man-bian-ma-qi</id>
@@ -1536,157 +1615,6 @@ int main()
             }
         printf(&quot;Case %d: %d\n&quot;, ++cases, dp[1][n]);
     }
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Dynamic Rankings ZOJ - 2112 | 动态区间第k大->主席树 + 树状数组]]></title>
-        <id>https://8421BCD.github.io/post/dynamic-rankings-zoj-2112-or-dong-tai-qu-jian-di-k-da-greaterzhu-xi-shu-shu-zhuang-shu-zu</id>
-        <link href="https://8421BCD.github.io/post/dynamic-rankings-zoj-2112-or-dong-tai-qu-jian-di-k-da-greaterzhu-xi-shu-shu-zhuang-shu-zu">
-        </link>
-        <updated>2020-03-11T12:15:17.000Z</updated>
-        <content type="html"><![CDATA[<!--more-->
-<p><strong>题意：</strong></p>
-<p><strong>分析：</strong><br>
--used数组存储接下来树状数组求和要用到的结点编号<br>
-<strong>代码：</strong></p>
-<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-typedef long long ll;
-//typedef __int128 lll;
-#define print(i) cout &lt;&lt; &quot;debug: &quot; &lt;&lt; i &lt;&lt; endl
-#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
-#define mem(a, b) memset(a, b, sizeof(a))
-const ll mod = 1e9 + 7;
-const int maxn = 1e5;
-const int inf = 0x3f3f3f3f;
-struct node
-{
-    int lson, rson, num;
-}t[maxn &lt;&lt; 6];
-struct node1
-{
-    int kind;
-    int l, r, k;
-    int pos, val;
-}buf[maxn];
-int n, q;
-int root[maxn], tot, num;
-int v[maxn], sorted[maxn];
-int used[maxn], groot[maxn];
-
-void init()
-{
-    tot = 0;
-}
-int getid(int x)
-{
-    return lower_bound(sorted + 1, sorted + 1 + num, x) - sorted;
-}
-
-int lowbit(int x)
-{
-    return x &amp; (-x);
-}
-
-int build(int l, int r)
-{
-    int tar = tot++;
-    t[tar].num = 0;
-    if(l &lt; r)
-    {
-        int mid = l + r &gt;&gt; 1;
-        t[tar].lson = build(l, mid), t[tar].rson = build(mid + 1, r);
-    }
-    return tar;
-}
-
-int update(int pre, int val, int num, int l, int r)
-{
-    int tar = tot++;
-    t[tar] = t[pre], t[tar].num += num;
-    if(l &lt; r)
-    {
-        int mid = l + r &gt;&gt; 1;
-        if(val &lt;= mid) t[tar].lson = update(t[pre].lson, val, num, l, mid);
-        else t[tar].rson = update(t[pre].rson, val, num, mid + 1, r);
-    }
-    return tar;
-}
-
-int update1(int pos, int val)
-{
-    for(int i = pos; i &lt;= n; i += lowbit(i)) groot[i] = update(groot[i], getid(v[pos]), -1, 1, num);
-    for(int i = pos; i &lt;= n; i += lowbit(i)) groot[i] = update(groot[i], getid(val), 1, 1, num);
-    v[pos] = val;
-}
-
-int query(int gl, int gr, int pre, int tar, int k, int l, int r)
-{
-    if(l == r) return l;
-    int res = t[t[tar].lson].num - t[t[pre].lson].num;
-    for(int i = gr; i &gt;= 1; i -= lowbit(i)) res += t[t[used[i]].lson].num;
-    for(int i = gl; i &gt;= 1; i -= lowbit(i)) res -= t[t[used[i]].lson].num;
-    int mid = l + r &gt;&gt; 1;
-    if(res &gt;= k)
-    {
-        for(int i = gr; i &gt;= 1; i -= lowbit(i)) used[i] = t[used[i]].lson;
-        for(int i = gl; i &gt;= 1; i -= lowbit(i)) used[i] = t[used[i]].lson;
-        return query(gl, gr, t[pre].lson, t[tar].lson, k, l, mid);
-    }
-    else
-    {
-        for(int i = gr; i &gt;= 1; i-= lowbit(i)) used[i] = t[used[i]].rson;
-        for(int i = gl; i &gt;= 1; i -= lowbit(i)) used[i] = t[used[i]].rson;
-        return query(gl, gr, t[pre].rson, t[tar].rson, k - res, mid + 1, r);
-    }
-}
-
-int main()
-{
-   int t; cin &gt;&gt; t;
-   while(t--)
-   {
-       init();
-       cin &gt;&gt; n &gt;&gt; q;
-       for(int i = 1; i &lt;= n; i++) cin &gt;&gt; v[i], sorted[i] = v[i];
-       int cnt = n;
-       for(int i = 1; i &lt;= q; i++)
-       {
-           char ope[10]; cin &gt;&gt; ope;
-           if(ope[0] == 'Q')
-           {
-               buf[i].kind = 0;
-               cin &gt;&gt; buf[i].l &gt;&gt; buf[i].r &gt;&gt; buf[i].k;
-           }
-           else
-           {
-               buf[i].kind = 1;
-               cin &gt;&gt; buf[i].pos &gt;&gt; buf[i].val;
-               sorted[++cnt] = buf[i].val;
-           }
-       }
-       sort(sorted + 1, sorted + 1 + cnt);
-       num = unique(sorted + 1, sorted + 1 + cnt) - sorted - 1;
-       root[0] = build(1, num);
-       for(int i = 1; i &lt;= n; i++) root[i] = update(root[i - 1], getid(v[i]), 1, 1, num);
-       for(int i = 1; i &lt;= n; i++) groot[i] = root[0];
-       for(int i = 1; i &lt;= q; i++)
-       {
-           if(buf[i].kind == 0)
-           {
-               for(int j = buf[i].l - 1; j &gt;= 1; j -= lowbit(j)) used[j] = groot[j];
-               for(int j = buf[i].r; j &gt;= 1; j -= lowbit(j)) used[j] = groot[j];
-               int res = query(buf[i].l - 1, buf[i].r, root[buf[i].l - 1], root[buf[i].r], buf[i].k, 1, num);
-               cout &lt;&lt; sorted[res] &lt;&lt; endl;
-           }
-           else
-           {
-               update1(buf[i].pos, buf[i].val);
-           }
-       }
-   }
 }
 </code></pre>
 ]]></content>

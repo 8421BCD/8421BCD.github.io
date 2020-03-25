@@ -6,7 +6,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="不需要外界告诉自己自己的价值是什么">
 <meta name="theme-color" content="#000">
-<title>ZOJ 3871 Convex Hull | 计算几何、凸包 | Wannafly</title>
+<title>Print Article HDU - 3507 | 斜率dp | Wannafly</title>
 <link rel="shortcut icon" href="https://8421BCD.github.io//favicon.ico?v=1585148499373">
 <link rel="stylesheet" href="https://8421BCD.github.io//styles/main.css">
 
@@ -25,7 +25,7 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
     onload="renderMathInElement(document.body);"></script>
 
-    <meta name="description" content="ZOJ 3871 Convex Hull | 计算几何、凸包" />
+    <meta name="description" content="Print Article HDU - 3507 | 斜率dp" />
     <meta name="keywords" content="" />
   </head>
   <body>
@@ -260,8 +260,8 @@
               <div class="article-box">
     <header class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://8421BCD.github.io/post/zoj-3871-convex-hull-or-ji-suan-ji-he-tu-bao">
-      ZOJ 3871 Convex Hull | 计算几何、凸包
+    <a class="post-title-link" href="https://8421BCD.github.io/post/print-article-hdu-3507-or-xie-lu-dp">
+      Print Article HDU - 3507 | 斜率dp
     </a>
   </h1>
   <div class="post-meta">
@@ -269,7 +269,7 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span>发布于</span>
-      <span>2020-03-16</span>
+      <span>2020-03-25</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
@@ -280,22 +280,22 @@
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>476<span class="pc-show">字数</span></span>
+      <span>391<span class="pc-show">字数</span></span>
     </span>
   </div>
 </header>
 </div>
               <div class="post-body next-md-body" id="post_body">
-                <ul>
-<li>double atan2(double y,double x) 返回的是原点至点(x,y)的方位角，即与 x 轴的夹角。返回值的单位为弧度，取值范围为（-π, π]。结果为正表示从 X 轴逆时针旋转的角度，结果为负表示从 X 轴顺时针旋转的角度。</li>
-<li>理解多边形求面积的方法</li>
-</ul>
+                <p>把i看成j了，佛系debug一晚上，感觉越来越菜了</p>
 <!--more-->
 <p><strong>题意：</strong><br>
-给n个点，|x[i]|，|y[i]| &lt;= 1e9。求在所有情况下的子集下（子集点数&gt;=3），凸包的面积和。<br>
-<strong>分析：</strong><br>
-<img src="https://8421BCD.github.io//post-images/1584361798762.png" alt="" loading="lazy"><br>
-<strong>代码：</strong></p>
+给出N个单词，每个单词有个非负权值Ci，现在要将它们分成连续的若干段，每段的代价为此段单词的权值和的平方，还要加一个常数M,，即。现在想求出一种最优方案，使得总费用之和最小。<br>
+<strong>分析：</strong></p>
+<ul>
+<li>注意一开始0要入队</li>
+<li>注意斜率的比较不能用double，要交叉相乘，考虑到分母不为零<br>
+<strong>代码：</strong></li>
+</ul>
 <pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
 using namespace std;
 typedef long long ll;
@@ -303,70 +303,57 @@ typedef long long ll;
 #define print(i) cout &lt;&lt; &quot;debug: &quot; &lt;&lt; i &lt;&lt; endl
 #define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
 #define mem(a, b) memset(a, b, sizeof(a))
-const ll mod = 998244353;
-const int maxn = 1e3 + 10;
+const ll mod = 1e9 + 7;
+const int maxn = 5e5 + 10;
 const int inf = 0x3f3f3f3f;
-const double pi = 4 * atan(1);
-struct point
-{
-    ll x, y;
-    double angle;
-    point(ll a = 0, ll b = 0, double c = 0) : x(a), y(b), angle(c){}
-    bool operator&lt; (const point&amp; b)
-    {
-        return angle &lt; b.angle;
-    }
-    point operator -(const point&amp; b)
-    {
-        return point(x - b.x, y - b.y);
-    }
-    ll operator * (const point&amp; b)
-    {
-        return x * b.y - y * b.x;
-    }
-}a[maxn], b[maxn &lt;&lt; 1];
-ll p[maxn];
-int n;
+int n, m;
+int dp[maxn], q[maxn];
+int sum[maxn];
+int head, tail;
 
-void make()
+int sq(int n)
 {
-    p[0] = 1;
-    for(int i = 1; i &lt; maxn; i++) p[i] = p[i - 1] * 2 % mod;
-    for(int i = 0; i &lt; maxn; i++) p[i] = (p[i] - 1 + mod) % mod;
+    return n * n;
+}
+
+int getdp(int i, int j)
+{
+    return dp[j] + sq(sum[i] - sum[j]) + m;
+}
+
+int getup(int i, int j)
+{
+    return dp[i] + sq(sum[i]) - dp[j] - sq(sum[j]);
+}
+
+int getdown(int i, int j)
+{
+    return 2 * (sum[i] - sum[j]);
 }
 
 int main()
 {
-    int t; cin &gt;&gt; t;
-    make();
-    while(t--)
+    while(scanf(&quot;%d%d&quot;, &amp;n, &amp;m) == 2)
     {
-        cin &gt;&gt; n;
-        for(int i = 1; i &lt;= n; i++)
-            cin &gt;&gt; a[i].x &gt;&gt; a[i].y;
-        ll res = 0;
+        for(int i=1;i&lt;=n;i++)
+           scanf(&quot;%d&quot;,&amp;sum[i]);
+        sum[0]=dp[0]=0;
+        for(int i=1;i&lt;=n;i++)
+           sum[i]+=sum[i-1];
+        head=tail=0;
+        q[tail]=0;
         for(int i = 1; i &lt;= n; i++)
         {
-            int tot = 0;
-            for(int j = 1; j &lt;= n; j++)
-            {
-                if(i == j) continue;
-                b[++tot] = a[j];
-                b[tot].angle = atan2(a[j].y - a[i].y, a[j].x - a[i].x);
-            }
-            for(int k = 1; k &lt;= tot; k++) b[k + tot] = b[k], b[k + tot].angle = b[k].angle + 2.0 * pi; //后面的需要用到前面的
-            sort(b + 1, b + 1 + tot + tot);
-            int l = 1, r = 1;
-            for(; l &lt;= tot; l++)
-            {
-                while(b[r + 1].angle - b[l].angle &lt; pi) r++;
-                res = (res + ((a[i].x * b[l].y - a[i].y * b[l].x) % mod + mod) % mod * p[r - l] % mod) % mod;
-            }
+            while(head&lt;tail &amp;&amp;  getup(q[head+1],q[head])&lt;=sum[i]*getdown(q[head+1],q[head]))
+               head++;
+            dp[i]=getdp(i,q[head]);
+            while(head&lt;tail &amp;&amp; getup(i,q[tail])*getdown(q[tail],q[tail-1])&lt;=getup(q[tail],q[tail-1])*getdown(i,q[tail]))
+                tail--;
+            q[++tail]=i;
         }
-        cout &lt;&lt; res &lt;&lt; endl;
+        cout &lt;&lt; dp[n] &lt;&lt; endl;
     }
 }
-
 </code></pre>
 
               </div>
@@ -378,7 +365,7 @@ int main()
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://8421BCD.github.io/post/zoj-3871-convex-hull-or-ji-suan-ji-he-tu-bao" title="ZOJ 3871 Convex Hull | 计算几何、凸包">ZOJ 3871 Convex Hull | 计算几何、凸包</a>
+      <a href="https://8421BCD.github.io/post/print-article-hdu-3507-or-xie-lu-dp" title="Print Article HDU - 3507 | 斜率dp">Print Article HDU - 3507 | 斜率dp</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -391,15 +378,11 @@ int main()
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="String painter（HDU-2476）| 区间dp" href="https://8421BCD.github.io/post/string-painterhdu-2476or-qu-jian-dp">String painter（HDU-2476）| 区间dp</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="String painter（HDU-2476）| 区间dp" href="https://8421BCD.github.io/post/string-painterhdu-2476or-qu-jian-dp">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="codeforces树和构造算法题目集" href="https://8421BCD.github.io/post/codeforces-shu-he-gou-zao-suan-fa-ti-mu-ji">codeforces树和构造算法题目集</a>
-        <a class="nav-mobile-next" title="codeforces树和构造算法题目集" href="https://8421BCD.github.io/post/codeforces-shu-he-gou-zao-suan-fa-ti-mu-ji">下一篇</a>
+        <a class="nav-pc-next" title="数据结构作业—哈夫曼编码器" href="https://8421BCD.github.io/post/shu-ju-jie-gou-zuo-ye-ha-fu-man-bian-ma-qi">数据结构作业—哈夫曼编码器</a>
+        <a class="nav-mobile-next" title="数据结构作业—哈夫曼编码器" href="https://8421BCD.github.io/post/shu-ju-jie-gou-zuo-ye-ha-fu-man-bian-ma-qi">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
