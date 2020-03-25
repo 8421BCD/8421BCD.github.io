@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://8421BCD.github.io/</id>
     <title>Wannafly</title>
-    <updated>2020-03-25T15:01:55.637Z</updated>
+    <updated>2020-03-25T15:21:20.643Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://8421BCD.github.io/"/>
     <link rel="self" href="https://8421BCD.github.io/atom.xml"/>
@@ -10,6 +10,20 @@
     <logo>https://8421BCD.github.io/images/avatar.png</logo>
     <icon>https://8421BCD.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Wannafly</rights>
+    <entry>
+        <title type="html"><![CDATA[一点感想]]></title>
+        <id>https://8421BCD.github.io/post/yi-dian-gan-xiang</id>
+        <link href="https://8421BCD.github.io/post/yi-dian-gan-xiang">
+        </link>
+        <updated>2020-03-25T15:10:45.000Z</updated>
+        <content type="html"><![CDATA[<ul>
+<li>这条路走了已经走了这么远了，回过头来想想还是挺艰难的，写题就像给自己刮骨疗伤一样，明明很痛，但是还要刮（不过还是有快乐在里面）。说从来没有想过放弃是不可能的，限于能力的原因，想放弃的可能性更大了。不知道为什么非要这么执着，大学的方向很多，别人的选择也很多，有时候会想我的选择是最优的吗，未果。我把主要精力放在这上面的动机，热爱和功利大约6：4分吧，说没有一点功利也不现实。未来不知道怎么样，那就继续走吧。</li>
+<li>仍记得邓紫棋说过的一句话：这个世界上没有谁比谁更厉害，只有谁比谁更爱自己。想了想也是，为什么凡事都要争个谁先谁次呢？生活到头来还是自己的，说一句不是很佛的话：少一些比较，多一些跟自己的较量，不要抛弃自己的生活，但也不要太佛，毕竟自己的生活中努力还是占了很大的比重。</li>
+<li>我现在都不知道谁比谁更聪明是什么意思。我也不知道什么是聪明，总听别人说谁谁多么多么聪明，很羡慕的样子。聪明了然后呢？搞不懂。。。</li>
+<li>既然不服就接着肝。</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Print Article HDU - 3507 | 斜率dp]]></title>
         <id>https://8421BCD.github.io/post/print-article-hdu-3507-or-xie-lu-dp</id>
@@ -1514,67 +1528,6 @@ rating:1900</p>
 <li>j穿的衣服是旧的，则<strong>最近一次穿</strong>一定是由[i, j - 1]中跟j相同的元素转移过来的，详见代码。（最近一次穿是理解转移的关键）<br>
 <strong>代码：</strong></li>
 </ul>
-<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-typedef long long ll;
-//typedef __int128 lll;
-#define print(i) cout &lt;&lt; &quot;debug: &quot; &lt;&lt; i &lt;&lt; endl
-#define close() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
-#define mem(a, b) memset(a, b, sizeof(a))
-const ll mod = 1e9 + 7;
-const int maxn = 1e3;
-const int inf = 0x3f3f3f3f;
-int dp[maxn][maxn];
-int n;
-int v[maxn];
-
-void init()
-{
-    for(int i = 1; i &lt;= n; i++)
-        dp[i][i] = 1;
-}
-
-int main()
-{
-    int t; cin &gt;&gt; t;
-    int cases = 0;
-    while(t--)
-    {
-        cin &gt;&gt; n;
-        for(int i = 1; i &lt;= n; i++) cin &gt;&gt; v[i];
-        init();
-        for(int len = 2; len &lt;= n; len++)
-            for(int i = 1; i + len - 1 &lt;= n; i++)
-            {
-                int j = i + len - 1;
-                dp[i][j] = dp[i][j - 1] + 1;
-                for(int k = i; k &lt; j; k++)
-                    if(v[k] == v[j])
-                        dp[i][j] = min(dp[i][j], dp[i][k] + dp[k + 1][j - 1]);
-            }
-        printf(&quot;Case %d: %d\n&quot;, ++cases, dp[1][n]);
-    }
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Halloween Costumes LightOJ - 1422 ]]></title>
-        <id>https://8421BCD.github.io/post/halloween-costumes-lightoj-1422</id>
-        <link href="https://8421BCD.github.io/post/halloween-costumes-lightoj-1422">
-        </link>
-        <updated>2020-03-11T12:58:03.000Z</updated>
-        <summary type="html"><![CDATA[<p>区间dp的关键就是分好类</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>区间dp的关键就是分好类</p>
-<!--more-->
-<p><strong>题意：</strong><br>
-小灰灰参加圣诞节的一些派对，并且需要穿上对应派对的衣服，所以他需要多次换衣服，为了方便，他可以选择脱掉一些衣服或者穿上新衣服，比如说，他穿着超人的衣服，外面又穿着死侍的衣服，当他要参加超人服装派对时，他可以选择脱掉死侍的衣服（因为死侍衣服的里面有超人的衣服），或者他可以在穿一件超人的衣服，小灰灰是个爱干净的人，当他脱下死侍的衣服后，如果需要再穿死侍的衣服，他会选择再穿一件新的。（如果他先穿A衣服，又穿上B衣服，再穿一件C衣服，如果他想让最外面的衣服是A，他可以选择直接穿一件A，或者先把C脱掉，再把B脱掉）。<br>
-<strong>分析：</strong><br>
-对于[i, j]， 对j进行分类讨论：<br>
--j穿的衣服是新的, dp[i][j] = dp[i][j - 1] + 1<br>
--j穿的衣服是旧的，则<strong>最近一次穿</strong>一定是由[i, j - 1]中跟j相同的元素转移过来的，详见代码。（最近一次穿是理解转移的关键）<br>
-<strong>代码：</strong></p>
 <pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
 using namespace std;
 typedef long long ll;
