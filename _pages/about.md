@@ -48,7 +48,8 @@ redirect_from:
 - *2018.09 - 2022.06*, Bachelor, Shandong University, majoring in Computer Science and Technology (GPA Ranking: 1/50).
 
 # 💻 Internships
-- *2024.07 - now*, Baidu, China.
+- *2024.07 - now*, Baidu.
+- *2021.03 - 2021.10*, Institute for AI Industry Research (AIR), Tsinghua University.
 
 # 🎖 Honors and Awards
 - First-Class Scholarship, Renmin University of China (2022.11, 2024.11)
