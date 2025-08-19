@@ -24,8 +24,8 @@ redirect_from:
 
 # 🔥 News
 - 2025.8: We release ReasonRank, a strong reasoning-intensive passage reranker. It has achieved state-of-the-art performance on many IR benchmarks! See more [details](https://arxiv.org/abs/2508.07050).
-- 2025.7: Congrats! Our paper “Large Language Models for Information Retrieval: A Survey” has been accepted by TOIS 2025!
-- 2025.6: Congrats! Our paper “Sliding Windows Are Not the End: Exploring Full Ranking with Long-Context Large Language Models” has been accepted by ACL 2025 (Oral)! Looking forward to seeing you in Vienna!
+- 2025.7: Congrats! Our paper “Large Language Models for Information Retrieval: A Survey” has been accepted by TOIS 2025! See more [details](https://arxiv.org/abs/2308.07107).
+- 2025.6: Congrats! Our paper “Sliding Windows Are Not the End: Exploring Full Ranking with Long-Context Large Language Models” has been accepted by ACL 2025 (Oral)! Looking forward to seeing you in Vienna! See more [details](https://aclanthology.org/2025.acl-long.8/).
 
 # 📝 Publications 
 
