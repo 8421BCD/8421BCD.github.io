@@ -50,7 +50,7 @@ redirect_from:
 </div>
 
 <div class='paper-box'>
-  <div class='paper-box-image'><div><div class="badge">arXiv Preprint</div><img src='images/llm4ir.png' alt="sym" width="100%"></div></div>
+  <div class='paper-box-image'><div><div class="badge">TOIS 2025</div><img src='images/llm4ir.png' alt="sym" width="100%"></div></div>
   <div class='paper-box-text' markdown="1">
   [Large Language Models for Information Retrieval: A Survey](https://arxiv.org/abs/2308.07107)\\
   Yutao Zhu, Huaying Yuan, Shuting Wang, Jiongnan Liu, **Wenhan Liu**, Chenlong Deng, Haonan Chen, Zheng Liu, Zhicheng Dou, Ji-Rong Wen
