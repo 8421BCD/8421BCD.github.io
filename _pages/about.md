@@ -42,7 +42,7 @@ redirect_from:
 
 
 <div class='paper-box'>
-  <div class='paper-box-image'><div><div class="badge">arXiv Preprint</div><img src='images/sliding.png' alt="sym" width="100%"></div></div>
+  <div class='paper-box-image'><div><div class="badge">ACL 2025 (Main)</div><img src='images/sliding.png' alt="sym" width="100%"></div></div>
   <div class='paper-box-text' markdown="1">
 
   [Sliding Windows Are Not the End: Exploring Full Ranking with Long-Context Large Language Models](https://aclanthology.org/2025.acl-long.8/)\\
@@ -64,7 +64,7 @@ redirect_from:
 </div>
 
 - [Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet](https://github.com), A, B, C, **CVPR 2020**
-- ``arXiv`` [Demorank: Selecting effective demonstrations for large language models in ranking task](https://arxiv.org/pdf/2406.16332?), **Wenhan Liu**, Yutao Zhu, Zhicheng Dou.
+- <div class="badge">arXiv</div> [Demorank: Selecting effective demonstrations for large language models in ranking task](https://arxiv.org/pdf/2406.16332?), **Wenhan Liu**, Yutao Zhu, Zhicheng Dou.
 
 # 📖 Educations
 - *2022.09 - Present*, PhD student, Gaoling School of Artificial Intelligence, Renmin University of China.
