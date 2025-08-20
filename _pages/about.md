@@ -30,7 +30,7 @@ redirect_from:
 # 📝 Publications 
 
 <div class='paper-box'>
-  <div class='paper-box-image'><div><div class="badge">arXiv Preprint</div><img src='images/reasonrank.png' alt="sym" width="60%"></div></div>
+  <div class='paper-box-image'><div><div class="badge">arXiv Preprint</div><img src='images/reasonrank.png' alt="sym" width="100%"></div></div>
   <div class='paper-box-text' markdown="1">
 
   [ReasonRank: Empowering Passage Ranking with Strong Reasoning Ability](https://arxiv.org/pdf/2508.07050)\\
