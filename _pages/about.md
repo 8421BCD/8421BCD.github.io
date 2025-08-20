@@ -32,15 +32,13 @@ redirect_from:
 <div class='paper-box'>
   <div class='paper-box-image'><div><div class="badge">arXiv Preprint</div><img src='images/reasonrank.png' alt="sym" width="100%"></div></div>
   <div class='paper-box-text' markdown="1">
+
+  [ReasonRank: Empowering Passage Ranking with Strong Reasoning Ability](https://arxiv.org/pdf/2508.07050)\\
+  **Wenhan Liu**, Xinyu Ma, Weiwei Sun, Yutao Zhu, Yuchen Li, Dawei Yin, Zhicheng Dou*
+  
+  [[Paper](https://arxiv.org/pdf/2508.07050)] [[Code](https://github.com/8421BCD/ReasonRank)] [[Models and Data](https://huggingface.co/collections/liuwenhan/reasonrank-68941e9e6af7edd3714ee6e2)]
   </div>
 </div>
-
-[ReasonRank: Empowering Passage Ranking with Strong Reasoning Ability](https://arxiv.org/pdf/2508.07050)
-
-**Wenhan Liu**, Xinyu Ma, Weiwei Sun, Yutao Zhu, Yuchen Li, Dawei Yin, Zhicheng Dou*
-
-[[Paper](https://arxiv.org/pdf/2508.07050)] [[Code](https://github.com/8421BCD/ReasonRank)] [[Models and Data](https://huggingface.co/collections/liuwenhan/reasonrank-68941e9e6af7edd3714ee6e2)]
-
 
 - [Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet](https://github.com), A, B, C, **CVPR 2020**
 
