@@ -33,7 +33,9 @@ redirect_from:
 <div class='paper-box-text' markdown="1">
 
 [ReasonRank: Empowering Passage Ranking with Strong Reasoning Ability](https://arxiv.org/pdf/2508.07050)
+
 **Wenhan Liu**, Xinyu Ma, Weiwei Sun, Yutao Zhu, Yuchen Li, Dawei Yin, Zhicheng Dou*
+
 [[Paper](https://arxiv.org/pdf/2508.07050)] [[Code](https://github.com/8421BCD/ReasonRank)] [[Models and Data](https://huggingface.co/collections/liuwenhan/reasonrank-68941e9e6af7edd3714ee6e2)]
 
 
