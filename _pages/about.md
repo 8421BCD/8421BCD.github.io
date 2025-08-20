@@ -40,6 +40,17 @@ redirect_from:
   </div>
 </div>
 
+<div class='paper-box'>
+  <div class='paper-box-image'><div><div class="badge">arXiv Preprint</div><img src='images/sliding.png' alt="sym" width="100%"></div></div>
+  <div class='paper-box-text' markdown="1">
+
+  [Sliding Windows Are Not the End: Exploring Full Ranking with Long-Context Large Language Models](https://aclanthology.org/2025.acl-long.8/)\\
+  **Wenhan Liu**, Xinyu Ma, Yutao Zhu, Ziliang Zhao, Shuaiqiang Wang, Dawei Yin, Zhicheng Dou*
+  
+  [[Paper](https://aclanthology.org/2025.acl-long.8)] [[Code](https://github.com/8421BCD/fullrank)] [[Models and Data](https://huggingface.co/collections/liuwenhan/fullrank-68941d7d6af7edd3714ec628)]
+  </div>
+</div>
+
 - [Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet](https://github.com), A, B, C, **CVPR 2020**
 
 # 📖 Educations
