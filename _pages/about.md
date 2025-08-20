@@ -52,7 +52,19 @@ redirect_from:
   </div>
 </div>
 
+<div class='paper-box'>
+  <div class='paper-box-image'><div><div class="badge">arXiv Preprint</div><img src='images/sliding.png' alt="sym" width="100%"></div></div>
+  <div class='paper-box-text' markdown="1">
+
+  [Large Language Models for Information Retrieval: A Survey](https://arxiv.org/abs/2308.07107)\\
+  Yutao Zhu, Huaying Yuan, Shuting Wang, Jiongnan Liu, **Wenhan Liu**, Chenlong Deng, Haonan Chen, Zheng Liu, Zhicheng Dou, Ji-Rong Wen
+  
+  [[Paper](https://arxiv.org/pdf/2308.07107)] [[Github](https://github.com/RUC-NLPIR/LLM4IR-Survey)]
+  </div>
+</div>
+
 - [Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet](https://github.com), A, B, C, **CVPR 2020**
+- ``arXiv`` [Demorank: Selecting effective demonstrations for large language models in ranking task](https://arxiv.org/pdf/2406.16332?), **Wenhan Liu**, Yutao Zhu, Zhicheng Dou.
 
 # 📖 Educations
 - *2022.09 - Present*, PhD student, Gaoling School of Artificial Intelligence, Renmin University of China.
