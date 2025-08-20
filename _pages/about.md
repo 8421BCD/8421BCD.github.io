@@ -32,7 +32,6 @@ redirect_from:
 <div class='paper-box'>
   <div class='paper-box-image'><div><div class="badge">arXiv Preprint</div><img src='images/reasonrank.png' alt="sym" width="100%"></div></div>
   <div class='paper-box-text' markdown="1">
-
   [ReasonRank: Empowering Passage Ranking with Strong Reasoning Ability](https://arxiv.org/pdf/2508.07050)\\
   **Wenhan Liu**, Xinyu Ma, Weiwei Sun, Yutao Zhu, Yuchen Li, Dawei Yin, Zhicheng Dou*
   
@@ -40,10 +39,31 @@ redirect_from:
   </div>
 </div>
 
+<div class='paper-box'>
+  <div class='paper-box-image'><div><div class="badge">ACL 2025 (Main)</div><img src='images/sliding.png' alt="sym" width="100%"></div></div>
+  <div class='paper-box-text' markdown="1">
+  [Sliding Windows Are Not the End: Exploring Full Ranking with Long-Context Large Language Models](https://aclanthology.org/2025.acl-long.8/)\\
+  **Wenhan Liu**, Xinyu Ma, Yutao Zhu, Ziliang Zhao, Shuaiqiang Wang, Dawei Yin, Zhicheng Dou*
 
+  [[Paper](https://aclanthology.org/2025.acl-long.8)] [[Code](https://github.com/8421BCD/fullrank)] [[Models and Data](https://huggingface.co/collections/liuwenhan/fullrank-68941d7d6af7edd3714ec628)]
+  </div>
+</div>
 
-- [Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet](https://github.com), A, B, C, **CVPR 2020**
-- <div class="badge">arXiv</div> [Demorank: Selecting effective demonstrations for large language models in ranking task](https://arxiv.org/pdf/2406.16332?), **Wenhan Liu**, Yutao Zhu, Zhicheng Dou.
+<div class='paper-box'>
+  <div class='paper-box-image'><div><div class="badge">arXiv Preprint</div><img src='images/sliding.png' alt="sym" width="100%"></div></div>
+  <div class='paper-box-text' markdown="1">
+  [Large Language Models for Information Retrieval: A Survey](https://arxiv.org/abs/2308.07107)\\
+  Yutao Zhu, Huaying Yuan, Shuting Wang, Jiongnan Liu, **Wenhan Liu**, Chenlong Deng, Haonan Chen, Zheng Liu, Zhicheng Dou, Ji-Rong Wen
+
+  [[Paper](https://arxiv.org/pdf/2308.07107)] [[Github](https://github.com/RUC-NLPIR/LLM4IR-Survey)]
+  </div>
+</div>
+
+- ``arXiv`` [CoRanking: Collaborative Ranking with Small and Large Ranking Agents](https://arxiv.org/pdf/2503.23427), **Wenhan Liu**, Xinyu Ma, Yutao Zhu, Lixin Su, Shuaiqiang Wang, Dawei Yin, Zhicheng Dou*.
+- ``arXiv`` [Demorank: Selecting effective demonstrations for large language models in ranking task](https://arxiv.org/pdf/2406.16332?), **Wenhan Liu**, Yutao Zhu, Zhicheng Dou*.
+- ``WWW 2024`` [Mining exploratory queries for conversational search](http://playbigdata.ruc.edu.cn/dou/publication/2024_www_expqueries.pdf), **Wenhan Liu**, Ziliang Zhao, Yutao Zhu, Zhicheng Dou*.
+- ``KAIS 2024`` [How to personalize and whether to personalize? Candidate documents decide](https://link.springer.com/article/10.1007/s10115-024-02138-y), **Wenhan Liu**, Yujia Zhou, Yutao Zhu, Zhicheng Dou*.
+- ``IEEE Transactions on Big Data 2022`` [Defending Batch-Level Label Inference and Replacement Attacks in Vertical Federated Learning](https://ieeexplore.ieee.org/abstract/document/9833321), Tianyuan Zou, Yang Liu, Yan Kang, **Wenhan Liu**, Yuanqin He, Zhihao Yi, Qiang Yang, Ya-Qin Zhang.
 
 # 📖 Educations
 - *2022.09 - Present*, PhD student, Gaoling School of Artificial Intelligence, Renmin University of China.
