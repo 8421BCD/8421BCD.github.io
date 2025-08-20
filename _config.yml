@@ -22,7 +22,7 @@ baidu_site_verification  :  # get baidu_site_verification from https://ziyuan.ba
 # Site Author
 author:
   name             : "Wenhan Liu"
-  avatar           : "images/android-chrome-512x512.png"
+  avatar           : "images/me.png"
   bio              : "Renmin University of China"
   location         : "Beijing, China"
   employer         :
