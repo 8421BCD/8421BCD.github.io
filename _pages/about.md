@@ -80,5 +80,7 @@ redirect_from:
 - ACM/ICPC EC-FINAL – 🥉Bronze Medal (2021.04)
 - National Scholarship (Top 1%), Shandong University (2019.10)
 
-
-
+# 🎖 Hobbies and Skills
+- Singing (Top Ten Campus Singer), playing guitar and violin
+- Fitness and playing badminton
+- Travelling
