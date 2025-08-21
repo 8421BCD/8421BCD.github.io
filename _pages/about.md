@@ -29,7 +29,6 @@ redirect_from:
 - 2025.6: Our paper “Sliding Windows Are Not the End: Exploring Full Ranking with Long-Context Large Language Models” has been accepted by ACL 2025 (Oral)! Looking forward to seeing you in Vienna! See more [details](https://aclanthology.org/2025.acl-long.8/).
 
 # 📝 Publications 
-
 <div class='paper-box'>
   <div class='paper-box-image'><div><div class="badge">arXiv Preprint</div><img src='images/reasonrank.png' alt="sym" width="100%"></div></div>
   <div class='paper-box-text' markdown="1">
