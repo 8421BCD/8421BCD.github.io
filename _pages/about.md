@@ -67,8 +67,8 @@ redirect_from:
 - *2018.09 - 2022.06*, Bachelor, Shandong University, majoring in Computer Science and Technology (GPA Ranking: 1/50).
 
 # 💻 Internships
-- *2024.07 - now*, Baidu.
-- *2021.03 - 2021.10*, Institute for AI Industry Research (AIR), Tsinghua University.
+- *2024.07 - now*, Baidu (mentored by [Xinyu Ma](https://albert-ma.github.io/)).
+- *2021.03 - 2021.10*, Institute for AI Industry Research (AIR), Tsinghua University (mentored by [Zaiqing Nie](https://air.tsinghua.edu.cn/en/info/1046/1192.htm) and [Yang Liu](https://air.tsinghua.edu.cn/en/info/1046/1197.htm)).
 
 # 🎖 Honors and Awards
 - First-Class Scholarship, Renmin University of China (2022.11, 2024.11)
