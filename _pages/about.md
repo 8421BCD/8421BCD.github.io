@@ -33,8 +33,9 @@ redirect_from:
   <div class='paper-box-image'><div><div class="badge">arXiv Preprint</div><img src='images/reasonrank.png' alt="sym" width="100%"></div></div>
   <div class='paper-box-text' markdown="1">
   [ReasonRank: Empowering Passage Ranking with Strong Reasoning Ability](https://arxiv.org/pdf/2508.07050)\\
-  **Wenhan Liu**, Xinyu Ma, Weiwei Sun, Yutao Zhu, Yuchen Li, Dawei Yin, Zhicheng Dou*
-  [[Paper](https://arxiv.org/pdf/2508.07050)] [[Code](https://github.com/8421BCD/ReasonRank)] [[Models and Data](https://huggingface.co/collections/liuwenhan/reasonrank-68941e9e6af7edd3714ee6e2)]
+  **Wenhan Liu**, Xinyu Ma, Weiwei Sun, Yutao Zhu, Yuchen Li, Dawei Yin, Zhicheng Dou* \\ \\
+  [[Paper](https://arxiv.org/pdf/2508.07050)] [[Code](https://github.com/8421BCD/ReasonRank)] [[Models and Data](https://huggingface.co/collections/liuwenhan/reasonrank-68941e9e6af7edd3714ee6e2)] \\
+  Our ReasonRank had achieved SOTA performance 40.8 on BRIGHT leaderboard!
   </div>
 </div>
 
@@ -42,7 +43,7 @@ redirect_from:
   <div class='paper-box-image'><div><div class="badge">ACL 2025 (Main)</div><img src='images/sliding.png' alt="sym" width="100%"></div></div>
   <div class='paper-box-text' markdown="1">
   [Sliding Windows Are Not the End: Exploring Full Ranking with Long-Context Large Language Models](https://aclanthology.org/2025.acl-long.8/)\\
-  **Wenhan Liu**, Xinyu Ma, Yutao Zhu, Ziliang Zhao, Shuaiqiang Wang, Dawei Yin, Zhicheng Dou*
+  **Wenhan Liu**, Xinyu Ma, Yutao Zhu, Ziliang Zhao, Shuaiqiang Wang, Dawei Yin, Zhicheng Dou* \\ \\
   [[Paper](https://aclanthology.org/2025.acl-long.8)] [[Code](https://github.com/8421BCD/fullrank)] [[Models and Data](https://huggingface.co/collections/liuwenhan/fullrank-68941d7d6af7edd3714ec628)]
   </div>
 </div>
@@ -51,7 +52,7 @@ redirect_from:
   <div class='paper-box-image'><div><div class="badge">TOIS 2025</div><img src='images/llm4ir.png' alt="sym" width="100%"></div></div>
   <div class='paper-box-text' markdown="1">
   [Large Language Models for Information Retrieval: A Survey](https://arxiv.org/abs/2308.07107)\\
-  Yutao Zhu, Huaying Yuan, Shuting Wang, Jiongnan Liu, **Wenhan Liu**, Chenlong Deng, Haonan Chen, Zheng Liu, Zhicheng Dou, Ji-Rong Wen
+  Yutao Zhu, Huaying Yuan, Shuting Wang, Jiongnan Liu, **Wenhan Liu**, Chenlong Deng, Haonan Chen, Zheng Liu, Zhicheng Dou, Ji-Rong Wen \\ \\
   [[Paper](https://arxiv.org/pdf/2308.07107)] [[Github](https://github.com/RUC-NLPIR/LLM4IR-Survey)]
   </div>
 </div>
