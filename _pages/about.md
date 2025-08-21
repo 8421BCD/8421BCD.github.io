@@ -67,7 +67,7 @@ redirect_from:
 - ``IEEE Transactions on Big Data 2022`` [Defending Batch-Level Label Inference and Replacement Attacks in Vertical Federated Learning](https://ieeexplore.ieee.org/abstract/document/9833321), Tianyuan Zou, Yang Liu, Yan Kang, **Wenhan Liu**, Yuanqin He, Zhihao Yi, Qiang Yang, Ya-Qin Zhang.
 
 # 📖 Educations
-- *2022.09 - Present*, PhD student, Gaoling School of Artificial Intelligence, Renmin University of China.
+- *2022.09 - Present*, Ph.D. student, Gaoling School of Artificial Intelligence, Renmin University of China.
 - *2018.09 - 2022.06*, Bachelor, Shandong University, majoring in Computer Science and Technology (GPA Ranking: 1/50).
 
 # 💻 Internships
