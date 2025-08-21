@@ -18,7 +18,7 @@ redirect_from:
 <span class='anchor' id='about-me'></span>
 
 # 🧷 About-me
-- I am currently a 4th year PhD student at the [Gaoling School of Artificial Intelligence](https://ai.ruc.edu.cn/), [Renmin University of China](https://www.ruc.edu.cn/). My supervisor is [Prof. Zhicheng Dou](http://playbigdata.ruc.edu.cn/dou/), and I am expected to graduate in 2027.
+- I am currently a 4th year Ph.D. student at the [Gaoling School of Artificial Intelligence](https://ai.ruc.edu.cn/), [Renmin University of China](https://www.ruc.edu.cn/). My supervisor is [Prof. Zhicheng Dou](http://playbigdata.ruc.edu.cn/dou/), and I am expected to graduate in 2027.
 - I earned my bachelor’s degree (2018-2022) at [Shandong University](https://www.sdu.edu.cn/).
 - Research interests: AI Search, LLM for Ranking, Deep Search, Conversational Search
 
