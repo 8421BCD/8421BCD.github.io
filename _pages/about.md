@@ -61,6 +61,7 @@ redirect_from:
   </div>
 </div>
 
+- ``TOIS 2025`` [DemoRank: Selecting Effective Demonstrations for Large Language Models in Ranking Task](https://arxiv.org/pdf/2406.16332), **Wenhan Liu**, Yutao Zhu, Zhicheng Dou*, Yujia Zhou.
 - ``EMNLP 2025 (Findings)`` [CoRanking: Collaborative Ranking with Small and Large Ranking Agents](https://arxiv.org/pdf/2503.23427), **Wenhan Liu**, Xinyu Ma, Yutao Zhu, Lixin Su, Shuaiqiang Wang, Dawei Yin, Zhicheng Dou*.
 - ``arXiv`` [Demorank: Selecting effective demonstrations for large language models in ranking task](https://arxiv.org/pdf/2406.16332?), **Wenhan Liu**, Yutao Zhu, Zhicheng Dou*.
 - ``WWW 2024`` [Mining exploratory queries for conversational search](http://playbigdata.ruc.edu.cn/dou/publication/2024_www_expqueries.pdf), **Wenhan Liu**, Ziliang Zhao, Yutao Zhu, Zhicheng Dou*.
