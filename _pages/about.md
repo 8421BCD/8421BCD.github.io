@@ -23,6 +23,7 @@ redirect_from:
 - Research interests: AI Search, LLM for Ranking, Deep Search, Conversational Search
 
 # 🔥 News
+- 2025.12: Our paper “DemoRank: Selecting Effective Demonstrations for Large Language Models in Ranking Task” has been accepted by TOIS 2025!
 - 2025.8: Our paper “CoRanking: Collaborative Ranking with Small and Large Ranking Agents” has been accepted by EMNLP 2025 (Findings)! See more [details](https://arxiv.org/abs/2503.23427).
 - 2025.8: We release ReasonRank, a strong reasoning-intensive passage reranker. It has achieved state-of-the-art performance on many IR benchmarks! See more [details](https://arxiv.org/abs/2508.07050).
 - 2025.7: Our paper “Large Language Models for Information Retrieval: A Survey” has been accepted by TOIS 2025! See more [details](https://arxiv.org/abs/2308.07107).
