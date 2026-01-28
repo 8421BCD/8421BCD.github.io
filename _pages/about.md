@@ -23,6 +23,7 @@ redirect_from:
 - Research interests: AI Search, LLM for Ranking, Deep Search, Conversational Search
 
 # 🔥 News
+- 2026.1: We release Agentic-R, a dense retriever designed for agentic search. See more [details](https://www.arxiv.org/pdf/2601.11888).
 - 2025.12: Our paper “DemoRank: Selecting Effective Demonstrations for Large Language Models in Ranking Task” has been accepted by TOIS 2025!
 - 2025.8: Our paper “CoRanking: Collaborative Ranking with Small and Large Ranking Agents” has been accepted by EMNLP 2025 (Findings)! See more [details](https://arxiv.org/abs/2503.23427).
 - 2025.8: We release ReasonRank, a strong reasoning-intensive passage reranker. It has achieved state-of-the-art performance on many IR benchmarks! See more [details](https://arxiv.org/abs/2508.07050).
@@ -61,11 +62,11 @@ redirect_from:
   </div>
 </div>
 
-- ``TOIS 2025`` [DemoRank: Selecting Effective Demonstrations for Large Language Models in Ranking Task](https://arxiv.org/pdf/2406.16332), **Wenhan Liu**, Yutao Zhu, Zhicheng Dou*, Yujia Zhou.
+- ``TOIS 2026`` [DemoRank: Selecting Effective Demonstrations for Large Language Models in Ranking Task](https://arxiv.org/pdf/2406.16332), **Wenhan Liu**, Yutao Zhu, Zhicheng Dou*, Yujia Zhou.
 - ``EMNLP 2025 (Findings)`` [CoRanking: Collaborative Ranking with Small and Large Ranking Agents](https://arxiv.org/pdf/2503.23427), **Wenhan Liu**, Xinyu Ma, Yutao Zhu, Lixin Su, Shuaiqiang Wang, Dawei Yin, Zhicheng Dou*.
-- ``arXiv`` [Demorank: Selecting effective demonstrations for large language models in ranking task](https://arxiv.org/pdf/2406.16332?), **Wenhan Liu**, Yutao Zhu, Zhicheng Dou*.
 - ``WWW 2024`` [Mining exploratory queries for conversational search](http://playbigdata.ruc.edu.cn/dou/publication/2024_www_expqueries.pdf), **Wenhan Liu**, Ziliang Zhao, Yutao Zhu, Zhicheng Dou*.
 - ``KAIS 2024`` [How to personalize and whether to personalize? Candidate documents decide](https://link.springer.com/article/10.1007/s10115-024-02138-y), **Wenhan Liu**, Yujia Zhou, Yutao Zhu, Zhicheng Dou*.
+- ``Arxiv 2026`` [Agentic-R: Learning to Retrieve for Agentic Search](https://www.arxiv.org/pdf/2601.11888), **Wenhan Liu**, Xinyu Ma, Yutao Zhu, Yuchen Li, Daiting Shi, Dawei Yin, Zhicheng Dou*.
 - ``IEEE Transactions on Big Data 2022`` [Defending Batch-Level Label Inference and Replacement Attacks in Vertical Federated Learning](https://ieeexplore.ieee.org/abstract/document/9833321), Tianyuan Zou, Yang Liu, Yan Kang, **Wenhan Liu**, Yuanqin He, Zhihao Yi, Qiang Yang, Ya-Qin Zhang.
 
 # 📖 Educations
