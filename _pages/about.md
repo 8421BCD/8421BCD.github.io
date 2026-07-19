@@ -77,7 +77,8 @@ redirect_from:
 - *2018.09 - 2022.06*, Bachelor, Shandong University, majoring in Computer Science and Technology (GPA Ranking: 1/50).
 
 # 💻 Internships
-- *2026.03 - now*, Tencent (Yuanbao AI Search).
+- *2026.06 - Now*, Alibaba Qwen Team (Coding Agent Post Training).
+- *2026.03 - 2026.06*, Tencent (Yuanbao AI Search).
 - *2024.07 - 2026.03*, Baidu (mentored by [Xinyu Ma](https://albert-ma.github.io/)).
 - *2021.03 - 2021.10*, Institute for AI Industry Research (AIR), Tsinghua University (mentored by [Zaiqing Nie](https://air.tsinghua.edu.cn/en/info/1046/1192.htm) and [Yang Liu](https://air.tsinghua.edu.cn/en/info/1046/1197.htm)).
 
