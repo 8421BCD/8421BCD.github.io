@@ -23,7 +23,7 @@ redirect_from:
 - Research interests: Agent Post-training, AI Search.
 
 # 🔥 News
-- 2026.8: We release our paper Training Documents Reranker with Search Rubrics for Deep Research Agent. See more [details](https://arxiv.org/pdf/2608.03527).
+- 2026.8: We release our paper "Training Documents Reranker with Search Rubrics for Deep Research Agent". See more [details](https://arxiv.org/pdf/2608.03527).
 - 2026.4: Our paper “ReasonRank: Empowering Passage Ranking with Strong Reasoning Ability” has been accepted by ACL 2026 Main Conference!
 - 2026.4: Our paper “Agentic-R: Learning to Retrieve for Agentic Search” has been accepted by ACL 2026 (Findings)!
 - 2026.1: We release Agentic-R, a dense retriever designed for agentic search. See more [details](https://www.arxiv.org/pdf/2601.11888).
